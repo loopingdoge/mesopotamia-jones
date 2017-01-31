@@ -5,8 +5,8 @@
   "author": "Looping Doge",
   "main": "src/main.ts",
   "scripts": {
-    "dev": "webpack",
-    "deploy": "webpack --config webpack.production.config.js",
+    "start": "webpack",
+    "build": "webpack --config webpack.production.config.js",
     "test": "mocha -r ts-node/register ./src/**/*.test.ts"
   },
   "license": "MIT",
