@@ -13,14 +13,14 @@ var definePlugin = new webpack.DefinePlugin({
 })
 
 module.exports = {
-  entry: './src/main.ts',
-  devtool: 'cheap-source-map',
+  entry: './src/index.tsx',
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
     publicPath: './dist/',
     filename: 'bundle.js'
   },
+  devtool: 'source-map',
   watch: true,
   plugins: [
     definePlugin,
@@ -40,16 +40,11 @@ module.exports = {
       { test: /p2\.js/, use: ['expose-loader?p2'] },
       { test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: [
-          { loader: 'babel-loader' },
-          { loader: 'ts-loader' }
-        ]
+        use: [ { loader: 'awesome-typescript-loader' } ]
       }, {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          { loader: 'babel-loader' }
-        ]
+        use: [ { loader: 'source-map-loader' } ]
       }
     ]
   },
@@ -65,5 +60,9 @@ module.exports = {
       'p2': p2
     },
     extensions: ['.ts', '.tsx', '.js']
-  }
+  },
+  externals: {
+    "react": "React",
+    "react-dom": "ReactDOM"
+  },
 }

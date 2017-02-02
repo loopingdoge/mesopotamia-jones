@@ -11,6 +11,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "awesome-typescript-loader": "^3.0.0-beta.18",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-polyfill": "^6.20.0",
@@ -25,6 +26,7 @@
     "expose-loader": "^0.7.1",
     "mocha": "^3.2.0",
     "sinon": "^1.17.7",
+    "source-map-loader": "^0.1.6",
     "tape": "^4.6.3",
     "ts-loader": "^2.0.0",
     "ts-node": "^2.0.0",
