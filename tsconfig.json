@@ -8,7 +8,7 @@
     "jsx": "react"
   },
   "include": [
-    "./typings/index.d.ts",
-    "./src/**/*"
+    "./src/**/*",
+    "./node_modules/phaser-ce/typescript/phaser.comments.d.ts"
   ]
 }

@@ -12,7 +12,7 @@ var definePlugin = new webpack.DefinePlugin({
 })
 
 module.exports = {
-  entry: './src/main.ts',
+  entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: './dist/',
@@ -37,10 +37,7 @@ module.exports = {
       { test: /p2\.js/, use: ['expose-loader?p2'] },
       { test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: [
-          { loader: 'babel-loader' },
-          { loader: 'ts-loader' }
-        ]
+        use: [ { loader: 'awesome-typescript-loader' } ]
       }, {
         test: /\.js$/,
         exclude: /node_modules/,
