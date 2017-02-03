@@ -22,14 +22,6 @@ export default class Game extends Phaser.State {
     banner.smoothed = false
     banner.anchor.setTo(0.5)
 
-    // this.mushroom = new Mushroom({
-    //   game: this.game,
-    //   x: this.world.centerX,
-    //   y: this.world.centerY,
-    //   key: 'mushroom'
-    // })
-    // this.game.add.existing(this.mushroom)
-
     this.player = this.game.add.existing(new Dude({
       game: this.game,
       x: this.world.centerX,
@@ -39,13 +31,11 @@ export default class Game extends Phaser.State {
 
     this.player.animations.add('left', [0, 1, 2, 3], 10, true)
     this.player.animations.add('right', [5, 6, 7, 8], 10, true)
-
-    this.player.animations.play('right')
   }
 
   render () {
     if (__DEV__) {
-      // this.game.debug.spriteInfo(this.dude, 32, 32)
+      this.game.debug.spriteInfo(this.player, 32, 32)
     }
   }
 }
