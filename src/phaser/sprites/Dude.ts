@@ -15,6 +15,7 @@ export default class Dude extends Phaser.Sprite {
     super(game, x, y, key)
     this.anchor.setTo(0.5)
     this.cursors = this.game.input.keyboard.createCursorKeys()
+    // this.game.physics.enable(this, Phaser.Physics.Arcade)
   }
 
   update() {
