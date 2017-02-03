@@ -19,7 +19,6 @@ export default class Dude extends Phaser.Sprite {
   }
 
   update() {
-    console.log(this)
     if (this.cursors.left.isDown) {
         // this.body.velocity.x = -150
         this.animations.play('left')

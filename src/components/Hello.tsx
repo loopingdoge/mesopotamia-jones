@@ -1,15 +1,31 @@
 import * as React from 'react'
-import Game from './Game'
+import { inject, observer } from 'mobx-react'
+import { GameStore } from '../stores/gameStore'
 
 export interface HelloProps {
-    compiler: string
-    framework: string
+    level: number
+    incrementLevel: () => void
 }
 
-const Hello = (props: HelloProps) =>
+const Hello = ({ level, incrementLevel }: HelloProps) =>
     <div>
-        <h1>Hello from {props.compiler} and {props.framework}!</h1>
-        <Game></Game>
+        <h1>We are at level: {level}</h1>
+        <button onClick={incrementLevel}>Increment</button>
     </div>
 
-export default Hello
+export interface HelloContainerProps {
+    gameStore?: GameStore
+}
+
+@inject('gameStore')
+@observer
+class HelloContainer extends React.Component<HelloContainerProps, undefined> {
+    render() {
+        const { level, incrementLevel } = this.props.gameStore
+        return (
+            <Hello level={level} incrementLevel={incrementLevel}/>
+        )
+    }
+}
+
+export default HelloContainer

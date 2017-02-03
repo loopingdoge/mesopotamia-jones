@@ -13,6 +13,7 @@
         "no-eval": true,
         "no-trailing-whitespace": true,
         "no-unsafe-finally": true,
+        "no-unused-variable": [true, "react"],
         "one-line": [
             true,
             "check-open-brace",
@@ -57,6 +58,7 @@
         "no-internal-module": true,
         "no-trailing-whitespace": true,
         "no-unsafe-finally": true,
+        "no-unused-variable": [true, "react"],
         "no-var-keyword": true,
         "one-line": [
             true,
