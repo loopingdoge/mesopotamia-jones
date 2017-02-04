@@ -17,6 +17,9 @@ export default class Dude extends Phaser.Sprite {
     this.cursors = this.game.input.keyboard.createCursorKeys()
 
     this.game.physics.enable(this)
+
+    this.animations.add('left', [0, 1, 2, 3], 10, true)
+    this.animations.add('right', [5, 6, 7, 8], 10, true)
   }
 
   update() {

@@ -6,7 +6,7 @@ export default class Boot extends Phaser.State {
   fontsReady: boolean;
 
   init () {
-    this.stage.backgroundColor = '#EDEEC9'
+    this.stage.backgroundColor = '#428BCA'
     this.fontsReady = false
     this.fontsLoaded = this.fontsLoaded.bind(this)
   }

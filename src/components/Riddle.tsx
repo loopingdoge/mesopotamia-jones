@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
+import Game from './Game'
 
 const khosrau = {
     fontFamily: 'Cuneiform',
@@ -23,6 +24,7 @@ const Riddle = () =>
         <p className={css(styles.cuneiform)}>
             Bonfante merda
         </p>
+        <Game />
     </div>
 
 export default Riddle

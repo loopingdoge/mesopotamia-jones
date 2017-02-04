@@ -17,7 +17,6 @@ export default class Splash extends Phaser.State {
     //
     // load your assets
     //
-    this.load.image('mushroom', 'assets/images/mushroom2.png')
     this.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
   }
 
