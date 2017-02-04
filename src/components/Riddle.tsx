@@ -10,7 +10,9 @@ const khosrau = {
 
 const styles = StyleSheet.create({
     riddleContainer: {
-
+        display: 'flex',
+        flexDirection: 'row',
+        flex: 1,
     },
     cuneiform: {
         fontFamily: khosrau,
