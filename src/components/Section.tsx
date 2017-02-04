@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
-import Game from './Game'
 
 const styles = StyleSheet.create({
     sectionContainer: {
@@ -40,7 +39,6 @@ const Section = ({ startGame }: SectionProps) =>
         <div className={css(styles.play)}>
             <button onClick={startGame}>Play</button>
         </div>
-        <Game />
     </div>
 
 export default Section
