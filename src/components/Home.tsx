@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
+import { RouterStore } from 'mobx-react-router'
+
 import { GameStore } from '../stores/gameStore'
 import Section from './Section'
 
@@ -29,7 +31,7 @@ export interface HomeProps {
 
 const Home = ({ startGame, newGame, showCredits }: HomeProps) =>
     <div className={css(styles.homeContainer)}>
-        <Section />
+        <Section startGame={startGame}/>
         {/*<div>
             <button onClick={newGame}>New Game</button>
             <button onClick={showCredits}>Credits</button>
@@ -38,15 +40,17 @@ const Home = ({ startGame, newGame, showCredits }: HomeProps) =>
 
 export interface HomeContainerProps {
     gameStore?: GameStore
+    routingStore?: RouterStore
 }
 
-@inject('gameStore')
+@inject('gameStore', 'routingStore')
 @observer
 class HomeContainer extends React.Component<HomeContainerProps, undefined> {
     render() {
+        const { push } = this.props.routingStore
         return (
             <Home
-                startGame={() => {}}
+                startGame={() => push('/riddle')}
                 newGame={() => {}}
                 showCredits={() => {}}
             />

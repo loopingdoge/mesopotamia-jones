@@ -1,14 +1,20 @@
 import * as React from 'react'
 import { Provider } from 'mobx-react'
 import { StyleSheet } from 'aphrodite'
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, browserHistory, createMemoryHistory } from 'react-router'
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 
 import gameStore from '../stores/gameStore'
 import Home from './Home'
 import Game from './Game'
-// import Riddle from './Riddle'
+import Riddle from './Riddle'
 
-const stores = { gameStore }
+const routingStore = new RouterStore()
+
+const stores = { gameStore, routingStore }
+
+// const history= createMemoryHistory()
+const storeHistory = syncHistoryWithStore(browserHistory, routingStore)
 
 const styles = StyleSheet.create({
     appContainer: {
@@ -23,13 +29,9 @@ export default class App extends React.Component<void, void> {
     render() {
         return (
             <Provider {...stores}>
-                <Router history={browserHistory}>
+                <Router history={storeHistory}>
                     <Route path='/' component={Home} />
-                    {/*<div className={css(styles.appContainer)}>
-                        <Home />
-                        <Hello />
-                        <Game />
-                    </div>*/}
+                    <Route path='/riddle' component={Riddle} />
                 </Router>
             </Provider>
         )

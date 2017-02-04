@@ -10,6 +10,7 @@
   },
   "include": [
     "./src/**/*",
-    "./node_modules/phaser-ce/typescript/phaser.comments.d.ts"
+    "./node_modules/phaser-ce/typescript/phaser.comments.d.ts",
+    "./node_modules/mobx-react-router/types.d.ts"
   ]
 }
