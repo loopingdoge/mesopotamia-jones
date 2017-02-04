@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Provider } from 'mobx-react'
 import { StyleSheet } from 'aphrodite'
-import { Router, Route, browserHistory, createMemoryHistory } from 'react-router'
+import { Router, Route, hashHistory, createMemoryHistory } from 'react-router'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 
 import gameStore from '../stores/gameStore'
@@ -14,7 +14,7 @@ const routingStore = new RouterStore()
 const stores = { gameStore, routingStore }
 
 // const history= createMemoryHistory()
-const storeHistory = syncHistoryWithStore(browserHistory, routingStore)
+const storeHistory = syncHistoryWithStore(hashHistory, routingStore)
 
 const styles = StyleSheet.create({
     appContainer: {
