@@ -24,7 +24,7 @@ export default class Editor extends React.Component<EditorProps, undefined> {
     render() {
         return (
             <AceEditor
-                mode=''
+                mode='javascript'
                 theme='github'
                 onChange={this.onTextInput}
                 name='code-editor'
@@ -33,7 +33,7 @@ export default class Editor extends React.Component<EditorProps, undefined> {
                 tabSize={4}
                 fontSize={16}
                 width={'auto'}
-                height={'auto'}
+                height={'500px'}
                 className={css(styles.editor)}
             />
         )
