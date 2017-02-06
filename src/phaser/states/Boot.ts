@@ -3,10 +3,10 @@ import * as WebFont from 'webfontloader'
 
 export default class Boot extends Phaser.State {
 
-  fontsReady: boolean;
+  fontsReady: boolean
 
   init () {
-    this.stage.backgroundColor = '#EDEEC9'
+    this.stage.backgroundColor = '#444'
     this.fontsReady = false
     this.fontsLoaded = this.fontsLoaded.bind(this)
   }
@@ -20,7 +20,7 @@ export default class Boot extends Phaser.State {
     })
 
     let text = this.add.text(
-        this.world.centerX, this.world.centerY, 
+        this.world.centerX, this.world.centerY,
         'loading fonts',
         { font: '16px Arial', fill: '#dddddd', align: 'center' }
       )

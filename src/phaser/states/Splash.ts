@@ -3,8 +3,8 @@ import { centerGameObjects } from '../utils'
 
 export default class Splash extends Phaser.State {
 
-  loaderBg: Phaser.Sprite;
-  loaderBar: Phaser.Sprite;
+  loaderBg: Phaser.Sprite
+  loaderBar: Phaser.Sprite
 
   init () {}
 
@@ -17,8 +17,8 @@ export default class Splash extends Phaser.State {
     //
     // load your assets
     //
-    this.load.image('mushroom', 'assets/images/mushroom2.png')
-    this.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
+    this.load.image('wall', 'assets/images/loader-bar.png')
+    this.load.spritesheet('dude', 'assets/images/dude.png', 32, 48)
   }
 
   create () {
