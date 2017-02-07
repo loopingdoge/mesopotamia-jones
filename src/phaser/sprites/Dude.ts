@@ -1,55 +1,55 @@
 import * as Phaser from 'phaser'
-
-interface ISprite {
-  game: Phaser.Game
-  x: number
-  y: number
-  key?: string
-}
+import ISprite from '../classes/ISprite'
 
 export default class Dude extends Phaser.Sprite {
 
-  cursors: Phaser.CursorKeys
+    cursors: Phaser.CursorKeys
 
-  constructor ({ game, x, y, key}: ISprite) {
-    super(game, x, y, key)
-    this.anchor.setTo(0.5)
-    this.cursors = this.game.input.keyboard.createCursorKeys()
+    constructor ({ game, x, y, key}: ISprite) {
+        super(game, x, y, key)
+        this.anchor.setTo(0.5)
+        this.cursors = this.game.input.keyboard.createCursorKeys()
 
-    this.game.physics.enable(this)
-    this.body.bounce.y = 20
-    this.body.bounce.x = 20
-    this.body.collideWorldBounds = true
+        this.game.physics.enable(this)
+        this.body.bounce.y = 20
+        this.body.bounce.x = 20
+        this.body.collideWorldBounds = true
 
-    this.animations.add('left', [0, 1, 2, 3], 10, true)
-    this.animations.add('right', [5, 6, 7, 8], 10, true)
-  }
-
-  update() {
-    if (this.cursors.left.isDown) {
-        this.body.velocity.y = 0
-        this.body.velocity.x = -250
-        this.animations.play('left')
-    } else if (this.cursors.right.isDown) {
-        //  Move to the right
-        this.body.velocity.y = 0
-        this.body.velocity.x = 250
-        this.animations.play('right')
-    } else if (this.cursors.up.isDown) {
-        this.body.velocity.x = 0
-        this.body.velocity.y = -250
-        this.animations.play('right')
-    } else if (this.cursors.down.isDown) {
-        this.body.velocity.x = 0
-        this.body.velocity.y = 250
-        this.animations.play('right')
-    } else {
-        //  Stand still
-        this.body.velocity.x = 0
-        this.body.velocity.y = 0
-        this.animations.stop()
-        this.frame = 4
+        this.animations.add('left', [0, 1, 2, 3], 10, true)
+        this.animations.add('right', [5, 6, 7, 8], 10, true)
     }
-  }
+
+    update() {
+        let movingHorizontal = false
+        let movingVertical = false
+        if (this.cursors.left.isDown) {
+            this.body.velocity.x = -250
+            this.animations.play('left')
+            movingHorizontal = true
+        } else if (this.cursors.right.isDown) {
+            //  Move to the right
+            this.body.velocity.x = 250
+            this.animations.play('right')
+            movingHorizontal = true
+        } else {
+            this.body.velocity.x = 0
+        }
+        if (this.cursors.up.isDown) {
+            this.body.velocity.y = -250
+            // this.animations.play('right')
+            movingVertical = true
+        } else if (this.cursors.down.isDown) {
+            this.body.velocity.y = 250
+            // this.animations.play('right')
+            movingVertical = true
+        } else {
+            this.body.velocity.y = 0
+        }
+        if (!movingHorizontal && !movingVertical) {
+            this.animations.stop()
+            this.frame = 4
+        }
+
+    }
 
 }

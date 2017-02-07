@@ -1,5 +1,3 @@
-declare var PIXI: any
-
 import 'pixi'
 import 'p2'
 import * as Phaser from 'phaser'
