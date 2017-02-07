@@ -1,6 +1,9 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
+import { inject, observer } from 'mobx-react'
+import { RouterStore } from 'mobx-react-router'
 
+import { GameStore } from '../stores/gameStore'
 import Editor from './Editor'
 
 const khosrau = {
@@ -14,6 +17,11 @@ const styles = StyleSheet.create({
     riddleContainer: {
         display: 'flex',
         flexDirection: 'row',
+        flex: 1,
+    },
+    riddleColumn: {
+        display: 'flex',
+        flexDirection: 'column',
         flex: 1,
     },
     cuneiformSection: {
@@ -34,7 +42,14 @@ const styles = StyleSheet.create({
         border: 'black 1px inset',
     },
     legendContainer: {
-
+        // TODO
+    },
+    solutionSection: {
+        display: 'relative',
+        alignSelf: 'right'
+    },
+    solutionInput: {
+        flex: 1,
     },
     cuneiform: {
         fontFamily: khosrau,
@@ -44,7 +59,6 @@ const styles = StyleSheet.create({
 
 export interface CuneiformSectionProps {
     riddle: string
-    isLegendActive: boolean
 }
 
 const Legend = () =>
@@ -55,33 +69,132 @@ const Legend = () =>
         </p>
     </div>
 
-const CuneiformSection = ({ riddle, isLegendActive }: CuneiformSectionProps) =>
+const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)}>
         <p className={css(styles.cuneiform)}>
             {riddle}
         </p>
-        {isLegendActive ? <Legend /> : null}
     </div>
 
-const Separator = () =>
+export interface SeparatorProps {
+    expanded: boolean
+    shrinkCuneiform: () => void
+    expandCuneiform: () => void
+}
+
+const Separator = ({ expanded, shrinkCuneiform, expandCuneiform }: SeparatorProps) =>
     <div className={css(styles.separatorContainer)}>
-        <button>{'<'}</button>
+        {
+            expanded ?
+                <button onClick={shrinkCuneiform}>{'<'}</button>
+                :
+                <button onClick={expandCuneiform}>{'>'}</button>
+        }
     </div>
 
 export interface EditorSectionProps {
     code: string
+    onUserCodeInput: (code: string) => void
 }
 
-const EditorSection = ({ code }: EditorSectionProps) =>
+const EditorSection = ({ code, onUserCodeInput }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
-        <Editor code={code}/>
+        <Editor
+            code={code}
+            onUserCodeInput={onUserCodeInput}
+        />
     </div>
 
-const Riddle = () =>
+export interface BackButtonSectionProps {
+    goBack: () => void
+}
+
+const BackButtonSection = ({ goBack }: BackButtonSectionProps) =>
+    <div>
+        <button onClick={goBack}>{'<-'}</button>
+    </div>
+
+export interface SolutionSection {
+    codeResult: string
+    runCode: () => void
+}
+
+const SolutionSection = ({ codeResult, runCode }: SolutionSection) =>
+    <div className={css(styles.solutionSection)}>
+        <div>{codeResult}</div>
+        <button onClick={runCode}>Run Code</button>
+    </div>
+
+export interface RiddleProps {
+    riddleText: string
+    defaultCode: string
+    codeResult: string
+    isCuneiformExpanded: boolean
+    goBack: () => void
+    runCode: () => void
+    shrinkCuneiform: () => void
+    expandCuneiform: () => void
+    onUserCodeInput: (code: string) => void
+}
+
+const Riddle = ({ riddleText, defaultCode, codeResult, isCuneiformExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, onUserCodeInput }: RiddleProps) =>
     <div className={css(styles.riddleContainer)}>
-        <CuneiformSection riddle={'if (1 == 1)\n    return true'} isLegendActive/>
-        <Separator />
-        <EditorSection code={'if (1 == 1)\n    return true'}/>
+        <div className={css(styles.riddleColumn)}>
+            <BackButtonSection goBack={goBack} />
+            <CuneiformSection riddle={'if (1 == 1)\n    return true'} />
+            <Legend />
+        </div>
+        <Separator
+            expanded={isCuneiformExpanded}
+            shrinkCuneiform={shrinkCuneiform}
+            expandCuneiform={expandCuneiform}
+        />
+        <div className={css(styles.riddleColumn)}>
+            <EditorSection
+                code={defaultCode}
+                onUserCodeInput={onUserCodeInput}
+            />
+            <SolutionSection
+                codeResult={codeResult}
+                runCode={runCode}
+            />
+        </div>
     </div>
 
-export default Riddle
+export interface RiddleContainerProps {
+    gameStore?: GameStore
+    routingStore?: RouterStore
+}
+
+@inject('gameStore', 'routingStore')
+@observer
+class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
+    render() {
+        const { goBack } = this.props.routingStore
+        const {
+            riddleText,
+            defaultCode,
+            codeResult,
+            runCode,
+            isCuneiformExpanded,
+            shrinkCuneiform,
+            expandCuneiform,
+            onUserCodeInput,
+        } = this.props.gameStore
+        return (
+            <Riddle
+                goBack={goBack}
+                riddleText={riddleText}
+                defaultCode={defaultCode}
+                codeResult={codeResult}
+                isCuneiformExpanded={isCuneiformExpanded}
+                runCode={runCode}
+                shrinkCuneiform={shrinkCuneiform}
+                expandCuneiform={expandCuneiform}
+                onUserCodeInput={onUserCodeInput}
+            />
+        )
+    }
+}
+
+export default RiddleContainer

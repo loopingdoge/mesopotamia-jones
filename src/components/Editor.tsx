@@ -13,30 +13,22 @@ const styles = StyleSheet.create({
 
 export interface EditorProps {
     code: string
+    onUserCodeInput: (code: string) => void
 }
 
-export default class Editor extends React.Component<EditorProps, undefined> {
+const Editor = ({ code, onUserCodeInput }: EditorProps) =>
+    <AceEditor
+        mode='javascript'
+        theme='github'
+        onChange={onUserCodeInput}
+        name='code-editor'
+        defaultValue={code}
+        editorProps={{$blockScrolling: Infinity}}
+        tabSize={4}
+        fontSize={16}
+        width={'auto'}
+        height={'500px'}
+        className={css(styles.editor)}
+    />
 
-    onTextInput = (text: string) => {
-        console.log(text)
-    }
-
-    render() {
-        return (
-            <AceEditor
-                mode='javascript'
-                theme='github'
-                onChange={this.onTextInput}
-                name='code-editor'
-                defaultValue={this.props.code}
-                editorProps={{$blockScrolling: Infinity}}
-                tabSize={4}
-                fontSize={16}
-                width={'auto'}
-                height={'500px'}
-                className={css(styles.editor)}
-            />
-        )
-    }
-
-}
+export default Editor
