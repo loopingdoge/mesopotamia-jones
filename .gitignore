@@ -2,3 +2,4 @@ node_modules/
 dist/
 .vscode/
 npm_debug.log
+.DS_Store
