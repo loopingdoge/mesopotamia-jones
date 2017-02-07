@@ -4,6 +4,8 @@ import { inject, observer } from 'mobx-react'
 import { RouterStore } from 'mobx-react-router'
 
 import { GameStore } from '../stores/gameStore'
+import { RiddleUIStore } from '../stores/riddleUIStore'
+import { RiddleStore } from '../stores/riddleStore'
 import Editor from './Editor'
 
 const khosrau = {
@@ -34,11 +36,18 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 1,
     },
-    separatorContainer: {
+    separatorVContainer: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         width: 30,
+        border: 'black 1px inset',
+    },
+    separatorHContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        height: 30,
         border: 'black 1px inset',
     },
     legendContainer: {
@@ -57,10 +66,6 @@ const styles = StyleSheet.create({
     },
 })
 
-export interface CuneiformSectionProps {
-    riddle: string
-}
-
 const Legend = () =>
     <div className={css(styles.legendContainer)}>
         <hr />
@@ -68,6 +73,10 @@ const Legend = () =>
             Qui ci metteremo la legenda!
         </p>
     </div>
+
+export interface CuneiformSectionProps {
+    riddle: string
+}
 
 const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)}>
@@ -77,18 +86,19 @@ const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
     </div>
 
 export interface SeparatorProps {
+    isVerical: boolean
     expanded: boolean
-    shrinkCuneiform: () => void
-    expandCuneiform: () => void
+    shrink: () => void
+    expand: () => void
 }
 
-const Separator = ({ expanded, shrinkCuneiform, expandCuneiform }: SeparatorProps) =>
-    <div className={css(styles.separatorContainer)}>
+const Separator = ({ isVerical, expanded, shrink, expand }: SeparatorProps) =>
+    <div className={css(isVerical ? styles.separatorVContainer : styles.separatorHContainer)}>
         {
             expanded ?
-                <button onClick={shrinkCuneiform}>{'<'}</button>
+                <button onClick={shrink}>{ isVerical ? '<' : '▼' }</button>
                 :
-                <button onClick={expandCuneiform}>{'>'}</button>
+                <button onClick={expand}>{ isVerical ? '>' : '▲' }</button>
         }
     </div>
 
@@ -130,24 +140,34 @@ export interface RiddleProps {
     defaultCode: string
     codeResult: string
     isCuneiformExpanded: boolean
+    isLegendExpanded: boolean
     goBack: () => void
     runCode: () => void
     shrinkCuneiform: () => void
     expandCuneiform: () => void
+    shrinkLegend: () => void
+    expandLegend: () => void
     onUserCodeInput: (code: string) => void
 }
 
-const Riddle = ({ riddleText, defaultCode, codeResult, isCuneiformExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, onUserCodeInput }: RiddleProps) =>
+const Riddle = ({ riddleText, defaultCode, codeResult, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput }: RiddleProps) =>
     <div className={css(styles.riddleContainer)}>
         <div className={css(styles.riddleColumn)}>
             <BackButtonSection goBack={goBack} />
             <CuneiformSection riddle={'if (1 == 1)\n    return true'} />
+            <Separator
+                isVerical={false}
+                expanded={isLegendExpanded}
+                shrink={shrinkLegend}
+                expand={expandLegend}
+            />
             <Legend />
         </div>
         <Separator
+            isVerical={true}
             expanded={isCuneiformExpanded}
-            shrinkCuneiform={shrinkCuneiform}
-            expandCuneiform={expandCuneiform}
+            shrink={shrinkCuneiform}
+            expand={expandCuneiform}
         />
         <div className={css(styles.riddleColumn)}>
             <EditorSection
@@ -163,10 +183,12 @@ const Riddle = ({ riddleText, defaultCode, codeResult, isCuneiformExpanded, goBa
 
 export interface RiddleContainerProps {
     gameStore?: GameStore
+    riddleUIStore?: RiddleUIStore
+    riddleStore?: RiddleStore
     routingStore?: RouterStore
 }
 
-@inject('gameStore', 'routingStore')
+@inject('gameStore', 'routingStore', 'riddleStore', 'riddleUIStore')
 @observer
 class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
     render() {
@@ -176,21 +198,31 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             defaultCode,
             codeResult,
             runCode,
+        } = this.props.riddleStore
+
+        const {
             isCuneiformExpanded,
             shrinkCuneiform,
             expandCuneiform,
+            isLegendExpanded,
+            shrinkLegend,
+            expandLegend,
             onUserCodeInput,
-        } = this.props.gameStore
+        } = this.props.riddleUIStore
+
         return (
             <Riddle
                 goBack={goBack}
                 riddleText={riddleText}
                 defaultCode={defaultCode}
                 codeResult={codeResult}
+                isLegendExpanded={isLegendExpanded}
                 isCuneiformExpanded={isCuneiformExpanded}
                 runCode={runCode}
                 shrinkCuneiform={shrinkCuneiform}
                 expandCuneiform={expandCuneiform}
+                shrinkLegend={shrinkLegend}
+                expandLegend={expandLegend}
                 onUserCodeInput={onUserCodeInput}
             />
         )

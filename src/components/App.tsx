@@ -5,13 +5,15 @@ import { Router, Route, hashHistory, createMemoryHistory } from 'react-router'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 
 import gameStore from '../stores/gameStore'
+import riddleStore from '../stores/riddleStore'
+import riddleUIStore from '../stores/riddleUIStore'
 import Home from './Home'
 import Game from './Game'
 import Riddle from './Riddle'
 
 const routingStore = new RouterStore()
 
-const stores = { gameStore, routingStore }
+const stores = { gameStore, routingStore , riddleStore, riddleUIStore}
 
 // const history= createMemoryHistory()
 const storeHistory = syncHistoryWithStore(hashHistory, routingStore)
