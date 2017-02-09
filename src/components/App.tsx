@@ -1,8 +1,10 @@
+declare const __DEV__: boolean
 import * as React from 'react'
 import { Provider } from 'mobx-react'
-import { StyleSheet } from 'aphrodite'
+import { css, StyleSheet } from 'aphrodite'
 import { Router, Route, hashHistory, createMemoryHistory } from 'react-router'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
+import DevTools from 'mobx-react-devtools'
 
 import gameStore from '../stores/gameStore'
 import riddleStore from '../stores/riddleStore'
@@ -30,12 +32,15 @@ export default class App extends React.Component<void, void> {
 
     render() {
         return (
-            <Provider {...stores}>
-                <Router history={storeHistory}>
-                    <Route path='/' component={Home} />
-                    <Route path='/riddle' component={Riddle} />
-                </Router>
-            </Provider>
+            <div className={css(styles.appContainer)}>
+                <Provider {...stores}>
+                    <Router history={storeHistory}>
+                        <Route path='/' component={Home} />
+                        <Route path='/riddle' component={Riddle} />
+                    </Router>
+                </Provider>
+                <DevTools />
+            </div>
         )
     }
 

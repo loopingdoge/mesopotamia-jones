@@ -54,8 +54,10 @@ const styles = StyleSheet.create({
         // TODO
     },
     solutionSection: {
-        display: 'relative',
-        alignSelf: 'right'
+        position: 'absolute',
+        zIndex: 100000,
+        bottom: '10px',
+        right: '20px',
     },
     solutionInput: {
         flex: 1,
@@ -137,7 +139,7 @@ const SolutionSection = ({ codeResult, runCode }: SolutionSection) =>
 
 export interface RiddleProps {
     riddleText: string
-    defaultCode: string
+    userCode: string
     codeResult: string
     isCuneiformExpanded: boolean
     isLegendExpanded: boolean
@@ -150,7 +152,7 @@ export interface RiddleProps {
     onUserCodeInput: (code: string) => void
 }
 
-const Riddle = ({ riddleText, defaultCode, codeResult, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput }: RiddleProps) =>
+const Riddle = ({ riddleText, userCode, codeResult, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput }: RiddleProps) =>
     <div className={css(styles.riddleContainer)}>
         <div className={css(styles.riddleColumn)}>
             <BackButtonSection goBack={goBack} />
@@ -171,7 +173,7 @@ const Riddle = ({ riddleText, defaultCode, codeResult, isCuneiformExpanded, isLe
         />
         <div className={css(styles.riddleColumn)}>
             <EditorSection
-                code={defaultCode}
+                code={userCode}
                 onUserCodeInput={onUserCodeInput}
             />
             <SolutionSection
@@ -194,10 +196,12 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
     render() {
         const { goBack } = this.props.routingStore
         const {
-            riddleText,
-            defaultCode,
+            riddle,
             codeResult,
             runCode,
+            checkSolution,
+            setUserCode,
+            userCode,
         } = this.props.riddleStore
 
         const {
@@ -207,23 +211,27 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             isLegendExpanded,
             shrinkLegend,
             expandLegend,
-            onUserCodeInput,
         } = this.props.riddleUIStore
+
+        const onRunCode = () => {
+            runCode()
+            checkSolution()
+        }
 
         return (
             <Riddle
                 goBack={goBack}
-                riddleText={riddleText}
-                defaultCode={defaultCode}
+                riddleText={riddle.question}
+                userCode={userCode}
                 codeResult={codeResult}
                 isLegendExpanded={isLegendExpanded}
                 isCuneiformExpanded={isCuneiformExpanded}
-                runCode={runCode}
+                runCode={onRunCode}
                 shrinkCuneiform={shrinkCuneiform}
                 expandCuneiform={expandCuneiform}
                 shrinkLegend={shrinkLegend}
                 expandLegend={expandLegend}
-                onUserCodeInput={onUserCodeInput}
+                onUserCodeInput={setUserCode}
             />
         )
     }

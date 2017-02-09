@@ -23,6 +23,7 @@ const Editor = ({ code, onUserCodeInput }: EditorProps) =>
         onChange={onUserCodeInput}
         name='code-editor'
         defaultValue={code}
+        value={code}
         editorProps={{$blockScrolling: Infinity}}
         tabSize={4}
         fontSize={16}

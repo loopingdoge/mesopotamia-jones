@@ -10,7 +10,6 @@ export class RiddleUIStore {
     @action shrinkLegend = () => this.isLegendExpanded = false
     @action expandLegend = () => this.isLegendExpanded = true
 
-    @action onUserCodeInput = () => console.log('DUNNOCHECCAZZDEVEFARE')
 }
 
 const riddleUIStore = new RiddleUIStore()
