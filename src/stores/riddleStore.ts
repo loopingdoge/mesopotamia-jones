@@ -16,7 +16,6 @@ export class RiddleStore {
         this.level = level
         this.riddles = riddles
         this.changeLevel(this.level)
-        this.generateArgs()
     }
 
     @action checkSolution = () => {
@@ -33,7 +32,7 @@ export class RiddleStore {
         try {
             // tslint:disable-next-line: no-eval
             this.codeResult = eval(`(function() {${this.userCode}})()`)
-        } catch(e) {
+        } catch (e) {
             this.codeResult = (<EvalError>e).message
         }
     }
