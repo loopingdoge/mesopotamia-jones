@@ -21,14 +21,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
     },
-    riddleColumn: {
+    riddleColumnExpanded: {
         display: 'flex',
         flexDirection: 'column',
+        transition: 'all 0.5s ease',
         flex: 1,
+    },
+    riddleColumnShrinked: {
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'all 0.5s ease',
+        opacity: 0,
+        flex: 0,
     },
     cuneiformSection: {
         display: 'flex',
         flexDirection: 'column',
+        opacity: 1,
         flex: 1,
     },
     editorSection: {
@@ -78,29 +87,33 @@ const Legend = () =>
 
 export interface CuneiformSectionProps {
     riddle: string
+    isVisible: boolean
 }
 
-const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
-    <div className={css(styles.cuneiformSection)}>
-        <p className={css(styles.cuneiform)}>
-            {riddle}
-        </p>
-    </div>
+const CuneiformSection = ({ riddle, isVisible }: CuneiformSectionProps) =>
+    isVisible ?
+        <div className={css(styles.cuneiformSection)}>
+            <p className={css(styles.cuneiform)}>
+                {riddle}
+            </p>
+        </div>
+        :
+        null
 
 export interface SeparatorProps {
-    isVerical: boolean
+    isVertical: boolean
     expanded: boolean
     shrink: () => void
     expand: () => void
 }
 
-const Separator = ({ isVerical, expanded, shrink, expand }: SeparatorProps) =>
-    <div className={css(isVerical ? styles.separatorVContainer : styles.separatorHContainer)}>
+const Separator = ({ isVertical, expanded, shrink, expand }: SeparatorProps) =>
+    <div className={css(isVertical ? styles.separatorVContainer : styles.separatorHContainer)}>
         {
             expanded ?
-                <button onClick={shrink}>{ isVerical ? '<' : '▼' }</button>
+                <button onClick={shrink}>{ isVertical ? '<' : '▼' }</button>
                 :
-                <button onClick={expand}>{ isVerical ? '>' : '▲' }</button>
+                <button onClick={expand}>{ isVertical ? '>' : '▲' }</button>
         }
     </div>
 
@@ -154,11 +167,14 @@ export interface RiddleProps {
 
 const Riddle = ({ riddleText, userCode, codeResult, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput }: RiddleProps) =>
     <div className={css(styles.riddleContainer)}>
-        <div className={css(styles.riddleColumn)}>
+        <div className={css(isCuneiformExpanded ? styles.riddleColumnExpanded : styles.riddleColumnShrinked)}>
             <BackButtonSection goBack={goBack} />
-            <CuneiformSection riddle={'if (1 == 1)\n    return true'} />
+            <CuneiformSection
+                riddle={'if (1 == 1)\n    return true'}
+                isVisible={isCuneiformExpanded}
+            />
             <Separator
-                isVerical={false}
+                isVertical={false}
                 expanded={isLegendExpanded}
                 shrink={shrinkLegend}
                 expand={expandLegend}
@@ -166,12 +182,12 @@ const Riddle = ({ riddleText, userCode, codeResult, isCuneiformExpanded, isLegen
             <Legend />
         </div>
         <Separator
-            isVerical={true}
+            isVertical={true}
             expanded={isCuneiformExpanded}
             shrink={shrinkCuneiform}
             expand={expandCuneiform}
         />
-        <div className={css(styles.riddleColumn)}>
+        <div className={css(styles.riddleColumnExpanded)}>
             <EditorSection
                 code={userCode}
                 onUserCodeInput={onUserCodeInput}
