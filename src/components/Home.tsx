@@ -4,7 +4,6 @@ import { css, StyleSheet } from 'aphrodite'
 import { RouterStore } from 'mobx-react-router'
 
 import { GameStore } from '../stores/gameStore'
-import Game from './Game'
 import Section from './Section'
 
 const styles = StyleSheet.create({
@@ -33,7 +32,6 @@ export interface HomeProps {
 const Home = ({ startGame, newGame, showCredits }: HomeProps) =>
     <div className={css(styles.homeContainer)}>
         <Section startGame={startGame}/>
-        <Game />
         {/*<div>
             <button onClick={newGame}>New Game</button>
             <button onClick={showCredits}>Credits</button>
@@ -52,7 +50,7 @@ class HomeContainer extends React.Component<HomeContainerProps, undefined> {
         const { push } = this.props.routingStore
         return (
             <Home
-                startGame={() => push('/riddle')}
+                startGame={() => push('/game')}
                 newGame={() => {}}
                 showCredits={() => {}}
             />
