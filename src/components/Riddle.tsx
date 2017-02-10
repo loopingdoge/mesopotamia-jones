@@ -21,6 +21,18 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 1,
     },
+    wrapper: {
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+    },
+    toolbar: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 30,
+        border: '1px solid black',
+    },
     riddleContainer: {
         display: 'flex',
         flexDirection: 'row',
@@ -225,6 +237,14 @@ const BackButtonSection = ({ goBack }: BackButtonSectionProps) =>
         <button onClick={goBack}>{'<-'}</button>
     </div>
 
+export interface ToolbarProps {
+    goBack: () => void
+}
+const Toolbar = ({ goBack }: ToolbarProps) =>
+    <div className={css(styles.toolbar)}>
+        <BackButtonSection goBack={goBack} />
+    </div>
+
 export interface SolutionSection {
     codeResult: string
     runCode: () => void
@@ -252,44 +272,46 @@ export interface RiddleProps {
 }
 
 const Riddle = ({ riddleText, userCode, codeResult, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput }: RiddleProps) =>
-    <div className={css(styles.riddleContainer)}>
-        <div className={css(isCuneiformExpanded ? styles.riddleColumnExpanded : styles.riddleColumnShrinked)}>
-            <BackButtonSection goBack={goBack} />
-            {
-                isCuneiformExpanded ?
-                    <div className={css(styles.column)}>
-                        <CuneiformSection
-                            riddle={riddleText}
-                        />
-                        <Separator
-                            isVertical={false}
-                            expanded={isLegendExpanded}
-                            shrink={shrinkLegend}
-                            expand={expandLegend}
-                        />
-                        <Legend
-                            isExpanded={isLegendExpanded}
-                        />
-                    </div>
-                    :
-                    null
-            }   
-        </div>
-        <Separator
-            isVertical={true}
-            expanded={isCuneiformExpanded}
-            shrink={shrinkCuneiform}
-            expand={expandCuneiform}
-        />
-        <div className={css(styles.riddleColumnExpanded)}>
-            <EditorSection
-                code={userCode}
-                onUserCodeInput={onUserCodeInput}
+    <div className={css(styles.wrapper)}> 
+        <Toolbar goBack={goBack} />
+        <div className={css(styles.riddleContainer)}>
+            <div className={css(isCuneiformExpanded ? styles.riddleColumnExpanded : styles.riddleColumnShrinked)}>
+                {
+                    isCuneiformExpanded ?
+                        <div className={css(styles.column)}>
+                            <CuneiformSection
+                                riddle={riddleText}
+                            />
+                            <Separator
+                                isVertical={false}
+                                expanded={isLegendExpanded}
+                                shrink={shrinkLegend}
+                                expand={expandLegend}
+                            />
+                            <Legend
+                                isExpanded={isLegendExpanded}
+                            />
+                        </div>
+                        :
+                        null
+                }   
+            </div>
+            <Separator
+                isVertical={true}
+                expanded={isCuneiformExpanded}
+                shrink={shrinkCuneiform}
+                expand={expandCuneiform}
             />
-            <SolutionSection
-                codeResult={codeResult}
-                runCode={runCode}
-            />
+            <div className={css(styles.riddleColumnExpanded)}>
+                <EditorSection
+                    code={userCode}
+                    onUserCodeInput={onUserCodeInput}
+                />
+                <SolutionSection
+                    codeResult={codeResult}
+                    runCode={runCode}
+                />
+            </div>
         </div>
     </div>
 
