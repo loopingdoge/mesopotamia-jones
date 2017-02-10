@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         transition: 'all 0.5s ease',
         flex: 1,
-        maxWidth: '50%',
     },
     riddleColumnShrinked: {
         display: 'flex',
@@ -65,6 +64,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         padding: 8,
+        maxHeight: '45vh',
     },
     legendCell: {
         display: 'flex',
@@ -91,24 +91,30 @@ const styles = StyleSheet.create({
     },
 })
 
-let alphabet: string[] = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
-let cols: number = 7
-const Legend = () =>
-    <div className={css(styles.legendContainer)}>
-        <div className={css(styles.legendContainer)}>
-            {
-                alphabet.map( (value, i) =>
-                    value === ' ' ?
-                        <div key={i} className={css(styles.legendNewline)}></div>
-                        :
-                        <div key={i} className={css(styles.legendCell)}>
-                            <div className={css(styles.cuneiform)}>{value}</div>
-                            <div>{value}</div>
-                        </div>
-                )
-            }
-        </div>
-    </div>
+class Legend extends React.Component<undefined, undefined> {
+
+    alphabet: string[] = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
+
+    render() {
+        return (
+            <div className={css(styles.legendContainer)}>
+                <div className={css(styles.legendContainer)}>
+                    {
+                        this.alphabet.map( (value, i) =>
+                            value === ' ' ?
+                                <div key={i} className={css(styles.legendNewline)}></div>
+                                :
+                                <div key={i} className={css(styles.legendCell)}>
+                                    <div className={css(styles.cuneiform)}>{value}</div>
+                                    <div>{value}</div>
+                                </div>
+                        )
+                    }
+                </div>
+            </div>
+        )
+    }
+}
 
 export interface CuneiformSectionProps {
     riddle: string
