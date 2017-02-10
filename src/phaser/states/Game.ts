@@ -102,18 +102,13 @@ export default class Game extends Phaser.State {
 
     update() {
         this.game.physics.arcade.collide(this.player, this.walls)
-        this.game.physics.arcade.collide(this.player, this.rdoor, this.onNextRiddle, null, this)
-        this.game.physics.arcade.collide(this.player, this.ldoor, this.onPrevRiddle, null, this)
+        this.game.physics.arcade.collide(this.player, this.rdoor, this.goToRiddle, null, this)
+        this.game.physics.arcade.collide(this.player, this.ldoor, this.goToRiddle, null, this)
     }
 
-    onPrevRiddle () {
-        gameStore.prevLevel()
+    goToRiddle () {
+        gameStore.goToRiddle(0)
         console.warn('onPrevRiddle', gameStore.level)
-    }
-
-    onNextRiddle () {
-        gameStore.nextLevel()
-        console.warn('onNextRiddle', gameStore.level)
     }
 
 }

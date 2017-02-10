@@ -15,6 +15,8 @@ import Riddle from './Riddle'
 
 const routingStore = new RouterStore()
 
+gameStore.setRoutingStore(routingStore)
+
 const stores = { gameStore, routingStore , riddleStore, riddleUIStore}
 
 // const history= createMemoryHistory()
@@ -37,6 +39,7 @@ export default class App extends React.Component<void, void> {
                     <Router history={storeHistory}>
                         <Route path='/' component={Home} />
                         <Route path='/riddle' component={Riddle} />
+                        <Route path='/game' component={Game} />
                     </Router>
                 </Provider>
                 <DevTools />
