@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         flex: 1,
+        maxWidth: '50%',
     },
     cuneiformSection: {
         display: 'flex',
@@ -51,13 +52,26 @@ const styles = StyleSheet.create({
         border: 'black 1px inset',
     },
     legendContainer: {
-        // TODO
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        padding: 8,
+    },
+    legendCell: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        minWidth: 40,
+        minHeight: 30,
+    },
+    legendNewline: {
+        width: '100%'
     },
     solutionSection: {
         position: 'absolute',
         zIndex: 100000,
-        bottom: '10px',
-        right: '20px',
+        bottom: 10,
+        right: 20,
     },
     solutionInput: {
         flex: 1,
@@ -68,12 +82,23 @@ const styles = StyleSheet.create({
     },
 })
 
+let alphabet: string[] = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
+let cols: number = 7
 const Legend = () =>
     <div className={css(styles.legendContainer)}>
-        <hr />
-        <p>
-            Qui ci metteremo la legenda!
-        </p>
+        <div className={css(styles.legendContainer)}>
+            {
+                alphabet.map( (value, i) =>
+                    value === ' ' ?
+                        <div key={i} className={css(styles.legendNewline)}></div>
+                        :
+                        <div key={i} className={css(styles.legendCell)}>
+                            <div className={css(styles.cuneiform)}>{value}</div>
+                            <div>{value}</div>
+                        </div>
+                )
+            }
+        </div>
     </div>
 
 export interface CuneiformSectionProps {
