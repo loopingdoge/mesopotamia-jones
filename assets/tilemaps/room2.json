@@ -1,0 +1,40 @@
+{ "height":9,
+ "layers":[
+        {
+         "data":[111, 1, 2, 3, 4, 5, 32, 33, 34, 1, 4, 5, 3, 4, 3, 112, 91, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 86, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 87, 119, 0, 0, 0, 0, 12, 0, 0, 25, 25, 26, 0, 0, 0, 0, 88, 133, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 94, 0, 0, 49, 49, 0, 0, 0, 0, 0, 0, 0, 0, 78, 77, 87, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 78, 77, 77, 85, 125, 43, 45, 43, 46, 47, 43, 43, 46, 45, 47, 43, 45, 43, 46, 126],
+         "height":9,
+         "name":"Livello tile 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":16,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tileheight":32,
+ "tilesets":[
+        {
+         "columns":14,
+         "firstgid":1,
+         "image":"..\/images\/sheet.png",
+         "imageheight":320,
+         "imagewidth":448,
+         "margin":0,
+         "name":"sheet",
+         "spacing":0,
+         "terrains":[
+                {
+                 "name":"Nuovo terreno",
+                 "tile":-1
+                }],
+         "tilecount":140,
+         "tileheight":32,
+         "tilewidth":32
+        }],
+ "tilewidth":32,
+ "version":1,
+ "width":16
+}

@@ -1,5 +1,5 @@
 export default {
-  gameWidth: 1280,
-  gameHeight: 720,
+  gameWidth: 512,
+  gameHeight: 288,
   localStorageName: 'mesopotamia-jones'
 }

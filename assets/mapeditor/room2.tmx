@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="sheet" tilewidth="32" tileheight="32" tilecount="140" columns="14">
+  <image source="../images/sheet.png" width="448" height="320"/>
+  <terraintypes>
+   <terrain name="Nuovo terreno" tile="-1"/>
+  </terraintypes>
+ </tileset>
+ <layer name="Livello tile 1" width="16" height="9">
+  <data encoding="csv">
+111,1,2,3,4,5,32,33,34,1,4,5,3,4,3,112,
+91,0,0,49,0,0,0,0,0,0,0,0,0,0,0,85,
+91,0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,
+105,0,0,0,0,0,0,0,0,0,0,0,0,0,0,87,
+119,0,0,0,0,12,0,0,25,25,26,0,0,0,0,88,
+133,0,0,0,0,0,0,0,0,0,0,0,0,0,0,85,
+94,0,0,49,49,0,0,0,0,0,0,0,0,78,77,87,
+91,0,0,0,0,0,0,0,0,0,0,0,78,77,77,85,
+125,43,45,43,46,47,43,43,46,45,47,43,45,43,46,126
+</data>
+ </layer>
+</map>
