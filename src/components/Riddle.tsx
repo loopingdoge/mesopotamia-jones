@@ -36,15 +36,14 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         transition: 'all 0.5s ease',
-        opacity: 1,
+        opacity: 0,
         flex: 0,
     },
     cuneiformSection: {
         display: 'flex',
         flexDirection: 'column',
         opacity: 1,
-        flex: 1,
-        minHeight: '50vh'
+        flex: '2 0',
     },
     editorSection: {
         display: 'flex',
@@ -72,14 +71,16 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         overflowY: 'scroll',
         padding: 8,
+        flex: '1 0',
     },
     legendShrinked: {
         transition: 'all 0.5s ease',
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        overflowY: 'scroll',
         padding: 8,
-        height: 0,
+        flex: '0 1',
     },
     legendCell: {
         display: 'flex',
@@ -111,15 +112,12 @@ export interface LegendProps {
 }
 class Legend extends React.Component<LegendProps, undefined> {
 
-    isExpanded: boolean = this.props.isExpanded
-
     alphabet: string[] = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
 
     render() {
         return (
-            <div className={css(this.isExpanded ? styles.legendExpanded : styles.legendShrinked)}>
+            <div className={css(this.props.isExpanded ? styles.legendExpanded : styles.legendShrinked)}>
                 {
-                    this.isExpanded ?
                         this.alphabet.map( (value, i) =>
                             value === ' ' ?
                                 <div key={i} className={css(styles.legendNewline)}></div>
@@ -129,14 +127,11 @@ class Legend extends React.Component<LegendProps, undefined> {
                                     <div>{value}</div>
                                 </div>
                         )
-                        :
-                        null
                 }
             </div>
         )
     }
 }
-  
 
 export interface CuneiformSectionProps {
     riddle: string
