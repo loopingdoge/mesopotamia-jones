@@ -24,7 +24,7 @@ return `,
     },
     {
         title: 'somma',
-        question: 'La somma di due numeri',
+        question: 'Quanto fa la somma di 2 numeri?',
         defaultCode: ([a, b]: number[]) =>
 `var a = ${a}
 var b = ${b}

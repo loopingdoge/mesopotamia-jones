@@ -104,6 +104,15 @@ const styles = StyleSheet.create({
         fontFamily: khosrau,
         fontSize: 30,
     },
+    cuneiformLetter: {
+        color: '#333'
+    },
+    cuneiformNumber: {
+        color: '#099'
+    },
+    cuneiformOperator: {
+        color: '#ff6666',
+    },
 })
 
 export interface LegendProps {
@@ -125,7 +134,9 @@ class Legend extends React.Component<LegendProps, undefined> {
                                 <div key={i} className={css(styles.legendNewline)}></div>
                                 :
                                 <div key={i} className={css(styles.legendCell)}>
-                                    <div className={css(styles.cuneiform)}>{value}</div>
+                                    <div>
+                                        <CuneiformChar value={value}/>
+                                    </div>
                                     <div>{value}</div>
                                 </div>
                         )
@@ -136,7 +147,35 @@ class Legend extends React.Component<LegendProps, undefined> {
         )
     }
 }
-  
+
+export interface CuneiformCharProps {
+    value: string
+}
+
+class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
+
+    style: any
+    isNumber: RegExp = /^\d+$/
+    isLetter: RegExp = /^[a-zA-Z]+$/
+
+    componentWillMount() {
+        if ( this.props.value.match(this.isLetter) ) {
+            this.style = styles.cuneiformLetter
+        } else if ( this.props.value.match(this.isNumber) ) {
+            this.style = styles.cuneiformNumber
+        } else {
+            this.style = styles.cuneiformOperator
+        }
+    }
+
+    render() {
+        return (
+            <span className={css(styles.cuneiform, this.style)}>
+                {this.props.value}
+            </span>
+        )
+    }
+}
 
 export interface CuneiformSectionProps {
     riddle: string
@@ -145,7 +184,9 @@ export interface CuneiformSectionProps {
 const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)}>
         <p className={css(styles.cuneiform)}>
-            {riddle}
+            {
+                riddle.split('').map((value, i) => <CuneiformChar key={i} value={value} />)
+            }
         </p>
     </div>
 
