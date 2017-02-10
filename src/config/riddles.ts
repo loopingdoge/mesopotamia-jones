@@ -15,7 +15,7 @@ function randomNum(min: number, max: number) {
 const riddles: Riddle[] = [
     {
         title: 'return',
-        question: '',
+        question: 'Identità',
         defaultCode: ([a]: number[]) =>
 `var a = ${a}
 return `,
@@ -24,7 +24,7 @@ return `,
     },
     {
         title: 'somma',
-        question: '',
+        question: 'La somma di due numeri',
         defaultCode: ([a, b]: number[]) =>
 `var a = ${a}
 var b = ${b}

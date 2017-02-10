@@ -16,6 +16,11 @@ const khosrau = {
 }
 
 const styles = StyleSheet.create({
+    column: {
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+    },
     riddleContainer: {
         display: 'flex',
         flexDirection: 'row',
@@ -31,7 +36,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         transition: 'all 0.5s ease',
-        opacity: 0,
+        opacity: 1,
         flex: 0,
     },
     cuneiformSection: {
@@ -39,6 +44,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         opacity: 1,
         flex: 1,
+        minHeight: '50vh'
     },
     editorSection: {
         display: 'flex',
@@ -59,12 +65,21 @@ const styles = StyleSheet.create({
         height: 30,
         border: 'black 1px inset',
     },
-    legendContainer: {
+    legendExpanded: {
+        transition: 'all 0.5s ease',
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        overflowY: 'scroll',
+        padding: 8,
+    },
+    legendShrinked: {
+        transition: 'all 0.5s ease',
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
         padding: 8,
-        maxHeight: '45vh',
+        height: 0,
     },
     legendCell: {
         display: 'flex',
@@ -91,15 +106,20 @@ const styles = StyleSheet.create({
     },
 })
 
-class Legend extends React.Component<undefined, undefined> {
+export interface LegendProps {
+    isExpanded: boolean
+}
+class Legend extends React.Component<LegendProps, undefined> {
+
+    isExpanded: boolean = this.props.isExpanded
 
     alphabet: string[] = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
 
     render() {
         return (
-            <div className={css(styles.legendContainer)}>
-                <div className={css(styles.legendContainer)}>
-                    {
+            <div className={css(this.isExpanded ? styles.legendExpanded : styles.legendShrinked)}>
+                {
+                    this.isExpanded ?
                         this.alphabet.map( (value, i) =>
                             value === ' ' ?
                                 <div key={i} className={css(styles.legendNewline)}></div>
@@ -109,27 +129,25 @@ class Legend extends React.Component<undefined, undefined> {
                                     <div>{value}</div>
                                 </div>
                         )
-                    }
-                </div>
+                        :
+                        null
+                }
             </div>
         )
     }
 }
+  
 
 export interface CuneiformSectionProps {
     riddle: string
-    isVisible: boolean
 }
 
-const CuneiformSection = ({ riddle, isVisible }: CuneiformSectionProps) =>
-    isVisible ?
-        <div className={css(styles.cuneiformSection)}>
-            <p className={css(styles.cuneiform)}>
-                {riddle}
-            </p>
-        </div>
-        :
-        null
+const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
+    <div className={css(styles.cuneiformSection)}>
+        <p className={css(styles.cuneiform)}>
+            {riddle}
+        </p>
+    </div>
 
 export interface SeparatorProps {
     isVertical: boolean
@@ -200,17 +218,25 @@ const Riddle = ({ riddleText, userCode, codeResult, isCuneiformExpanded, isLegen
     <div className={css(styles.riddleContainer)}>
         <div className={css(isCuneiformExpanded ? styles.riddleColumnExpanded : styles.riddleColumnShrinked)}>
             <BackButtonSection goBack={goBack} />
-            <CuneiformSection
-                riddle={'if (1 == 1)\n    return true'}
-                isVisible={isCuneiformExpanded}
-            />
-            <Separator
-                isVertical={false}
-                expanded={isLegendExpanded}
-                shrink={shrinkLegend}
-                expand={expandLegend}
-            />
-            <Legend />
+            {
+                isCuneiformExpanded ?
+                    <div className={css(styles.column)}>
+                        <CuneiformSection
+                            riddle={riddleText}
+                        />
+                        <Separator
+                            isVertical={false}
+                            expanded={isLegendExpanded}
+                            shrink={shrinkLegend}
+                            expand={expandLegend}
+                        />
+                        <Legend
+                            isExpanded={isLegendExpanded}
+                        />
+                    </div>
+                    :
+                    null
+            }   
         </div>
         <Separator
             isVertical={true}
