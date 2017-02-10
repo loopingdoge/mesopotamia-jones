@@ -1,5 +1,4 @@
 import { observable, action, /* computed */ } from 'mobx'
-import riddles from '../config/riddles'
 import { RouterStore } from 'mobx-react-router'
 
 export class GameStore {

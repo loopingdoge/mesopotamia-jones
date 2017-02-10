@@ -47,7 +47,7 @@ export default class Game extends Phaser.State {
         map.setCollision(63)
         map.setCollision(113)
         map.setCollisionBetween(77, 79)
-        //TODO: Aggiungere tutte le collisioni
+        // TODO: Aggiungere tutte le collisioni
 
         //  This resizes the game world to match the layer dimensions
         this.layer.resizeWorld()

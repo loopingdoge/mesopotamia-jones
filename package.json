@@ -7,7 +7,8 @@
   "scripts": {
     "start": "webpack",
     "build": "webpack --config webpack.production.config.js",
-    "test": "mocha -r ts-node/register ./src/.test-setup.js ./src/**/*.test.ts ./src/**/*.test.tsx"
+    "test": "mocha -r ts-node/register ./src/.test-setup.js ./src/**/*.test.ts ./src/**/*.test.tsx",
+    "lint": "tslint -c tslint.json src/**/*.ts src/**/*.tsx"
   },
   "license": "MIT",
   "devDependencies": {
