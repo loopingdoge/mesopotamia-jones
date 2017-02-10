@@ -11,6 +11,7 @@ export default class Game extends Phaser.State {
     walls: Phaser.Group
     rdoor: Phaser.Sprite
     ldoor: Phaser.Sprite
+    layer: Phaser.TilemapLayer
 
     init() {}
     preload() {
@@ -41,10 +42,15 @@ export default class Game extends Phaser.State {
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         const map = this.game.add.tilemap('room1')
         map.addTilesetImage('sheet', 'tiles')
-        const layer = map.createLayer('Livello tile 1')
+
+        this.layer = map.createLayer('Livello tile 1')
+        map.setCollision(63)
+        map.setCollision(113)
+        map.setCollisionBetween(77, 79)
+        //TODO: Aggiungere tutte le collisioni
 
         //  This resizes the game world to match the layer dimensions
-        layer.resizeWorld()
+        this.layer.resizeWorld()
 
         // this.walls = this.game.add.group()
         // this.walls.enableBody = true // Abilito la fisica per ogni oggetto del gruppo
@@ -82,14 +88,16 @@ export default class Game extends Phaser.State {
         // this.ldoor.body.setSize(58 / 0.15, 58 / 0.10, 2, -140 / 0.15)
         // this.ldoor.body.immovable = true
 
-
-
         this.player = this.game.add.existing(new Dude({
             game: this.game,
             x: this.world.centerX,
             y: this.world.centerY,
             key: 'dude'
         }))
+
+        this.game.physics.enable(this.player)
+        this.player.body.collideWorldBounds = true
+
     }
 
     render() {
@@ -101,9 +109,14 @@ export default class Game extends Phaser.State {
     }
 
     update() {
-        this.game.physics.arcade.collide(this.player, this.walls)
-        this.game.physics.arcade.collide(this.player, this.rdoor, this.goToRiddle, null, this)
-        this.game.physics.arcade.collide(this.player, this.ldoor, this.goToRiddle, null, this)
+        this.game.physics.arcade.collide(this.player, this.layer, this.collision, null, this)
+        // this.game.physics.arcade.collide(this.player, this.rdoor, this.goToRiddle, null, this)
+        // this.game.physics.arcade.collide(this.player, this.ldoor, this.goToRiddle, null, this)
+    }
+
+    collision(a: Phaser.Sprite, b: Phaser.TilemapLayer) {
+        if (b.index === 113)
+            this.goToRiddle()
     }
 
     goToRiddle () {
