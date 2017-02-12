@@ -7,6 +7,7 @@ import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import DevTools from 'mobx-react-devtools'
 
 import gameStore from '../stores/gameStore'
+import uiStore from '../stores/uiStore'
 import riddleStore from '../stores/riddleStore'
 import riddleUIStore from '../stores/riddleUIStore'
 import Home from './Home'
@@ -17,7 +18,7 @@ const routingStore = new RouterStore()
 
 gameStore.setRoutingStore(routingStore)
 
-const stores = { gameStore, routingStore , riddleStore, riddleUIStore}
+const stores = { gameStore, routingStore , riddleStore, riddleUIStore, uiStore }
 
 // const history= createMemoryHistory()
 const storeHistory = syncHistoryWithStore(hashHistory, routingStore)

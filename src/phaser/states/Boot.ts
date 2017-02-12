@@ -3,41 +3,42 @@ import * as WebFont from 'webfontloader'
 
 export default class Boot extends Phaser.State {
 
-  fontsReady: boolean
+    fontsReady: boolean
 
-  init () {
-    this.stage.backgroundColor = '#444'
-    this.fontsReady = false
-    this.fontsLoaded = this.fontsLoaded.bind(this)
-  }
+    init () {
+        this.stage.backgroundColor = '#444'
+        this.fontsReady = false
+        this.fontsLoaded = this.fontsLoaded.bind(this)
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    }
 
-  preload () {
-    WebFont.load({
-      google: {
-        families: ['Bangers']
-      },
-      active: this.fontsLoaded
-    })
+    preload () {
+        WebFont.load({
+            google: {
+                families: ['Bangers']
+            },
+            active: this.fontsLoaded
+        })
 
-    let text = this.add.text(
+        let text = this.add.text(
         this.world.centerX, this.world.centerY,
         'loading fonts',
         { font: '16px Arial', fill: '#dddddd', align: 'center' }
-      )
-    text.anchor.setTo(0.5, 0.5)
+        )
+        text.anchor.setTo(0.5, 0.5)
 
-    this.load.image('loaderBg', './assets/images/loader-bg.png')
-    this.load.image('loaderBar', './assets/images/loader-bar.png')
-  }
-
-  render () {
-    if (this.fontsReady) {
-      this.state.start('Splash')
+        this.load.image('loaderBg', './assets/images/loader-bg.png')
+        this.load.image('loaderBar', './assets/images/loader-bar.png')
     }
-  }
 
-  fontsLoaded () {
-    this.fontsReady = true
-  }
+    render () {
+        if (this.fontsReady) {
+            this.state.start('Splash')
+        }
+    }
+
+    fontsLoaded () {
+        this.fontsReady = true
+    }
 
 }

@@ -17,6 +17,8 @@ export default class Dude extends Phaser.Sprite {
 
         this.animations.add('left', [0, 1, 2, 3], 10, true)
         this.animations.add('right', [5, 6, 7, 8], 10, true)
+        this.body.offset = new Phaser.Point(0, 34)
+        this.body.height = 13
     }
 
     update() {
@@ -36,11 +38,11 @@ export default class Dude extends Phaser.Sprite {
         }
         if (this.cursors.up.isDown) {
             this.body.velocity.y = -250
-            // this.animations.play('right')
+            // this.animations.play('up')
             movingVertical = true
         } else if (this.cursors.down.isDown) {
             this.body.velocity.y = 250
-            // this.animations.play('right')
+            // this.animations.play('down')
             movingVertical = true
         } else {
             this.body.velocity.y = 0
