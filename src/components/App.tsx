@@ -11,6 +11,7 @@ import uiStore from '../stores/uiStore'
 import riddleStore from '../stores/riddleStore'
 import riddleUIStore from '../stores/riddleUIStore'
 import Home from './Home'
+import MesopotamiaJones from './MesopotamiaJones'
 import Game from './Game'
 import Riddle from './Riddle'
 
@@ -39,8 +40,8 @@ export default class App extends React.Component<void, void> {
                 <Provider {...stores}>
                     <Router history={storeHistory}>
                         <Route path='/' component={Home} />
-                        <Route path='/riddle' component={Riddle} />
-                        <Route path='/game' component={Game} />
+                        {/*<Route path='/riddle' component={Riddle} />*/}
+                        <Route path='/game' component={MesopotamiaJones} />
                     </Router>
                 </Provider>
                 <DevTools />

@@ -17,28 +17,10 @@ export default class Game extends Phaser.State {
 
     preload() {}
 
-    // TODO: Fatto giusto per il concetto, e' da mettere a posto
-    loadScene(scene: Scene) {
-        scene.walls.forEach( wall => {
-            this.walls.create(wall.x, wall.y, 'wall')
-        })
-        scene.doors.forEach( door => {
-            const d = this.game.add.sprite(door.x, door.y, 'door')
-            this.game.physics.enable(d)
-            d.body.immovable = true
-        })
-        this.game.add.existing(new Dude({
-            game: this.game,
-            x: scene.player.x,
-            y: scene.player.y,
-            key: 'dude',
-        }))
-    }
-
     create() {
         this.game.stage.backgroundColor = '#E37710'
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
-        const map = this.game.add.tilemap('room1')
+        const map = this.game.add.tilemap(`room${gameStore.level}`)
         map.addTilesetImage('sheet', 'tiles')
 
         this.layer = map.createLayer('Livello tile 1')
@@ -77,7 +59,7 @@ export default class Game extends Phaser.State {
 
     goToRiddle () {
         gameStore.goToRiddle(0)
-        console.warn('onPrevRiddle', gameStore.level)
+        console.warn('goToRiddle', gameStore.level)
     }
 
 }

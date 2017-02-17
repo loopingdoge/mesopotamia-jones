@@ -3,16 +3,16 @@ import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 
 import { UIStore } from '../stores/uiStore'
+import { GameStore } from '../stores/gameStore'
 import PhaserGame from '../phaser'
 
 export interface GameProps {
     width: number
     height: number
+    game: PhaserGame
 }
 
 export class Game extends React.Component<GameProps, void> {
-
-    game: PhaserGame
 
     getGameScale = () => {
         let width = 0
@@ -27,27 +27,19 @@ export class Game extends React.Component<GameProps, void> {
         return { width, height }
     }
 
-    componentDidMount() {
-        this.game = new PhaserGame()
-        this.game.start()
-    }
-
     render() {
         const { width, height } = this.getGameScale()
-        const styles = StyleSheet.create({
-            gameContainer: {
-                flex: 1,
-                width,
-                height,
-                marginLeft: 'auto',
-                marginRight: 'auto',
-            }
-        })
+        // const styles = StyleSheet.create({
+        //     gameContainer: {
+        //         flex: 1,
+        //         justifyContent: 'center',
+        //         alignItems: 'center'
+        //     }
+        // })
         return (
             <div
                 key='game'
                 id='game'
-                className={css(styles.gameContainer)}
             />
         )
     }
@@ -56,9 +48,10 @@ export class Game extends React.Component<GameProps, void> {
 
 export interface GameContainerProps {
     uiStore?: UIStore
+    gameStore?: GameStore
 }
 
-@inject('uiStore')
+@inject('uiStore', 'gameStore')
 @observer
 export default class GameContainer extends React.Component<GameContainerProps, undefined> {
     render() {
@@ -66,6 +59,7 @@ export default class GameContainer extends React.Component<GameContainerProps, u
             <Game
                 width={this.props.uiStore.width}
                 height={this.props.uiStore.height}
+                game={this.props.gameStore.game}
             />
         )
     }

@@ -326,7 +326,6 @@ export interface RiddleContainerProps {
 @observer
 class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
     render() {
-        const { goBack } = this.props.routingStore
         const {
             riddle,
             codeResult,
@@ -335,6 +334,9 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             setUserCode,
             userCode,
         } = this.props.riddleStore
+
+        const { goToLevel, level } = this.props.gameStore
+        const goBack = () => goToLevel(level)
 
         const {
             isCuneiformExpanded,
