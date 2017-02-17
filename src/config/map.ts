@@ -19,11 +19,11 @@ export interface GameDoor {
     y: number
 }
 
-export const door = (id: string, room1: Room, room2: Room, riddle: Riddle): Door => ({id, room1, room2, riddle})
+const door = (id: string, room1: Room, room2: Room, riddle: Riddle): Door => ({id, room1, room2, riddle})
 
-export const gameDoor = (door: Door, from: Room, to: Room, x: number, y: number): GameDoor => ({door, from, to, x, y})
+const gameDoor = (door: Door, from: Room, to: Room, x: number, y: number): GameDoor => ({door, from, to, x, y})
 
-export const room = (id: string): Room => ({id})
+const room = (id: string): Room => ({id})
 
 const rooms: Room[] = [
     room('room1'),
@@ -43,18 +43,16 @@ const gameDoors: GameDoor[] = [
     gameDoor(doors[1], rooms[2], rooms[1], 7, 8),
 ]
 
-const getRoomById = (id: string): Room => rooms[+id.substr(id.lastIndexOf('m') + 1) - 1]
+export const getRoomById = (id: string): Room => rooms[+id.substr(id.lastIndexOf('m') + 1) - 1]
 
-const nextRoom = (currentRoomId: string, x: number, y: number): Room => {
+export const nextRoom = (currentRoomId: string, x: number, y: number): Room => {
     return gameDoors
         .filter(gameDoor => (gameDoor.from === getRoomById(currentRoomId)) && (gameDoor.x === x && gameDoor.y === y))[0]
         .to
 }
 
-const nextRiddle = (currentRoomId: string, x: number, y: number): Riddle => {
+export const nextRiddle = (currentRoomId: string, x: number, y: number): Riddle => {
     return gameDoors
         .filter(gameDoor => (gameDoor.from === getRoomById(currentRoomId)) && (gameDoor.x === x && gameDoor.y === y))[0]
         .door.riddle
 }
-
-export default rooms
