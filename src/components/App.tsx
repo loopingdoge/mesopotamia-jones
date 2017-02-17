@@ -17,7 +17,7 @@ import Riddle from './Riddle'
 
 const routingStore = new RouterStore()
 
-gameStore.setRoutingStore(routingStore)
+gameStore.init({routingStore, riddleStore})
 
 const stores = { gameStore, routingStore , riddleStore, riddleUIStore, uiStore }
 

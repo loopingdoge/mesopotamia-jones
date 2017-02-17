@@ -12,7 +12,7 @@ export class RiddleStore {
 
     @observable isSolved: boolean = false
 
-    constructor(level: number = 1) {
+    constructor(level: number = 0) {
         this.level = level
         this.riddles = riddles
         this.changeLevel(this.level)
@@ -38,6 +38,7 @@ export class RiddleStore {
     }
 
     @action changeLevel = (level: number) => {
+        console.warn('CHANGE', level)
         this.level = level
         this.generateArgs()
         this.setUserCode(this.riddles[this.level].defaultCode(this.args))

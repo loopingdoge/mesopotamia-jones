@@ -1,5 +1,6 @@
-import { observable, action, /* computed */ } from 'mobx'
-import { RouterStore } from 'mobx-react-router'
+import { observable, action, reaction, /* computed */ } from 'mobx'
+import { RiddleStore } from './riddleStore'
+
 import PhaserGame from '../phaser'
 
 export const GAME = 'GAME'
@@ -9,9 +10,23 @@ export class GameStore {
 
     game: PhaserGame
 
+    push: (path: string) => void
+    riddleStore: RiddleStore
+
     @observable level: number = 1
 
     @observable state: string = GAME
+
+    init(stores: any) {
+        let { riddleStore, routingStore } = stores
+        this.push = routingStore.push
+        this.riddleStore = riddleStore
+
+        reaction(
+            () => this.riddleStore.isSolved,
+            () => this.levelSolved(this.riddleStore.level)
+        )
+    }
 
     @action startGame = () => {
         this.game = new PhaserGame()
@@ -27,14 +42,14 @@ export class GameStore {
 
     @action goToRiddle = (level: number) => {
         this.state = RIDDLE
-        // this.push('/riddle')
+        this.riddleStore.changeLevel(this.level)
     }
 
-    push: (path: string) => void
-
-    setRoutingStore(routingStore: RouterStore) {
-        this.push = routingStore.push
+    @action levelSolved = (level: number) => {
+        this.level = level + 1
+        this.push('/game')
     }
+
 }
 
 const gameStore = new GameStore()
