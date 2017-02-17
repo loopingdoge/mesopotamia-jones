@@ -3,9 +3,10 @@ import riddles, { Riddle } from '../config/riddles'
 
 export class RiddleStore {
 
-    level: number
     riddles: Riddle[]
     args: any[]
+
+    @observable level: number
 
     @observable userCode: string
     @observable codeResult: any

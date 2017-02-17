@@ -41,13 +41,15 @@ export class GameStore {
     }
 
     @action goToRiddle = (level: number) => {
+        // TODO: usare level
         this.state = RIDDLE
         this.riddleStore.changeLevel(this.level)
     }
 
     @action levelSolved = (level: number) => {
         this.level = level + 1
-        this.push('/game')
+        this.state = GAME
+        // TODO: Far ricaricare il livello a game
     }
 
 }

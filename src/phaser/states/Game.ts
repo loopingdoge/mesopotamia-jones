@@ -58,8 +58,8 @@ export default class Game extends Phaser.State {
     }
 
     goToRiddle () {
+        // TODO: mettere il parametro
         gameStore.goToRiddle(0)
-        console.warn('goToRiddle', gameStore.level)
     }
 
 }
