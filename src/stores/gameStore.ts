@@ -32,9 +32,6 @@ export class GameStore {
         this.push('/game')
     }
 
-    
-
-    
 }
 
 const gameStore = new GameStore()
