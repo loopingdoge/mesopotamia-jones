@@ -3,7 +3,6 @@ declare const __DEV__: boolean
 import * as Phaser from 'phaser'
 import Dude from '../sprites/Dude'
 import gameStore from '../../stores/gameStore'
-import Scene from '../classes/Scene'
 
 export default class Game extends Phaser.State {
 
@@ -17,28 +16,10 @@ export default class Game extends Phaser.State {
 
     preload() {}
 
-    // TODO: Fatto giusto per il concetto, e' da mettere a posto
-    loadScene(scene: Scene) {
-        scene.walls.forEach( wall => {
-            this.walls.create(wall.x, wall.y, 'wall')
-        })
-        scene.doors.forEach( door => {
-            const d = this.game.add.sprite(door.x, door.y, 'door')
-            this.game.physics.enable(d)
-            d.body.immovable = true
-        })
-        this.game.add.existing(new Dude({
-            game: this.game,
-            x: scene.player.x,
-            y: scene.player.y,
-            key: 'dude',
-        }))
-    }
-
     create() {
         this.game.stage.backgroundColor = '#E37710'
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
-        const map = this.game.add.tilemap('room1')
+        const map = this.game.add.tilemap(gameStore.room.id)
         map.addTilesetImage('sheet', 'tiles')
 
         this.layer = map.createLayer('Livello tile 1')
@@ -65,19 +46,26 @@ export default class Game extends Phaser.State {
     }
 
     update() {
-        this.game.physics.arcade.collide(this.player, this.layer, this.collision, null, this)
-        // this.game.physics.arcade.collide(this.player, this.rdoor, this.goToRiddle, null, this)
-        // this.game.physics.arcade.collide(this.player, this.ldoor, this.goToRiddle, null, this)
+        this.game.physics.arcade.collide(this.player, this.layer, this.onCollision, null, this)
     }
 
-    collision(a: Phaser.Sprite, b: Phaser.TilemapLayer) {
-        if (b.index === 113)
-            this.goToRiddle()
+    reloadRoom() {
+        this.game.add.tilemap(gameStore.room.id)
     }
 
-    goToRiddle () {
-        gameStore.goToRiddle(0)
-        console.warn('onPrevRiddle', gameStore.level)
+    onCollision(player: Phaser.Sprite, collidedObject: Phaser.TilemapLayer) {
+        if (this.isCollisionWithDoor(collidedObject)) {
+            this.activateDoor(collidedObject.x, collidedObject.y)
+        }
+    }
+
+    isCollisionWithDoor(collidedObject: Phaser.TilemapLayer) {
+        // TODO: Aggiungere gli indici anche delle altre porte
+        return collidedObject.index === 113
+    }
+
+    activateDoor(x: number, y: number) {
+        gameStore.activateRiddle(x, y)
     }
 
 }

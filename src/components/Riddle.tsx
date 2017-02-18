@@ -326,15 +326,16 @@ export interface RiddleContainerProps {
 @observer
 class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
     render() {
-        const { goBack } = this.props.routingStore
         const {
-            riddle,
+            currentRiddle,
             codeResult,
             runCode,
             checkSolution,
             setUserCode,
             userCode,
         } = this.props.riddleStore
+
+        const goBack = this.props.gameStore.deactivateRiddle
 
         const {
             isCuneiformExpanded,
@@ -353,7 +354,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
         return (
             <Riddle
                 goBack={goBack}
-                riddleText={riddle.question}
+                riddleText={currentRiddle.question}
                 userCode={userCode}
                 codeResult={codeResult}
                 isLegendExpanded={isLegendExpanded}

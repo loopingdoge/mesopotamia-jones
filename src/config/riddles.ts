@@ -1,12 +1,12 @@
 export interface Riddle {
-    title: string
+    id: string
     question: string
     defaultCode: (variables: any[]) => string
     solution: (variables: any[]) => any
     argsGenerator: () => any[]
 }
 
-function randomNum(min: number, max: number) {
+const randomNum = (min: number, max: number) => {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min
@@ -14,7 +14,7 @@ function randomNum(min: number, max: number) {
 
 const riddles: Riddle[] = [
     {
-        title: 'return',
+        id: 'return',
         question: 'Identità',
         defaultCode: ([a]: number[]) =>
 `var a = ${a}
@@ -23,7 +23,7 @@ return `,
         argsGenerator: () => [randomNum(1, 10)],
     },
     {
-        title: 'somma',
+        id: 'somma',
         question: 'Quanto fa la somma di 2 numeri?',
         defaultCode: ([a, b]: number[]) =>
 `var a = ${a}
@@ -34,5 +34,8 @@ return somma`,
         argsGenerator: () => [randomNum(1, 5), randomNum(1, 5)],
     }
 ]
+
+export const getRiddlyById = (id: string): Riddle =>
+    riddles.filter(r => r.id === id)[0]
 
 export default riddles

@@ -14,13 +14,17 @@ declare global {
     }
 }
 
+const calculateDimesions = () => {
+    const docElement = document.documentElement
+    const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
+    const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
+    return { width, height }
+}
+
 class Game extends Phaser.Game {
 
     constructor () {
-        const docElement = document.documentElement
-        const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
-        const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
-        super(width, height, Phaser.CANVAS, 'game', null)
+        super(config.gameWidth, config.gameHeight, Phaser.CANVAS, 'game', null)
 
         this.state.add('Boot', BootState, false)
         this.state.add('Splash', SplashState, false)
@@ -29,6 +33,14 @@ class Game extends Phaser.Game {
 
     start() {
         this.state.start('Boot')
+    }
+
+    loadRoom() {
+        this.state.start('Game')
+    }
+
+    nextLevel() {
+        this.state.restart()
     }
 
 }

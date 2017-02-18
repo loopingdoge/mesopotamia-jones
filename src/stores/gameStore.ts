@@ -1,37 +1,57 @@
 import { observable, action, reaction, /* computed */ } from 'mobx'
-import { RouterStore } from 'mobx-react-router'
+
 import { RiddleStore } from './riddleStore'
+import { Room, rooms, getGameDoor } from '../config/map'
+import PhaserGame from '../phaser'
+
+export const GAME = 'GAME'
+export const RIDDLE = 'RIDDLE'
 
 export class GameStore {
 
-    init(stores: any) {
-        let { riddleStore, routingStore } = stores
-        this.push = routingStore.push
-        this.riddleStore = riddleStore
+    game: PhaserGame
+    riddleStore: RiddleStore
 
+    @observable room: Room
+    @observable state: string = GAME
+
+    init(riddleStore: RiddleStore) {
+        this.riddleStore = riddleStore
+        this.room = rooms[0] // TODO: check if a saved game exists
         reaction(
             () => this.riddleStore.isSolved,
-            () => this.levelSolved(this.riddleStore.level)
+            () => this.riddleSolved()
         )
     }
 
-    push: (path: string) => void
-    riddleStore: RiddleStore
-
-    @observable level: number = 0
-
-    @action incrementLevel = () => this.level++
-
-    @action goToRiddle = (level: number) => {
-        this.riddleStore.changeLevel(this.level)
-        this.push('/riddle')
+    @action startGame = () => {
+        this.game = new PhaserGame()
+        this.game.start()
     }
 
-    @action levelSolved = (level: number) => {
-        this.level = level+1
-        this.push('/game')
+    /**
+     * To call when a door is touched
+     * @param x: x position of the door
+     * @param y: y position of the door
+     */
+    @action activateRiddle = (x: number, y: number) => {
+        const gameDoor = getGameDoor(this.room, x, y)
+        this.riddleStore.activateDoor(gameDoor)
+        this.state = RIDDLE
     }
 
+    @action deactivateRiddle = () => {
+        this.state = GAME
+        this.game.loadRoom()
+    }
+
+    @action riddleSolved = () => {
+        if (this.state === GAME) return
+        this.room = this.riddleStore.currentGameDoor.to
+        this.state = GAME
+        this.game.loadRoom()
+    }
+    
 }
 
 const gameStore = new GameStore()

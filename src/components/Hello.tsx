@@ -3,14 +3,12 @@ import { inject, observer } from 'mobx-react'
 import { GameStore } from '../stores/gameStore'
 
 export interface HelloProps {
-    level: number
-    incrementLevel: () => void
+    level: string
 }
 
-const Hello = ({ level, incrementLevel }: HelloProps) =>
+const Hello = ({ level }: HelloProps) =>
     <div>
         <h1>We are at level: {level}</h1>
-        <button onClick={incrementLevel}>Increment</button>
     </div>
 
 export interface HelloContainerProps {
@@ -21,9 +19,9 @@ export interface HelloContainerProps {
 @observer
 class HelloContainer extends React.Component<HelloContainerProps, undefined> {
     render() {
-        const { level, incrementLevel } = this.props.gameStore
+        const level = this.props.gameStore.room.id
         return (
-            <Hello level={level} incrementLevel={incrementLevel}/>
+            <Hello level={level} />
         )
     }
 }
