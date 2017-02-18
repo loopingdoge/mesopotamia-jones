@@ -1,6 +1,7 @@
 import { observable, action, reaction, /* computed */ } from 'mobx'
-import { RiddleStore } from './riddleStore'
 
+import { RiddleStore } from './riddleStore'
+import { Room, rooms, getGameDoor } from '../config/map'
 import PhaserGame from '../phaser'
 
 export const GAME = 'GAME'
@@ -9,22 +10,17 @@ export const RIDDLE = 'RIDDLE'
 export class GameStore {
 
     game: PhaserGame
-
-    push: (path: string) => void
     riddleStore: RiddleStore
 
-    @observable level: number = 1
-
+    @observable room: Room
     @observable state: string = GAME
 
-    init(stores: any) {
-        let { riddleStore, routingStore } = stores
-        this.push = routingStore.push
+    init(riddleStore: RiddleStore) {
         this.riddleStore = riddleStore
-
+        this.room = rooms[0] // TODO: check if a saved game exists
         reaction(
             () => this.riddleStore.isSolved,
-            () => this.levelSolved(this.riddleStore.level)
+            () => this.riddleSolved()
         )
     }
 
@@ -33,23 +29,27 @@ export class GameStore {
         this.game.start()
     }
 
-    @action incrementLevel = () => this.level++
-
-    @action goToLevel = (level: number) => {
-        this.level = level
-        this.state = GAME
-    }
-
-    @action goToRiddle = (level: number) => {
-        // TODO: usare level
+    /**
+     * To call when a door is touched
+     * @param x: x position of the door
+     * @param y: y position of the door
+     */
+    @action activateRiddle = (x: number, y: number) => {
+        const gameDoor = getGameDoor(this.room, x, y)
+        this.riddleStore.activateDoor(gameDoor)
         this.state = RIDDLE
-        this.riddleStore.changeLevel(this.level)
     }
 
-    @action levelSolved = (level: number) => {
-        this.level = level + 1
+    @action deactivateRiddle = () => {
         this.state = GAME
-        // TODO: Far ricaricare il livello a game
+        this.game.loadRoom()
+    }
+
+    @action riddleSolved = () => {
+        if (this.state === GAME) return
+        this.room = this.riddleStore.currentGameDoor.to
+        this.state = GAME
+        this.game.loadRoom()
     }
 
 }

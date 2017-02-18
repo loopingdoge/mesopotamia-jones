@@ -1,32 +1,32 @@
 import { observable, action, computed } from 'mobx'
-import riddles, { Riddle } from '../config/riddles'
+import { GameDoor } from '../config/map'
+import { Riddle } from '../config/riddles'
 
 export class RiddleStore {
 
-    riddles: Riddle[]
-    args: any[]
-
-    @observable level: number
-
+    @observable currentGameDoor: GameDoor
+    @observable generatedArgs: any[]
     @observable userCode: string
     @observable codeResult: any
-
     @observable isSolved: boolean = false
 
-    constructor(level: number = 0) {
-        this.level = level
-        this.riddles = riddles
-        this.changeLevel(this.level)
+    @computed get currentRiddle(): Riddle {
+        return this.currentGameDoor.door.riddle
+    }
+
+    @action setUserCode = (newCode: string) => this.userCode = newCode
+
+    @action activateDoor = (gameDoor: GameDoor) => {
+        console.warn('CHANGE', gameDoor.door.id)
+        this.currentGameDoor = gameDoor
+        this.generatedArgs = this.currentRiddle.argsGenerator()
+        this.setUserCode(this.currentRiddle.defaultCode(this.generatedArgs))
     }
 
     @action checkSolution = () => {
-        if (this.riddles[this.level].solution(this.args) === this.codeResult) {
+        if (this.currentRiddle.solution(this.generatedArgs) === this.codeResult) {
             this.isSolved = true
         }
-    }
-
-    @action generateArgs = () => {
-        this.args = this.riddles[this.level].argsGenerator()
     }
 
     @action runCode = () => {
@@ -36,19 +36,6 @@ export class RiddleStore {
         } catch (e) {
             this.codeResult = (<EvalError>e).message
         }
-    }
-
-    @action changeLevel = (level: number) => {
-        console.warn('CHANGE', level)
-        this.level = level
-        this.generateArgs()
-        this.setUserCode(this.riddles[this.level].defaultCode(this.args))
-    }
-
-    @action setUserCode = (newCode: string) => this.userCode = newCode
-
-    @computed get riddle() {
-        return this.riddles[this.level]
     }
 
 }

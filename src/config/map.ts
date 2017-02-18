@@ -25,18 +25,18 @@ const gameDoor = (door: Door, from: Room, to: Room, x: number, y: number): GameD
 
 const room = (id: string): Room => ({id})
 
-const rooms: Room[] = [
+export const rooms: Room[] = [
     room('room1'),
     room('room2'),
     room('room3'),
 ]
 
-const doors: Door[] = [
+export const doors: Door[] = [
     door('door1', rooms[0], rooms[1], riddles[0]),
     door('door2', rooms[1], rooms[2], riddles[1]),
 ]
 
-const gameDoors: GameDoor[] = [
+export const gameDoors: GameDoor[] = [
     gameDoor(doors[0], rooms[0], rooms[1], 15, 4),
     gameDoor(doors[0], rooms[1], rooms[0], 0, 4),
     gameDoor(doors[1], rooms[1], rooms[2], 7, 0),
@@ -45,14 +45,19 @@ const gameDoors: GameDoor[] = [
 
 export const getRoomById = (id: string): Room => rooms[+id.substr(id.lastIndexOf('m') + 1) - 1]
 
-export const nextRoom = (currentRoomId: string, x: number, y: number): Room => {
-    return gameDoors
-        .filter(gameDoor => (gameDoor.from === getRoomById(currentRoomId)) && (gameDoor.x === x && gameDoor.y === y))[0]
-        .to
-}
+/** Returns a function used to get the gameDoor the user touched */
+const isGameDoorInRoom = (room: Room, x: number, y: number) =>
+    (gameDoor: GameDoor) => (gameDoor.from.id === room.id) && (gameDoor.x === x && gameDoor.y === y)
 
-export const nextRiddle = (currentRoomId: string, x: number, y: number): Riddle => {
-    return gameDoors
-        .filter(gameDoor => (gameDoor.from === getRoomById(currentRoomId)) && (gameDoor.x === x && gameDoor.y === y))[0]
-        .door.riddle
-}
+export const getGameDoor = (room: Room, x: number, y: number): GameDoor =>
+    gameDoors
+        .filter(isGameDoorInRoom(room, x, y))[0]
+
+export const nextRoom = (room: Room, x: number, y: number): Room =>
+    getGameDoor(room, x, y)
+        .to
+
+export const nextRiddle = (room: Room, x: number, y: number): Riddle =>
+    getGameDoor(room, x, y)
+        .door
+        .riddle

@@ -327,7 +327,7 @@ export interface RiddleContainerProps {
 class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
     render() {
         const {
-            riddle,
+            currentRiddle,
             codeResult,
             runCode,
             checkSolution,
@@ -335,8 +335,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             userCode,
         } = this.props.riddleStore
 
-        const { goToLevel, level } = this.props.gameStore
-        const goBack = () => goToLevel(level)
+        const goBack = this.props.gameStore.deactivateRiddle
 
         const {
             isCuneiformExpanded,
@@ -355,7 +354,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
         return (
             <Riddle
                 goBack={goBack}
-                riddleText={riddle.question}
+                riddleText={currentRiddle.question}
                 userCode={userCode}
                 codeResult={codeResult}
                 isLegendExpanded={isLegendExpanded}

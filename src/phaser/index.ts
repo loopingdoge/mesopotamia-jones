@@ -35,8 +35,8 @@ class Game extends Phaser.Game {
         this.state.start('Boot')
     }
 
-    refresh() {
-
+    loadRoom() {
+        this.state.start('Game')
     }
 
     nextLevel() {

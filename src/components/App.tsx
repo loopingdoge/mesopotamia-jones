@@ -12,12 +12,10 @@ import riddleStore from '../stores/riddleStore'
 import riddleUIStore from '../stores/riddleUIStore'
 import Home from './Home'
 import MesopotamiaJones from './MesopotamiaJones'
-import Game from './Game'
-import Riddle from './Riddle'
 
 const routingStore = new RouterStore()
 
-gameStore.init({routingStore, riddleStore})
+gameStore.init(riddleStore)
 
 const stores = { gameStore, routingStore , riddleStore, riddleUIStore, uiStore }
 

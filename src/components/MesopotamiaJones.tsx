@@ -30,9 +30,15 @@ const MesopotamiaJones = ({ gameState }: MesopotamiaJonesProps) =>
         <div className={css(getStyles(gameState).game)}>
             <Game />
         </div>
-        <div className={css(getStyles(gameState).riddle)}>
-            <Riddle />
-        </div>
+        {
+            gameState === RIDDLE ?
+                <div className={css(getStyles(gameState).riddle)}>
+                    <Riddle />
+                </div>
+            :
+                null
+        }
+        
     </div>
 
 export interface MesopotamiaJonesProps {
