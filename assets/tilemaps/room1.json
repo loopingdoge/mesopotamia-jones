@@ -32,6 +32,20 @@
                 }],
          "tilecount":140,
          "tileheight":32,
+         "tileproperties":
+            {
+             "112":
+                {
+                 "isDoor":true
+                }
+            },
+         "tilepropertytypes":
+            {
+             "112":
+                {
+                 "isDoor":"bool"
+                }
+            },
          "tilewidth":32
         }],
  "tilewidth":32,

@@ -8,8 +8,7 @@ export default class Game extends Phaser.State {
 
     player: Phaser.Sprite
     walls: Phaser.Group
-    rdoor: Phaser.Sprite
-    ldoor: Phaser.Sprite
+    // door: Phaser.Sprite
     layer: Phaser.TilemapLayer
 
     init() {}
@@ -20,14 +19,16 @@ export default class Game extends Phaser.State {
         this.game.stage.backgroundColor = '#E37710'
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         const map = this.game.add.tilemap(gameStore.room.id)
+
         map.addTilesetImage('sheet', 'tiles')
 
         this.layer = map.createLayer('Livello tile 1')
+
         map.setCollisionByExclusion([7, 8, 9, 21, 22, 23, 35, 36, 37].map(n => n + 1))
 
         //  This resizes the game world to match the layer dimensions
         this.layer.resizeWorld()
-
+        console.log()
         this.player = this.game.add.existing(new Dude({
             game: this.game,
             x: this.world.centerX,
@@ -54,6 +55,7 @@ export default class Game extends Phaser.State {
     }
 
     onCollision(player: Phaser.Sprite, collidedObject: Phaser.TilemapLayer) {
+        console.log(collidedObject)
         if (this.isCollisionWithDoor(collidedObject)) {
             this.activateDoor(collidedObject.x, collidedObject.y)
         }
@@ -61,7 +63,7 @@ export default class Game extends Phaser.State {
 
     isCollisionWithDoor(collidedObject: Phaser.TilemapLayer) {
         // TODO: Aggiungere gli indici anche delle altre porte
-        return collidedObject.index === 113
+        return collidedObject.properties.isDoor
     }
 
     activateDoor(x: number, y: number) {
