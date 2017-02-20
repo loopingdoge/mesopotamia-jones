@@ -53,6 +53,14 @@ export const getGameDoor = (room: Room, x: number, y: number): GameDoor =>
     gameDoors
         .filter(isGameDoorInRoom(room, x, y))[0]
 
+const isGameDoorIdInRoom = (door: Door, room: Room) =>
+    (gameDoor: GameDoor) => (gameDoor.door.id === door.id && gameDoor.from.id === room.id )
+
+
+export const getGameDoorById = (door: Door, room: Room) => 
+    gameDoors
+        .filter(isGameDoorIdInRoom(door, room))[0]
+
 export const nextRoom = (room: Room, x: number, y: number): Room =>
     getGameDoor(room, x, y)
         .to

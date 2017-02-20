@@ -1,7 +1,7 @@
 import { observable, action, reaction, /* computed */ } from 'mobx'
 
 import { RiddleStore } from './riddleStore'
-import { Room, rooms, getGameDoor } from '../config/map'
+import { Room, rooms, getGameDoor, Door } from '../config/map'
 import PhaserGame from '../phaser'
 
 export const GAME = 'GAME'
@@ -13,6 +13,7 @@ export class GameStore {
     riddleStore: RiddleStore
 
     @observable room: Room
+    @observable lastDoor: Door
     @observable state: string = GAME
 
     init(riddleStore: RiddleStore) {
@@ -37,6 +38,7 @@ export class GameStore {
     @action activateRiddle = (x: number, y: number) => {
         const gameDoor = getGameDoor(this.room, x, y)
         this.riddleStore.activateDoor(gameDoor)
+        this.lastDoor = gameDoor.door
         this.state = RIDDLE
     }
 

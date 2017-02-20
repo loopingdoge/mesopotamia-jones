@@ -36,14 +36,16 @@
             {
              "112":
                 {
-                 "isDoor":true
+                 "isDoor":true,
+                 "direction":"left"
                 }
             },
          "tilepropertytypes":
             {
              "112":
                 {
-                 "isDoor":"bool"
+                 "isDoor":"bool",
+                 "direction":"string"
                 }
             },
          "tilewidth":32

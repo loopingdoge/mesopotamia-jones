@@ -3,6 +3,7 @@ declare const __DEV__: boolean
 import * as Phaser from 'phaser'
 import Dude from '../sprites/Dude'
 import gameStore from '../../stores/gameStore'
+import { GameDoor, getGameDoorById } from '../../config/map'
 
 export default class Game extends Phaser.State {
 
@@ -28,11 +29,39 @@ export default class Game extends Phaser.State {
 
         //  This resizes the game world to match the layer dimensions
         this.layer.resizeWorld()
-        console.log()
+
+        console.warn(this.layer)
+        let centerX: number = this.world.centerX
+        let centerY: number = this.world.centerY
+
+        if(gameStore.lastDoor) {
+            let lastDoor: GameDoor = getGameDoorById(gameStore.lastDoor, gameStore.room)
+            let lastDoorTile = map.getTile(lastDoor.x, lastDoor.y, this.layer)
+            let cX = lastDoorTile.centerX + lastDoorTile.left
+            let cY = lastDoorTile.centerY + lastDoorTile.top
+            switch(lastDoorTile.properties.direction) {
+                case 'top':
+                    cY -= lastDoorTile.height
+                    break
+                case 'left':
+                    cX -= lastDoorTile.width
+                    break
+                case 'bottom':
+                    cY += lastDoorTile.height
+                    break
+                case 'right':
+                    cX += lastDoorTile.width
+                    break;
+            }
+            centerX = cX || centerX
+            centerY = cY || centerY
+        }
+
+
         this.player = this.game.add.existing(new Dude({
             game: this.game,
-            x: this.world.centerX,
-            y: this.world.centerY,
+            x: centerX,
+            y: centerY,
             key: 'dude'
         }))
 
