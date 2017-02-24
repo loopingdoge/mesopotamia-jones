@@ -21,6 +21,7 @@ export class RiddleStore {
         this.currentGameDoor = gameDoor
         this.generatedArgs = this.currentRiddle.argsGenerator()
         this.setUserCode(this.currentRiddle.defaultCode(this.generatedArgs))
+        this.isSolved = false
     }
 
     @action checkSolution = () => {

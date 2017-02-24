@@ -2,10 +2,13 @@ import { observable, action, reaction, /* computed */ } from 'mobx'
 
 import { RiddleStore } from './riddleStore'
 import { Room, rooms, getGameDoor, Door } from '../config/map'
+import { Dialog, dialogs, getDialogById } from '../config/dialogs'
+
 import PhaserGame from '../phaser'
 
 export const GAME = 'GAME'
 export const RIDDLE = 'RIDDLE'
+export const DIALOG = 'DIALOG'
 
 export class GameStore {
 
@@ -14,6 +17,7 @@ export class GameStore {
 
     @observable room: Room
     @observable lastDoor: Door
+    @observable dialog: Dialog
     @observable state: string = GAME
 
     init(riddleStore: RiddleStore) {
@@ -53,7 +57,19 @@ export class GameStore {
         this.state = GAME
         this.game.loadRoom()
     }
-    
+
+    @action showDialog = (dialogId: string) => {
+        this.dialog = getDialogById(dialogId)
+        setInterval(function() {
+            gameStore.hideDialog()
+        }, 2000)
+        this.state = DIALOG
+    }
+
+    @action hideDialog = () => {
+        this.state = GAME
+    }
+
 }
 
 const gameStore = new GameStore()

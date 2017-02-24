@@ -2,7 +2,7 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
 
-import { GameStore, GAME, RIDDLE } from '../stores/gameStore'
+import { GameStore, GAME, RIDDLE, DIALOG } from '../stores/gameStore'
 import Game from './Game'
 import Riddle from './Riddle'
 
@@ -12,7 +12,7 @@ export interface MesopotamiaJonesProps {
 
 const getStyles = (gameState: string) => StyleSheet.create({
     game: {
-        display: gameState === GAME ? 'flex' : 'none',
+        display: gameState === GAME || gameState === DIALOG ? 'flex' : 'none',
         flex: 1,
     },
     riddle: {
