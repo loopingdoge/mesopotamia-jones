@@ -42,7 +42,7 @@ export default class App extends React.Component<void, void> {
                         <Route path='/game' component={MesopotamiaJones} />
                     </Router>
                 </Provider>
-                <DevTools />
+                {/*<DevTools />*/}
             </div>
         )
     }

@@ -30,7 +30,6 @@ export default class Game extends Phaser.State {
         //  This resizes the game world to match the layer dimensions
         this.layer.resizeWorld()
 
-        console.warn(this.layer)
         let centerX: number = this.world.centerX
         let centerY: number = this.world.centerY
 
@@ -84,7 +83,7 @@ export default class Game extends Phaser.State {
     }
 
     onCollision(player: Phaser.Sprite, collidedObject: Phaser.TilemapLayer) {
-        console.log(collidedObject)
+        // console.log(collidedObject)
         if (this.isCollisionWithDoor(collidedObject)) {
             this.activateDoor(collidedObject.x, collidedObject.y)
         }

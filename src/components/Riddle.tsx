@@ -7,6 +7,9 @@ import { GameStore } from '../stores/gameStore'
 import { RiddleUIStore } from '../stores/riddleUIStore'
 import { RiddleStore } from '../stores/riddleStore'
 import Editor from './Editor'
+import Toolbar from './Toolbar'
+import RiddleProgressBar from './RiddleProgressBar'
+import RiddleNotification from './RiddleNotification'
 
 const khosrau = {
     fontFamily: 'Cuneiform',
@@ -25,13 +28,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         flex: 1,
-    },
-    toolbar: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        height: 30,
-        border: '1px solid black',
     },
     riddleContainer: {
         display: 'flex',
@@ -228,23 +224,6 @@ const EditorSection = ({ code, onUserCodeInput }: EditorSectionProps) =>
         />
     </div>
 
-export interface BackButtonSectionProps {
-    goBack: () => void
-}
-
-const BackButtonSection = ({ goBack }: BackButtonSectionProps) =>
-    <div>
-        <button onClick={goBack}>{'<-'}</button>
-    </div>
-
-export interface ToolbarProps {
-    goBack: () => void
-}
-const Toolbar = ({ goBack }: ToolbarProps) =>
-    <div className={css(styles.toolbar)}>
-        <BackButtonSection goBack={goBack} />
-    </div>
-
 export interface SolutionSection {
     codeResult: string
     runCode: () => void
@@ -260,6 +239,7 @@ export interface RiddleProps {
     riddleText: string
     userCode: string
     codeResult: string
+    isNotificationVisible: boolean
     isCuneiformExpanded: boolean
     isLegendExpanded: boolean
     goBack: () => void
@@ -271,8 +251,9 @@ export interface RiddleProps {
     onUserCodeInput: (code: string) => void
 }
 
-const Riddle = ({ riddleText, userCode, codeResult, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput }: RiddleProps) =>
-    <div className={css(styles.wrapper)}> 
+const Riddle = ({ riddleText, userCode, codeResult, isNotificationVisible, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput }: RiddleProps) =>
+    <div className={css(styles.wrapper)}>
+        <RiddleProgressBar state={'BLANK'} isCorrect/>
         <Toolbar goBack={goBack} />
         <div className={css(styles.riddleContainer)}>
             <div className={css(isCuneiformExpanded ? styles.riddleColumnExpanded : styles.riddleColumnShrinked)}>
@@ -313,6 +294,7 @@ const Riddle = ({ riddleText, userCode, codeResult, isCuneiformExpanded, isLegen
                 />
             </div>
         </div>
+        <RiddleNotification text={'Whoops'} isVisible={isNotificationVisible}/>
     </div>
 
 export interface RiddleContainerProps {
@@ -344,6 +326,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             isLegendExpanded,
             shrinkLegend,
             expandLegend,
+            isNotificationVisible,
         } = this.props.riddleUIStore
 
         const onRunCode = () => {
@@ -359,6 +342,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 codeResult={codeResult}
                 isLegendExpanded={isLegendExpanded}
                 isCuneiformExpanded={isCuneiformExpanded}
+                isNotificationVisible={isNotificationVisible}
                 runCode={onRunCode}
                 shrinkCuneiform={shrinkCuneiform}
                 expandCuneiform={expandCuneiform}
