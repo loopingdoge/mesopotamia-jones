@@ -8,8 +8,6 @@ import { RiddleUIStore } from '../stores/riddleUIStore'
 import { RiddleStore } from '../stores/riddleStore'
 import Editor from './Editor'
 import Toolbar from './Toolbar'
-import RiddleProgressBar from './RiddleProgressBar'
-import RiddleNotification from './RiddleNotification'
 
 const khosrau = {
     fontFamily: 'Cuneiform',
@@ -253,7 +251,6 @@ export interface RiddleProps {
 
 const Riddle = ({ riddleText, userCode, codeResult, isNotificationVisible, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
-        <RiddleProgressBar state={'BLANK'} isCorrect/>
         <Toolbar goBack={goBack} />
         <div className={css(styles.riddleContainer)}>
             <div className={css(isCuneiformExpanded ? styles.riddleColumnExpanded : styles.riddleColumnShrinked)}>
@@ -294,7 +291,6 @@ const Riddle = ({ riddleText, userCode, codeResult, isNotificationVisible, isCun
                 />
             </div>
         </div>
-        <RiddleNotification text={'Whoops'} isVisible={isNotificationVisible}/>
     </div>
 
 export interface RiddleContainerProps {
