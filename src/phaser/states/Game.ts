@@ -83,7 +83,7 @@ export default class Game extends Phaser.State {
     }
 
     onCollision(player: Phaser.Sprite, collidedObject: Phaser.TilemapLayer) {
-        if(collidedObject.index === 63) gameStore.showDialog('dialog1')
+        if (collidedObject.index === 63) gameStore.showDialog('dialog1')
         if (this.isCollisionWithDoor(collidedObject)) {
             this.activateDoor(collidedObject.x, collidedObject.y)
         }

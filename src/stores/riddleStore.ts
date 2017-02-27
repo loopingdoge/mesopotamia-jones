@@ -1,6 +1,7 @@
-import { observable, action, computed } from 'mobx'
+import { observable, action, computed, reaction } from 'mobx'
 import { GameDoor } from '../config/map'
 import { Riddle } from '../config/riddles'
+import riddleUIStore from './riddleUIStore'
 
 export class RiddleStore {
 
@@ -10,6 +11,18 @@ export class RiddleStore {
     @observable codeResult: any
     @observable isSolved: boolean = false
 
+    constructor() {
+        reaction(
+            () => this.codeResult,
+            result => {
+                if (this.currentRiddle.solution(this.generatedArgs) !== result) {
+                    riddleUIStore.showNotification()
+                    setTimeout(() => riddleUIStore.hideNotification(), 1000)
+                }
+            }
+        )
+    }
+
     @computed get currentRiddle(): Riddle {
         return this.currentGameDoor.door.riddle
     }
@@ -17,7 +30,6 @@ export class RiddleStore {
     @action setUserCode = (newCode: string) => this.userCode = newCode
 
     @action activateDoor = (gameDoor: GameDoor) => {
-        console.warn('CHANGE', gameDoor.door.id)
         this.currentGameDoor = gameDoor
         this.generatedArgs = this.currentRiddle.argsGenerator()
         this.setUserCode(this.currentRiddle.defaultCode(this.generatedArgs))
