@@ -60,7 +60,7 @@ export class GameStore {
 
     @action showDialog = (dialogId: string) => {
         this.dialog = getDialogById(dialogId)
-        setInterval(function() {
+        setTimeout(() => {
             gameStore.hideDialog()
         }, 2000)
         this.state = DIALOG
