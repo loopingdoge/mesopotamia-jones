@@ -8,6 +8,7 @@ import { RiddleUIStore } from '../stores/riddleUIStore'
 import { RiddleStore } from '../stores/riddleStore'
 import Editor from './Editor'
 import Toolbar from './Toolbar'
+import Solution from './Solution'
 
 const khosrau = {
     fontFamily: 'Cuneiform',
@@ -259,6 +260,11 @@ const Riddle = ({ riddleText, userCode, codeResult, isNotificationVisible, isCun
                         <div className={css(styles.column)}>
                             <CuneiformSection
                                 riddle={riddleText}
+                            />
+                            <Solution
+                                length={4}
+                                type={'number'}
+                                onChangeValue={(value) => console.log(value)}
                             />
                             <Separator
                                 isVertical={false}
