@@ -25,7 +25,7 @@ export class GameStore {
         this.room = rooms[0] // TODO: check if a saved game exists
         reaction(
             () => this.riddleStore.isSolved,
-            () => this.riddleSolved()
+            (isSolved: boolean) => isSolved && this.riddleSolved()
         )
     }
 

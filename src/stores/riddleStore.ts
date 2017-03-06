@@ -99,15 +99,18 @@ export class RiddleStore {
 
     @action runCode = () => {
         let codeResult
+        let userSolution = this.state.userSolution
         try {
             // tslint:disable-next-line: no-eval
             codeResult = eval(`(function() {${this.userCode}})()`)
+            userSolution = String(codeResult)
         } catch (e) {
             codeResult = (<EvalError>e).message
         }
         this.state = {
             ...this.state,
             codeResult,
+            userSolution,
         }
     }
 
