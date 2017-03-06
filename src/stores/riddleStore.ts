@@ -1,17 +1,53 @@
 import { observable, action, computed, reaction } from 'mobx'
 import { GameDoor } from '../config/map'
-import { Riddle } from '../config/riddles'
+import { Riddle, userSolutionInit } from '../config/riddles'
 import riddleUIStore from './riddleUIStore'
+
+export interface IRiddleStore {
+    currentGameDoor: GameDoor
+    generatedArgs: any[]
+    userCode: string
+    userSolution: string
+    codeResult: any
+    isSolved: boolean
+}
 
 export class RiddleStore {
 
-    @observable currentGameDoor: GameDoor
-    @observable generatedArgs: any[]
-    @observable userCode: string
-    @observable codeResult: any
-    @observable isSolved: boolean = false
+    @observable state: IRiddleStore
+
+    @computed get currentGameDoor(): GameDoor {
+        return this.state.currentGameDoor
+    }
+    @computed get generatedArgs(): any[] {
+        return this.state.generatedArgs
+    }
+    @computed get userCode(): string {
+        return this.state.userCode
+    }
+    @computed get userSolution(): string {
+        return this.state.userSolution
+    }
+    @computed get codeResult(): any {
+        return this.state.codeResult
+    }
+    @computed get isSolved(): boolean {
+        return this.state.isSolved
+    }
+
+    @computed get currentRiddle(): Riddle {
+        return this.state.currentGameDoor.door.riddle
+    }
 
     constructor() {
+        this.state = {
+            currentGameDoor: null,
+            generatedArgs: null,
+            userCode: null,
+            userSolution: null,
+            codeResult: null,
+            isSolved: false,
+        }
         reaction(
             () => this.codeResult,
             result => {
@@ -23,31 +59,55 @@ export class RiddleStore {
         )
     }
 
-    @computed get currentRiddle(): Riddle {
-        return this.currentGameDoor.door.riddle
-    }
-
-    @action setUserCode = (newCode: string) => this.userCode = newCode
-
-    @action activateDoor = (gameDoor: GameDoor) => {
-        this.currentGameDoor = gameDoor
-        this.generatedArgs = this.currentRiddle.argsGenerator()
-        this.setUserCode(this.currentRiddle.defaultCode(this.generatedArgs))
-        this.isSolved = false
-    }
-
-    @action checkSolution = () => {
-        if (this.currentRiddle.solution(this.generatedArgs) === this.codeResult) {
-            this.isSolved = true
+    @action setUserCode = (newCode: string) => {
+        this.state = {
+            ...this.state,
+            userCode: newCode,
         }
     }
 
+    @action setUserSolution = (newSol: string) => {
+        this.state = {
+            ...this.state,
+            userSolution: newSol,
+        }
+    }
+
+    @action activateDoor = (gameDoor: GameDoor) => {
+        const riddle = gameDoor.door.riddle
+        this.state = {
+            ...this.state,
+            currentGameDoor: gameDoor,
+            generatedArgs: riddle.argsGenerator(),
+            userSolution: userSolutionInit(riddle.solutionType, riddle.solutionLength),
+            isSolved: false,
+        }
+        this.setUserCode(this.currentRiddle.defaultCode(this.generatedArgs))
+    }
+
+    @action checkSolution = () => {
+        const riddleSolution = this.currentRiddle.solution(this.generatedArgs)
+        let newState: IRiddleStore = this.state
+        if (riddleSolution === this.userSolution) {
+             newState = {
+                 ...this.state,
+                 isSolved: true,
+             }
+        }
+        this.state = newState
+    }
+
     @action runCode = () => {
+        let codeResult
         try {
             // tslint:disable-next-line: no-eval
-            this.codeResult = eval(`(function() {${this.userCode}})()`)
+            codeResult = eval(`(function() {${this.userCode}})()`)
         } catch (e) {
-            this.codeResult = (<EvalError>e).message
+            codeResult = (<EvalError>e).message
+        }
+        this.state = {
+            ...this.state,
+            codeResult,
         }
     }
 

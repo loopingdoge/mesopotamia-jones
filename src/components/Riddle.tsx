@@ -6,6 +6,7 @@ import { RouterStore } from 'mobx-react-router'
 import { GameStore } from '../stores/gameStore'
 import { RiddleUIStore } from '../stores/riddleUIStore'
 import { RiddleStore } from '../stores/riddleStore'
+import { SolutionType } from '../config/riddles'
 import Editor from './Editor'
 import Toolbar from './Toolbar'
 import Solution from './Solution'
@@ -236,7 +237,10 @@ const SolutionSection = ({ codeResult, runCode }: SolutionSection) =>
 
 export interface RiddleProps {
     riddleText: string
+    solutionLength: number
+    solutionType: SolutionType
     userCode: string
+    userSolution: string
     codeResult: string
     isNotificationVisible: boolean
     isCuneiformExpanded: boolean
@@ -248,9 +252,10 @@ export interface RiddleProps {
     shrinkLegend: () => void
     expandLegend: () => void
     onUserCodeInput: (code: string) => void
+    onChangeSolution: (sol: string) => void
 }
 
-const Riddle = ({ riddleText, userCode, codeResult, isNotificationVisible, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput }: RiddleProps) =>
+const Riddle = ({ riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput, onChangeSolution }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} />
         <div className={css(styles.riddleContainer)}>
@@ -262,9 +267,10 @@ const Riddle = ({ riddleText, userCode, codeResult, isNotificationVisible, isCun
                                 riddle={riddleText}
                             />
                             <Solution
-                                length={4}
-                                type={'number'}
-                                onChangeValue={(value) => console.log(value)}
+                                length={solutionLength}
+                                type={solutionType}
+                                onChangeValue={onChangeSolution}
+                                value={userSolution}
                             />
                             <Separator
                                 isVertical={false}
@@ -316,7 +322,9 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             runCode,
             checkSolution,
             setUserCode,
+            setUserSolution,
             userCode,
+            userSolution,
         } = this.props.riddleStore
 
         const goBack = this.props.gameStore.deactivateRiddle
@@ -336,11 +344,19 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             checkSolution()
         }
 
+        const onChangeSolution = (sol: string) => {
+            setUserSolution(sol)
+            checkSolution()
+        }
+
         return (
             <Riddle
                 goBack={goBack}
                 riddleText={currentRiddle.question}
+                solutionLength={currentRiddle.solutionLength}
+                solutionType={currentRiddle.solutionType}
                 userCode={userCode}
+                userSolution={userSolution}
                 codeResult={codeResult}
                 isLegendExpanded={isLegendExpanded}
                 isCuneiformExpanded={isCuneiformExpanded}
@@ -351,6 +367,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 shrinkLegend={shrinkLegend}
                 expandLegend={expandLegend}
                 onUserCodeInput={setUserCode}
+                onChangeSolution={onChangeSolution}
             />
         )
     }

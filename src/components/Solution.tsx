@@ -1,35 +1,11 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 
+import { SolutionType } from '../config/riddles'
+import { prev, next, initList } from '../utils'
+
 const numbers: string[] = '0123456789'.split('')
 const strings: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
-
-type SolutionTypes = 'number' | 'string'
-
-/**
- * Modulo operation which works on negative numbers too
- * @param n The number to be modulated
- * @param modulo The modulo
- */
-function mod (n: number, modulo: number) {
-    return ((n % modulo) + modulo) % modulo
-}
-
-function next<T> (list: T[], index: number) {
-    return mod(index + 1, list.length)
-}
-
-function prev<T> (list: T[], index: number) {
-    return mod(index - 1, list.length)
-}
-
-function initList (length: number) {
-    const list = new Array(length)
-    for (let i = 0; i < list.length; i ++) list[i] = 0
-    return list
-}
-
-const listFromType = (type: SolutionTypes) => type === 'number' ? numbers : strings
 
 const styles = StyleSheet.create({
     solutionField: {
@@ -41,6 +17,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 })
+
+function initListValues (list: string[], refList: string[], value: string) {
+    return list.map((v, i) => refList.indexOf(value[i]))
+}
+
+const listFromType = (type: SolutionType) => type === 'number' ? numbers : strings
 
 export interface SolutionLabelProps {
     value: string
@@ -67,7 +49,8 @@ const SolutionField = ({ list, currentValueIndex, onIncrement, onDecrement }: So
 
 export interface SolutionProps {
     length: number
-    type: SolutionTypes
+    type: SolutionType
+    value: string
     onChangeValue: (value: string) => void
 }
 
@@ -79,7 +62,7 @@ export default class Solution extends React.Component<SolutionProps, SolutionSta
 
     constructor(props: SolutionProps) {
         super(props)
-        const indexesInList = initList(props.length)
+        const indexesInList = initListValues(initList(props.length), listFromType(props.type), props.value)
         this.state = { indexesInList }
     }
 
@@ -94,13 +77,14 @@ export default class Solution extends React.Component<SolutionProps, SolutionSta
     getFields() {
         const fields = initList(this.props.length)
         return fields.map(
-            (_, i) => <SolutionField
+            (_, i) =>
+                <SolutionField
                     key={i}
                     list={listFromType(this.props.type)}
                     currentValueIndex={this.state.indexesInList[i]}
                     onIncrement={() => this.updateField(this.state.indexesInList[i], i, next)}
                     onDecrement={() => this.updateField(this.state.indexesInList[i], i, prev)}
-                 />
+                />
         )
     }
 
