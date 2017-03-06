@@ -100,6 +100,12 @@ const styles = StyleSheet.create({
     legendNewline: {
         width: '100%'
     },
+    lockRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
     solutionSection: {
         position: 'absolute',
         zIndex: 100000,
@@ -253,9 +259,10 @@ export interface RiddleProps {
     expandLegend: () => void
     onUserCodeInput: (code: string) => void
     onChangeSolution: (sol: string) => void
+    tryOpenDoor: () => void
 }
 
-const Riddle = ({ riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput, onChangeSolution }: RiddleProps) =>
+const Riddle = ({ riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} />
         <div className={css(styles.riddleContainer)}>
@@ -266,12 +273,15 @@ const Riddle = ({ riddleText, solutionLength, solutionType, userCode, userSoluti
                             <CuneiformSection
                                 riddle={riddleText}
                             />
-                            <Solution
-                                length={solutionLength}
-                                type={solutionType}
-                                onChangeValue={onChangeSolution}
-                                value={userSolution}
-                            />
+                            <div className={css(styles.lockRow)}>
+                                <Solution
+                                    length={solutionLength}
+                                    type={solutionType}
+                                    onChangeValue={onChangeSolution}
+                                    value={userSolution}
+                                />
+                                <button onClick={tryOpenDoor}>Open</button>
+                            </div>
                             <Separator
                                 isVertical={false}
                                 expanded={isLegendExpanded}
@@ -339,16 +349,6 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             isNotificationVisible,
         } = this.props.riddleUIStore
 
-        const onRunCode = () => {
-            runCode()
-            checkSolution()
-        }
-
-        const onChangeSolution = (sol: string) => {
-            setUserSolution(sol)
-            checkSolution()
-        }
-
         return (
             <Riddle
                 goBack={goBack}
@@ -361,13 +361,14 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 isLegendExpanded={isLegendExpanded}
                 isCuneiformExpanded={isCuneiformExpanded}
                 isNotificationVisible={isNotificationVisible}
-                runCode={onRunCode}
+                runCode={runCode}
+                onUserCodeInput={setUserCode}
+                onChangeSolution={setUserSolution}
+                tryOpenDoor={checkSolution}
                 shrinkCuneiform={shrinkCuneiform}
                 expandCuneiform={expandCuneiform}
                 shrinkLegend={shrinkLegend}
                 expandLegend={expandLegend}
-                onUserCodeInput={setUserCode}
-                onChangeSolution={onChangeSolution}
             />
         )
     }
