@@ -1,6 +1,6 @@
 export interface Riddle {
     id: string
-    question: string
+    question: (variables: any[]) => string
     defaultCode: (variables: any[]) => string
     solution: (variables: any[]) => string
     solutionLength: number,
@@ -25,7 +25,7 @@ export const userSolutionInit = (type: SolutionType, length: number) => {
 const riddles: Riddle[] = [
 {
     id: 'return',
-    question: 'Identità',
+    question: ([a]: number[]) => `Inserisci questo numero ${a}`,
     defaultCode: ([a]: number[]) =>
 `var a = ${a};
 return ;`,
@@ -36,7 +36,7 @@ return ;`,
 },
 {
     id: 'somma',
-    question: 'Quanto fa la somma di 2 numeri?',
+    question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
     defaultCode: ([a, b]: number[]) =>
 `var a = ${a};
 var b = ${b};

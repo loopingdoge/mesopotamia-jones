@@ -114,7 +114,7 @@ export default class GameContainer extends React.Component<GameContainerProps, u
                     game={this.props.gameStore.game}
                 />
                 <DialogUI
-                    isVisible={ this.props.gameStore.state === DIALOG }
+                    isVisible={ this.props.gameStore.gameState === DIALOG }
                     dialog={this.props.gameStore.dialog}
                 />
             </div>
