@@ -39,6 +39,10 @@ export class RiddleStore {
         return this.state.currentGameDoor.door.riddle
     }
 
+    @computed get question(): string {
+        return this.currentRiddle.question(this.generatedArgs)
+    }
+
     constructor() {
         this.state = {
             currentGameDoor: null,
@@ -103,6 +107,7 @@ export class RiddleStore {
         try {
             // tslint:disable-next-line: no-eval
             codeResult = eval(`(function() {${this.userCode}})()`)
+            // TODO: Check if codeResult is appropriate
             userSolution = String(codeResult)
         } catch (e) {
             codeResult = (<EvalError>e).message

@@ -54,9 +54,9 @@ class MesopotamiaJonesContainer extends React.Component<MesopotamiaJonesProps, u
     }
 
     render() {
-        const { state } = this.props.gameStore
+        const { gameState } = this.props.gameStore
         return (
-            <MesopotamiaJones gameState={state} />
+            <MesopotamiaJones gameState={gameState} />
         )
     }
 }

@@ -262,7 +262,11 @@ export interface RiddleProps {
     tryOpenDoor: () => void
 }
 
-const Riddle = ({ riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible, isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend, expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor }: RiddleProps) =>
+const Riddle = ({
+    riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible,
+    isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
+    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor
+}: RiddleProps) =>
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} />
         <div className={css(styles.riddleContainer)}>
@@ -335,6 +339,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             setUserSolution,
             userCode,
             userSolution,
+            question,
         } = this.props.riddleStore
 
         const goBack = this.props.gameStore.deactivateRiddle
@@ -352,7 +357,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
         return (
             <Riddle
                 goBack={goBack}
-                riddleText={currentRiddle.question}
+                riddleText={question}
                 solutionLength={currentRiddle.solutionLength}
                 solutionType={currentRiddle.solutionType}
                 userCode={userCode}
