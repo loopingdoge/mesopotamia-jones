@@ -50,7 +50,7 @@ export default class Game extends Phaser.State {
                     break
                 case 'right':
                     cX += lastDoorTile.width
-                    break;
+                    break
             }
             centerX = cX || centerX
             centerY = cY || centerY

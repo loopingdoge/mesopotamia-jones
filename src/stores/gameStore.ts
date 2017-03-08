@@ -2,7 +2,7 @@ import { observable, action, reaction, /* computed */ } from 'mobx'
 
 import { RiddleStore } from './riddleStore'
 import { Room, rooms, getGameDoor, Door } from '../config/map'
-import { Dialog, dialogs, getDialogById } from '../config/dialogs'
+import { Dialog, getDialogById } from '../config/dialogs'
 
 import PhaserGame from '../phaser'
 
@@ -18,6 +18,7 @@ export class GameStore {
     @observable room: Room
     @observable lastDoor: Door
     @observable dialog: Dialog
+    @observable lineId: number
     @observable state: string = GAME
 
     init(riddleStore: RiddleStore) {
@@ -60,8 +61,14 @@ export class GameStore {
 
     @action showDialog = (dialogId: string) => {
         this.dialog = getDialogById(dialogId)
-        setTimeout(() => {
-            gameStore.hideDialog()
+        this.lineId = 0
+        let timer = setInterval(() => {
+            if ( this.lineId < this.dialog.lines.length - 1 ) {
+                this.lineId++
+            } else {
+                gameStore.hideDialog()
+                clearInterval(timer)
+            }
         }, 2000)
         this.state = DIALOG
     }

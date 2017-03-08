@@ -1,10 +1,10 @@
-import riddles, { Riddle } from './riddles'
+import { Riddle } from './riddles'
 
 
 export interface Character {
     id: string
     name: string
-    image: string //TODO provvisorio
+    image: string // TODO provvisorio
 }
 
 export interface Line {
