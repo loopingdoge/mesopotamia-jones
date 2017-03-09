@@ -10,11 +10,9 @@ import Riddle from './Riddle'
 
 export interface DialogProps {
     gameStore?: GameStore,
-    // isVisible: boolean,
-    // dialog: Dialog,
-    // lineId: number,
 }
 
+@observer
 export class DialogUI extends React.Component<DialogProps, void> {
 
     lineId: number = this.props.gameStore.lineId || 0
@@ -54,10 +52,8 @@ export class DialogUI extends React.Component<DialogProps, void> {
     })
 
     render() {
-        const { lineId } = this.props.gameStore
+        this.lineId = this.props.gameStore.lineId
         const { dialog } = this.props.gameStore.state
-
-        console.error(lineId, dialog)
 
         const styles = StyleSheet.create({
             charThumb: {
@@ -72,7 +68,7 @@ export class DialogUI extends React.Component<DialogProps, void> {
 
                     </div>
                     <b>
-                        { dialog ? dialog.lines[this.lineId].character.name + `:`  : null }
+                        { dialog ? dialog.lines[this.lineId].character.name + ':' : null }
                     </b>&nbsp;
                 {
                     dialog ? dialog.lines[this.lineId].text  : null
@@ -80,33 +76,11 @@ export class DialogUI extends React.Component<DialogProps, void> {
                 </div>
             </div>
         )
-        // const styles = StyleSheet.create({
-        //     charThumb: {
-        //         backgroundImage: this.props.dialog ? 'url(' + this.props.dialog.lines[this.lineId].character.image + ')' : null,
-        //     }
-        // })
-
-        // return (
-        //     <div id='dialog' className={css( this.styles.dialog, this.props.isVisible ? this.styles.shown : this.styles.hidden )}>
-        //         <div className={css(this.styles.textWrapper)}>
-        //             <div className={css(this.styles.charThumb, styles.charThumb)}>
-
-        //             </div>
-        //             <b>
-        //                 { this.props.dialog ? this.props.dialog.lines[this.lineId].character.name + `:`  : null }
-        //             </b>&nbsp;
-        //         {
-        //             this.props.dialog ? this.props.dialog.lines[this.lineId].text  : null
-        //         }
-        //         </div>
-        //     </div>
-        // )
     }
 }
 
 
 export interface MesopotamiaJonesProps {
-    gameState: string,
     gameStore?: GameStore,
 }
 
@@ -125,15 +99,15 @@ const getStyles = (gameState: string) => StyleSheet.create({
     }
 })
 
-const MesopotamiaJones = ({ gameState, gameStore}: MesopotamiaJonesProps) =>
-    <div className={css(getStyles(gameState).mesopotamiaJonesContainer)}>
-        <div className={css(getStyles(gameState).game)}>
+const MesopotamiaJones = ({ gameStore }: MesopotamiaJonesProps) =>
+    <div className={css(getStyles(gameStore.gameState).mesopotamiaJonesContainer)}>
+        <div className={css(getStyles(gameStore.gameState).game)}>
             <Game />
         </div>
 
         {
-            gameState === RIDDLE ?
-                <div className={css(getStyles(gameState).riddle)}>
+            gameStore.gameState === RIDDLE ?
+                <div className={css(getStyles(gameStore.gameState).riddle)}>
                     <Riddle />
                 </div>
             :
@@ -157,7 +131,7 @@ class MesopotamiaJonesContainer extends React.Component<MesopotamiaJonesProps, u
     render() {
         const { gameState } = this.props.gameStore
         return (
-            <MesopotamiaJones gameState={gameState} gameStore={this.props.gameStore} />
+            <MesopotamiaJones gameStore={this.props.gameStore} />
         )
     }
 }

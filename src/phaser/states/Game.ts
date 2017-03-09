@@ -9,7 +9,6 @@ export default class Game extends Phaser.State {
 
     player: Phaser.Sprite
     walls: Phaser.Group
-    // door: Phaser.Sprite
     layer: Phaser.TilemapLayer
 
     init() {}
@@ -56,7 +55,6 @@ export default class Game extends Phaser.State {
             centerY = cY || centerY
         }
 
-
         this.player = this.game.add.existing(new Dude({
             game: this.game,
             x: centerX,
@@ -90,7 +88,6 @@ export default class Game extends Phaser.State {
     }
 
     isCollisionWithDoor(collidedObject: Phaser.TilemapLayer) {
-        // TODO: Aggiungere gli indici anche delle altre porte
         return collidedObject.properties.isDoor
     }
 
