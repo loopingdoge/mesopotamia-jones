@@ -8,7 +8,6 @@ import PhaserGame from '../phaser'
 
 export const GAME = 'GAME'
 export const RIDDLE = 'RIDDLE'
-export const DIALOG = 'DIALOG'
 
 export interface IGameStore {
     room: Room
@@ -22,7 +21,7 @@ export class GameStore {
     game: PhaserGame
     riddleStore: RiddleStore
 
-    lineId: number
+    @observable lineId: number
 
     @observable state: IGameStore
 
@@ -61,11 +60,19 @@ export class GameStore {
         )
         // React to dialog opening
         reaction(
-            () => this.gameState,
-            (gameState: string) => {
-                if (gameState === DIALOG) {
-                    setTimeout(() => {
-                        gameStore.hideDialog()
+            () => this.dialog,
+            (dialog: Dialog) => {
+                console.error(dialog)
+                if ( dialog ) {
+                    this.lineId = 0
+                    let timer = setInterval(() => {
+                        console.warn(this.lineId)
+                        if ( this.lineId < this.dialog.lines.length - 1 ) {
+                            this.lineId++
+                        } else {
+                            gameStore.hideDialog()
+                            clearInterval(timer)
+                        }
                     }, 2000)
                 }
             }
@@ -118,29 +125,18 @@ export class GameStore {
     }
 
     @action showDialog = (dialogId: string) => {
-
-        this.state = {
-            ...this.state,
-            dialog: getDialogById(dialogId),
-            gameState: DIALOG
-        }
-
-        this.lineId = 0
-        let timer = setInterval(() => {
-            if ( this.lineId < this.state.dialog.lines.length - 1 ) {
-                this.lineId++
-            } else {
-                gameStore.hideDialog()
-                clearInterval(timer)
+        if ( !this.state.dialog ) {
+            this.state = {
+                ...this.state,
+                dialog: getDialogById(dialogId),
             }
-        }, 2000)
-
+        }
     }
 
     @action hideDialog = () => {
         this.state = {
             ...this.state,
-            gameState: GAME,
+            dialog: null,
         }
     }
 
