@@ -50,7 +50,6 @@ export class GameStore {
         }
     }
 
-
     init(riddleStore: RiddleStore) {
         this.riddleStore = riddleStore
         // React to riddle solved by the user
@@ -62,11 +61,9 @@ export class GameStore {
         reaction(
             () => this.dialog,
             (dialog: Dialog) => {
-                console.error(dialog)
                 if ( dialog ) {
                     this.lineId = 0
                     let timer = setInterval(() => {
-                        console.warn(this.lineId)
                         if ( this.lineId < this.dialog.lines.length - 1 ) {
                             this.lineId++
                         } else {
