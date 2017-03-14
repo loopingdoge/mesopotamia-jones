@@ -19,11 +19,33 @@ export interface GameDoor {
     y: number
 }
 
+export interface Edge {
+    direction: Direction,
+    to: Room
+}
+
+export enum Direction {
+    TOP,
+    RIGHT,
+    BOTTOM,
+    LEFT,
+}
+
+function direction({x, y}: GameDoor): Direction {
+    if (x === 7 && y === 0) return Direction.TOP
+    else if (x === 15 && y === 4) return Direction.RIGHT
+    else if (x === 7 && y === 8) return Direction.BOTTOM
+    else if (x === 0 && y === 4) return Direction.LEFT
+    else return null
+}
+
 const door = (id: string, room1: Room, room2: Room, riddle: Riddle): Door => ({id, room1, room2, riddle})
 
 const gameDoor = (door: Door, from: Room, to: Room, x: number, y: number): GameDoor => ({door, from, to, x, y})
 
 const room = (id: string): Room => ({id})
+
+const edge = (direction: Direction, to: Room) => ({direction, to})
 
 export const rooms: Room[] = [
     room('room1'),
@@ -56,7 +78,7 @@ export const getGameDoor = (room: Room, x: number, y: number): GameDoor =>
 const isGameDoorIdInRoom = (door: Door, room: Room) =>
     (gameDoor: GameDoor) => (gameDoor.door.id === door.id && gameDoor.from.id === room.id )
 
-export const getGameDoorById = (door: Door, room: Room) => 
+export const getGameDoorById = (door: Door, room: Room): GameDoor =>
     gameDoors
         .filter(isGameDoorIdInRoom(door, room))[0]
 
@@ -68,3 +90,8 @@ export const nextRiddle = (room: Room, x: number, y: number): Riddle =>
     getGameDoor(room, x, y)
         .door
         .riddle
+
+export const adjacentRooms = (currentRoom: Room): Edge[] =>
+    gameDoors.
+        filter((gameDoor) => gameDoor.from.id === currentRoom.id)
+        .map((gameDoor) => edge(direction(gameDoor), gameDoor.to))

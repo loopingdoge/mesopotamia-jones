@@ -6,6 +6,7 @@ import { GameStore, GAME, RIDDLE } from '../stores/gameStore'
 import { Dialog } from '../config/dialogs'
 import Game from './Game'
 import Riddle from './Riddle'
+import Map from './Map'
 
 
 export interface DialogProps {
@@ -102,6 +103,7 @@ const getStyles = (gameState: string) => StyleSheet.create({
 const MesopotamiaJones = ({ gameStore }: MesopotamiaJonesProps) =>
     <div className={css(getStyles(gameStore.gameState).mesopotamiaJonesContainer)}>
         <div className={css(getStyles(gameStore.gameState).game)}>
+            <Map />
             <Game />
         </div>
 

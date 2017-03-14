@@ -20,3 +20,5 @@ export function initList (length: number) {
     for (let i = 0; i < list.length; i ++) list[i] = 0
     return list
 }
+
+export type Maybe<T> = T | void
