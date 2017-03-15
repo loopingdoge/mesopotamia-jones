@@ -25,7 +25,7 @@ export const userSolutionInit = (type: SolutionType, length: number) => {
 const riddles: Riddle[] = [
 {
     id: 'return',
-    question: ([a]: number[]) => `Inserisci questo numero ${a}`,
+    question: ([a]: number[]) => `Inserisci il numero ${a}`,
     defaultCode: ([a]: number[]) =>
 `var a = ${a};
 return ;`,

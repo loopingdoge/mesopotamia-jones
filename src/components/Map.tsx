@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 
+import gameStore from '../stores/gameStore'
 import { Room, Edge, Direction, gameDoors, adjacentRooms } from '../config/map'
 
 const roomWidth = 90
@@ -22,7 +23,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: roomWidth,
         height: roomHeight,
-        backgroundColor: 'black',
         boxSizing: 'border-box',
         border: '1px solid white',
     },
@@ -45,7 +45,7 @@ const doorStyle = (direction: Direction) => {
         top = (roomHeight / 2) - (doorHeight / 2) - parentOffset
         left = roomWidth - (doorWidth / 2) - parentOffset
     } else if (direction === Direction.BOTTOM) {
-        top = roomHeight + (doorHeight / 2) - parentOffset
+        top = roomHeight - (doorHeight / 2) - parentOffset
         left = (roomWidth / 2) - (doorWidth / 2) - parentOffset
     } else { // LEFT
         top = (roomHeight / 2) - (doorHeight / 2) - parentOffset
@@ -85,16 +85,20 @@ const roomPosition = (prevPosition: RoomPosition, direction: Direction): RoomPos
     return { top, left }
 }
 
-const roomStyle = (position: RoomPosition) => {
+const roomStyle = (position: RoomPosition, gameRoom: Room, currentRoom: Room) => {
     const { top, left } = position
     const roomStyle = {
         roomPosition: {
             top,
             left,
+            backgroundColor: gameRoom.id === currentRoom.id ? 'white' : 'black',
         }
     }
     return StyleSheet.create(roomStyle)
 }
+
+// roomStyle with fixed gameRoom
+const gameRoomStyle = (position: RoomPosition, currentRoom: Room) => roomStyle(position, gameStore.room, currentRoom)
 
 export interface DoorProps {
     direction: Direction,
@@ -109,11 +113,12 @@ const DoorView = ({ direction }: DoorProps) =>
 
 export interface RoomProps {
     position: RoomPosition
-    doors: Edge[],
+    doors: Edge[]
+    currentRoom: Room
 }
 
-const RoomView = ({position, doors}: RoomProps) =>
-    <div className={css(styles.room, roomStyle(position).roomPosition)}>
+const RoomView = ({position, doors, currentRoom}: RoomProps) =>
+    <div className={css(styles.room, gameRoomStyle(position, currentRoom).roomPosition)}>
         { doors.map((edge, i) => <DoorView key={i} direction={edge.direction}/> ) }
     </div>
 
@@ -125,7 +130,7 @@ interface RoomNode {
 
 const roomNode = (node: Room, parent: RoomNode | null, position: RoomPosition): RoomNode => ({ node, parent, position })
 
-const Map = (): JSX.JSXElement => {
+const Map = () => {
     const firstRoom = gameDoors[0].from
     const visited: any = {}
     const queue: RoomNode[] = []
@@ -147,6 +152,7 @@ const Map = (): JSX.JSXElement => {
                 key={count++}
                 position={current.position}
                 doors={edges}
+                currentRoom={current.node}
             />
 
         roomComponents.push(roomComponent)
