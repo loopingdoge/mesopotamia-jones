@@ -7,7 +7,7 @@ import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import DevTools from 'mobx-react-devtools'
 
 import gameStore from '../stores/gameStore'
-import uiStore from '../stores/uiStore'
+import uiStore from '../stores/gameUIStore'
 import riddleStore from '../stores/riddleStore'
 import riddleUIStore from '../stores/riddleUIStore'
 import Home from './Home'

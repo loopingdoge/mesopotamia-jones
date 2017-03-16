@@ -16,7 +16,7 @@ const parentOffset = 1
 const styles = StyleSheet.create({
     map: {
         position: 'absolute',
-        right: 200,
+        left: 200,
         top: 200,
     },
     room: {

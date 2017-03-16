@@ -3,7 +3,7 @@ import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 
 
-import { UIStore } from '../stores/uiStore'
+import { UIStore } from '../stores/gameUIStore'
 import { GameStore } from '../stores/gameStore'
 import PhaserGame from '../phaser'
 

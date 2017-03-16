@@ -3,6 +3,8 @@ import { inject, observer } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
 
 import { GameStore, GAME, RIDDLE } from '../stores/gameStore'
+import { UIStore } from '../stores/gameUIStore'
+
 import Game from './Game'
 import Riddle from './Riddle'
 import Map from './Map'
@@ -10,7 +12,8 @@ import DialogUI from './DialogUI'
 import Inventory from './Inventory'
 
 export interface MesopotamiaJonesProps {
-    gameStore?: GameStore,
+    gameStore?: GameStore
+    uiStore?: UIStore
 }
 
 const getStyles = (gameState: string) => StyleSheet.create({
@@ -28,14 +31,13 @@ const getStyles = (gameState: string) => StyleSheet.create({
     }
 })
 
-const MesopotamiaJones = ({ gameStore }: MesopotamiaJonesProps) =>
+const MesopotamiaJones = ({ gameStore, uiStore }: MesopotamiaJonesProps) =>
     <div className={css(getStyles(gameStore.gameState).mesopotamiaJonesContainer)}>
         <div className={css(getStyles(gameStore.gameState).game)}>
-            <Map />
             <Game />
             {
                 gameStore.gameState !== RIDDLE ?
-                    <Inventory gameStore={gameStore} />
+                    <Inventory gameStore={gameStore} uiStore={uiStore}/>
                 :
                     null
             }
@@ -51,11 +53,7 @@ const MesopotamiaJones = ({ gameStore }: MesopotamiaJonesProps) =>
         <DialogUI gameStore={gameStore} />
     </div>
 
-export interface MesopotamiaJonesProps {
-    gameStore?: GameStore
-}
-
-@inject('gameStore')
+@inject('gameStore', 'uiStore')
 @observer
 class MesopotamiaJonesContainer extends React.Component<MesopotamiaJonesProps, undefined> {
 
@@ -67,7 +65,7 @@ class MesopotamiaJonesContainer extends React.Component<MesopotamiaJonesProps, u
         const { gameState } = this.props.gameStore
 
         return (
-            <MesopotamiaJones gameStore={this.props.gameStore} />
+            <MesopotamiaJones gameStore={this.props.gameStore} uiStore={this.props.uiStore}/>
         )
     }
 }
