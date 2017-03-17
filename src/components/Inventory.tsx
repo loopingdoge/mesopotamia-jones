@@ -4,16 +4,39 @@ import { inject, observer } from 'mobx-react'
 
 import { GameStore } from '../stores/gameStore'
 import { UIStore, GAME, MAP, BLUEP } from '../stores/gameUIStore'
+import { Room } from '../config/map'
 
+import Editor from './Editor'
 import Map from './Map'
+
+const styles = StyleSheet.create({
+    editorSection: {
+        margin: 20,
+        height: 'calc( 100% - 40px )',
+        width: 'calc( 100% - 40px )',
+    }
+})
+
+export interface EditorSectionProps {
+    code: string
+    onUserCodeInput: (code: string) => void
+}
+
+const EditorSection = ({ code, onUserCodeInput }: EditorSectionProps) =>
+    <div className={css(styles.editorSection)}>
+        <Editor
+            code={code}
+            onUserCodeInput={onUserCodeInput}
+        />
+    </div>
 
 interface InventoryProps {
     gameStore?: GameStore
     uiStore?: UIStore
     width: number
     height: number
+    // onMapDoorClick: (door: GameDoor) => void
 }
-
 
 class Inventory extends React.Component<InventoryProps, void> {
 
@@ -34,22 +57,35 @@ class Inventory extends React.Component<InventoryProps, void> {
             width: 40,
             height: 40,
             marginLeft: 10,
-            backgroundColor: 'red',
+            backgroundColor: '#E37710',
+            fontSize: 28,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
         },
         inventoryWindow: {
+            position: 'absolute',
             zIndex: 19,
-            height: '100%',
+            height: 'calc( 100% - 50px)',
             width: '100%',
-            backgroundColor: 'rgba(0,0,0,0.6)',
+            backgroundColor: '#E37710',
+            paddingTop: 50,
+            display: 'flex',
+            flexDirection: 'row',
+        },
+        inventoryContent: {
+            width: '50%',
+            height: '100%',
+            border: '1px solid #a3540b',
+            background: 'linear-gradient(135deg, #E37710 22px, #a3540b 22px, #a3540b 24px, transparent 24px, transparent 67px, #a3540b 67px, #a3540b 69px, transparent 69px), linear-gradient(225deg, #E37710 22px, #a3540b 22px, #a3540b 24px, transparent 24px, transparent 67px, #a3540b 67px, #a3540b 69px, transparent 69px)0 64px',
+            backgroundColor: '#E37710',
+            backgroundSize: '64px 128px',
         }
     })
 
     render() {
         const selected = this.props.uiStore && this.props.uiStore.state.selected
-        const { showMap, showBluep, showGame } = this.props.uiStore
+        const { show } = this.props.uiStore
 
         const style = StyleSheet.create({
             inventoryWrapper: {
@@ -65,15 +101,28 @@ class Inventory extends React.Component<InventoryProps, void> {
 
         switch ( selected ) {
             case MAP:
-                content = ( <div className={css(this.styles.inventoryWindow)} >
-                        <Map />
-                    </div> )
+                content = (
+                    <div className={css(this.styles.inventoryWindow)} >
+                        <div className={css(this.styles.inventoryContent)}>
+                            <Map onDoorClick={ (x:Room) => console.warn('COCKCKCKKCLI', x) }/>
+                        </div>
+                        <div className={css(this.styles.inventoryContent)}>
+                            <EditorSection code={'attento che cadi fra salsa wasabi'} onUserCodeInput={()=>console.error('TODO')} />
+                        </div>
+                    </div>
+                )
                 break
             case BLUEP:
                 content = (
                     <div className={css(this.styles.inventoryWindow)} >
-                        Ah questo e' il BLUEPRINT?
-                </div>)
+                        <div className={css(this.styles.inventoryContent)}>
+
+                        </div>
+                        <div className={css(this.styles.inventoryContent)}>
+
+                        </div>
+                    </div>
+                )
                 break
             case GAME:
                 content = null
@@ -83,11 +132,11 @@ class Inventory extends React.Component<InventoryProps, void> {
         return (
             <div className={css(style.inventoryWrapper)} >
                 <div className={css(this.styles.inventoryHeader)} >
-                    <button className={css(this.styles.item)} onClick={ showMap }>MAP</button>
-                    <button className={css(this.styles.item)} onClick={ showBluep }>BLUEP</button>
+                    <button className={css(this.styles.item)} onClick={ () => show ( MAP ) }>🗺️</button>
+                    <button className={css(this.styles.item)} onClick={ () => show ( BLUEP ) }>💡</button>
                     {
                         selected !== GAME ?
-                            <button className={css(this.styles.item)} onClick={ showGame }>X</button>
+                            <button className={css(this.styles.item)} onClick={ () => show ( GAME ) }>X</button>
                         :
                             null
                     }

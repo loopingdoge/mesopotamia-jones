@@ -27,8 +27,8 @@ const Editor = ({ code, onUserCodeInput }: EditorProps) =>
         editorProps={{$blockScrolling: Infinity}}
         tabSize={4}
         fontSize={16}
-        width={'500px'}
-        height={'500px'}
+        width={'100%'}
+        height={'100%'}
         className={css(styles.editor)}
     />
 

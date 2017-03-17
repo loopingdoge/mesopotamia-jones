@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     riddleContainer: {
+        backgroundColor: '#E37710',
         display: 'flex',
         flexDirection: 'row',
         flex: 1,

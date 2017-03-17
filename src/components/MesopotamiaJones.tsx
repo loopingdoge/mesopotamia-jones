@@ -7,7 +7,6 @@ import { UIStore } from '../stores/gameUIStore'
 
 import Game from './Game'
 import Riddle from './Riddle'
-import Map from './Map'
 import DialogUI from './DialogUI'
 import Inventory from './Inventory'
 

@@ -1,5 +1,7 @@
 import { observable, action, /* computed */ } from 'mobx'
 
+import { GameDoor } from '../config/map'
+
 export const GAME   = 'GAME'
 export const MAP    = 'MAP'
 export const BLUEP  = 'BLUEPRINT'
@@ -22,28 +24,17 @@ export class UIStore {
         this.state = {
             selected: GAME
         }
-        console.warn(this.width, this.height)
     }
 
-    @action showMap = () => {
+    @action show = (selected: string) => {
         this.state = {
             ...this.state,
-            selected: MAP
+            selected
         }
     }
 
-    @action showBluep = () => {
-        this.state = {
-            ...this.state,
-            selected: BLUEP
-        }
-    }
+    @action onMapDoorClick = (door: GameDoor) => {
 
-    @action showGame = () => {
-        this.state = {
-            ...this.state,
-            selected: GAME
-        }
     }
 }
 

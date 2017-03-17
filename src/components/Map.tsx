@@ -2,7 +2,8 @@ import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 
 import gameStore from '../stores/gameStore'
-import { Room, Edge, Direction, gameDoors, adjacentRooms } from '../config/map'
+import { Room, Edge, Direction, gameDoors, adjacentRooms, GameDoor } from '../config/map'
+import { Riddle } from '../config/riddles'
 
 const roomWidth = 90
 const roomHeight = 90
@@ -15,9 +16,9 @@ const parentOffset = 1
 
 const styles = StyleSheet.create({
     map: {
-        position: 'absolute',
-        left: 200,
-        top: 200,
+        position: 'relative',
+        left: 100,
+        top: 100,
     },
     room: {
         position: 'absolute',
@@ -102,24 +103,26 @@ const gameRoomStyle = (position: RoomPosition, currentRoom: Room) => roomStyle(p
 
 export interface DoorProps {
     direction: Direction,
+    onDoorClick: () => void
 }
 
-const DoorView = ({ direction }: DoorProps) =>
+const DoorView = ({ direction, onDoorClick }: DoorProps) =>
     <div
         className={css(styles.doorBase, doorStyle(direction).doorPosition)}
-        onClick={() => console.log('door')}
+        onClick={ onDoorClick }
     >
     </div>
 
 export interface RoomProps {
     position: RoomPosition
     doors: Edge[]
-    currentRoom: Room
+    currentRoom: Room,
+    onDoorClick: (riddle: Riddle) => void
 }
 
-const RoomView = ({position, doors, currentRoom}: RoomProps) =>
+const RoomView = ({position, doors, currentRoom, onDoorClick}: RoomProps) =>
     <div className={css(styles.room, gameRoomStyle(position, currentRoom).roomPosition)}>
-        { doors.map((edge, i) => <DoorView key={i} direction={edge.direction}/> ) }
+        { doors.map((edge, i) => <DoorView key={i} direction={edge.direction} onDoorClick={ () => onDoorClick(edge.riddle) } /> ) }
     </div>
 
 interface RoomNode {
@@ -130,7 +133,12 @@ interface RoomNode {
 
 const roomNode = (node: Room, parent: RoomNode | null, position: RoomPosition): RoomNode => ({ node, parent, position })
 
-const Map = () => {
+
+export interface MapProps {
+    onDoorClick: (door: Room) => void
+}
+
+const Map = ({onDoorClick}: MapProps) => {
     const firstRoom = gameDoors[0].from
     const visited: any = {}
     const queue: RoomNode[] = []
@@ -153,6 +161,7 @@ const Map = () => {
                 position={current.position}
                 doors={edges}
                 currentRoom={current.node}
+                onDoorClick={onDoorClick}
             />
 
         roomComponents.push(roomComponent)
