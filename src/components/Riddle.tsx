@@ -7,6 +7,7 @@ import { GameStore } from '../stores/gameStore'
 import { RiddleUIStore } from '../stores/riddleUIStore'
 import { RiddleStore } from '../stores/riddleStore'
 import { SolutionType } from '../config/riddles'
+import { Inventory, hasItem, computer } from '../config/inventory'
 import Editor from './Editor'
 import Toolbar from './Toolbar'
 import Solution from './Solution'
@@ -251,6 +252,7 @@ export interface RiddleProps {
     isNotificationVisible: boolean
     isCuneiformExpanded: boolean
     isLegendExpanded: boolean
+    inventory: Inventory
     goBack: () => void
     runCode: () => void
     shrinkCuneiform: () => void
@@ -265,7 +267,7 @@ export interface RiddleProps {
 const Riddle = ({
     riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible,
     isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
-    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor
+    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory
 }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} />
@@ -300,22 +302,29 @@ const Riddle = ({
                         null
                 }   
             </div>
-            <Separator
-                isVertical={true}
-                expanded={isCuneiformExpanded}
-                shrink={shrinkCuneiform}
-                expand={expandCuneiform}
-            />
-            <div className={css(styles.riddleColumnExpanded)}>
-                <EditorSection
-                    code={userCode}
-                    onUserCodeInput={onUserCodeInput}
-                />
-                <SolutionSection
-                    codeResult={codeResult}
-                    runCode={runCode}
-                />
-            </div>
+            {
+                hasItem(inventory, computer) ?
+                    <div className={css(styles.riddleContainer)}>
+                        <Separator
+                            isVertical={true}
+                            expanded={isCuneiformExpanded}
+                            shrink={shrinkCuneiform}
+                            expand={expandCuneiform}
+                        />
+                        <div className={css(styles.riddleColumnExpanded)}>
+                            <EditorSection
+                                code={userCode}
+                                onUserCodeInput={onUserCodeInput}
+                            />
+                            <SolutionSection
+                                codeResult={codeResult}
+                                runCode={runCode}
+                            />
+                        </div>
+                    </div>
+                    :
+                    null
+            }
         </div>
     </div>
 
@@ -330,6 +339,10 @@ export interface RiddleContainerProps {
 @observer
 class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
     render() {
+        const {
+            inventory
+        } = this.props.gameStore
+
         const {
             currentRiddle,
             codeResult,
@@ -366,6 +379,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 isLegendExpanded={isLegendExpanded}
                 isCuneiformExpanded={isCuneiformExpanded}
                 isNotificationVisible={isNotificationVisible}
+                inventory={inventory}
                 runCode={runCode}
                 onUserCodeInput={setUserCode}
                 onChangeSolution={setUserSolution}
