@@ -3,6 +3,7 @@ import { observable, action, reaction, computed } from 'mobx'
 import { RiddleStore } from './riddleStore'
 import { Room, rooms, getGameDoor, Door } from '../config/map'
 import { Dialog, getDialogById } from '../config/dialogs'
+import { Inventory, Item, defaultInventory, addItem } from '../config/inventory'
 
 import PhaserGame from '../phaser'
 
@@ -14,6 +15,7 @@ export interface IGameStore {
     lastDoor: Door
     dialog: Dialog
     gameState: string
+    inventory: Inventory
 }
 
 export class GameStore {
@@ -41,12 +43,17 @@ export class GameStore {
         return this.state.gameState
     }
 
+    @computed get inventory(): Inventory {
+        return this.state.inventory
+    }
+
     constructor() {
         this.state = {
             room: null,
             lastDoor: null,
             dialog: null,
             gameState: GAME,
+            inventory: defaultInventory(),
         }
     }
 
@@ -137,6 +144,12 @@ export class GameStore {
         }
     }
 
+    @action addItem = (item: Item) => {
+        this.state = {
+            ...this.state,
+            inventory: addItem(this.state.inventory, item)
+        }
+    }
 }
 
 const gameStore = new GameStore()
