@@ -1,6 +1,7 @@
 import { observable, action, /* computed */ } from 'mobx'
 
 import { GameDoor } from '../config/map'
+import { Riddle } from '../config/riddles'
 
 export const GAME   = 'GAME'
 export const MAP    = 'MAP'
@@ -8,6 +9,7 @@ export const BLUEP  = 'BLUEPRINT'
 
 export interface IGameUIStore {
     selected: string
+    selectedRiddle: Riddle
 }
 
 export class UIStore {
@@ -22,19 +24,25 @@ export class UIStore {
 
     constructor() {
         this.state = {
-            selected: GAME
+            selected: GAME,
+            selectedRiddle: null,
         }
     }
 
     @action show = (selected: string) => {
         this.state = {
             ...this.state,
-            selected
+            selected,
+            selectedRiddle: selected === GAME ? null : this.state.riddselectedRiddlele,
         }
     }
 
-    @action onMapDoorClick = (door: GameDoor) => {
-
+    @action onMapDoorClick = (selectedRiddle: Riddle) => {
+        console.error('onMapDoorClick', selectedRiddle)
+        this.state = {
+            ...this.state,
+            selectedRiddle
+        }
     }
 }
 

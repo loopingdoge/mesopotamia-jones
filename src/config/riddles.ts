@@ -2,6 +2,7 @@ export interface Riddle {
     id: string
     question: (variables: any[]) => string
     defaultCode: (variables: any[]) => string
+    userCode: () => string
     solution: (variables: any[]) => string
     solutionLength: number,
     solutionType: SolutionType,
@@ -29,6 +30,9 @@ const riddles: Riddle[] = [
     defaultCode: ([a]: number[]) =>
 `var a = ${a};
 return ;`,
+    userCode: () => `var a;
+// scrivi tua soluzione
+return ;`,
     solution: ([a]: number[]) => `${a}`,
     solutionLength: 1,
     solutionType: 'number',
@@ -42,6 +46,11 @@ return ;`,
 var b = ${b};
 var somma = ;
 return somma;`,
+    userCode: () =>
+`// Quanto fa la somma di a e b?
+var a; var b;
+// scrivi tua soluzione
+return ;`,
     solution: ([a, b]: number[]) => `${a + b}`,
     solutionLength: 1,
     solutionType: 'number',

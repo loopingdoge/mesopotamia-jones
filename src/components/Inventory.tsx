@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react'
 
 import { GameStore } from '../stores/gameStore'
 import { UIStore, GAME, MAP, BLUEP } from '../stores/gameUIStore'
-import { Room } from '../config/map'
+import { Riddle } from '../config/riddles'
 
 import Editor from './Editor'
 import Map from './Map'
@@ -34,8 +34,8 @@ interface InventoryProps {
     gameStore?: GameStore
     uiStore?: UIStore
     width: number
-    height: number
-    // onMapDoorClick: (door: GameDoor) => void
+    onMapDoorClick: (riddle: Riddle) => void
+    selectedRiddle: Riddle
 }
 
 class Inventory extends React.Component<InventoryProps, void> {
@@ -80,18 +80,32 @@ class Inventory extends React.Component<InventoryProps, void> {
             background: 'linear-gradient(135deg, #E37710 22px, #a3540b 22px, #a3540b 24px, transparent 24px, transparent 67px, #a3540b 67px, #a3540b 69px, transparent 69px), linear-gradient(225deg, #E37710 22px, #a3540b 22px, #a3540b 24px, transparent 24px, transparent 67px, #a3540b 67px, #a3540b 69px, transparent 69px)0 64px',
             backgroundColor: '#E37710',
             backgroundSize: '64px 128px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        placeholder: {
+            height: '80%',
+            width: '80%',
+            backgroundColor: '#fff',
+            border: '5px solid #eee',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
         }
     })
 
     render() {
         const selected = this.props.uiStore && this.props.uiStore.state.selected
         const { show } = this.props.uiStore
+        const { width, onMapDoorClick, selectedRiddle } = this.props
 
         const style = StyleSheet.create({
             inventoryWrapper: {
                 position: 'absolute',
-                height: this.props.width / 1.77,
-                width: this.props.width,
+                height: width / 1.77,
+                width,
                 display: 'flex',
                 flexDirection: 'column',
             }
@@ -104,10 +118,17 @@ class Inventory extends React.Component<InventoryProps, void> {
                 content = (
                     <div className={css(this.styles.inventoryWindow)} >
                         <div className={css(this.styles.inventoryContent)}>
-                            <Map onDoorClick={ (x:Room) => console.warn('COCKCKCKKCLI', x) }/>
+                            <Map onMapDoorClick={ onMapDoorClick }/>
                         </div>
                         <div className={css(this.styles.inventoryContent)}>
-                            <EditorSection code={'attento che cadi fra salsa wasabi'} onUserCodeInput={()=>console.error('TODO')} />
+                            {
+                                selectedRiddle ? 
+                                    <EditorSection code={ selectedRiddle.userCode() } onUserCodeInput={()=>console.error('TODO')} />
+                                :
+                                    <div className={css(this.styles.placeholder)}>
+                                        Clicca una porta per iniziare ad editare
+                                    </div>
+                            }
                         </div>
                     </div>
                 )
@@ -158,11 +179,11 @@ interface InventoryPropsContainer {
 class InventoryContainer extends React.Component<InventoryPropsContainer, undefined> {
 
     render() {
-        const { width, height } = this.props.uiStore
-        const { selected } = this.props.uiStore.state // per forzare il trigger di render
+        const { width, onMapDoorClick } = this.props.uiStore
+        const { selected, selectedRiddle } = this.props.uiStore.state // per forzare il trigger di render
 
         return (
-            <Inventory gameStore={this.props.gameStore} uiStore={this.props.uiStore} width={width} height={height} />
+            <Inventory gameStore={this.props.gameStore} uiStore={this.props.uiStore} width={width} onMapDoorClick={onMapDoorClick} selectedRiddle={selectedRiddle} />
         )
     }
 }

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 
 import gameStore from '../stores/gameStore'
-import { Room, Edge, Direction, gameDoors, adjacentRooms, GameDoor } from '../config/map'
+import { Room, Edge, Direction, gameDoors, adjacentRooms } from '../config/map'
 import { Riddle } from '../config/riddles'
 
 const roomWidth = 90
@@ -17,8 +17,8 @@ const parentOffset = 1
 const styles = StyleSheet.create({
     map: {
         position: 'relative',
-        left: 100,
-        top: 100,
+        left: -100,
+        top: 0,
     },
     room: {
         position: 'absolute',
@@ -103,13 +103,13 @@ const gameRoomStyle = (position: RoomPosition, currentRoom: Room) => roomStyle(p
 
 export interface DoorProps {
     direction: Direction,
-    onDoorClick: () => void
+    onMapDoorClick: () => void
 }
 
-const DoorView = ({ direction, onDoorClick }: DoorProps) =>
+const DoorView = ({ direction, onMapDoorClick }: DoorProps) =>
     <div
         className={css(styles.doorBase, doorStyle(direction).doorPosition)}
-        onClick={ onDoorClick }
+        onClick={ onMapDoorClick }
     >
     </div>
 
@@ -117,12 +117,12 @@ export interface RoomProps {
     position: RoomPosition
     doors: Edge[]
     currentRoom: Room,
-    onDoorClick: (riddle: Riddle) => void
+    onMapDoorClick: (riddle: Riddle) => void
 }
 
-const RoomView = ({position, doors, currentRoom, onDoorClick}: RoomProps) =>
+const RoomView = ({position, doors, currentRoom, onMapDoorClick}: RoomProps) =>
     <div className={css(styles.room, gameRoomStyle(position, currentRoom).roomPosition)}>
-        { doors.map((edge, i) => <DoorView key={i} direction={edge.direction} onDoorClick={ () => onDoorClick(edge.riddle) } /> ) }
+        { doors.map((edge, i) => <DoorView key={i} direction={edge.direction} onMapDoorClick={ () => onMapDoorClick(edge.riddle) } /> ) }
     </div>
 
 interface RoomNode {
@@ -135,10 +135,10 @@ const roomNode = (node: Room, parent: RoomNode | null, position: RoomPosition): 
 
 
 export interface MapProps {
-    onDoorClick: (door: Room) => void
+    onMapDoorClick: (door: Room) => void
 }
 
-const Map = ({onDoorClick}: MapProps) => {
+const Map = ({onMapDoorClick}: MapProps) => {
     const firstRoom = gameDoors[0].from
     const visited: any = {}
     const queue: RoomNode[] = []
@@ -161,7 +161,7 @@ const Map = ({onDoorClick}: MapProps) => {
                 position={current.position}
                 doors={edges}
                 currentRoom={current.node}
-                onDoorClick={onDoorClick}
+                onMapDoorClick={onMapDoorClick}
             />
 
         roomComponents.push(roomComponent)
