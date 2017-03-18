@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     lockCode: {
         display: 'flex',
         flexDirection: 'column',
+        padding: '0 8px',
     },
     fieldsColumn: {
         height: 125,
