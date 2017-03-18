@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
+import { Scrollbars } from 'react-custom-scrollbars'
 
 import { SolutionType } from '../config/riddles'
 import { prev, next, initList } from '../utils'
@@ -14,14 +15,23 @@ const strings: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const listFromType = (type: SolutionType) => type === 'number' ? numbers : strings
 
 const styles = StyleSheet.create({
+    solutionLabel: {
+        padding: '5px 0px',
+    },
     solutionField: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     solution: {
         display: 'flex',
         flexDirection: 'row',
     },
+    fieldsColumn: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: 50,
+        overflowY: 'scroll',
+    }
 })
 
 /**
@@ -36,10 +46,20 @@ function initListValues (list: string[], refList: string[], value: string) {
 
 export interface SolutionLabelProps {
     value: string
+    activeIndex: number
+    currentIndex: number
 }
 
-const SolutionLabel = ({ value }: SolutionLabelProps) =>
-    <div>
+const labelStyle = (currentIndex: number, activeIndex: number) => {
+    return StyleSheet.create({
+        label: {
+            color: currentIndex === activeIndex ? 'black' : 'grey'
+        }
+    })
+}
+
+const SolutionLabel = ({ value, activeIndex, currentIndex }: SolutionLabelProps) =>
+    <div className={css(styles.solutionLabel, labelStyle(currentIndex, activeIndex).label)}>
         <span>{value}</span>
     </div>
 
@@ -50,12 +70,36 @@ export interface SolutionFieldProps {
     onDecrement: () => void
 }
 
-const SolutionField = ({ list, currentValueIndex, onIncrement, onDecrement }: SolutionFieldProps) =>
-    <div className={css(styles.solutionField)}>
-        <button onClick={onIncrement}>⬆</button>
-        <SolutionLabel value={list[currentValueIndex]} />
-        <button onClick={onDecrement}>⬇</button>
-    </div>
+const columnStyle = (currentIndex: number) => {
+    return StyleSheet.create({
+        offset: {
+
+        }
+    })
+}
+
+class asaa extends React.Component<undefined, undefined> {
+
+    render() {
+        return (
+            <Scrollbars />
+        )
+    }
+
+}
+
+const SolutionField = ({ list, currentValueIndex, onIncrement, onDecrement }: SolutionFieldProps) => {
+    const labelList = list.map((item, i) => <SolutionLabel key={i} value={item} activeIndex={i} currentIndex={currentValueIndex} />)
+    return (
+        <div className={css(styles.solutionField)}>
+            <button onClick={onDecrement}>⬆</button>
+            <div className={css(styles.fieldsColumn)}>
+                {labelList}
+            </div>
+            <button onClick={onIncrement}>⬇</button>
+        </div>
+    )
+}
 
 export interface SolutionProps {
     length: number
