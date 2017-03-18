@@ -213,9 +213,9 @@ const Separator = ({ isVertical, expanded, shrink, expand }: SeparatorProps) =>
     <div className={css(isVertical ? styles.separatorVContainer : styles.separatorHContainer)}>
         {
             expanded ?
-                <button onClick={shrink}>{ isVertical ? '<' : '▼' }</button>
+                <button onClick={shrink}>{ isVertical ? '⬅' : '⬇' }</button>
                 :
-                <button onClick={expand}>{ isVertical ? '>' : '▲' }</button>
+                <button onClick={expand}>{ isVertical ? '➞' : '⬆' }</button>
         }
     </div>
 

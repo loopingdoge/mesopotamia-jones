@@ -28,10 +28,11 @@ const styles = StyleSheet.create({
 // -------------------------------------------------------------------------------
 
 const labelRotation = (currentIndex: number, activeIndex: number) => {
-    if (currentIndex < activeIndex) {
-        return 45
-    } else if (currentIndex > activeIndex) {
-        return -45
+    const scarto = Math.abs(currentIndex - activeIndex)
+    if (currentIndex > activeIndex) {
+        return scarto === 1 ? -45 : -90
+    } else if (currentIndex < activeIndex) {
+        return scarto === 1 ? 45 : 90
     } else {
         return 0
     }
@@ -104,7 +105,7 @@ const LockCode = ({ list, currentValueIndex, onIncrement, onDecrement }: LockCod
         <div className={css(styles.lockCode)}>
             <button onClick={onDecrement}>⬆</button>
             <div className={css(styles.fieldsColumn)}>
-                <Motion style={{ offset: spring(columnOffset(currentValueIndex), {stiffness: 210, damping: 20}) }}>
+                <Motion style={{ offset: spring(columnOffset(currentValueIndex)) }}>
                     {
                         ({ offset }: LockCodeInterpolatedStyles) =>
                             <div className={css(styles.innerFieldsColumn)} style={columnStyle(offset)}>
