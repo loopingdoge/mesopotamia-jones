@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
-import { Scrollbars } from 'react-custom-scrollbars'
 
+import LockCode from './LockCode'
 import { SolutionType } from '../config/riddles'
 import { prev, next, initList } from '../utils'
 
@@ -15,23 +15,10 @@ const strings: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const listFromType = (type: SolutionType) => type === 'number' ? numbers : strings
 
 const styles = StyleSheet.create({
-    solutionLabel: {
-        padding: '5px 0px',
-    },
-    solutionField: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
     solution: {
         display: 'flex',
         flexDirection: 'row',
     },
-    fieldsColumn: {
-        display: 'flex',
-        flexDirection: 'column',
-        height: 50,
-        overflowY: 'scroll',
-    }
 })
 
 /**
@@ -42,63 +29,6 @@ const styles = StyleSheet.create({
  */
 function initListValues (list: string[], refList: string[], value: string) {
     return list.map((v, i) => refList.indexOf(value[i]))
-}
-
-export interface SolutionLabelProps {
-    value: string
-    activeIndex: number
-    currentIndex: number
-}
-
-const labelStyle = (currentIndex: number, activeIndex: number) => {
-    return StyleSheet.create({
-        label: {
-            color: currentIndex === activeIndex ? 'black' : 'grey'
-        }
-    })
-}
-
-const SolutionLabel = ({ value, activeIndex, currentIndex }: SolutionLabelProps) =>
-    <div className={css(styles.solutionLabel, labelStyle(currentIndex, activeIndex).label)}>
-        <span>{value}</span>
-    </div>
-
-export interface SolutionFieldProps {
-    list: string[]
-    currentValueIndex: number
-    onIncrement: () => void
-    onDecrement: () => void
-}
-
-const columnStyle = (currentIndex: number) => {
-    return StyleSheet.create({
-        offset: {
-
-        }
-    })
-}
-
-class asaa extends React.Component<undefined, undefined> {
-
-    render() {
-        return (
-            <Scrollbars />
-        )
-    }
-
-}
-
-const SolutionField = ({ list, currentValueIndex, onIncrement, onDecrement }: SolutionFieldProps) => {
-    const labelList = list.map((item, i) => <SolutionLabel key={i} value={item} activeIndex={i} currentIndex={currentValueIndex} />)
-    return (
-        <div className={css(styles.solutionField)}>
-            <button onClick={onDecrement}>⬆</button>
-            <div className={css(styles.fieldsColumn)}>
-                {labelList}
-            </div>
-            <button onClick={onIncrement}>⬇</button>
-        </div>
-    )
 }
 
 export interface SolutionProps {
@@ -137,7 +67,7 @@ export default class Solution extends React.Component<SolutionProps, undefined> 
         const fields = initList(this.props.length)
         return fields.map(
             (_, i) =>
-                <SolutionField
+                <LockCode
                     key={i}
                     list={listFromType(this.props.type)}
                     currentValueIndex={this.indexesInList[i]}

@@ -15,24 +15,30 @@ export interface MesopotamiaJonesProps {
     uiStore?: UIStore
 }
 
-const getStyles = (gameState: string) => StyleSheet.create({
-    game: {
-        display: gameState === GAME ? 'flex' : 'none',
-        flex: 1,
-    },
-    riddle: {
-        display: gameState === RIDDLE ? 'flex' : 'none',
-        flex: 1,
-    },
+const styles = StyleSheet.create({
     mesopotamiaJonesContainer: {
         display: 'flex',
         flex: 1,
     }
 })
 
+const getStyles = (gameState: string) => ({
+    game: {
+        display: 'flex',
+        flex: 1,
+        position: gameState === GAME ? 'initial' : 'absolute',
+        opacity: gameState === GAME ? 1 : 0,
+        zIndex: gameState === GAME ? 0 : -9999,
+    },
+    riddle: {
+        display: gameState === RIDDLE ? 'flex' : 'none',
+        flex: 1,
+    },
+})
+
 const MesopotamiaJones = ({ gameStore, uiStore }: MesopotamiaJonesProps) =>
-    <div className={css(getStyles(gameStore.gameState).mesopotamiaJonesContainer)}>
-        <div className={css(getStyles(gameStore.gameState).game)}>
+    <div className={css(styles.mesopotamiaJonesContainer)}>
+        <div style={getStyles(gameStore.gameState).game}>
             <Game />
             {
                 gameStore.gameState !== RIDDLE ?
@@ -43,7 +49,7 @@ const MesopotamiaJones = ({ gameStore, uiStore }: MesopotamiaJonesProps) =>
         </div>
         {
             gameStore.gameState === RIDDLE ?
-                <div className={css(getStyles(gameStore.gameState).riddle)}>
+                <div style={getStyles(gameStore.gameState).riddle}>
                     <Riddle />
                 </div>
             :
