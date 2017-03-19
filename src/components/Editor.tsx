@@ -7,16 +7,18 @@ import 'brace/theme/github'
 
 const styles = StyleSheet.create({
     editor: {
-        flex: 1
+        flex: 1,
     }
 })
 
 export interface EditorProps {
     code: string
     onUserCodeInput: (code: string) => void
+    height: string
+    width: string
 }
 
-const Editor = ({ code, onUserCodeInput }: EditorProps) =>
+const Editor = ({ code, onUserCodeInput, height, width }: EditorProps) =>
     <AceEditor
         mode='javascript'
         theme='github'
@@ -27,8 +29,8 @@ const Editor = ({ code, onUserCodeInput }: EditorProps) =>
         editorProps={{$blockScrolling: Infinity}}
         tabSize={4}
         fontSize={16}
-        width={'100%'}
-        height={'100%'}
+        height={height}
+        width={width}
         className={css(styles.editor)}
     />
 

@@ -230,6 +230,8 @@ const EditorSection = ({ code, onUserCodeInput }: EditorSectionProps) =>
         <Editor
             code={code}
             onUserCodeInput={onUserCodeInput}
+            height={'500px'}
+            width={'100%'}
         />
     </div>
 

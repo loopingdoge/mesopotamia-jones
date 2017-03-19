@@ -12,21 +12,23 @@ import Map from './Map'
 const styles = StyleSheet.create({
     editorSection: {
         margin: 20,
-        height: 'calc( 100% - 40px )',
-        width: 'calc( 100% - 40px )',
     }
 })
 
 export interface EditorSectionProps {
     code: string
     onUserCodeInput: (code: string) => void
+    height: number
+    width: number
 }
 
-const EditorSection = ({ code, onUserCodeInput }: EditorSectionProps) =>
+const EditorSection = ({ code, onUserCodeInput, height, width }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <Editor
             code={code}
             onUserCodeInput={onUserCodeInput}
+            height={height - 90 + 'px'}
+            width={width - 40 + 'px'}
         />
     </div>
 
@@ -100,11 +102,12 @@ class Inventory extends React.Component<InventoryProps, void> {
         const selected = this.props.uiStore && this.props.uiStore.state.selected
         const { show } = this.props.uiStore
         const { width, onMapDoorClick, selectedRiddle } = this.props
+        const height = width / 1.77
 
         const style = StyleSheet.create({
             inventoryWrapper: {
                 position: 'absolute',
-                height: width / 1.77,
+                height,
                 width,
                 display: 'flex',
                 flexDirection: 'column',
@@ -123,7 +126,7 @@ class Inventory extends React.Component<InventoryProps, void> {
                         <div className={css(this.styles.inventoryContent)}>
                             {
                                 selectedRiddle ? 
-                                    <EditorSection code={ selectedRiddle.userCode() } onUserCodeInput={()=>console.error('TODO')} />
+                                    <EditorSection code={ selectedRiddle.userCode() } onUserCodeInput={() => console.error('TODO')} height={height} width={width / 2} />
                                 :
                                     <div className={css(this.styles.placeholder)}>
                                         Clicca una porta per iniziare ad editare
