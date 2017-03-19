@@ -11,13 +11,9 @@ import { Inventory, hasItem, computer } from '../config/inventory'
 import Editor from './Editor'
 import Toolbar from './Toolbar'
 import Solution from './Solution'
-
-const khosrau = {
-    fontFamily: 'Cuneiform',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    src: 'url(\'../../assets/fonts/Khosrau/Khosrau.otf\') format(\'opentype\')'
-}
+import Separator from './Separator'
+import CuneiformLegend from './CuneiformLegend'
+import CuneiformChar from './CuneiformChar'
 
 const styles = StyleSheet.create({
     column: {
@@ -60,48 +56,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 1,
     },
-    separatorVContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        width: 30,
-        border: 'black 1px inset',
-    },
-    separatorHContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        height: 30,
-        border: 'black 1px inset',
-    },
-    legendExpanded: {
-        transition: 'all 0.5s ease',
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        overflowY: 'scroll',
-        padding: 8,
-        flex: '1 0',
-    },
-    legendShrinked: {
-        transition: 'all 0.5s ease',
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        overflowY: 'scroll',
-        padding: 8,
-        flex: '0 1',
-    },
-    legendCell: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        minWidth: 40,
-        minHeight: 30,
-    },
-    legendNewline: {
-        width: '100%'
-    },
     lockRow: {
         display: 'flex',
         flexDirection: 'row',
@@ -118,77 +72,7 @@ const styles = StyleSheet.create({
     solutionInput: {
         flex: 1,
     },
-    cuneiform: {
-        fontFamily: khosrau,
-        fontSize: 30,
-    },
-    cuneiformLetter: {
-        color: '#333'
-    },
-    cuneiformNumber: {
-        color: '#099'
-    },
-    cuneiformOperator: {
-        color: '#ff6666',
-    },
 })
-
-export interface LegendProps {
-    isExpanded: boolean
-}
-class Legend extends React.Component<LegendProps, undefined> {
-
-    alphabet: string[] = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
-
-    render() {
-        return (
-            <div className={css(this.props.isExpanded ? styles.legendExpanded : styles.legendShrinked)}>
-                {
-                        this.alphabet.map( (value, i) =>
-                            value === ' ' ?
-                                <div key={i} className={css(styles.legendNewline)}></div>
-                                :
-                                <div key={i} className={css(styles.legendCell)}>
-                                    <div>
-                                        <CuneiformChar value={value}/>
-                                    </div>
-                                    <div>{value}</div>
-                                </div>
-                        )
-                }
-            </div>
-        )
-    }
-}
-
-export interface CuneiformCharProps {
-    value: string
-}
-
-class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
-
-    style: any
-    isNumber: RegExp = /^\d+$/
-    isLetter: RegExp = /^[a-zA-Z]+$/
-
-    componentWillMount() {
-        if ( this.props.value.match(this.isLetter) ) {
-            this.style = styles.cuneiformLetter
-        } else if ( this.props.value.match(this.isNumber) ) {
-            this.style = styles.cuneiformNumber
-        } else {
-            this.style = styles.cuneiformOperator
-        }
-    }
-
-    render() {
-        return (
-            <span className={css(styles.cuneiform, this.style)}>
-                {this.props.value}
-            </span>
-        )
-    }
-}
 
 export interface CuneiformSectionProps {
     riddle: string
@@ -196,28 +80,11 @@ export interface CuneiformSectionProps {
 
 const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)}>
-        <p className={css(styles.cuneiform)}>
+        <p>
             {
                 riddle.split('').map((value, i) => <CuneiformChar key={i} value={value} />)
             }
         </p>
-    </div>
-
-export interface SeparatorProps {
-    isVertical: boolean
-    expanded: boolean
-    shrink: () => void
-    expand: () => void
-}
-
-const Separator = ({ isVertical, expanded, shrink, expand }: SeparatorProps) =>
-    <div className={css(isVertical ? styles.separatorVContainer : styles.separatorHContainer)}>
-        {
-            expanded ?
-                <button onClick={shrink}>{ isVertical ? '⬅' : '⬇' }</button>
-                :
-                <button onClick={expand}>{ isVertical ? '➞' : '⬆' }</button>
-        }
     </div>
 
 export interface EditorSectionProps {
@@ -298,7 +165,7 @@ const Riddle = ({
                                 shrink={shrinkLegend}
                                 expand={expandLegend}
                             />
-                            <Legend
+                            <CuneiformLegend
                                 isExpanded={isLegendExpanded}
                             />
                         </div>

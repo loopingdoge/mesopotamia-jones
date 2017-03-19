@@ -3,7 +3,7 @@ import AceEditor from 'react-ace'
 import { css, StyleSheet } from 'aphrodite'
 
 import 'brace/mode/javascript'
-import 'brace/theme/github'
+import 'brace/theme/solarized_light'
 
 const styles = StyleSheet.create({
     editor: {
@@ -21,7 +21,7 @@ export interface EditorProps {
 const Editor = ({ code, onUserCodeInput, height, width }: EditorProps) =>
     <AceEditor
         mode='javascript'
-        theme='github'
+        theme='solarized_light'
         onChange={onUserCodeInput}
         name='code-editor'
         defaultValue={code}
