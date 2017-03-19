@@ -33,7 +33,7 @@ export class UIStore {
         this.state = {
             ...this.state,
             selected,
-            selectedRiddle: selected === GAME ? null : this.state.riddselectedRiddlele,
+            selectedRiddle: selected === GAME ? null : this.state.selectedRiddle,
         }
     }
 
