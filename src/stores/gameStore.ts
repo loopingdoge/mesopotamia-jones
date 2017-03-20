@@ -59,6 +59,13 @@ export class GameStore {
 
     init(riddleStore: RiddleStore) {
         this.riddleStore = riddleStore
+
+        this.state = {
+            ...this.state,
+            room: rooms[0],
+            ...JSON.parse(localStorage.getItem('gameState'))
+        }
+
         // React to riddle solved by the user
         reaction(
             () => this.riddleStore.isSolved,
@@ -81,15 +88,24 @@ export class GameStore {
                 }
             }
         )
-        this.state = {
-            ...this.state,
-            room: rooms[0], // TODO: check if a saved game exists
-        }
+        reaction(
+            () => this.state.room,
+            () => this.saveGameState()
+        )
+        reaction(
+            () => this.state.inventory,
+            () => this.saveGameState()
+        )
+
     }
 
     @action startGame = () => {
         this.game = new PhaserGame()
         this.game.start()
+    }
+
+    saveGameState = () => {
+        localStorage.setItem('gameState', JSON.stringify(this.state))
     }
 
     /**

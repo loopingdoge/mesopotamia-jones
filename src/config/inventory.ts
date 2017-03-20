@@ -1,13 +1,14 @@
 export interface Item {
     id: string
+    attrs?: any
 }
 
 export const COMPUTER = 'COMPUTER'
 export const ROCK_SMASHER = 'ROCK_SMASHER'
 
-const item = (id: string): Item => ({id})
+const item = (id: string, attrs?: any): Item => ({id, attrs})
 
-export const computer = item(COMPUTER)
+export const computer = item(COMPUTER, { userCode:  {} })
 
 export const rockSmasher = item(ROCK_SMASHER)
 
