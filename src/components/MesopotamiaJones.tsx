@@ -2,6 +2,8 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
 
+import { onlyIf } from '../utils'
+
 import { GameStore, GAME, RIDDLE } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 
@@ -9,16 +11,18 @@ import Game from './Game'
 import Riddle from './Riddle'
 import DialogUI from './DialogUI'
 import Inventory from './Inventory'
-
-export interface MesopotamiaJonesProps {
-    gameStore?: GameStore
-    uiStore?: UIStore
-}
+import GameHeader from './GameHeader'
 
 const styles = StyleSheet.create({
     mesopotamiaJonesContainer: {
         display: 'flex',
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FDF6E3',
+    },
+    content: {
+        height: 'inherit',
     }
 })
 
@@ -36,31 +40,43 @@ const getStyles = (gameState: string) => ({
     },
 })
 
-const MesopotamiaJones = ({ gameStore, uiStore }: MesopotamiaJonesProps) =>
-    <div className={css(styles.mesopotamiaJonesContainer)}>
-        <div style={getStyles(gameStore.gameState).game}>
-            <Game />
-            {
-                gameStore.gameState !== RIDDLE ?
-                    <Inventory gameStore={gameStore} uiStore={uiStore}/>
-                :
-                    null
-            }
+export interface MesopotamiaJonesProps {
+    gameState: string
+    pageWidth: number
+    pageHeight: number
+}
+
+const MesopotamiaJones = ({ gameState, pageWidth, pageHeight }: MesopotamiaJonesProps) => {
+    const MaybeHeader = onlyIf(gameState !== RIDDLE, <GameHeader />)
+    const MaybeInventory = onlyIf(gameState !== RIDDLE, <Inventory />)
+    const MaybeRiddle = onlyIf(gameState === RIDDLE,
+        <div style={getStyles(gameState).riddle} className={css(styles.content)}>
+            <Riddle />
         </div>
-        {
-            gameStore.gameState === RIDDLE ?
-                <div style={getStyles(gameStore.gameState).riddle}>
-                    <Riddle />
+    )
+    return (
+        <div className={css(styles.mesopotamiaJonesContainer)}>
+            <div style={{ width: pageWidth, height: pageHeight }}>
+                {MaybeHeader}
+                <div style={getStyles(gameState).game} className={css(styles.content)}>
+                    <Game width={pageWidth} height={pageHeight} />
+                    {MaybeInventory}
                 </div>
-            :
-                null
-        }
-        <DialogUI gameStore={gameStore} />
-    </div>
+                {MaybeRiddle}
+                <DialogUI />
+            </div>
+        </div>
+    )
+}
+
+interface MesopotamiaJonesContainerProps {
+    gameStore?: GameStore
+    uiStore?: UIStore
+}
 
 @inject('gameStore', 'uiStore')
 @observer
-class MesopotamiaJonesContainer extends React.Component<MesopotamiaJonesProps, undefined> {
+class MesopotamiaJonesContainer extends React.Component<MesopotamiaJonesContainerProps, undefined> {
 
     componentDidMount() {
         this.props.gameStore.startGame()
@@ -68,9 +84,13 @@ class MesopotamiaJonesContainer extends React.Component<MesopotamiaJonesProps, u
 
     render() {
         const { gameState } = this.props.gameStore
-
+        const { width, height } = this.props.uiStore
         return (
-            <MesopotamiaJones gameStore={this.props.gameStore} uiStore={this.props.uiStore}/>
+            <MesopotamiaJones
+                gameState={gameState}
+                pageWidth={width}
+                pageHeight={height}
+            />
         )
     }
 }

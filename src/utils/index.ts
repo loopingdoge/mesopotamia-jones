@@ -1,3 +1,5 @@
+export type Maybe<T> = T | void
+
 /**
  * Modulo operation which works on negative numbers too
  * @param n The number to be modulated
@@ -21,4 +23,6 @@ export function initList (length: number) {
     return list
 }
 
-export type Maybe<T> = T | void
+export function onlyIf(condition: boolean, component: JSX.JSXElement): Maybe<JSX.JSXElement> {
+    return condition ? component : null
+}

@@ -1,78 +1,82 @@
 import * as React from 'react'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
 
+import { UIStore } from '../stores/gameUIStore'
 import { GameStore } from '../stores/gameStore'
+import { Dialog } from '../config/dialogs'
 
-export interface DialogProps {
-    gameStore?: GameStore,
-}
-
-@observer
-class DialogUI extends React.Component<DialogProps, void> {
-
-    lineId: number = this.props.gameStore.lineId || 0
-
-    styles = StyleSheet.create({
-        dialog: {
-            position: 'absolute',
-            top: 0,
-            overflow: 'hidden',
-            backgroundColor: 'rgba(0,0,0,0.4)',
-            zIndex: 100,
-        },
-        charThumb: {
-            width: 40,
-            height: 40,
-            marginRight: 10,
-            borderRadius: '50%',
-            backgroundSize: 'cover',
-        },
-        shown: {
-            width: '100%',
-            height: '100%',
-        },
-        hidden: {
-            width: '100%',
-            height: '0%',
-        },
-        textWrapper: {
-            backgroundColor: 'white',
-            margin: '10px',
-            padding: '10px',
-            borderRadius: '20px',
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-        }
-    })
-
-    render() {
-        this.lineId = this.props.gameStore.lineId
-        const { dialog } = this.props.gameStore.state
-
-        const styles = StyleSheet.create({
-            charThumb: {
-                backgroundImage: dialog ? 'url(' + dialog.lines[this.lineId].character.image + ')' : null,
-            }
-        })
-
-        return (
-            <div id='dialog' className={css( this.styles.dialog, dialog ? this.styles.shown : this.styles.hidden )}>
-                <div className={css(this.styles.textWrapper)}>
-                    <div className={css(this.styles.charThumb, styles.charThumb)}>
-
-                    </div>
-                    <b>
-                        { dialog ? dialog.lines[this.lineId].character.name + ':' : null }
-                    </b>&nbsp;
-                {
-                    dialog ? dialog.lines[this.lineId].text  : null
-                }
-                </div>
-            </div>
-        )
+const styles = StyleSheet.create({
+    dialog: {
+        position: 'absolute',
+        top: 0,
+        overflow: 'hidden',
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        zIndex: 100,
+        flex: 1,
+    },
+    charThumb: {
+        width: 40,
+        height: 40,
+        marginRight: 10,
+        borderRadius: '50%',
+        backgroundSize: 'cover',
+    },
+    hidden: {
+        display: 'none'
+    },
+    textWrapper: {
+        backgroundColor: 'white',
+        margin: '10px',
+        padding: '10px',
+        borderRadius: '20px',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     }
+})
+
+export interface DialogUIProps {
+    lineId: number
+    dialog: Dialog
+    width: number
+    height: number
 }
 
-export default DialogUI
+const DialogUI = ({ lineId = 0, dialog, width, height }: DialogUIProps) => {
+
+    const containerStyle = { width, height }
+    const charThumbStyle = {
+        backgroundImage: dialog ? 'url(' + dialog.lines[lineId].character.image + ')' : null,
+    }
+
+    return (
+        <div id='dialog' className={css( styles.dialog, dialog ? null : styles.hidden )} style={containerStyle}>
+            <div className={css(styles.textWrapper)}>
+                <div className={css(styles.charThumb)} style={charThumbStyle}>
+
+                </div>
+                <b>
+                    { dialog ? dialog.lines[lineId].character.name + ':' : null }
+                </b>&nbsp;
+            {
+                dialog ? dialog.lines[lineId].text  : null
+            }
+            </div>
+        </div>
+    )
+}
+
+interface DialogUIContainerProps {
+    gameStore?: GameStore
+    uiStore?: UIStore
+}
+
+export default inject('gameStore', 'uiStore')(observer(({ gameStore, uiStore }: DialogUIContainerProps) =>
+    <DialogUI
+        lineId={gameStore.lineId}
+        dialog={gameStore.state.dialog}
+        width={uiStore.width}
+        height={uiStore.height}
+    />
+))

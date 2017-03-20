@@ -122,7 +122,9 @@ export interface RiddleProps {
     codeResult: string
     isNotificationVisible: boolean
     isCuneiformExpanded: boolean
+    isCuneiformButtonToggled: boolean
     isLegendExpanded: boolean
+    isLegendButtonToggled: boolean
     inventory: Inventory
     goBack: () => void
     runCode: () => void
@@ -138,7 +140,8 @@ export interface RiddleProps {
 const Riddle = ({
     riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible,
     isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
-    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory
+    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory, isCuneiformButtonToggled,
+    isLegendButtonToggled,
 }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} />
@@ -161,6 +164,7 @@ const Riddle = ({
                             </div>
                             <Separator
                                 isVertical={false}
+                                isButtonToggled={isLegendButtonToggled}
                                 expanded={isLegendExpanded}
                                 shrink={shrinkLegend}
                                 expand={expandLegend}
@@ -177,7 +181,8 @@ const Riddle = ({
                 hasItem(inventory, computer) ?
                     <div className={css(styles.riddleContainer)}>
                         <Separator
-                            isVertical={true}
+                            isVertical
+                            isButtonToggled={isCuneiformButtonToggled}
                             expanded={isCuneiformExpanded}
                             shrink={shrinkCuneiform}
                             expand={expandCuneiform}
@@ -236,6 +241,8 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             shrinkLegend,
             expandLegend,
             isNotificationVisible,
+            isCuneiformButtonToggled,
+            isLegendButtonToggled,
         } = this.props.riddleUIStore
 
         return (
@@ -259,6 +266,8 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 expandCuneiform={expandCuneiform}
                 shrinkLegend={shrinkLegend}
                 expandLegend={expandLegend}
+                isCuneiformButtonToggled={isCuneiformButtonToggled}
+                isLegendButtonToggled={isLegendButtonToggled}
             />
         )
     }

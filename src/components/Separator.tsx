@@ -50,19 +50,20 @@ const Line = ({ isVertical }: LineProps) =>
 
 export interface SeparatorProps {
     isVertical: boolean
+    isButtonToggled: boolean
     expanded: boolean
     shrink: () => void
     expand: () => void
 }
 
-const Separator = ({ isVertical, expanded, shrink, expand }: SeparatorProps) =>
+const Separator = ({ isVertical, isButtonToggled, expanded, shrink, expand }: SeparatorProps) =>
     <div className={css(isVertical ? styles.separatorVContainer : styles.separatorHContainer)}>
         <div className={css(isVertical ? styles.lineVContainer : styles.lineHContainer)}>
             <Line isVertical={isVertical} />
         </div>
         <CircularButton
             onClick={expanded ? shrink : expand}
-            toggled={!expanded}
+            toggled={isButtonToggled}
             vertical={isVertical}
         />
         <div className={css(isVertical ? styles.lineVContainer : styles.lineHContainer)}>

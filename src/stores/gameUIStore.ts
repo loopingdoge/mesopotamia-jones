@@ -1,11 +1,23 @@
 import { observable, action, /* computed */ } from 'mobx'
 
-import { GameDoor } from '../config/map'
 import { Riddle } from '../config/riddles'
 
 export const GAME   = 'GAME'
 export const MAP    = 'MAP'
 export const BLUEP  = 'BLUEPRINT'
+
+const getGameScale = (pageWidth: number, pageHeight: number) => {
+    let width: number
+    let height: number
+    width = pageWidth
+    height = pageWidth * 0.5625
+    if (height > pageHeight) {
+        height = pageHeight
+        width = height * 1.77
+    }
+    return { width, height }
+}
+
 
 export interface IGameUIStore {
     selected: string
@@ -14,8 +26,8 @@ export interface IGameUIStore {
 
 export class UIStore {
 
-    @observable width: number = window.innerWidth
-    @observable height: number = window.innerHeight
+    @observable width: number = getGameScale(window.innerWidth, window.innerHeight).width
+    @observable height: number = getGameScale(window.innerWidth, window.innerHeight).height
 
     @action changeWidth = (width: number) => this.width = width
     @action changeHeight = (height: number) => this.height = height
@@ -49,8 +61,9 @@ export class UIStore {
 const uiStore = new UIStore()
 
 window.onresize = () => {
-    uiStore.changeWidth(window.innerWidth)
-    uiStore.changeHeight(window.innerHeight)
+    const { width, height } = getGameScale(window.innerWidth, window.innerHeight)
+    uiStore.changeWidth(width)
+    uiStore.changeHeight(height)
 }
 
 export default uiStore
