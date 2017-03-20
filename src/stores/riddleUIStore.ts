@@ -13,11 +13,11 @@ export class RiddleUIStore {
     constructor() {
         reaction(
             () => this.isCuneiformExpanded,
-            () => setTimeout(() => this.isCuneiformButtonToggled = !this.isCuneiformButtonToggled, 350)
+            () => setTimeout(() => this.isCuneiformButtonToggled = !this.isCuneiformButtonToggled, 500)
         )
         reaction(
             () => this.isLegendExpanded,
-            () => setTimeout(() => this.isLegendButtonToggled = !this.isLegendButtonToggled, 350)
+            () => setTimeout(() => this.isLegendButtonToggled = !this.isLegendButtonToggled, 500)
         )
     }
 

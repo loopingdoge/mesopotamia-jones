@@ -2,6 +2,7 @@ import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 import { RouterStore } from 'mobx-react-router'
+import { Motion, spring, presets } from 'react-motion'
 
 import { GameStore } from '../stores/gameStore'
 import { RiddleUIStore } from '../stores/riddleUIStore'
@@ -32,24 +33,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
     },
-    riddleColumnExpanded: {
+    riddleColumn: {
         display: 'flex',
         flexDirection: 'column',
-        transition: 'all 0.5s ease',
-        flex: 1,
-    },
-    riddleColumnShrinked: {
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'all 0.5s ease',
-        opacity: 0,
-        flex: 0,
+        overflow: 'hidden',
     },
     cuneiformSection: {
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'center',
         opacity: 1,
-        flex: '2 0',
+        flex: '1 0',
+        textAlign: 'center',
     },
     editorSection: {
         display: 'flex',
@@ -113,6 +108,8 @@ const SolutionSection = ({ codeResult, runCode }: SolutionSection) =>
         <button onClick={runCode}>Run Code</button>
     </div>
 
+const expandedToFlex = (isExpanded: boolean) => isExpanded ? 1 : 0
+
 export interface RiddleProps {
     riddleText: string
     solutionLength: number
@@ -137,6 +134,11 @@ export interface RiddleProps {
     tryOpenDoor: () => void
 }
 
+interface ShrinkStyle {
+    columnFlex: number
+    legendFlex: number
+}
+
 const Riddle = ({
     riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible,
     isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
@@ -146,37 +148,38 @@ const Riddle = ({
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} />
         <div className={css(styles.riddleContainer)}>
-            <div className={css(isCuneiformExpanded ? styles.riddleColumnExpanded : styles.riddleColumnShrinked)}>
+            <Motion style={{ columnFlex: spring(expandedToFlex(isCuneiformExpanded)), legendFlex: spring(expandedToFlex(isLegendExpanded))}}>
                 {
-                    isCuneiformExpanded ?
-                        <div className={css(styles.column)}>
-                            <CuneiformSection
-                                riddle={riddleText}
-                            />
-                            <div className={css(styles.lockRow)}>
-                                <Solution
-                                    length={solutionLength}
-                                    type={solutionType}
-                                    onChangeValue={onChangeSolution}
-                                    value={userSolution}
+                    ({ columnFlex, legendFlex }: ShrinkStyle) =>
+                        <div className={css(styles.riddleColumn)} style={{ flex: columnFlex, opacity: columnFlex }}>
+                            <div className={css(styles.column)}>
+                                <CuneiformSection
+                                    riddle={riddleText}
                                 />
-                                <button onClick={tryOpenDoor}>Open</button>
+                                <div className={css(styles.lockRow)}>
+                                    <Solution
+                                        length={solutionLength}
+                                        type={solutionType}
+                                        onChangeValue={onChangeSolution}
+                                        value={userSolution}
+                                    />
+                                    <button onClick={tryOpenDoor}>Open</button>
+                                </div>
+                                <Separator
+                                    isVertical={false}
+                                    isButtonToggled={isLegendButtonToggled}
+                                    expanded={isLegendExpanded}
+                                    shrink={shrinkLegend}
+                                    expand={expandLegend}
+                                />
+                                <div style={{ flex: legendFlex, opacity: legendFlex }}>
+                                    <CuneiformLegend />
+                                </div>
                             </div>
-                            <Separator
-                                isVertical={false}
-                                isButtonToggled={isLegendButtonToggled}
-                                expanded={isLegendExpanded}
-                                shrink={shrinkLegend}
-                                expand={expandLegend}
-                            />
-                            <CuneiformLegend
-                                isExpanded={isLegendExpanded}
-                            />
                         </div>
-                        :
-                        null
-                }   
-            </div>
+                }
+            </Motion>
+            
             {
                 hasItem(inventory, computer) ?
                     <div className={css(styles.riddleContainer)}>
@@ -187,7 +190,7 @@ const Riddle = ({
                             shrink={shrinkCuneiform}
                             expand={expandCuneiform}
                         />
-                        <div className={css(styles.riddleColumnExpanded)}>
+                        <div className={css(styles.editorSection)}>
                             <EditorSection
                                 code={userCode}
                                 onUserCodeInput={onUserCodeInput}

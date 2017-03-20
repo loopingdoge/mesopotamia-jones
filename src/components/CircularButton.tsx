@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
-import { spring, Motion } from 'react-motion'
+import { spring, Motion, presets } from 'react-motion'
 
 const styles = StyleSheet.create({
     button: {
@@ -42,11 +42,11 @@ interface ButtonStyle {
 const CircularButton = ({ vertical = false, toggled, onClick }: CircularButtonProps) => {
     let label = '<'
     return (
-        <Motion style={{ rotation: spring(getRotation(vertical, toggled)) }}>
+        <Motion style={{ rotation: spring(getRotation(vertical, toggled), presets.stiff) }}>
             {
                 ({ rotation }: ButtonStyle) =>
-                    <div onClick={onClick} style={getButtonStyle(rotation)} className={css(styles.button)}>
-                        <span>{label}</span>
+                    <div onClick={onClick} className={css(styles.button)}>
+                        <span style={getButtonStyle(rotation)}>{label}</span>
                     </div>
             }
         </Motion>

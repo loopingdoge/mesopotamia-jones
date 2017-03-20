@@ -9,12 +9,14 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         width: 44,
+        padding: '0 8px',
     },
     separatorHContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
         height: 44,
+        padding: '8px 0',
     },
     lineVContainer: {
         display: 'flex',

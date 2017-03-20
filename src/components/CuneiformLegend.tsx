@@ -11,14 +11,6 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         padding: 8,
     },
-    legendExpanded: {
-        transition: 'all 0.5s ease',
-        flex: '1 0',
-    },
-    legendShrinked: {
-        transition: 'all 0.5s ease',
-        flex: '0 1',
-    },
     legendCell: {
         display: 'flex',
         flexDirection: 'column',
@@ -31,36 +23,25 @@ const styles = StyleSheet.create({
     },
 })
 
-export interface CuneiformLegendProps {
-    isExpanded: boolean
-}
-class CuneiformLegend extends React.Component<CuneiformLegendProps, undefined> {
+const alphabet = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
 
-    alphabet: string[] = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
-
-    render() {
-        return (
-            <div className={css(this.props.isExpanded ? styles.legendExpanded : styles.legendShrinked)}>
-                <Scrollbars autoHide>
-                    <div className={css(styles.legend)}>
-                        {
-                            this.alphabet.map( (value, i) =>
-                                value === ' ' ?
-                                    <div key={i} className={css(styles.legendNewline)}></div>
-                                    :
-                                    <div key={i} className={css(styles.legendCell)}>
-                                        <div>
-                                            <CuneiformChar value={value}/>
-                                        </div>
-                                        <div>{value}</div>
-                                    </div>
-                            )
-                        }
-                    </div>
-                </Scrollbars>
-            </div>
-        )
-    }
-}
+const CuneiformLegend = () =>
+    <Scrollbars autoHide>
+        <div className={css(styles.legend)}>
+            {
+                alphabet.map( (value, i) =>
+                    value === ' ' ?
+                        <div key={i} className={css(styles.legendNewline)}></div>
+                        :
+                        <div key={i} className={css(styles.legendCell)}>
+                            <div>
+                                <CuneiformChar value={value}/>
+                            </div>
+                            <div>{value}</div>
+                        </div>
+                )
+            }
+        </div>
+    </Scrollbars>
 
 export default CuneiformLegend
