@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
-import { RouterStore } from 'mobx-react-router'
-import { Motion, spring, presets } from 'react-motion'
+import { Motion, spring } from 'react-motion'
 
 import { GameStore } from '../stores/gameStore'
+import { UIStore } from '../stores/gameUIStore'
 import { RiddleUIStore } from '../stores/riddleUIStore'
 import { RiddleStore } from '../stores/riddleStore'
 import { SolutionType } from '../config/riddles'
 import { Inventory, hasItem, computer } from '../config/inventory'
+import { onlyIf } from '../utils'
 import Editor from './Editor'
 import Toolbar from './Toolbar'
 import Solution from './Solution'
@@ -20,6 +21,11 @@ const styles = StyleSheet.create({
     column: {
         display: 'flex',
         flexDirection: 'column',
+        flex: 1,
+    },
+    row: {
+        display: 'flex',
+        flexDirection: 'row',
         flex: 1,
     },
     wrapper: {
@@ -84,16 +90,18 @@ const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
 
 export interface EditorSectionProps {
     code: string
+    width: number
+    height: number
     onUserCodeInput: (code: string) => void
 }
 
-const EditorSection = ({ code, onUserCodeInput }: EditorSectionProps) =>
+const EditorSection = ({ code, onUserCodeInput, width, height }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <Editor
             code={code}
             onUserCodeInput={onUserCodeInput}
-            height={'500px'}
-            width={'100%'}
+            height={`${height}px`}
+            width={`${width}px`}
         />
     </div>
 
@@ -109,6 +117,9 @@ const SolutionSection = ({ codeResult, runCode }: SolutionSection) =>
     </div>
 
 const expandedToFlex = (isExpanded: boolean) => isExpanded ? 1 : 0
+const flexToExpandedFromShrinked = (flex: number) => flex === 1 ? true : false
+const flexToExpandedFromExpanded = (flex: number) => flex > 0 ? true : false
+const flexToExpanded = (isExpanded: boolean, flex: number) => isExpanded ? flexToExpandedFromShrinked(flex) : flexToExpandedFromExpanded(flex)
 
 export interface RiddleProps {
     riddleText: string
@@ -119,10 +130,10 @@ export interface RiddleProps {
     codeResult: string
     isNotificationVisible: boolean
     isCuneiformExpanded: boolean
-    isCuneiformButtonToggled: boolean
     isLegendExpanded: boolean
-    isLegendButtonToggled: boolean
     inventory: Inventory
+    width: number
+    height: number
     goBack: () => void
     runCode: () => void
     shrinkCuneiform: () => void
@@ -142,15 +153,13 @@ interface ShrinkStyle {
 const Riddle = ({
     riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible,
     isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
-    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory, isCuneiformButtonToggled,
-    isLegendButtonToggled,
+    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory, width, height
 }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} />
-        <div className={css(styles.riddleContainer)}>
             <Motion style={{ columnFlex: spring(expandedToFlex(isCuneiformExpanded)), legendFlex: spring(expandedToFlex(isLegendExpanded))}}>
-                {
-                    ({ columnFlex, legendFlex }: ShrinkStyle) =>
+                {({ columnFlex, legendFlex }: ShrinkStyle) =>
+                    <div className={css(styles.riddleContainer)}>
                         <div className={css(styles.riddleColumn)} style={{ flex: columnFlex, opacity: columnFlex }}>
                             <div className={css(styles.column)}>
                                 <CuneiformSection
@@ -167,7 +176,7 @@ const Riddle = ({
                                 </div>
                                 <Separator
                                     isVertical={false}
-                                    isButtonToggled={isLegendButtonToggled}
+                                    isButtonToggled={!flexToExpanded(isLegendExpanded, legendFlex)}
                                     expanded={isLegendExpanded}
                                     shrink={shrinkLegend}
                                     expand={expandLegend}
@@ -177,51 +186,49 @@ const Riddle = ({
                                 </div>
                             </div>
                         </div>
-                }
-            </Motion>
-            
-            {
-                hasItem(inventory, computer) ?
-                    <div className={css(styles.riddleContainer)}>
-                        <Separator
-                            isVertical
-                            isButtonToggled={isCuneiformButtonToggled}
-                            expanded={isCuneiformExpanded}
-                            shrink={shrinkCuneiform}
-                            expand={expandCuneiform}
-                        />
-                        <div className={css(styles.editorSection)}>
-                            <EditorSection
-                                code={userCode}
-                                onUserCodeInput={onUserCodeInput}
-                            />
-                            <SolutionSection
-                                codeResult={codeResult}
-                                runCode={runCode}
-                            />
+                        {onlyIf(hasItem(inventory, computer),
+                            <div className={css(styles.riddleColumn)}>
+                                <div className={css(styles.row)}>
+                                    <Separator
+                                        isVertical
+                                        isButtonToggled={!flexToExpanded(isCuneiformExpanded, columnFlex)}
+                                        expanded={isCuneiformExpanded}
+                                        shrink={shrinkCuneiform}
+                                        expand={expandCuneiform}
+                                    />
+                                    <div className={css(styles.editorSection)}>
+                                        <EditorSection
+                                            code={userCode}
+                                            onUserCodeInput={onUserCodeInput}
+                                            width={width / 2}
+                                            height={height}
+                                        />
+                                        <SolutionSection
+                                            codeResult={codeResult}
+                                            runCode={runCode}
+                                        />
+                                    </div>
+                                </div>
+                            </div>)}
                         </div>
-                    </div>
-                    :
-                    null
-            }
-        </div>
+                    }
+            </Motion>
+        
     </div>
 
 export interface RiddleContainerProps {
     gameStore?: GameStore
     riddleUIStore?: RiddleUIStore
     riddleStore?: RiddleStore
-    routingStore?: RouterStore
+    uiStore?: UIStore
 }
 
-@inject('gameStore', 'routingStore', 'riddleStore', 'riddleUIStore')
+@inject('gameStore', 'uiStore', 'riddleStore', 'riddleUIStore')
 @observer
 class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
     render() {
-        const {
-            inventory
-        } = this.props.gameStore
-
+        const { inventory } = this.props.gameStore
+        const { width, height } = this.props.uiStore
         const {
             currentRiddle,
             codeResult,
@@ -244,8 +251,6 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             shrinkLegend,
             expandLegend,
             isNotificationVisible,
-            isCuneiformButtonToggled,
-            isLegendButtonToggled,
         } = this.props.riddleUIStore
 
         return (
@@ -269,8 +274,8 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 expandCuneiform={expandCuneiform}
                 shrinkLegend={shrinkLegend}
                 expandLegend={expandLegend}
-                isCuneiformButtonToggled={isCuneiformButtonToggled}
-                isLegendButtonToggled={isLegendButtonToggled}
+                width={width}
+                height={height}
             />
         )
     }

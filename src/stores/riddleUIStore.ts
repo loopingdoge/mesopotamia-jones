@@ -1,25 +1,11 @@
-import { observable, action, reaction, /* computed */ } from 'mobx'
+import { observable, action } from 'mobx'
 
 export class RiddleUIStore {
 
     @observable isCuneiformExpanded: boolean = true
     @observable isLegendExpanded: boolean = true
 
-    @observable isCuneiformButtonToggled: boolean = false
-    @observable isLegendButtonToggled: boolean = false
-
     @observable isNotificationVisible: boolean = false
-
-    constructor() {
-        reaction(
-            () => this.isCuneiformExpanded,
-            () => setTimeout(() => this.isCuneiformButtonToggled = !this.isCuneiformButtonToggled, 500)
-        )
-        reaction(
-            () => this.isLegendExpanded,
-            () => setTimeout(() => this.isLegendButtonToggled = !this.isLegendButtonToggled, 500)
-        )
-    }
 
     @action shrinkCuneiform = () => this.isCuneiformExpanded = false
     @action expandCuneiform = () => this.isCuneiformExpanded = true
