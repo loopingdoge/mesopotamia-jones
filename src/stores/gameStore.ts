@@ -124,7 +124,9 @@ export class GameStore {
      */
     @action activateRiddle = (x: number, y: number) => {
         const gameDoor = getGameDoor(this.room, x, y)
-        this.riddleStore.activateDoor(gameDoor)
+        const userCode = this.computer.userCode[gameDoor.door.riddle.id]
+
+        this.riddleStore.activateDoor(gameDoor, userCode)
         this.state = {
             ...this.state,
             lastDoor: gameDoor.door,

@@ -24,7 +24,6 @@ const Editor = ({ code, defaultCode, onUserCodeInput, height, width }: EditorPro
         theme='solarized_light'
         onChange={onUserCodeInput}
         name='code-editor'
-        // defaultValue={defaultCode}
         value={code || defaultCode}
         editorProps={{$blockScrolling: Infinity}}
         tabSize={4}

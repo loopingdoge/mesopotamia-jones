@@ -96,7 +96,7 @@ const Inventory = ({ width, height, selectedRiddle, selected, onMapDoorClick, ga
                     <div className={css(styles.inventoryContent)}>
                         {
                             selectedRiddle ?
-                                <EditorSection code={ gameStore.getUserCode(selectedRiddle.id) } defaultCode={ selectedRiddle.userCode() } onUserCodeInput={(code: string) => gameStore.setUserCode(selectedRiddle.id, code) } height={height} width={width / 2} />
+                                <EditorSection code={ gameStore.getUserCode(selectedRiddle.id) } defaultCode={ selectedRiddle.defaultCode([]) } onUserCodeInput={(code: string) => gameStore.setUserCode(selectedRiddle.id, code) } height={height} width={width / 2} />
                             :
                                 <div className={css(styles.placeholder)}>
                                     Clicca una porta per iniziare ad editare

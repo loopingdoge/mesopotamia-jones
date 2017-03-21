@@ -77,7 +77,7 @@ export class RiddleStore {
         }
     }
 
-    @action activateDoor = (gameDoor: GameDoor) => {
+    @action activateDoor = (gameDoor: GameDoor, userCode: string) => {
         const riddle = gameDoor.door.riddle
         this.state = {
             ...this.state,
@@ -86,7 +86,7 @@ export class RiddleStore {
             userSolution: userSolutionInit(riddle.solutionType, riddle.solutionLength),
             isSolved: false,
         }
-        this.setUserCode(this.currentRiddle.defaultCode(this.generatedArgs))
+        this.setUserCode(userCode || this.currentRiddle.defaultCode(this.generatedArgs))
     }
 
     @action checkSolution = () => {
