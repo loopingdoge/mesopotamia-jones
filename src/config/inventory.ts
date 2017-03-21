@@ -3,12 +3,23 @@ export interface Item {
     attrs?: any
 }
 
+export class Computer implements Item {
+
+    id: string = COMPUTER
+    userCode: string
+
+    setUserCode(code: string) {
+        this.userCode = code
+    }
+
+}
+
 export const COMPUTER = 'COMPUTER'
 export const ROCK_SMASHER = 'ROCK_SMASHER'
 
 const item = (id: string, attrs?: any): Item => ({id, attrs})
 
-export const computer = item(COMPUTER, { userCode:  {} })
+export const computer = new Computer()
 
 export const rockSmasher = item(ROCK_SMASHER)
 

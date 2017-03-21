@@ -3,7 +3,7 @@ import { observable, action, reaction, computed } from 'mobx'
 import { RiddleStore } from './riddleStore'
 import { Room, rooms, getGameDoor, Door } from '../config/map'
 import { Dialog, getDialogById } from '../config/dialogs'
-import { Inventory, Item, defaultInventory, addItem } from '../config/inventory'
+import { Computer, Inventory, Item, defaultInventory, addItem } from '../config/inventory'
 
 import PhaserGame from '../phaser'
 
