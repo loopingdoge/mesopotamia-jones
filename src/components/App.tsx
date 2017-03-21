@@ -15,7 +15,7 @@ import MesopotamiaJones from './MesopotamiaJones'
 
 const routingStore = new RouterStore()
 
-gameStore.init(riddleStore)
+gameStore.init(riddleStore, uiStore)
 
 const stores = { gameStore, routingStore , riddleStore, riddleUIStore, uiStore }
 

@@ -1,9 +1,11 @@
 import { observable, action, reaction, computed } from 'mobx'
 
 import { RiddleStore } from './riddleStore'
+import { UIStore } from './gameUiStore'
+
 import { Room, rooms, getGameDoor, Door } from '../config/map'
 import { Dialog, getDialogById } from '../config/dialogs'
-import { Computer, Inventory, Item, defaultInventory, addItem } from '../config/inventory'
+import { Inventory, Item, defaultInventory, addItem, Computer } from '../config/inventory'
 
 import PhaserGame from '../phaser'
 
@@ -22,6 +24,8 @@ export class GameStore {
 
     game: PhaserGame
     riddleStore: RiddleStore
+    uiStore: UIStore
+    computer: Computer
 
     @observable lineId: number
 
@@ -57,20 +61,24 @@ export class GameStore {
         }
     }
 
-    init(riddleStore: RiddleStore) {
+    init(riddleStore: RiddleStore, uiStore: UIStore) {
         this.riddleStore = riddleStore
+        this.uiStore = uiStore
 
+        // localStorage.setItem('gameState', null)
         this.state = {
             ...this.state,
             room: rooms[0],
             ...JSON.parse(localStorage.getItem('gameState'))
         }
+        this.computer = this.state.inventory[0] as Computer
 
         // React to riddle solved by the user
         reaction(
             () => this.riddleStore.isSolved,
             (isSolved: boolean) => isSolved && this.riddleSolved()
         )
+
         // React to dialog opening
         reaction(
             () => this.dialog,
@@ -93,7 +101,7 @@ export class GameStore {
             () => this.saveGameState()
         )
         reaction(
-            () => this.state.inventory,
+            () => this.uiStore.selectedRiddle,
             () => this.saveGameState()
         )
 
@@ -105,6 +113,7 @@ export class GameStore {
     }
 
     saveGameState = () => {
+        console.error('SAVING')
         localStorage.setItem('gameState', JSON.stringify(this.state))
     }
 
@@ -166,6 +175,15 @@ export class GameStore {
             inventory: addItem(this.state.inventory, item)
         }
     }
+
+    @action setUserCode = (riddleId: string, userCode: string) => {
+        this.computer.userCode[riddleId] = userCode
+        this.state = {
+            ...this.state
+        }
+    }
+
+    getUserCode = (riddleId: string) => this.computer.userCode[riddleId]
 }
 
 const gameStore = new GameStore()

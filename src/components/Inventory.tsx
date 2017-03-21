@@ -54,15 +54,17 @@ const styles = StyleSheet.create({
 
 export interface EditorSectionProps {
     code: string
+    defaultCode: string
     onUserCodeInput: (code: string) => void
     height: number
     width: number
 }
 
-const EditorSection = ({ code, onUserCodeInput, height, width }: EditorSectionProps) =>
+const EditorSection = ({ code, defaultCode, onUserCodeInput, height, width }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <Editor
             code={code}
+            defaultCode={defaultCode}
             onUserCodeInput={onUserCodeInput}
             height={height - 90 + 'px'}
             width={width - 40 + 'px'}
@@ -79,9 +81,10 @@ interface InventoryProps {
     selectedRiddle: Riddle
     selected: string
     onMapDoorClick: (riddle: Riddle) => void
+    gameStore?: GameStore
 }
 
-const Inventory = ({ width, height, selectedRiddle, selected, onMapDoorClick }: InventoryProps) => {
+const Inventory = ({ width, height, selectedRiddle, selected, onMapDoorClick, gameStore }: InventoryProps) => {
     let content
     switch ( selected ) {
         case MAP:
@@ -93,7 +96,7 @@ const Inventory = ({ width, height, selectedRiddle, selected, onMapDoorClick }: 
                     <div className={css(styles.inventoryContent)}>
                         {
                             selectedRiddle ?
-                                <EditorSection code={ selectedRiddle.userCode() } onUserCodeInput={() => console.error('TODO')} height={height} width={width / 2} />
+                                <EditorSection code={ gameStore.getUserCode(selectedRiddle.id) } defaultCode={ selectedRiddle.userCode() } onUserCodeInput={(code: string) => gameStore.setUserCode(selectedRiddle.id, code) } height={height} width={width / 2} />
                             :
                                 <div className={css(styles.placeholder)}>
                                     Clicca una porta per iniziare ad editare
@@ -127,9 +130,9 @@ const Inventory = ({ width, height, selectedRiddle, selected, onMapDoorClick }: 
     )
 }
 
-// --------------------------------------------------------------------------------------
-// -------------------------------------- Container -------------------------------------
-// --------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------- //
+// -------------------------------------- Container ------------------------------------- //
+// -------------------------------------------------------------------------------------- //
 
 interface InventoryPropsContainer {
     gameStore?: GameStore
@@ -151,6 +154,7 @@ class InventoryContainer extends React.Component<InventoryPropsContainer, undefi
                 onMapDoorClick={onMapDoorClick}
                 selectedRiddle={selectedRiddle}
                 selected={selected}
+                gameStore={this.props.gameStore}
             />
         )
     }

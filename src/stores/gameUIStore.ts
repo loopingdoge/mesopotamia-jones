@@ -1,4 +1,4 @@
-import { observable, action, /* computed */ } from 'mobx'
+import { observable, action, computed } from 'mobx'
 
 import { Riddle } from '../config/riddles'
 
@@ -34,6 +34,10 @@ export class UIStore {
 
     @observable state: IGameUIStore
 
+    @computed get selectedRiddle(): Riddle {
+        return this.state.selectedRiddle
+    }
+
     constructor() {
         this.state = {
             selected: GAME,
@@ -50,10 +54,9 @@ export class UIStore {
     }
 
     @action onMapDoorClick = (selectedRiddle: Riddle) => {
-        console.error('onMapDoorClick', selectedRiddle)
         this.state = {
             ...this.state,
-            selectedRiddle
+            selectedRiddle // userCode // Codice modificato dall'utente
         }
     }
 }

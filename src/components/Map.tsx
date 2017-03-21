@@ -135,7 +135,7 @@ const roomNode = (node: Room, parent: RoomNode | null, position: RoomPosition): 
 
 
 export interface MapProps {
-    onMapDoorClick: (door: Room) => void
+    onMapDoorClick: (riddle: Riddle) => void
 }
 
 const Map = ({onMapDoorClick}: MapProps) => {
