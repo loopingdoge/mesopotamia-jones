@@ -65,7 +65,6 @@ export class GameStore {
         this.riddleStore = riddleStore
         this.uiStore = uiStore
 
-        // localStorage.setItem('gameState', null)
         this.state = {
             ...this.state,
             room: rooms[0],
@@ -110,6 +109,17 @@ export class GameStore {
     @action startGame = () => {
         this.game = new PhaserGame()
         this.game.start()
+    }
+
+    @action newGame = () => {
+        localStorage.setItem('gameState', null)
+        this.state = {
+            room: rooms[0],
+            lastDoor: null,
+            dialog: null,
+            gameState: GAME,
+            inventory: defaultInventory(),
+        }
     }
 
     saveGameState = () => {

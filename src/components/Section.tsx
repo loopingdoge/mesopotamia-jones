@@ -26,9 +26,10 @@ const styles = StyleSheet.create({
 
 export interface SectionProps {
     startGame: () => void
+    newGame: () => void
 }
 
-const Section = ({ startGame }: SectionProps) =>
+const Section = ({ startGame, newGame }: SectionProps) =>
     <div className={css(styles.sectionContainer)}>
         <div className={css(styles.gameDescription)}>
             <p>
@@ -38,6 +39,7 @@ const Section = ({ startGame }: SectionProps) =>
         </div>
         <div className={css(styles.play)}>
             <button onClick={startGame}>Play</button>
+            <button onClick={newGame}>New Game</button>
         </div>
     </div>
 

@@ -31,7 +31,7 @@ export interface HomeProps {
 
 const Home = ({ startGame, newGame, showCredits }: HomeProps) =>
     <div className={css(styles.homeContainer)}>
-        <Section startGame={startGame}/>
+        <Section startGame={startGame} newGame={newGame} />
         {/*<div>
             <button onClick={newGame}>New Game</button>
             <button onClick={showCredits}>Credits</button>
@@ -48,10 +48,15 @@ export interface HomeContainerProps {
 class HomeContainer extends React.Component<HomeContainerProps, undefined> {
     render() {
         const { push } = this.props.routingStore
+        const newGame = () => {
+            this.props.gameStore.newGame()
+            push('/game')
+        }
+
         return (
             <Home
                 startGame={() => push('/game')}
-                newGame={() => {}}
+                newGame={newGame}
                 showCredits={() => {}}
             />
         )
