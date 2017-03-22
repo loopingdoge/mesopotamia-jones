@@ -42,6 +42,13 @@ const styles = StyleSheet.create({
     riddleColumn: {
         display: 'flex',
         flexDirection: 'column',
+        // flex: '1 1 0%',
+        overflow: 'hidden',
+    },
+    editorColumn: {
+        display: 'flex',
+        flexDirection: 'column',
+        flex: '1 1 0%',
         overflow: 'hidden',
     },
     cuneiformSection: {
@@ -90,8 +97,8 @@ const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
 
 export interface EditorSectionProps {
     code: string
-    width: number
-    height: number
+    width: string
+    height: string
     onUserCodeInput: (code: string) => void
 }
 
@@ -99,9 +106,10 @@ const EditorSection = ({ code, onUserCodeInput, width, height }: EditorSectionPr
     <div className={css(styles.editorSection)}>
         <Editor
             code={code}
+            // defaultCode={defaultCode}
             onUserCodeInput={onUserCodeInput}
-            height={`${height}px`}
-            width={`${width}px`}
+            height={height}
+            width={width}
         />
     </div>
 
@@ -187,7 +195,7 @@ const Riddle = ({
                             </div>
                         </div>
                         {onlyIf(hasItem(inventory, computer),
-                            <div className={css(styles.riddleColumn)}>
+                            <div className={css(styles.editorColumn)}>
                                 <div className={css(styles.row)}>
                                     <Separator
                                         isVertical
@@ -200,8 +208,8 @@ const Riddle = ({
                                         <EditorSection
                                             code={userCode}
                                             onUserCodeInput={onUserCodeInput}
-                                            width={width / 2}
-                                            height={height}
+                                            height={`${height}px`}
+                                            width={'100%'}
                                         />
                                         <SolutionSection
                                             codeResult={codeResult}
