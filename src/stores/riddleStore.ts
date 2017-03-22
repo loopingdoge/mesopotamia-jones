@@ -7,6 +7,7 @@ export interface IRiddleStore {
     currentGameDoor: GameDoor
     generatedArgs: any[]
     userCode: string
+    parameters: string[]
     userSolution: string
     codeResult: any
     isSolved: boolean
@@ -24,6 +25,9 @@ export class RiddleStore {
     }
     @computed get userCode(): string {
         return this.state.userCode
+    }
+    @computed get parameters(): string[] {
+        return this.state.parameters
     }
     @computed get userSolution(): string {
         return this.state.userSolution
@@ -48,6 +52,7 @@ export class RiddleStore {
             currentGameDoor: null,
             generatedArgs: null,
             userCode: null,
+            parameters: [],
             userSolution: null,
             codeResult: null,
             isSolved: false,
@@ -86,6 +91,7 @@ export class RiddleStore {
             userSolution: userSolutionInit(riddle.solutionType, riddle.solutionLength),
             isSolved: false,
         }
+        this.state.parameters = this.currentRiddle.parameters(this.generatedArgs)
         this.setUserCode(userCode || this.currentRiddle.defaultCode(this.generatedArgs))
     }
 
@@ -104,9 +110,10 @@ export class RiddleStore {
     @action runCode = () => {
         let codeResult
         let userSolution = this.state.userSolution
+        console.warn(`(function() {${this.parameters};${this.userCode}})()`)
         try {
             // tslint:disable-next-line: no-eval
-            codeResult = eval(`(function() {${this.userCode}})()`)
+            codeResult = eval(`(function() {${this.parameters};${this.userCode}})()`)
             // TODO: Check if codeResult is appropriate
             userSolution = String(codeResult)
         } catch (e) {

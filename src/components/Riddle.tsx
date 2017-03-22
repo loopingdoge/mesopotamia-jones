@@ -97,17 +97,18 @@ const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
 
 export interface EditorSectionProps {
     code: string
+    parameters: string[]
     width: string
     height: string
     onUserCodeInput: (code: string) => void
 }
 
-const EditorSection = ({ code, onUserCodeInput, width, height }: EditorSectionProps) =>
+const EditorSection = ({ code, parameters, onUserCodeInput, width, height }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <Editor
             code={code}
-            // defaultCode={defaultCode}
             onUserCodeInput={onUserCodeInput}
+            parameters={parameters}
             height={height}
             width={width}
         />
@@ -134,6 +135,7 @@ export interface RiddleProps {
     solutionLength: number
     solutionType: SolutionType
     userCode: string
+    parameters: string[]
     userSolution: string
     codeResult: string
     isNotificationVisible: boolean
@@ -159,7 +161,7 @@ interface ShrinkStyle {
 }
 
 const Riddle = ({
-    riddleText, solutionLength, solutionType, userCode, userSolution, codeResult, isNotificationVisible,
+    riddleText, solutionLength, solutionType, userCode, parameters, userSolution, codeResult, isNotificationVisible,
     isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
     expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory, width, height
 }: RiddleProps) =>
@@ -207,6 +209,7 @@ const Riddle = ({
                                     <div className={css(styles.editorSection)}>
                                         <EditorSection
                                             code={userCode}
+                                            parameters={parameters}
                                             onUserCodeInput={onUserCodeInput}
                                             height={`${height}px`}
                                             width={'100%'}
@@ -245,6 +248,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             setUserCode,
             setUserSolution,
             userCode,
+            parameters,
             userSolution,
             question,
         } = this.props.riddleStore
@@ -268,6 +272,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 solutionLength={currentRiddle.solutionLength}
                 solutionType={currentRiddle.solutionType}
                 userCode={userCode}
+                parameters={parameters}
                 userSolution={userSolution}
                 codeResult={codeResult}
                 isLegendExpanded={isLegendExpanded}
