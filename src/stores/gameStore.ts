@@ -1,7 +1,7 @@
 import { observable, action, reaction, computed } from 'mobx'
 
 import { RiddleStore } from './riddleStore'
-import { UIStore } from './gameUiStore'
+import { UIStore } from './gameUIStore'
 
 import { Room, rooms, getGameDoor, Door } from '../config/map'
 import { Dialog, getDialogById } from '../config/dialogs'

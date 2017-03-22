@@ -56,7 +56,7 @@ export class UIStore {
     @action onMapDoorClick = (selectedRiddle: Riddle) => {
         this.state = {
             ...this.state,
-            selectedRiddle // userCode // Codice modificato dall'utente
+            selectedRiddle
         }
     }
 }
