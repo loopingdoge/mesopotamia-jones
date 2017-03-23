@@ -110,14 +110,15 @@ export class RiddleStore {
     @action runCode = () => {
         let codeResult
         let userSolution = this.state.userSolution
-        console.warn(`(function() {${this.parameters};${this.userCode}})()`)
+        const paramString = this.parameters.reduce((prev, param) => `${prev} ${param}`)
+        console.warn(`(function() {${paramString} ${this.userCode}})()`)
         try {
             // tslint:disable-next-line: no-eval
-            codeResult = eval(`(function() {${this.parameters};${this.userCode}})()`)
+            codeResult = eval(`(function() {${paramString} ${this.userCode}})()`)
             // TODO: Check if codeResult is appropriate
             userSolution = String(codeResult)
         } catch (e) {
-            codeResult = (<EvalError>e).message
+            codeResult = (e as EvalError).message
         }
         this.state = {
             ...this.state,

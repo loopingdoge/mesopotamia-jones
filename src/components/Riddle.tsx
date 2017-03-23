@@ -126,8 +126,8 @@ const SolutionSection = ({ codeResult, runCode }: SolutionSection) =>
     </div>
 
 const expandedToFlex = (isExpanded: boolean) => isExpanded ? 1 : 0
-const flexToExpandedFromShrinked = (flex: number) => flex === 1 ? true : false
-const flexToExpandedFromExpanded = (flex: number) => flex > 0 ? true : false
+const flexToExpandedFromShrinked = (flex: number) => flex > 0.95 ? true : false
+const flexToExpandedFromExpanded = (flex: number) => flex > 0.05 ? true : false
 const flexToExpanded = (isExpanded: boolean, flex: number) => isExpanded ? flexToExpandedFromShrinked(flex) : flexToExpandedFromExpanded(flex)
 
 export interface RiddleProps {
