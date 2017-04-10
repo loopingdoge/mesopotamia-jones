@@ -2,6 +2,7 @@ import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 import { Motion, spring } from 'react-motion'
+import Tour from 'reactour'
 
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
@@ -141,6 +142,7 @@ export interface RiddleProps {
     isNotificationVisible: boolean
     isCuneiformExpanded: boolean
     isLegendExpanded: boolean
+    isTutorialOpen: boolean
     inventory: Inventory
     width: number
     height: number
@@ -150,6 +152,8 @@ export interface RiddleProps {
     expandCuneiform: () => void
     shrinkLegend: () => void
     expandLegend: () => void
+    showTutorial: () => void
+    hideTutorial: () => void
     onUserCodeInput: (code: string) => void
     onChangeSolution: (sol: string) => void
     tryOpenDoor: () => void
@@ -163,67 +167,87 @@ interface ShrinkStyle {
 const Riddle = ({
     riddleText, solutionLength, solutionType, userCode, parameters, userSolution, codeResult, isNotificationVisible,
     isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
-    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory, width, height
+    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory, width, height,
+    isTutorialOpen, showTutorial, hideTutorial,
 }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
-        <Toolbar goBack={goBack} />
-            <Motion style={{ columnFlex: spring(expandedToFlex(isCuneiformExpanded)), legendFlex: spring(expandedToFlex(isLegendExpanded))}}>
-                {({ columnFlex, legendFlex }: ShrinkStyle) =>
-                    <div className={css(styles.riddleContainer)}>
-                        <div className={css(styles.riddleColumn)} style={{ flex: columnFlex, opacity: columnFlex }}>
-                            <div className={css(styles.column)}>
-                                <CuneiformSection
-                                    riddle={riddleText}
+        <Toolbar goBack={goBack} openInfo={showTutorial} />
+        <Motion style={{ columnFlex: spring(expandedToFlex(isCuneiformExpanded)), legendFlex: spring(expandedToFlex(isLegendExpanded))}}>
+            {({ columnFlex, legendFlex }: ShrinkStyle) =>
+                <div className={css(styles.riddleContainer)}>
+                    <div className={css(styles.riddleColumn)} style={{ flex: columnFlex, opacity: columnFlex }}>
+                        <div className={css(styles.column)}>
+                            <CuneiformSection
+                                riddle={riddleText}
+                            />
+                            <div className={css(styles.lockRow)} data-tour={1}>
+                                <Solution
+                                    length={solutionLength}
+                                    type={solutionType}
+                                    onChangeValue={onChangeSolution}
+                                    value={userSolution}
                                 />
-                                <div className={css(styles.lockRow)}>
-                                    <Solution
-                                        length={solutionLength}
-                                        type={solutionType}
-                                        onChangeValue={onChangeSolution}
-                                        value={userSolution}
-                                    />
-                                    <button onClick={tryOpenDoor}>Open</button>
-                                </div>
-                                <Separator
-                                    isVertical={false}
-                                    isButtonToggled={!flexToExpanded(isLegendExpanded, legendFlex)}
-                                    expanded={isLegendExpanded}
-                                    shrink={shrinkLegend}
-                                    expand={expandLegend}
-                                />
-                                <div style={{ flex: legendFlex, opacity: legendFlex }}>
-                                    <CuneiformLegend />
-                                </div>
+                                <button onClick={tryOpenDoor}>Open</button>
+                            </div>
+                            <Separator
+                                isVertical={false}
+                                isButtonToggled={!flexToExpanded(isLegendExpanded, legendFlex)}
+                                expanded={isLegendExpanded}
+                                shrink={shrinkLegend}
+                                expand={expandLegend}
+                            />
+                            <div style={{ flex: legendFlex, opacity: legendFlex }} data-tour={2}>
+                                <CuneiformLegend />
                             </div>
                         </div>
-                        {onlyIf(hasItem(inventory, computer),
-                            <div className={css(styles.editorColumn)}>
-                                <div className={css(styles.row)}>
-                                    <Separator
-                                        isVertical
-                                        isButtonToggled={!flexToExpanded(isCuneiformExpanded, columnFlex)}
-                                        expanded={isCuneiformExpanded}
-                                        shrink={shrinkCuneiform}
-                                        expand={expandCuneiform}
+                    </div>
+                    {onlyIf(hasItem(inventory, computer),
+                        <div className={css(styles.editorColumn)}>
+                            <div className={css(styles.row)}>
+                                <Separator
+                                    isVertical
+                                    isButtonToggled={!flexToExpanded(isCuneiformExpanded, columnFlex)}
+                                    expanded={isCuneiformExpanded}
+                                    shrink={shrinkCuneiform}
+                                    expand={expandCuneiform}
+                                />
+                                <div className={css(styles.editorSection)}>
+                                    <EditorSection
+                                        code={userCode}
+                                        parameters={parameters}
+                                        onUserCodeInput={onUserCodeInput}
+                                        height={`${height}px`}
+                                        width={'100%'}
                                     />
-                                    <div className={css(styles.editorSection)}>
-                                        <EditorSection
-                                            code={userCode}
-                                            parameters={parameters}
-                                            onUserCodeInput={onUserCodeInput}
-                                            height={`${height}px`}
-                                            width={'100%'}
-                                        />
-                                        <SolutionSection
-                                            codeResult={codeResult}
-                                            runCode={runCode}
-                                        />
-                                    </div>
+                                    <SolutionSection
+                                        codeResult={codeResult}
+                                        runCode={runCode}
+                                    />
                                 </div>
-                            </div>)}
-                        </div>
-                    }
-            </Motion>
+                            </div>
+                        </div>)}
+                        <Tour
+                            isOpen={isTutorialOpen}
+                            onRequestClose={hideTutorial}
+                            showNumber={false}
+                            steps={[{
+                                selector: '[data-tour="1"]',
+                                content: () =>
+                                    <div>
+                                        <span>Wow mother father! Credo che dovrei girare la rotella e spingere il bottone</span>
+                                    </div>,
+                            },{
+                                selector: '[data-tour="2"]',
+                                content: () =>
+                                    <div>
+                                        <span>Very bella questa legenda, credo proprio che dovrei cercare di tradurre i simboli</span>
+                                    </div>,
+                            }
+                            ]}
+                        />
+                    </div>
+                }
+        </Motion>
         
     </div>
 
@@ -263,6 +287,9 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             shrinkLegend,
             expandLegend,
             isNotificationVisible,
+            showTutorial,
+            hideTutorial,
+            isTutorialOpen,
         } = this.props.riddleUIStore
 
         return (
@@ -287,6 +314,9 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 expandCuneiform={expandCuneiform}
                 shrinkLegend={shrinkLegend}
                 expandLegend={expandLegend}
+                isTutorialOpen={isTutorialOpen}
+                showTutorial={showTutorial}
+                hideTutorial={hideTutorial}
                 width={width}
                 height={height}
             />

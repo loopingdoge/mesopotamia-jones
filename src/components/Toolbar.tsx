@@ -35,14 +35,15 @@ const ToolbarButton = ({ action, content }: ToolbarButtonProps) =>
 
 export interface ToolbarProps {
     goBack: () => void
+    openInfo: () => void
 }
 
-const Toolbar = ({ goBack }: ToolbarProps) =>
+const Toolbar = ({ goBack, openInfo }: ToolbarProps) =>
     <div className={css(styles.toolbar)}>
         <BackButtonSection goBack={goBack} />
         <div className={css(styles.spacer)}/>
         <ToolbarButton action={() => console.log('TODO')} content={'🔄'} />
-        <ToolbarButton action={() => console.log('TODO')} content={'ℹ️️'} />
+        <ToolbarButton action={openInfo} content={'ℹ️️'} />
     </div>
 
 export default Toolbar
