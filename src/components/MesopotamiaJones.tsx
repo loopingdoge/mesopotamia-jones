@@ -57,13 +57,13 @@ const MesopotamiaJones = ({ gameState, pageWidth, pageHeight }: MesopotamiaJones
     return (
         <div className={css(styles.mesopotamiaJonesContainer)}>
             <div style={{ width: pageWidth, height: pageHeight }}>
+                <DialogUI />
                 {MaybeHeader}
                 <div style={getStyles(gameState).game} className={css(styles.content)}>
                     <Game width={pageWidth} height={pageHeight} />
                     {MaybeInventory}
                 </div>
                 {MaybeRiddle}
-                <DialogUI />
             </div>
         </div>
     )

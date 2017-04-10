@@ -9,7 +9,6 @@ import { Dialog } from '../config/dialogs'
 const styles = StyleSheet.create({
     dialog: {
         position: 'absolute',
-        top: 0,
         overflow: 'hidden',
         backgroundColor: 'rgba(0,0,0,0.4)',
         zIndex: 100,
