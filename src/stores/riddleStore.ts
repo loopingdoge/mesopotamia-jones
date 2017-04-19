@@ -39,6 +39,10 @@ export class RiddleStore {
         return this.state.isSolved
     }
 
+    set isSolved(isSolved: boolean) {
+        this.state.isSolved = isSolved
+    }
+
     @computed get currentRiddle(): Riddle {
         return this.state.currentGameDoor.door.riddle
     }
@@ -93,6 +97,10 @@ export class RiddleStore {
         }
         this.state.parameters = this.currentRiddle.parameters(this.generatedArgs)
         this.setUserCode(userCode || this.currentRiddle.defaultCode(this.generatedArgs))
+        if (userCode) {
+            this.runCode()
+            this.checkSolution()
+        }
     }
 
     @action checkSolution = () => {
@@ -111,7 +119,7 @@ export class RiddleStore {
         let codeResult
         let userSolution = this.state.userSolution
         const paramString = this.parameters.reduce((prev, param) => `${prev} ${param}`)
-        console.warn(`(function() {${paramString} ${this.userCode}})()`)
+
         try {
             // tslint:disable-next-line: no-eval
             codeResult = eval(`(function() {${paramString} ${this.userCode}})()`)

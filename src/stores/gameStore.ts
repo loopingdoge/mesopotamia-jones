@@ -163,6 +163,9 @@ export class GameStore {
         }
         this.state = newState
         this.game.loadRoom()
+        this.setUserCode(this.riddleStore.currentRiddle.id, this.riddleStore.userCode)
+
+        this.riddleStore.isSolved = false
     }
 
     @action showDialog = (dialogId: string) => {
