@@ -65,7 +65,7 @@
     "react-dom": "^15.6.1",
     "react-motion": "^0.5.0",
     "react-router": "^4.1.2",
-    "reactour": "^1.0.1",
+    "reactour": "^1.4.1",
     "webfontloader": "^1.6.27"
   }
 }

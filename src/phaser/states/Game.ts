@@ -88,7 +88,8 @@ export default class Game extends Phaser.State {
     }
 
     isCollisionWithDoor(collidedObject: Phaser.TilemapLayer) {
-        return collidedObject.properties.isDoor
+        const c = collidedObject as any
+        return c.properties.isDoor
     }
 
     activateDoor(x: number, y: number) {

@@ -10,7 +10,7 @@ const khosrau = {
 
 const styles = StyleSheet.create({
     cuneiform: {
-        fontFamily: khosrau,
+        fontFamily: [khosrau, 'sans-serif'],
         fontSize: 30,
     },
     cuneiformLetter: {

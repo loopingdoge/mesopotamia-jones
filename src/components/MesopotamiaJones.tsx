@@ -26,11 +26,14 @@ const styles = StyleSheet.create({
     }
 })
 
+const getPosition: (gameState: string) => 'initial' | 'absolute' = (gameState: string) =>
+    gameState === GAME ? 'initial' : 'absolute'
+
 const getStyles = (gameState: string) => ({
     game: {
         display: 'flex',
         flex: 1,
-        position: gameState === GAME ? 'initial' : 'absolute',
+        position: getPosition(gameState),
         opacity: gameState === GAME ? 1 : 0,
         zIndex: gameState === GAME ? 0 : -9999,
     },
