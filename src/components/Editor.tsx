@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 export interface EditorProps {
     code: string
     defaultCode?: string
-    parameters: string[]
+    parameters?: string[]
     onUserCodeInput: (code: string) => void
     height: string
     width: string
@@ -52,7 +52,7 @@ const Editor = ({ code, defaultCode, parameters, onUserCodeInput, height, width 
         <div className={css(styles.toolbar)}>
             <div className={css(styles.toolbarItem)}>
                 Input:
-            </div> 
+            </div>
             {
                 parameters ?
                     parameters.map( (value, i) =>
@@ -62,7 +62,7 @@ const Editor = ({ code, defaultCode, parameters, onUserCodeInput, height, width 
                     )
                     :
                     null
-            } 
+            }
         </div>
     </div>
 

@@ -23,6 +23,6 @@ export function initList (length: number) {
     return list
 }
 
-export function onlyIf(condition: boolean, component: JSX.JSXElement): Maybe<JSX.JSXElement> {
+export function onlyIf(condition: boolean, component: JSX.Element): Maybe<JSX.Element> {
     return condition ? component : null
 }

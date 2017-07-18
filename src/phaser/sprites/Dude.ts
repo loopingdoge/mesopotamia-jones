@@ -1,4 +1,4 @@
-import * as Phaser from 'phaser'
+import * as Phaser from 'phaser-ce'
 import ISprite from '../classes/ISprite'
 import gameStore, { GAME } from '../../stores/gameStore'
 

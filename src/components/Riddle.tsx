@@ -159,11 +159,6 @@ export interface RiddleProps {
     tryOpenDoor: () => void
 }
 
-interface ShrinkStyle {
-    columnFlex: number
-    legendFlex: number
-}
-
 const Riddle = ({
     riddleText, solutionLength, solutionType, userCode, parameters, userSolution, codeResult, isNotificationVisible,
     isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
@@ -173,7 +168,7 @@ const Riddle = ({
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} openInfo={showTutorial} />
         <Motion style={{ columnFlex: spring(expandedToFlex(isCuneiformExpanded)), legendFlex: spring(expandedToFlex(isLegendExpanded))}}>
-            {({ columnFlex, legendFlex }: ShrinkStyle) =>
+            {({ columnFlex, legendFlex }) =>
                 <div className={css(styles.riddleContainer)}>
                     <div className={css(styles.riddleColumn)} style={{ flex: columnFlex, opacity: columnFlex }}>
                         <div className={css(styles.column)}>
@@ -236,7 +231,7 @@ const Riddle = ({
                                     <div>
                                         <span>Wow mother father! Credo che dovrei girare la rotella e spingere il bottone</span>
                                     </div>,
-                            },{
+                            }, {
                                 selector: '[data-tour="2"]',
                                 content: () =>
                                     <div>
@@ -248,7 +243,6 @@ const Riddle = ({
                     </div>
                 }
         </Motion>
-        
     </div>
 
 export interface RiddleContainerProps {

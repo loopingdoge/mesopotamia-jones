@@ -57,14 +57,10 @@ export interface SolutionLabelProps {
     currentIndex: number
 }
 
-export interface LabelInterpolatedStyles {
-    rotation: number
-}
-
 const SolutionLabel = ({ value, activeIndex, currentIndex }: SolutionLabelProps) =>
     <Motion style={interpolatedRotation(labelRotation(currentIndex, activeIndex))}>
         {
-            ({ rotation }: LabelInterpolatedStyles) =>
+            ({ rotation }) =>
                 <div className={css(styles.solutionLabel)} style={labelStyle(rotation, labelColor(currentIndex, activeIndex))} >
                     <span>{value}</span>
                 </div>
@@ -96,10 +92,6 @@ export interface LockCodeProps {
     onDecrement: () => void
 }
 
-export interface LockCodeInterpolatedStyles {
-    offset: number
-}
-
 const LockCode = ({ list, currentValueIndex, onIncrement, onDecrement }: LockCodeProps) => {
     const labelList = list.map((item, i) => <SolutionLabel key={i} value={item} activeIndex={i} currentIndex={currentValueIndex} />)
     return (
@@ -108,7 +100,7 @@ const LockCode = ({ list, currentValueIndex, onIncrement, onDecrement }: LockCod
             <div className={css(styles.fieldsColumn)}>
                 <Motion style={{ offset: spring(columnOffset(currentValueIndex)) }}>
                     {
-                        ({ offset }: LockCodeInterpolatedStyles) =>
+                        ({ offset }) =>
                             <div className={css(styles.innerFieldsColumn)} style={columnStyle(offset)}>
                                 {labelList}
                             </div>

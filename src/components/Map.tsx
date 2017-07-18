@@ -142,7 +142,7 @@ const Map = ({onMapDoorClick}: MapProps) => {
     const firstRoom = gameDoors[0].from
     const visited: any = {}
     const queue: RoomNode[] = []
-    const roomComponents: JSX.JSXElement[] = []
+    const roomComponents: JSX.Element[] = []
     let count = 0
 
     visited[firstRoom.id] = true

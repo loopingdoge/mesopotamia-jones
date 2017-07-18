@@ -1,6 +1,6 @@
 /* globals __DEV__ */
 declare const __DEV__: boolean
-import * as Phaser from 'phaser'
+import * as Phaser from 'phaser-ce'
 import Dude from '../sprites/Dude'
 import gameStore from '../../stores/gameStore'
 import { GameDoor, getGameDoorById } from '../../config/map'

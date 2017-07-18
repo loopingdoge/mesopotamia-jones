@@ -35,16 +35,12 @@ const getButtonStyle = (rotation: number) => ({
     transform: `rotate(${rotation}deg)`
 })
 
-interface ButtonStyle {
-    rotation: number
-}
-
 const CircularButton = ({ vertical = false, toggled, onClick }: CircularButtonProps) => {
-    let label = '<'
+    const label = '<'
     return (
         <Motion style={{ rotation: spring(getRotation(vertical, toggled), presets.stiff) }}>
             {
-                ({ rotation }: ButtonStyle) =>
+                ({ rotation }) =>
                     <div onClick={onClick} className={css(styles.button)}>
                         <span style={getButtonStyle(rotation)}>{label}</span>
                     </div>

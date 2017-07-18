@@ -1,26 +1,11 @@
 declare const __DEV__: boolean
 import * as React from 'react'
-import { Provider } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
-import { Router, Route, hashHistory, /* createMemoryHistory */ } from 'react-router'
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
-import DevTools from 'mobx-react-devtools'
+import { inject, observer } from 'mobx-react'
+import { Route, Switch } from 'react-router'
 
-import gameStore from '../stores/gameStore'
-import uiStore from '../stores/gameUIStore'
-import riddleStore from '../stores/riddleStore'
-import riddleUIStore from '../stores/riddleUIStore'
 import Home from './Home'
 import MesopotamiaJones from './MesopotamiaJones'
-
-const routingStore = new RouterStore()
-
-gameStore.init(riddleStore, uiStore)
-
-const stores = { gameStore, routingStore , riddleStore, riddleUIStore, uiStore }
-
-// const history= createMemoryHistory()
-const storeHistory = syncHistoryWithStore(hashHistory, routingStore)
 
 const styles = StyleSheet.create({
     appContainer: {
@@ -30,19 +15,15 @@ const styles = StyleSheet.create({
     }
 })
 
-export default class App extends React.Component<void, void> {
+export default class App extends React.Component {
 
     render() {
         return (
             <div className={css(styles.appContainer)}>
-                <Provider {...stores}>
-                    <Router history={storeHistory}>
-                        <Route path='/' component={Home} />
-                        {/*<Route path='/riddle' component={Riddle} />*/}
-                        <Route path='/game' component={MesopotamiaJones} />
-                    </Router>
-                </Provider>
-                {/*<DevTools />*/}
+                <Switch>
+                    <Route exact path='/' component={Home} />
+                    <Route path='/game' component={MesopotamiaJones} />
+                </Switch>
             </div>
         )
     }

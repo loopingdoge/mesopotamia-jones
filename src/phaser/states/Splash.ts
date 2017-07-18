@@ -1,4 +1,4 @@
-import * as Phaser from 'phaser'
+import * as Phaser from 'phaser-ce'
 import { centerGameObjects } from '../utils'
 
 export default class Splash extends Phaser.State {
