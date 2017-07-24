@@ -17,6 +17,7 @@ import Solution from './Solution'
 import Separator from './Separator'
 import CuneiformLegend from './CuneiformLegend'
 import CuneiformChar from './CuneiformChar'
+import BlocklyEditor from './BlocklyEditor'
 
 const styles = StyleSheet.create({
     column: {
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
     },
     editorSection: {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         flex: 1,
     },
     lockRow: {
@@ -106,13 +107,7 @@ export interface EditorSectionProps {
 
 const EditorSection = ({ code, parameters, onUserCodeInput, width, height }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
-        <Editor
-            code={code}
-            onUserCodeInput={onUserCodeInput}
-            parameters={parameters}
-            height={height}
-            width={width}
-        />
+        <BlocklyEditor />
     </div>
 
 export interface SolutionSection {

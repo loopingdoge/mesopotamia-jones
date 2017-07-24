@@ -6,7 +6,6 @@ import gameStore from '../../stores/gameStore'
 import { GameDoor, getGameDoorById } from '../../config/map'
 
 export default class Game extends Phaser.State {
-
     player: Phaser.Sprite
     walls: Phaser.Group
     layer: Phaser.TilemapLayer
@@ -24,7 +23,9 @@ export default class Game extends Phaser.State {
 
         this.layer = map.createLayer('Livello tile 1')
 
-        map.setCollisionByExclusion([7, 8, 9, 21, 22, 23, 35, 36, 37].map(n => n + 1))
+        map.setCollisionByExclusion(
+            [7, 8, 9, 21, 22, 23, 35, 36, 37].map(n => n + 1)
+        )
 
         //  This resizes the game world to match the layer dimensions
         this.layer.resizeWorld()
@@ -32,12 +33,15 @@ export default class Game extends Phaser.State {
         let centerX: number = this.world.centerX
         let centerY: number = this.world.centerY
 
-        if ( gameStore.lastDoor ) {
-            let lastDoor: GameDoor = getGameDoorById(gameStore.lastDoor, gameStore.room)
+        if (gameStore.lastDoor) {
+            let lastDoor: GameDoor = getGameDoorById(
+                gameStore.lastDoor,
+                gameStore.room
+            )
             let lastDoorTile = map.getTile(lastDoor.x, lastDoor.y, this.layer)
             let cX = lastDoorTile.centerX + lastDoorTile.left
             let cY = lastDoorTile.centerY + lastDoorTile.top
-            switch ( lastDoorTile.properties.direction ) {
+            switch (lastDoorTile.properties.direction) {
                 case 'top':
                     cY -= lastDoorTile.height
                     break
@@ -55,13 +59,14 @@ export default class Game extends Phaser.State {
             centerY = cY || centerY
         }
 
-        this.player = this.game.add.existing(new Dude({
-            game: this.game,
-            x: centerX,
-            y: centerY,
-            key: 'dude'
-        }))
-
+        this.player = this.game.add.existing(
+            new Dude({
+                game: this.game,
+                x: centerX,
+                y: centerY,
+                key: 'dude'
+            })
+        )
     }
 
     render() {
@@ -73,7 +78,13 @@ export default class Game extends Phaser.State {
     }
 
     update() {
-        this.game.physics.arcade.collide(this.player, this.layer, this.onCollision, null, this)
+        this.game.physics.arcade.collide(
+            this.player,
+            this.layer,
+            this.onCollision,
+            null,
+            this
+        )
     }
 
     reloadRoom() {
@@ -95,5 +106,4 @@ export default class Game extends Phaser.State {
     activateDoor(x: number, y: number) {
         gameStore.activateRiddle(x, y)
     }
-
 }

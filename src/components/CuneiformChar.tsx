@@ -5,13 +5,13 @@ const khosrau = {
     fontFamily: 'Cuneiform',
     fontStyle: 'normal',
     fontWeight: 'normal',
-    src: 'url(\'../../assets/fonts/Khosrau/Khosrau.otf\') format(\'opentype\')'
+    src: "url('../../assets/fonts/Khosrau/Khosrau.otf') format('opentype')"
 }
 
 const styles = StyleSheet.create({
     cuneiform: {
         fontFamily: [khosrau, 'sans-serif'],
-        fontSize: 30,
+        fontSize: 30
     },
     cuneiformLetter: {
         color: '#333'
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
         color: '#099'
     },
     cuneiformOperator: {
-        color: '#ff6666',
-    },
+        color: '#ff6666'
+    }
 })
 
 export interface CuneiformCharProps {
@@ -29,15 +29,14 @@ export interface CuneiformCharProps {
 }
 
 class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
-
     style: any
     isNumber: RegExp = /^\d+$/
     isLetter: RegExp = /^[a-zA-Z]+$/
 
     componentWillMount() {
-        if ( this.props.value.match(this.isLetter) ) {
+        if (this.props.value.match(this.isLetter)) {
             this.style = styles.cuneiformLetter
-        } else if ( this.props.value.match(this.isNumber) ) {
+        } else if (this.props.value.match(this.isNumber)) {
             this.style = styles.cuneiformNumber
         } else {
             this.style = styles.cuneiformOperator

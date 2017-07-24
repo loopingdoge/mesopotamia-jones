@@ -29,13 +29,12 @@ const styles = StyleSheet.create({
 export interface EditorProps {
     code: string
     defaultCode?: string
-    parameters?: string[]
     onUserCodeInput: (code: string) => void
     height: string
     width: string
 }
 
-const Editor = ({ code, defaultCode, parameters, onUserCodeInput, height, width }: EditorProps) =>
+const Editor = ({ code, defaultCode, onUserCodeInput, height, width }: EditorProps) =>
     <div className={css(styles.editorWrapper)}>
         <AceEditor
             mode='javascript'
@@ -49,21 +48,6 @@ const Editor = ({ code, defaultCode, parameters, onUserCodeInput, height, width 
             height={height}
             width={width}
         />
-        <div className={css(styles.toolbar)}>
-            <div className={css(styles.toolbarItem)}>
-                Input:
-            </div>
-            {
-                parameters ?
-                    parameters.map( (value, i) =>
-                        <div key={i} className={css(styles.toolbarItem)}>
-                            {value}
-                        </div>
-                    )
-                    :
-                    null
-            }
-        </div>
     </div>
 
 export default Editor

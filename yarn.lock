@@ -3408,6 +3408,13 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+node-blockly@^1.0.23:
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/node-blockly/-/node-blockly-1.0.23.tgz#30f8960ae3097a21e145056e0b151230fa722168"
+  dependencies:
+    lodash "^4.17.4"
+    xmldom "^0.1.22"
+
 node-fetch@1.6.3, node-fetch@^1.0.1:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.6.3.tgz#dc234edd6489982d58e8f0db4f695029abcd8c04"
@@ -3970,6 +3977,14 @@ react-addons-test-utils@^15.4.2:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.6.0.tgz#062d36117fe8d18f3ba5e06eb33383b0b85ea5b9"
 
+react-blockly-component@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-blockly-component/-/react-blockly-component-2.0.1.tgz#366a02d090107c7c93a748369e7a0eb1d2d4ae07"
+  dependencies:
+    immutable "^3.7.6"
+    react-immutable-proptypes "^2.1.0"
+    react-immutable-render-mixin "^0.9.5"
+
 react-custom-scrollbars@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/react-custom-scrollbars/-/react-custom-scrollbars-4.1.2.tgz#0e60c4a46c4a61f9e4994a7663e2b9cbbc5187a3"
@@ -3986,6 +4001,14 @@ react-dom@^15.6.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react-immutable-proptypes@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-immutable-proptypes/-/react-immutable-proptypes-2.1.0.tgz#023d6f39bb15c97c071e9e60d00d136eac5fa0b4"
+
+react-immutable-render-mixin@^0.9.5:
+  version "0.9.7"
+  resolved "https://registry.yarnpkg.com/react-immutable-render-mixin/-/react-immutable-render-mixin-0.9.7.tgz#fe34053760cc72e7becc8af3e6e30542d97d3601"
 
 react-motion@^0.5.0:
   version "0.5.0"
@@ -5275,6 +5298,10 @@ wtf-8@1.0.0:
 xml-name-validator@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-2.0.1.tgz#4d8b8f1eccd3419aa362061becef515e1e559635"
+
+xmldom@^0.1.22:
+  version "0.1.27"
+  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.1.27.tgz#d501f97b3bdb403af8ef9ecc20573187aadac0e9"
 
 xmlhttprequest-ssl@1.5.3:
   version "1.5.3"
