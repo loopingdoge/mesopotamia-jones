@@ -22,6 +22,11 @@ export default class Dude extends Phaser.Sprite {
         this.body.height = 13
     }
 
+    floorPosition() {
+        this.position.x = Math.floor(this.position.x)
+        this.position.y = Math.floor(this.position.y)
+    }
+
     update() {
         let movingHorizontal = false
         let movingVertical = false
@@ -37,6 +42,7 @@ export default class Dude extends Phaser.Sprite {
                 movingHorizontal = true
             } else {
                 this.body.velocity.x = 0
+                this.floorPosition()
             }
             if (this.cursors.up.isDown) {
                 this.body.velocity.y = -250
@@ -48,6 +54,7 @@ export default class Dude extends Phaser.Sprite {
                 movingVertical = true
             } else {
                 this.body.velocity.y = 0
+                this.floorPosition()
             }
         }
 
