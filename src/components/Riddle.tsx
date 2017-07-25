@@ -107,7 +107,31 @@ export interface EditorSectionProps {
 
 const EditorSection = ({ code, parameters, onUserCodeInput, width, height }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
-        <BlocklyEditor />
+        <BlocklyEditor
+            toolbox={
+                `<xml id="toolbox" style="display: none">
+                    <block type="controls_if"></block>
+                    <block type="controls_repeat_ext"></block>
+                    <block type="logic_compare"></block>
+                    <block type="math_number"></block>
+                    <block type="math_arithmetic"></block>
+                    <block type="text"></block>
+                    <block type="text_print"></block>
+                </xml>`
+            }
+            workspace={
+                `<xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+                    <block type="procedures_defreturn" id="tu=J+M:Ap=x8XtDF-,-Y" deletable="false" x="38" y="38">
+                        <mutation>
+                            <arg name="x"></arg>
+                            <arg name="y"></arg>
+                        </mutation>
+                        <field name="NAME">sum</field>
+                        <comment pinned="false" h="80" w="160">Sum of two numbers</comment>
+                    </block>
+                </xml>`
+            }
+        />
     </div>
 
 export interface SolutionSection {

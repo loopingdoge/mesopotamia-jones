@@ -13,11 +13,18 @@ const styles = StyleSheet.create({
     }
 })
 
-class BlockEditor extends React.Component {
+export interface BlockEditorProps {
+    toolbox: string
+    workspace: string
+}
+
+class BlockEditor extends React.Component<BlockEditorProps> {
 
     workspaceDiv: HTMLDivElement
     resizableDiv: HTMLDivElement
     toolboxDiv: HTMLDivElement
+
+    workspace: any
 
     constructor() {
         super()
@@ -25,41 +32,40 @@ class BlockEditor extends React.Component {
     }
 
     componentDidMount() {
-        const toolbox = `<xml id="toolbox" style="display: none">
-  <block type="controls_if"></block>
-  <block type="controls_repeat_ext"></block>
-  <block type="logic_compare"></block>
-  <block type="math_number"></block>
-  <block type="math_arithmetic"></block>
-  <block type="text"></block>
-  <block type="text_print"></block>
-</xml>`
-        const workspace = Blockly.inject(this.resizableDiv.id, { toolbox: toolbox })
-        // const xmlText =
-        // `<xml xmlns="http://www.w3.org/1999/xhtml">
-        //     <block type="variables_set">
-        //         <field name="VAR">blockly</field>
-        //         <value name="VALUE">
-        //             <block type="text">
-        //                 <field name="TEXT">Hello Node.js!</field>
-        //             </block>
-        //         </value>
-        //     </block>
-        // </xml>`
-        // const xml = Blockly.Xml.textToDom(xmlText)
-        // const workspace = new Blockly.Workspace()
-        // Blockly.Xml.domToWorkspace(xml, workspace)
+        const options = {
+            toolbox : this.props.toolbox,
+            collapse : true,
+            comments : true,
+            disable : true,
+            maxBlocks : Infinity,
+            trashcan : true,
+            horizontalLayout : false,
+            toolboxPosition : 'start',
+            css : true,
+            media : 'https://blockly-demo.appspot.com/static/media/',
+            rtl : false,
+            scrollbars : true,
+            sounds : true,
+            oneBasedIndex : true,
+            grid : {
+                spacing : 20,
+                length : 1,
+                colour : '#888',
+            }
+        }
+        this.workspace = Blockly.inject(this.resizableDiv.id, options)
+        const xml = Blockly.Xml.textToDom(this.props.workspace)
+        Blockly.Xml.domToWorkspace(xml, this.workspace)
 
-        window.addEventListener('resize', () => this.onResize(workspace))
-        setTimeout(() => this.onResize(workspace), 100)
+        window.addEventListener('resize', this.onResize)
+        setTimeout(this.onResize, 100)
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.onResize)
     }
 
-    onResize(workspace: any) {
-        console.log(this.workspaceDiv.offsetWidth)
+    onResize() {
         // Compute the absolute coordinates and dimensions of blocklyArea.
         let element = this.workspaceDiv
         let x = 0
@@ -74,14 +80,13 @@ class BlockEditor extends React.Component {
         this.resizableDiv.style.top = y + 'px'
         this.resizableDiv.style.width = this.workspaceDiv.offsetWidth + 'px'
         this.resizableDiv.style.height = this.workspaceDiv.offsetHeight + 'px'
-        Blockly.svgResize(workspace)
+        Blockly.svgResize(this.workspace)
     }
 
     render() {
         return (
             <div id='blocklyArea' ref={(workspaceDiv) => { this.workspaceDiv = workspaceDiv }} className={css(styles.workspace)}>
                 <div id='blocklyDiv' ref={(resizableDiv) => { this.resizableDiv = resizableDiv }} className={css(styles.resizable)} />
-                <div id='blocklyToolbar' ref={(toolboxDiv) => { this.toolboxDiv = toolboxDiv }} />
             </div>
         )
     }
