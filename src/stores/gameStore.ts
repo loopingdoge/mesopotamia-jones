@@ -134,9 +134,9 @@ export class GameStore {
      */
     @action activateRiddle = (x: number, y: number) => {
         const gameDoor = getGameDoor(this.room, x, y)
-        const userCode = this.computer.userCode[gameDoor.door.riddle.id]
+        const workspace = this.computer.workspace[gameDoor.door.riddle.id]
 
-        this.riddleStore.activateDoor(gameDoor, userCode)
+        this.riddleStore.activateDoor(gameDoor, workspace)
         this.state = {
             ...this.state,
             lastDoor: gameDoor.door,
@@ -163,7 +163,7 @@ export class GameStore {
         }
         this.state = newState
         this.game.loadRoom()
-        this.setUserCode(this.riddleStore.currentRiddle.id, this.riddleStore.userCode)
+        this.setRiddleWorkspace(this.riddleStore.currentRiddle.id, this.riddleStore.workspace)
 
         this.riddleStore.isSolved = false
     }
@@ -191,14 +191,14 @@ export class GameStore {
         }
     }
 
-    @action setUserCode = (riddleId: string, userCode: string) => {
-        this.computer.userCode[riddleId] = userCode
+    @action setRiddleWorkspace = (riddleId: string, workspace: string) => {
+        this.computer.workspace[riddleId] = workspace
         this.state = {
             ...this.state
         }
     }
 
-    getUserCode = (riddleId: string) => this.computer.userCode[riddleId]
+    getUserCode = (riddleId: string) => this.computer.workspace[riddleId]
 }
 
 const gameStore = new GameStore()

@@ -6,8 +6,8 @@ import riddleUIStore from './riddleUIStore'
 export interface IRiddleStore {
     currentGameDoor: GameDoor
     generatedArgs: any[]
-    userCode: string
     parameters: string[]
+    workspace: string
     userSolution: string
     codeResult: any
     isSolved: boolean
@@ -23,8 +23,8 @@ export class RiddleStore {
     @computed get generatedArgs(): any[] {
         return this.state.generatedArgs
     }
-    @computed get userCode(): string {
-        return this.state.userCode
+    @computed get workspace(): string {
+        return this.state.workspace
     }
     @computed get parameters(): string[] {
         return this.state.parameters
@@ -55,9 +55,9 @@ export class RiddleStore {
         this.state = {
             currentGameDoor: null,
             generatedArgs: null,
-            userCode: null,
             parameters: [],
             userSolution: null,
+            workspace: null,
             codeResult: null,
             isSolved: false,
         }
@@ -72,21 +72,14 @@ export class RiddleStore {
         )
     }
 
-    @action setUserCode = (newCode: string) => {
+    @action setWorkspace = (workspace: string) => {
         this.state = {
             ...this.state,
-            userCode: newCode,
+            workspace: workspace,
         }
     }
 
-    @action setUserSolution = (newSol: string) => {
-        this.state = {
-            ...this.state,
-            userSolution: newSol,
-        }
-    }
-
-    @action activateDoor = (gameDoor: GameDoor, userCode: string) => {
+    @action activateDoor = (gameDoor: GameDoor, workspace: string) => {
         const riddle = gameDoor.door.riddle
         this.state = {
             ...this.state,
@@ -96,8 +89,8 @@ export class RiddleStore {
             isSolved: false,
         }
         this.state.parameters = this.currentRiddle.parameters(this.generatedArgs)
-        this.setUserCode(userCode || this.currentRiddle.defaultCode(this.generatedArgs))
-        if (userCode) {
+        this.setWorkspace(null || this.currentRiddle.defaultWorkspace(this.generatedArgs))
+        if (workspace) { // ex userCode
             this.runCode()
             this.checkSolution()
         }
@@ -122,7 +115,7 @@ export class RiddleStore {
 
         try {
             // tslint:disable-next-line: no-eval
-            codeResult = eval(`(function() {${paramString} ${this.userCode}})()`)
+            codeResult = eval(`(function() {${paramString} ${this.workspace}})()`) // TODO usare il generatedCode
             // TODO: Check if codeResult is appropriate
             userSolution = String(codeResult)
         } catch (e) {

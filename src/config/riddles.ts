@@ -1,7 +1,8 @@
 export interface Riddle {
     id: string
     question: (variables: any[]) => string
-    defaultCode: (variables: any[]) => string
+    defaultWorkspace: (variables: any[]) => string
+    // defaultCode: (variables: any[]) => string
     parameters: (variables: any[]) => string[]
     solution: (variables: any[]) => string
     solutionLength: number,
@@ -27,7 +28,17 @@ const riddles: Riddle[] = [
 {
     id: 'return',
     question: ([a]: number[]) => `Inserisci il numero ${a}`,
-    defaultCode: ([a]: number[]) => `return ;`,
+    defaultWorkspace: ([a]) => `
+        <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+            <block type="procedures_defreturn" id="tu=J+M:Ap=x8XtDF-,-Y" deletable="false" x="38" y="38">
+                <mutation>
+                    <arg name="x"></arg>
+                    <arg name="y"></arg>
+                </mutation>
+                <field name="NAME">sum</field>
+                <comment pinned="false" h="80" w="160">Sum of two numbers</comment>
+            </block>
+        </xml>`,
     parameters: ([a]: number[]) => [
         `var a = ${a};`
     ],
@@ -39,9 +50,17 @@ const riddles: Riddle[] = [
 {
     id: 'somma',
     question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
-    defaultCode: ([a, b]: number[]) =>
-`var somma = ;
-return somma;`,
+    defaultWorkspace: ([a,b ]) => `
+        <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+            <block type="procedures_defreturn" id="tu=J+M:Ap=x8XtDF-,-Y" deletable="false" x="38" y="38">
+                <mutation>
+                    <arg name="x"></arg>
+                    <arg name="y"></arg>
+                </mutation>
+                <field name="NAME">sum</field>
+                <comment pinned="false" h="80" w="160">Sum of two numbers</comment>
+            </block>
+        </xml>`,
     parameters: ([a, b]: number[]) => [
         `var a = ${a};`,
         `var b = ${b};`

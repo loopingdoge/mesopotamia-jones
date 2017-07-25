@@ -98,14 +98,14 @@ const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
     </div>
 
 export interface EditorSectionProps {
-    code: string
+    workspace: string
     parameters: string[]
     width: string
     height: string
     onUserCodeInput: (code: string) => void
 }
 
-const EditorSection = ({ code, parameters, onUserCodeInput, width, height }: EditorSectionProps) =>
+const EditorSection = ({ workspace, parameters, onUserCodeInput, width, height }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <BlocklyEditor
             toolbox={
@@ -119,18 +119,7 @@ const EditorSection = ({ code, parameters, onUserCodeInput, width, height }: Edi
                     <block type="text_print"></block>
                 </xml>`
             }
-            workspace={
-                `<xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-                    <block type="procedures_defreturn" id="tu=J+M:Ap=x8XtDF-,-Y" deletable="false" x="38" y="38">
-                        <mutation>
-                            <arg name="x"></arg>
-                            <arg name="y"></arg>
-                        </mutation>
-                        <field name="NAME">sum</field>
-                        <comment pinned="false" h="80" w="160">Sum of two numbers</comment>
-                    </block>
-                </xml>`
-            }
+            workspace={ workspace }
         />
     </div>
 
@@ -154,7 +143,7 @@ export interface RiddleProps {
     riddleText: string
     solutionLength: number
     solutionType: SolutionType
-    userCode: string
+    workspace: string
     parameters: string[]
     userSolution: string
     codeResult: string
@@ -179,7 +168,7 @@ export interface RiddleProps {
 }
 
 const Riddle = ({
-    riddleText, solutionLength, solutionType, userCode, parameters, userSolution, codeResult, isNotificationVisible,
+    riddleText, solutionLength, solutionType, workspace, parameters, userSolution, codeResult, isNotificationVisible,
     isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
     expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory, width, height,
     isTutorialOpen, showTutorial, hideTutorial,
@@ -227,7 +216,7 @@ const Riddle = ({
                                 />
                                 <div className={css(styles.editorSection)}>
                                     <EditorSection
-                                        code={userCode}
+                                        workspace={workspace}
                                         parameters={parameters}
                                         onUserCodeInput={onUserCodeInput}
                                         height={`${height}px`}
@@ -284,7 +273,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             checkSolution,
             setUserCode,
             setUserSolution,
-            userCode,
+            workspace,
             parameters,
             userSolution,
             question,
@@ -311,7 +300,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 riddleText={question}
                 solutionLength={currentRiddle.solutionLength}
                 solutionType={currentRiddle.solutionType}
-                userCode={userCode}
+                workspace={workspace}
                 parameters={parameters}
                 userSolution={userSolution}
                 codeResult={codeResult}

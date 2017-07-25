@@ -5,7 +5,7 @@ export interface Item {
 export class Computer implements Item {
 
     id: string = COMPUTER
-    userCode: { [riddleId: string]: string } = {}
+    workspace: { [riddleId: string]: string } = {}
 
 }
 
