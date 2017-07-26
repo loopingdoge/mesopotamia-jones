@@ -26,10 +26,7 @@ const styles = StyleSheet.create({
         paddingTop: '50px',
         zIndex: 19,
         flex: 1,
-        backgroundColor: '#E37710',
-        background:
-            'linear-gradient(135deg, #E37710 22px, #a3540b 22px, #a3540b 24px, transparent 24px, transparent 67px, #a3540b 67px, #a3540b 69px, transparent 69px), linear-gradient(225deg, #E37710 22px, #a3540b 22px, #a3540b 24px, transparent 24px, transparent 67px, #a3540b 67px, #a3540b 69px, transparent 69px)0 64px',
-        backgroundSize: '64px 128px'
+        backgroundColor: '#E37710'
     },
     inventoryContent: {
         flex: 1,
@@ -39,14 +36,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     placeholder: {
-        height: '80%',
-        width: '80%',
+        padding: 20,
+        flex: 1,
         backgroundColor: '#fff',
         border: '5px solid #eee',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center'
+    },
+    editorContainer: {
+        display: 'flex',
+        flex: 1,
+        padding: 20,
+        border: '1px solid #a3540b'
     }
 })
 
@@ -74,23 +77,27 @@ const Inventory = ({
     let content
     switch (selected) {
         case MAP:
+            // console.log(selectedRiddle && selectedRiddle.id)
             content = (
                 <div className={css(styles.inventoryWindow)}>
                     <div className={css(styles.inventoryContent)}>
                         <Map onMapDoorClick={onMapDoorClick} />
                     </div>
-                    <div className={css(styles.inventoryContent)}>
+                    <div className={css(styles.editorContainer)}>
                         {selectedRiddle
                             ? <BlocklyEditor
                                   toolbox={defaultToolbox}
-                                  workspace={selectedRiddle.defaultWorkspace(
-                                      []
+                                  workspaceXML={gameStore.getRiddleWorkspaceXML(
+                                      selectedRiddle.id
                                   )}
-                                  onWorkspaceChange={(workspace: string) =>
+                                  onWorkspaceChange={(workspace: string) => {
+                                      console.log(selectedRiddle.id)
+                                      // TODO: Invece che salvare ogni volta bisognerebbe mettere un bottone
                                       gameStore.setRiddleWorkspaceXML(
                                           selectedRiddle.id,
                                           workspace
-                                      )}
+                                      )
+                                  }}
                                   onCodeRun={() =>
                                       console.warn(
                                           'TODO: implement onCodeRun in Inventory.tsx'

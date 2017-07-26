@@ -213,7 +213,8 @@ export class GameStore {
         }
     }
 
-    getUserCode = (riddleId: string) => this.computer.workspace[riddleId]
+    getRiddleWorkspaceXML = (riddleId: string) =>
+        this.computer.workspace[riddleId]
 }
 
 const gameStore = new GameStore()
