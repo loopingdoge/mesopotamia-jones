@@ -50,7 +50,7 @@ const riddles: Riddle[] = [
 {
     id: 'somma',
     question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
-    defaultWorkspace: ([a,b ]) => `
+    defaultWorkspace: ([a, b]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
             <block type="procedures_defreturn" id="tu=J+M:Ap=x8XtDF-,-Y" deletable="false" x="38" y="38">
                 <mutation>

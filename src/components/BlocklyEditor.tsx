@@ -6,20 +6,42 @@ const styles = StyleSheet.create({
     workspace: {
         flex: 1,
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
     resizable: {
-        position: 'absolute',
+        position: 'absolute'
     }
 })
+
+const blocklyOptions = {
+    collapse: true,
+    comments: true,
+    disable: true,
+    maxBlocks: Infinity,
+    trashcan: true,
+    horizontalLayout: false,
+    toolboxPosition: 'start',
+    css: true,
+    media: 'https://blockly-demo.appspot.com/static/media/',
+    rtl: false,
+    scrollbars: true,
+    sounds: true,
+    oneBasedIndex: true,
+    grid: {
+        spacing: 20,
+        length: 1,
+        colour: '#888'
+    }
+}
 
 export interface BlockEditorProps {
     toolbox: string
     workspace: string
+    onWorkspaceChange: (workspace: any) => any
+    onCodeRun?: Function
 }
 
 class BlockEditor extends React.Component<BlockEditorProps> {
-
     workspaceDiv: HTMLDivElement
     resizableDiv: HTMLDivElement
     toolboxDiv: HTMLDivElement
@@ -32,30 +54,16 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     componentDidMount() {
-        const options = {
-            toolbox : this.props.toolbox,
-            collapse : true,
-            comments : true,
-            disable : true,
-            maxBlocks : Infinity,
-            trashcan : true,
-            horizontalLayout : false,
-            toolboxPosition : 'start',
-            css : true,
-            media : 'https://blockly-demo.appspot.com/static/media/',
-            rtl : false,
-            scrollbars : true,
-            sounds : true,
-            oneBasedIndex : true,
-            grid : {
-                spacing : 20,
-                length : 1,
-                colour : '#888',
-            }
-        }
-        this.workspace = Blockly.inject(this.resizableDiv.id, options)
+        this.workspace = Blockly.inject(this.resizableDiv.id, {
+            ...blocklyOptions,
+            toolbox: this.props.toolbox
+        })
         const xml = Blockly.Xml.textToDom(this.props.workspace)
         Blockly.Xml.domToWorkspace(xml, this.workspace)
+
+        this.workspace.addChangeListener(() => {
+            this.props.onWorkspaceChange(this.workspace)
+        })
 
         window.addEventListener('resize', this.onResize)
         setTimeout(this.onResize, 100)
@@ -85,12 +93,27 @@ class BlockEditor extends React.Component<BlockEditorProps> {
 
     render() {
         return (
-            <div id='blocklyArea' ref={(workspaceDiv) => { this.workspaceDiv = workspaceDiv }} className={css(styles.workspace)}>
-                <div id='blocklyDiv' ref={(resizableDiv) => { this.resizableDiv = resizableDiv }} className={css(styles.resizable)} />
+            <div
+                id='blocklyArea'
+                ref={workspaceDiv => {
+                    this.workspaceDiv = workspaceDiv
+                }}
+                className={css(styles.workspace)}
+            >
+                <div
+                    id='blocklyDiv'
+                    ref={resizableDiv => {
+                        this.resizableDiv = resizableDiv
+                    }}
+                    className={css(styles.resizable)}
+                />
+                {/* <svg className='play-button' width='64' height='64' viewBox='0 0 64 64'>
+                    <title id='title'>Play Button</title>
+                    <path fill='#CFCFCF' d='M929.5,480.4L91.3,14.6c-9.7-5.5-18-6.1-24.9-1.9C59.5,16.9,56,24.5,56,35.5v929.1c0,10.9,3.5,18.5,10.4,22.7c6.9,4.2,15.3,3.6,24.9-1.9l838.2-465.8c9.7-5.5,14.5-12,14.5-19.6C944,492.4,939.2,485.9,929.5,480.4z'/>
+                </svg> */}
             </div>
         )
     }
-
 }
 
 export default BlockEditor

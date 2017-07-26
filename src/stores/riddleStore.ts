@@ -1,4 +1,6 @@
 import { observable, action, computed, reaction } from 'mobx'
+import * as Blockly from 'node-blockly'
+
 import { GameDoor } from '../config/map'
 import { Riddle, userSolutionInit } from '../config/riddles'
 import riddleUIStore from './riddleUIStore'
@@ -7,7 +9,7 @@ export interface IRiddleStore {
     currentGameDoor: GameDoor
     generatedArgs: any[]
     parameters: string[]
-    workspace: string
+    workspace: any              // Workspace type in Blockly
     userSolution: string
     codeResult: any
     isSolved: boolean
@@ -23,7 +25,7 @@ export class RiddleStore {
     @computed get generatedArgs(): any[] {
         return this.state.generatedArgs
     }
-    @computed get workspace(): string {
+    @computed get workspace(): any {
         return this.state.workspace
     }
     @computed get parameters(): string[] {
@@ -72,14 +74,21 @@ export class RiddleStore {
         )
     }
 
-    @action setWorkspace = (workspace: string) => {
+    @action setWorkspace = (workspace: any) => {
         this.state = {
             ...this.state,
             workspace: workspace,
         }
     }
 
-    @action activateDoor = (gameDoor: GameDoor, workspace: string) => {
+    @action setUserSolution = (newSol: string) => {
+        this.state = {
+            ...this.state,
+            userSolution: newSol,
+        }
+    }
+
+    @action activateDoor = (gameDoor: GameDoor, workspace: any) => {
         const riddle = gameDoor.door.riddle
         this.state = {
             ...this.state,
@@ -89,7 +98,7 @@ export class RiddleStore {
             isSolved: false,
         }
         this.state.parameters = this.currentRiddle.parameters(this.generatedArgs)
-        this.setWorkspace(null || this.currentRiddle.defaultWorkspace(this.generatedArgs))
+        this.setWorkspace(workspace || this.currentRiddle.defaultWorkspace(this.generatedArgs))
         if (workspace) { // ex userCode
             this.runCode()
             this.checkSolution()
@@ -113,9 +122,11 @@ export class RiddleStore {
         let userSolution = this.state.userSolution
         const paramString = this.parameters.reduce((prev, param) => `${prev} ${param}`)
 
+        const code = Blockly.JavaScript.workspaceToCode(this.workspace)
+        console.log(code)
         try {
             // tslint:disable-next-line: no-eval
-            codeResult = eval(`(function() {${paramString} ${this.workspace}})()`) // TODO usare il generatedCode
+            codeResult = eval(code) // TODO usare il generatedCode
             // TODO: Check if codeResult is appropriate
             userSolution = String(codeResult)
         } catch (e) {

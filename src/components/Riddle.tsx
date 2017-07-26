@@ -102,10 +102,10 @@ export interface EditorSectionProps {
     parameters: string[]
     width: string
     height: string
-    onUserCodeInput: (code: string) => void
+    setWorkspace: (code: string) => void
 }
 
-const EditorSection = ({ workspace, parameters, onUserCodeInput, width, height }: EditorSectionProps) =>
+const EditorSection = ({ workspace, parameters, setWorkspace, width, height }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <BlocklyEditor
             toolbox={
@@ -119,7 +119,9 @@ const EditorSection = ({ workspace, parameters, onUserCodeInput, width, height }
                     <block type="text_print"></block>
                 </xml>`
             }
-            workspace={ workspace }
+            workspace={workspace}
+            onWorkspaceChange={setWorkspace}
+            onCodeRun={() => console.log('coderun')}
         />
     </div>
 
@@ -162,7 +164,7 @@ export interface RiddleProps {
     expandLegend: () => void
     showTutorial: () => void
     hideTutorial: () => void
-    onUserCodeInput: (code: string) => void
+    setWorkspace: (code: string) => void
     onChangeSolution: (sol: string) => void
     tryOpenDoor: () => void
 }
@@ -170,7 +172,7 @@ export interface RiddleProps {
 const Riddle = ({
     riddleText, solutionLength, solutionType, workspace, parameters, userSolution, codeResult, isNotificationVisible,
     isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
-    expandLegend, onUserCodeInput, onChangeSolution, tryOpenDoor, inventory, width, height,
+    expandLegend, setWorkspace, onChangeSolution, tryOpenDoor, inventory, width, height,
     isTutorialOpen, showTutorial, hideTutorial,
 }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
@@ -218,7 +220,7 @@ const Riddle = ({
                                     <EditorSection
                                         workspace={workspace}
                                         parameters={parameters}
-                                        onUserCodeInput={onUserCodeInput}
+                                        setWorkspace={setWorkspace}
                                         height={`${height}px`}
                                         width={'100%'}
                                     />
@@ -271,7 +273,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             codeResult,
             runCode,
             checkSolution,
-            setUserCode,
+            setWorkspace,
             setUserSolution,
             workspace,
             parameters,
@@ -309,7 +311,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 isNotificationVisible={isNotificationVisible}
                 inventory={inventory}
                 runCode={runCode}
-                onUserCodeInput={setUserCode}
+                setWorkspace={setWorkspace}
                 onChangeSolution={setUserSolution}
                 tryOpenDoor={checkSolution}
                 shrinkCuneiform={shrinkCuneiform}

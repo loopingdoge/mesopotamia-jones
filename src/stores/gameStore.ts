@@ -123,7 +123,7 @@ export class GameStore {
     }
 
     saveGameState = () => {
-        console.error('SAVING')
+        console.log('Saving state to local storage...')
         localStorage.setItem('gameState', JSON.stringify(this.state))
     }
 
