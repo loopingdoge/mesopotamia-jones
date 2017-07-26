@@ -3,14 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "author": "Looping Doge",
+  "license": "MIT",
   "main": "src/main.ts",
   "scripts": {
     "start": "webpack",
     "build": "webpack --config webpack.production.config.js",
     "test": "mocha -r ts-node/register ./src/.test-setup.js ./src/**/*.test.ts ./src/**/*.test.tsx",
-    "lint": "tslint -c tslint.json src/**/*.ts src/**/*.tsx"
+    "lint": "tslint -c tslint.json src/**/*.ts src/**/*.tsx",
+    "precommit": "lint-staged"
   },
-  "license": "MIT",
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "prettier --with-node-modules --single-quote --tab-width 4 --no-semi --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@types/aphrodite": "^0.5.6",
     "@types/chai": "^3.4.34",
@@ -39,7 +46,9 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "expose-loader": "^0.7.1",
+    "husky": "^0.14.3",
     "jsdom": "^9.9.1",
+    "lint-staged": "^4.0.2",
     "mobx-react-devtools": "^4.2.15",
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.2",
