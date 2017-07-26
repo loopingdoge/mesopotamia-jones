@@ -55,7 +55,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     componentDidMount() {
-        console.log(this.props.workspaceXML)
         this.workspace = Blockly.inject(this.resizableDiv.id, {
             ...blocklyOptions,
             toolbox: this.props.toolbox
@@ -76,8 +75,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     injectWorkspaceXML(workspaceXML: string) {
-        console.log(workspaceXML)
-
         this.workspace.clear()
 
         const xml = Blockly.Xml.textToDom(workspaceXML)

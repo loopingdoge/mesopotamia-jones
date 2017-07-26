@@ -8,7 +8,6 @@ import riddleUIStore from './riddleUIStore'
 export interface IRiddleStore {
     currentGameDoor: GameDoor
     generatedArgs: any[]
-    parameters: string[]
     workspaceXML: string
     userSolution: string
     codeResult: any
@@ -29,10 +28,6 @@ export class RiddleStore {
     @computed
     get workspaceXML(): string {
         return this.state.workspaceXML
-    }
-    @computed
-    get parameters(): string[] {
-        return this.state.parameters
     }
     @computed
     get userSolution(): string {
@@ -65,7 +60,6 @@ export class RiddleStore {
         this.state = {
             currentGameDoor: null,
             generatedArgs: null,
-            parameters: [],
             userSolution: null,
             workspaceXML: null,
             codeResult: null,
@@ -93,12 +87,12 @@ export class RiddleStore {
                 },
                 {
                     type: 'input_statement',
-                    name: 'function_code',
+                    name: 'USERCODE',
                     check: 'Number'
                 },
                 {
                     type: 'input_value',
-                    name: 'return',
+                    name: 'RETURN',
                     check: 'Number',
                     align: 'RIGHT'
                 }
@@ -116,28 +110,6 @@ export class RiddleStore {
                 // Assign 'this' to a variable for use in the tooltip closure below.
                 let thisBlock: any = this
             }
-        }
-        Blockly.JavaScript['sum'] = function(block: any) {
-            let variable_x = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('x'),
-                Blockly.Variables.NAME_TYPE
-            )
-            let variable_y = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('y'),
-                Blockly.Variables.NAME_TYPE
-            )
-            let statements_function_code = Blockly.JavaScript.statementToCode(
-                block,
-                'function_code'
-            )
-            let value_return = Blockly.JavaScript.valueToCode(
-                block,
-                'return',
-                Blockly.JavaScript.ORDER_ATOMIC
-            )
-            debugger
-            let code = '...\n'
-            return code
         }
 
         reaction(
@@ -182,9 +154,29 @@ export class RiddleStore {
             ),
             isSolved: false
         }
-        this.state.parameters = this.currentRiddle.parameters(
-            this.generatedArgs
-        )
+
+        // TODO parametrizzare questa cosa
+        let self: any = this
+        Blockly.JavaScript['sum'] = function(block: any) {
+            let x = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('x'),
+                Blockly.Variables.NAME_TYPE
+            )
+            let y = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('y'),
+                Blockly.Variables.NAME_TYPE
+            )
+            let userCode = Blockly.JavaScript.statementToCode(block, 'USERCODE')
+            let ret = Blockly.JavaScript.valueToCode(
+                block,
+                'RETURN',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            let code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${self
+                .state.generatedArgs})`
+            return code
+        }
+
         this.setWorkspaceXML(
             workspaceXML ||
                 this.currentRiddle.defaultWorkspace(this.generatedArgs)
@@ -213,9 +205,6 @@ export class RiddleStore {
     runCode = () => {
         let codeResult
         let userSolution = this.state.userSolution
-        const paramString = this.parameters.reduce(
-            (prev, param) => `${prev} ${param}`
-        )
 
         const workspace = new Blockly.Workspace()
         let xml
@@ -230,7 +219,7 @@ export class RiddleStore {
 
         try {
             // tslint:disable-next-line: no-eval
-            codeResult = eval(code) // TODO usare il generatedCode
+            codeResult = eval(code)
             // TODO: Check if codeResult is appropriate
             userSolution = String(codeResult)
             console.warn(
