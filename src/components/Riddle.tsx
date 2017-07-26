@@ -338,9 +338,9 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             codeResult,
             runCode,
             checkSolution,
-            setWorkspace,
+            setWorkspaceXML,
             setUserSolution,
-            workspace,
+            workspaceXML,
             parameters,
             userSolution,
             question
@@ -367,7 +367,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 riddleText={question}
                 solutionLength={currentRiddle.solutionLength}
                 solutionType={currentRiddle.solutionType}
-                workspace={workspace}
+                workspace={workspaceXML}
                 parameters={parameters}
                 userSolution={userSolution}
                 codeResult={codeResult}
@@ -376,7 +376,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 isNotificationVisible={isNotificationVisible}
                 inventory={inventory}
                 runCode={runCode}
-                setWorkspace={setWorkspace}
+                setWorkspace={setWorkspaceXML}
                 onChangeSolution={setUserSolution}
                 tryOpenDoor={checkSolution}
                 shrinkCuneiform={shrinkCuneiform}

@@ -87,7 +87,7 @@ const Inventory = ({
                                       []
                                   )}
                                   onWorkspaceChange={(workspace: string) =>
-                                      gameStore.setRiddleWorkspace(
+                                      gameStore.setRiddleWorkspaceXML(
                                           selectedRiddle.id,
                                           workspace
                                       )}

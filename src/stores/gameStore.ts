@@ -171,9 +171,9 @@ export class GameStore {
         }
         this.state = newState
         this.game.loadRoom()
-        this.setRiddleWorkspace(
+        this.setRiddleWorkspaceXML(
             this.riddleStore.currentRiddle.id,
-            this.riddleStore.workspace
+            this.riddleStore.workspaceXML
         )
 
         this.riddleStore.isSolved = false
@@ -206,7 +206,7 @@ export class GameStore {
     }
 
     @action
-    setRiddleWorkspace = (riddleId: string, workspace: string) => {
+    setRiddleWorkspaceXML = (riddleId: string, workspace: string) => {
         this.computer.workspace[riddleId] = workspace
         this.state = {
             ...this.state

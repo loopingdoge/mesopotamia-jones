@@ -1,5 +1,5 @@
 import { observable, action, computed, reaction } from 'mobx'
-import * as Blockly from 'node-blockly'
+import * as Blockly from 'node-blockly/browser'
 
 import { GameDoor } from '../config/map'
 import { Riddle, userSolutionInit } from '../config/riddles'
@@ -9,7 +9,7 @@ export interface IRiddleStore {
     currentGameDoor: GameDoor
     generatedArgs: any[]
     parameters: string[]
-    workspace: any // Workspace type in Blockly
+    workspaceXML: string
     userSolution: string
     codeResult: any
     isSolved: boolean
@@ -27,8 +27,8 @@ export class RiddleStore {
         return this.state.generatedArgs
     }
     @computed
-    get workspace(): any {
-        return this.state.workspace
+    get workspaceXML(): string {
+        return this.state.workspaceXML
     }
     @computed
     get parameters(): string[] {
@@ -67,7 +67,7 @@ export class RiddleStore {
             generatedArgs: null,
             parameters: [],
             userSolution: null,
-            workspace: null,
+            workspaceXML: null,
             codeResult: null,
             isSolved: false
         }
@@ -85,10 +85,10 @@ export class RiddleStore {
     }
 
     @action
-    setWorkspace = (workspace: any) => {
+    setWorkspaceXML = (workspaceXML: string) => {
         this.state = {
             ...this.state,
-            workspace: workspace
+            workspaceXML
         }
     }
 
@@ -101,7 +101,7 @@ export class RiddleStore {
     }
 
     @action
-    activateDoor = (gameDoor: GameDoor, workspace: any) => {
+    activateDoor = (gameDoor: GameDoor, workspaceXML: string) => {
         const riddle = gameDoor.door.riddle
         this.state = {
             ...this.state,
@@ -116,10 +116,11 @@ export class RiddleStore {
         this.state.parameters = this.currentRiddle.parameters(
             this.generatedArgs
         )
-        this.setWorkspace(
-            workspace || this.currentRiddle.defaultWorkspace(this.generatedArgs)
+        this.setWorkspaceXML(
+            workspaceXML ||
+                this.currentRiddle.defaultWorkspace(this.generatedArgs)
         )
-        if (workspace) {
+        if (workspaceXML) {
             // ex userCode
             this.runCode()
             this.checkSolution()
@@ -147,13 +148,26 @@ export class RiddleStore {
             (prev, param) => `${prev} ${param}`
         )
 
-        const code = Blockly.JavaScript.workspaceToCode(this.workspace)
-        console.log(code)
+        const workspace = new Blockly.Workspace()
+        let xml
+        try {
+            xml = Blockly.Xml.textToDom(this.workspaceXML)
+        } catch (e) {
+            console.error(e)
+        }
+
+        Blockly.Xml.domToWorkspace(xml, workspace)
+        const code = Blockly.JavaScript.workspaceToCode(workspace)
+
         try {
             // tslint:disable-next-line: no-eval
             codeResult = eval(code) // TODO usare il generatedCode
             // TODO: Check if codeResult is appropriate
             userSolution = String(codeResult)
+            console.warn(
+                'We generate the function but we need the block to call it'
+            )
+            console.log(`Code result: ${userSolution}`)
         } catch (e) {
             codeResult = (e as EvalError).message
         }

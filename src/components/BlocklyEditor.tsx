@@ -37,7 +37,7 @@ const blocklyOptions = {
 export interface BlockEditorProps {
     toolbox: string
     workspace: string
-    onWorkspaceChange: (workspace: any) => any
+    onWorkspaceChange: (workspace: string) => any
     onCodeRun?: Function
 }
 
@@ -62,7 +62,9 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         Blockly.Xml.domToWorkspace(xml, this.workspace)
 
         this.workspace.addChangeListener(() => {
-            this.props.onWorkspaceChange(this.workspace)
+            const xml = Blockly.Xml.workspaceToDom(this.workspace)
+            const xmlString = Blockly.Xml.domToPrettyText(xml)
+            this.props.onWorkspaceChange(xmlString)
         })
 
         window.addEventListener('resize', this.onResize)
