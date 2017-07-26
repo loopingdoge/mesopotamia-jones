@@ -23,35 +23,35 @@ const styles = StyleSheet.create({
     column: {
         display: 'flex',
         flexDirection: 'column',
-        flex: 1,
+        flex: 1
     },
     row: {
         display: 'flex',
         flexDirection: 'row',
-        flex: 1,
+        flex: 1
     },
     wrapper: {
         display: 'flex',
         flexDirection: 'column',
-        flex: 1,
+        flex: 1
     },
     riddleContainer: {
         backgroundColor: '#E37710',
         display: 'flex',
         flexDirection: 'row',
-        flex: 1,
+        flex: 1
     },
     riddleColumn: {
         display: 'flex',
         flexDirection: 'column',
         // flex: '1 1 0%',
-        overflow: 'hidden',
+        overflow: 'hidden'
     },
     editorColumn: {
         display: 'flex',
         flexDirection: 'column',
         flex: '1 1 0%',
-        overflow: 'hidden',
+        overflow: 'hidden'
     },
     cuneiformSection: {
         display: 'flex',
@@ -59,29 +59,29 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         opacity: 1,
         flex: '1 0',
-        textAlign: 'center',
+        textAlign: 'center'
     },
     editorSection: {
         display: 'flex',
         flexDirection: 'row',
-        flex: 1,
+        flex: 1
     },
     lockRow: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        padding: 16,
+        padding: 16
     },
     solutionSection: {
         position: 'absolute',
         zIndex: 100000,
         bottom: 10,
-        right: 20,
+        right: 20
     },
     solutionInput: {
-        flex: 1,
-    },
+        flex: 1
+    }
 })
 
 export interface CuneiformSectionProps {
@@ -91,9 +91,9 @@ export interface CuneiformSectionProps {
 const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)}>
         <p>
-            {
-                riddle.split('').map((value, i) => <CuneiformChar key={i} value={value} />)
-            }
+            {riddle
+                .split('')
+                .map((value, i) => <CuneiformChar key={i} value={value} />)}
         </p>
     </div>
 
@@ -105,11 +105,16 @@ export interface EditorSectionProps {
     setWorkspace: (code: string) => void
 }
 
-const EditorSection = ({ workspace, parameters, setWorkspace, width, height }: EditorSectionProps) =>
+const EditorSection = ({
+    workspace,
+    parameters,
+    setWorkspace,
+    width,
+    height
+}: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <BlocklyEditor
-            toolbox={
-                `<xml id="toolbox" style="display: none">
+            toolbox={`<xml id="toolbox" style="display: none">
                     <block type="controls_if"></block>
                     <block type="controls_repeat_ext"></block>
                     <block type="logic_compare"></block>
@@ -117,8 +122,7 @@ const EditorSection = ({ workspace, parameters, setWorkspace, width, height }: E
                     <block type="math_arithmetic"></block>
                     <block type="text"></block>
                     <block type="text_print"></block>
-                </xml>`
-            }
+                </xml>`}
             workspace={workspace}
             onWorkspaceChange={setWorkspace}
             onCodeRun={() => console.log('coderun')}
@@ -132,14 +136,21 @@ export interface SolutionSection {
 
 const SolutionSection = ({ codeResult, runCode }: SolutionSection) =>
     <div className={css(styles.solutionSection)}>
-        <div>{codeResult}</div>
+        <div>
+            {codeResult}
+        </div>
         <button onClick={runCode}>Run Code</button>
     </div>
 
-const expandedToFlex = (isExpanded: boolean) => isExpanded ? 1 : 0
-const flexToExpandedFromShrinked = (flex: number) => flex > 0.95 ? true : false
-const flexToExpandedFromExpanded = (flex: number) => flex > 0.05 ? true : false
-const flexToExpanded = (isExpanded: boolean, flex: number) => isExpanded ? flexToExpandedFromShrinked(flex) : flexToExpandedFromExpanded(flex)
+const expandedToFlex = (isExpanded: boolean) => (isExpanded ? 1 : 0)
+const flexToExpandedFromShrinked = (flex: number) =>
+    flex > 0.95 ? true : false
+const flexToExpandedFromExpanded = (flex: number) =>
+    flex > 0.05 ? true : false
+const flexToExpanded = (isExpanded: boolean, flex: number) =>
+    isExpanded
+        ? flexToExpandedFromShrinked(flex)
+        : flexToExpandedFromExpanded(flex)
 
 export interface RiddleProps {
     riddleText: string
@@ -170,21 +181,48 @@ export interface RiddleProps {
 }
 
 const Riddle = ({
-    riddleText, solutionLength, solutionType, workspace, parameters, userSolution, codeResult, isNotificationVisible,
-    isCuneiformExpanded, isLegendExpanded, goBack, runCode, shrinkCuneiform, expandCuneiform, shrinkLegend,
-    expandLegend, setWorkspace, onChangeSolution, tryOpenDoor, inventory, width, height,
-    isTutorialOpen, showTutorial, hideTutorial,
+    riddleText,
+    solutionLength,
+    solutionType,
+    workspace,
+    parameters,
+    userSolution,
+    codeResult,
+    isNotificationVisible,
+    isCuneiformExpanded,
+    isLegendExpanded,
+    goBack,
+    runCode,
+    shrinkCuneiform,
+    expandCuneiform,
+    shrinkLegend,
+    expandLegend,
+    setWorkspace,
+    onChangeSolution,
+    tryOpenDoor,
+    inventory,
+    width,
+    height,
+    isTutorialOpen,
+    showTutorial,
+    hideTutorial
 }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} openInfo={showTutorial} />
-        <Motion style={{ columnFlex: spring(expandedToFlex(isCuneiformExpanded)), legendFlex: spring(expandedToFlex(isLegendExpanded))}}>
+        <Motion
+            style={{
+                columnFlex: spring(expandedToFlex(isCuneiformExpanded)),
+                legendFlex: spring(expandedToFlex(isLegendExpanded))
+            }}
+        >
             {({ columnFlex, legendFlex }) =>
                 <div className={css(styles.riddleContainer)}>
-                    <div className={css(styles.riddleColumn)} style={{ flex: columnFlex, opacity: columnFlex }}>
+                    <div
+                        className={css(styles.riddleColumn)}
+                        style={{ flex: columnFlex, opacity: columnFlex }}
+                    >
                         <div className={css(styles.column)}>
-                            <CuneiformSection
-                                riddle={riddleText}
-                            />
+                            <CuneiformSection riddle={riddleText} />
                             <div className={css(styles.lockRow)} data-tour={1}>
                                 <Solution
                                     length={solutionLength}
@@ -196,22 +234,39 @@ const Riddle = ({
                             </div>
                             <Separator
                                 isVertical={false}
-                                isButtonToggled={!flexToExpanded(isLegendExpanded, legendFlex)}
+                                isButtonToggled={
+                                    !flexToExpanded(
+                                        isLegendExpanded,
+                                        legendFlex
+                                    )
+                                }
                                 expanded={isLegendExpanded}
                                 shrink={shrinkLegend}
                                 expand={expandLegend}
                             />
-                            <div style={{ flex: legendFlex, opacity: legendFlex }} data-tour={2}>
+                            <div
+                                style={{
+                                    flex: legendFlex,
+                                    opacity: legendFlex
+                                }}
+                                data-tour={2}
+                            >
                                 <CuneiformLegend />
                             </div>
                         </div>
                     </div>
-                    {onlyIf(hasItem(inventory, computer),
+                    {onlyIf(
+                        hasItem(inventory, computer),
                         <div className={css(styles.editorColumn)}>
                             <div className={css(styles.row)}>
                                 <Separator
                                     isVertical
-                                    isButtonToggled={!flexToExpanded(isCuneiformExpanded, columnFlex)}
+                                    isButtonToggled={
+                                        !flexToExpanded(
+                                            isCuneiformExpanded,
+                                            columnFlex
+                                        )
+                                    }
                                     expanded={isCuneiformExpanded}
                                     shrink={shrinkCuneiform}
                                     expand={expandCuneiform}
@@ -230,28 +285,38 @@ const Riddle = ({
                                     />
                                 </div>
                             </div>
-                        </div>)}
-                        <Tour
-                            isOpen={isTutorialOpen}
-                            onRequestClose={hideTutorial}
-                            showNumber={false}
-                            steps={[{
+                        </div>
+                    )}
+                    <Tour
+                        isOpen={isTutorialOpen}
+                        onRequestClose={hideTutorial}
+                        showNumber={false}
+                        steps={[
+                            {
                                 selector: '[data-tour="1"]',
                                 content: () =>
                                     <div>
-                                        <span>Wow mother father! Credo che dovrei girare la rotella e spingere il bottone</span>
-                                    </div>,
-                            }, {
+                                        <span>
+                                            Wow mother father! Credo che dovrei
+                                            girare la rotella e spingere il
+                                            bottone
+                                        </span>
+                                    </div>
+                            },
+                            {
                                 selector: '[data-tour="2"]',
                                 content: () =>
                                     <div>
-                                        <span>Very bella questa legenda, credo proprio che dovrei cercare di tradurre i simboli</span>
-                                    </div>,
+                                        <span>
+                                            Very bella questa legenda, credo
+                                            proprio che dovrei cercare di
+                                            tradurre i simboli
+                                        </span>
+                                    </div>
                             }
-                            ]}
-                        />
-                    </div>
-                }
+                        ]}
+                    />
+                </div>}
         </Motion>
     </div>
 
@@ -278,7 +343,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             workspace,
             parameters,
             userSolution,
-            question,
+            question
         } = this.props.riddleStore
 
         const goBack = this.props.gameStore.deactivateRiddle
@@ -293,7 +358,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             isNotificationVisible,
             showTutorial,
             hideTutorial,
-            isTutorialOpen,
+            isTutorialOpen
         } = this.props.riddleUIStore
 
         return (

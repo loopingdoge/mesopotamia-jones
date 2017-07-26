@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         border: '2px #333 solid',
         fontWeight: 'bolder',
         fontSize: 'x-large',
-        cursor: 'pointer',
+        cursor: 'pointer'
     }
 })
 
@@ -35,16 +35,24 @@ const getButtonStyle = (rotation: number) => ({
     transform: `rotate(${rotation}deg)`
 })
 
-const CircularButton = ({ vertical = false, toggled, onClick }: CircularButtonProps) => {
+const CircularButton = ({
+    vertical = false,
+    toggled,
+    onClick
+}: CircularButtonProps) => {
     const label = '<'
     return (
-        <Motion style={{ rotation: spring(getRotation(vertical, toggled), presets.stiff) }}>
-            {
-                ({ rotation }) =>
-                    <div onClick={onClick} className={css(styles.button)}>
-                        <span style={getButtonStyle(rotation)}>{label}</span>
-                    </div>
-            }
+        <Motion
+            style={{
+                rotation: spring(getRotation(vertical, toggled), presets.stiff)
+            }}
+        >
+            {({ rotation }) =>
+                <div onClick={onClick} className={css(styles.button)}>
+                    <span style={getButtonStyle(rotation)}>
+                        {label}
+                    </span>
+                </div>}
         </Motion>
     )
 }

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         zIndex: 20,
         height: 50,
-        backgroundColor: 'rgba(0,0,0,0.25)',
+        backgroundColor: 'rgba(0,0,0,0.25)'
     },
     item: {
         width: 40,
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
         fontSize: 28,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-    },
+        justifyContent: 'center'
+    }
 })
 
 export interface GameHeaderProps {
@@ -36,20 +36,30 @@ export interface GameHeaderProps {
 
 const GameHeader = ({ selected, show, width }: GameHeaderProps) =>
     <div className={css(styles.inventoryHeader)} style={{ width }}>
-        <button className={css(styles.item)} onClick={ () => show ( MAP ) }>🗺️</button>
-        <button className={css(styles.item)} onClick={ () => show ( BLUEP ) }>💡</button>
-        {onlyIf(selected !== GAME,
-            <button className={css(styles.item)} onClick={ () => show ( GAME ) }>X</button>)}
+        <button className={css(styles.item)} onClick={() => show(MAP)}>
+            🗺️
+        </button>
+        <button className={css(styles.item)} onClick={() => show(BLUEP)}>
+            💡
+        </button>
+        {onlyIf(
+            selected !== GAME,
+            <button className={css(styles.item)} onClick={() => show(GAME)}>
+                X
+            </button>
+        )}
     </div>
 
 interface GameHeaderContainerProps {
     uiStore?: UIStore
 }
 
-export default inject('uiStore')(observer(({ uiStore }: GameHeaderContainerProps) =>
-    <GameHeader
-        selected={uiStore.state.selected}
-        show={uiStore.show}
-        width={uiStore.width}
-    />
-))
+export default inject('uiStore')(
+    observer(({ uiStore }: GameHeaderContainerProps) =>
+        <GameHeader
+            selected={uiStore.state.selected}
+            show={uiStore.show}
+            width={uiStore.width}
+        />
+    )
+)

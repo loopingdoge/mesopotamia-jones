@@ -6,22 +6,22 @@ const styles = StyleSheet.create({
     lockCode: {
         display: 'flex',
         flexDirection: 'column',
-        padding: '0 8px',
+        padding: '0 8px'
     },
     fieldsColumn: {
         height: 125,
-        overflowY: 'hidden',
+        overflowY: 'hidden'
     },
     innerFieldsColumn: {
         display: 'flex',
         flexDirection: 'column',
         overflowY: 'hidden',
-        textAlign: 'center',
+        textAlign: 'center'
     },
     solutionLabel: {
         padding: '8px 0px',
-        fontSize: 22,
-    },
+        fontSize: 22
+    }
 })
 
 // -------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ const labelColor = (currentIndex: number, activeIndex: number) =>
 
 const labelStyle = (rotation: number, color: string) => ({
     color,
-    transform: `rotate3d(1, 0, 0, ${rotation}deg)`,
+    transform: `rotate3d(1, 0, 0, ${rotation}deg)`
 })
 
 export interface SolutionLabelProps {
@@ -57,14 +57,26 @@ export interface SolutionLabelProps {
     currentIndex: number
 }
 
-const SolutionLabel = ({ value, activeIndex, currentIndex }: SolutionLabelProps) =>
-    <Motion style={interpolatedRotation(labelRotation(currentIndex, activeIndex))}>
-        {
-            ({ rotation }) =>
-                <div className={css(styles.solutionLabel)} style={labelStyle(rotation, labelColor(currentIndex, activeIndex))} >
-                    <span>{value}</span>
-                </div>
-        }
+const SolutionLabel = ({
+    value,
+    activeIndex,
+    currentIndex
+}: SolutionLabelProps) =>
+    <Motion
+        style={interpolatedRotation(labelRotation(currentIndex, activeIndex))}
+    >
+        {({ rotation }) =>
+            <div
+                className={css(styles.solutionLabel)}
+                style={labelStyle(
+                    rotation,
+                    labelColor(currentIndex, activeIndex)
+                )}
+            >
+                <span>
+                    {value}
+                </span>
+            </div>}
     </Motion>
 
 // -------------------------------------------------------------------------------
@@ -92,19 +104,34 @@ export interface LockCodeProps {
     onDecrement: () => void
 }
 
-const LockCode = ({ list, currentValueIndex, onIncrement, onDecrement }: LockCodeProps) => {
-    const labelList = list.map((item, i) => <SolutionLabel key={i} value={item} activeIndex={i} currentIndex={currentValueIndex} />)
+const LockCode = ({
+    list,
+    currentValueIndex,
+    onIncrement,
+    onDecrement
+}: LockCodeProps) => {
+    const labelList = list.map((item, i) =>
+        <SolutionLabel
+            key={i}
+            value={item}
+            activeIndex={i}
+            currentIndex={currentValueIndex}
+        />
+    )
     return (
         <div className={css(styles.lockCode)}>
             <button onClick={onDecrement}>⬆</button>
             <div className={css(styles.fieldsColumn)}>
-                <Motion style={{ offset: spring(columnOffset(currentValueIndex)) }}>
-                    {
-                        ({ offset }) =>
-                            <div className={css(styles.innerFieldsColumn)} style={columnStyle(offset)}>
-                                {labelList}
-                            </div>
-                    }
+                <Motion
+                    style={{ offset: spring(columnOffset(currentValueIndex)) }}
+                >
+                    {({ offset }) =>
+                        <div
+                            className={css(styles.innerFieldsColumn)}
+                            style={columnStyle(offset)}
+                        >
+                            {labelList}
+                        </div>}
                 </Motion>
             </div>
             <button onClick={onIncrement}>⬇</button>

@@ -94,14 +94,14 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     render() {
         return (
             <div
-                id='blocklyArea'
+                id="blocklyArea"
                 ref={workspaceDiv => {
                     this.workspaceDiv = workspaceDiv
                 }}
                 className={css(styles.workspace)}
             >
                 <div
-                    id='blocklyDiv'
+                    id="blocklyDiv"
                     ref={resizableDiv => {
                         this.resizableDiv = resizableDiv
                     }}

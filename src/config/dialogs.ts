@@ -1,6 +1,5 @@
 import { Riddle } from './riddles'
 
-
 export interface Character {
     id: string
     name: string
@@ -17,16 +16,28 @@ export interface Dialog {
     lines: Line[]
 }
 
-const character = (id: string, name: string, image: string): Character => ({id, name, image})
+const character = (id: string, name: string, image: string): Character => ({
+    id,
+    name,
+    image
+})
 
-const line = (character: Character, text: string): Line => ({character, text})
+const line = (character: Character, text: string): Line => ({ character, text })
 
-const dialog = (id: string, lines: Line[]): Dialog => ({id, lines})
+const dialog = (id: string, lines: Line[]): Dialog => ({ id, lines })
 
 export const characters: Character[] = [
-    character( 'mj', 'Mesopotamia Jones', 'https://tinyurl.com/jjzbuz4'),
-    character( 'fv', 'Farren Von Talin', 'http://vignette2.wikia.nocookie.net/witcher/images/4/49/People_Leos_ghost.png'),
-    character( 'ab', 'An-Ki Hammurtossi', 'http://3.bp.blogspot.com/-6JLvoXcxvNU/U3IdCOWrW9I/AAAAAAACDPc/wwO1wCLLXh0/s1600/Mummy+(5).png')
+    character('mj', 'Mesopotamia Jones', 'https://tinyurl.com/jjzbuz4'),
+    character(
+        'fv',
+        'Farren Von Talin',
+        'http://vignette2.wikia.nocookie.net/witcher/images/4/49/People_Leos_ghost.png'
+    ),
+    character(
+        'ab',
+        'An-Ki Hammurtossi',
+        'http://3.bp.blogspot.com/-6JLvoXcxvNU/U3IdCOWrW9I/AAAAAAACDPc/wwO1wCLLXh0/s1600/Mummy+(5).png'
+    )
 ]
 
 export const dialogs: Dialog[] = [
@@ -40,14 +51,13 @@ export const dialogs: Dialog[] = [
         line(characters[0], 'Quando escono i voti di UUX caputtana?')
     ]),
     dialog('dialog3', [
-        line(characters[2], 'Benvenuthi all\'inferno'),
+        line(characters[2], "Benvenuthi all'inferno"),
         line(characters[1], 'Sei proprio diaboliho')
     ])
 ]
 
-const dialogById = (dialogId: string) =>
-    (dialog: Dialog) => ( dialog.id === dialogId )
+const dialogById = (dialogId: string) => (dialog: Dialog) =>
+    dialog.id === dialogId
 
 export const getDialogById = (dialogId: string) =>
-    dialogs
-        .filter(dialogById(dialogId))[0]
+    dialogs.filter(dialogById(dialogId))[0]

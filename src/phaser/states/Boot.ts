@@ -2,17 +2,16 @@ import * as Phaser from 'phaser-ce'
 import * as WebFont from 'webfontloader'
 
 export default class Boot extends Phaser.State {
-
     fontsReady: boolean
 
-    init () {
+    init() {
         this.stage.backgroundColor = '#444'
         this.fontsReady = false
         this.fontsLoaded = this.fontsLoaded.bind(this)
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
     }
 
-    preload () {
+    preload() {
         WebFont.load({
             google: {
                 families: ['Bangers']
@@ -21,9 +20,10 @@ export default class Boot extends Phaser.State {
         })
 
         let text = this.add.text(
-        this.world.centerX, this.world.centerY,
-        'loading fonts',
-        { font: '16px Arial', fill: '#dddddd', align: 'center' }
+            this.world.centerX,
+            this.world.centerY,
+            'loading fonts',
+            { font: '16px Arial', fill: '#dddddd', align: 'center' }
         )
         text.anchor.setTo(0.5, 0.5)
 
@@ -31,14 +31,13 @@ export default class Boot extends Phaser.State {
         this.load.image('loaderBar', './assets/images/loader-bar.png')
     }
 
-    render () {
+    render() {
         if (this.fontsReady) {
             this.state.start('Splash')
         }
     }
 
-    fontsLoaded () {
+    fontsLoaded() {
         this.fontsReady = true
     }
-
 }

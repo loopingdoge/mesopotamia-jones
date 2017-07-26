@@ -9,18 +9,18 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        padding: 8,
+        padding: 8
     },
     legendCell: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         minWidth: 40,
-        minHeight: 30,
+        minHeight: 30
     },
     legendNewline: {
         width: '100%'
-    },
+    }
 })
 
 const alphabet = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
@@ -28,19 +28,19 @@ const alphabet = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
 const CuneiformLegend = () =>
     <Scrollbars autoHide>
         <div className={css(styles.legend)}>
-            {
-                alphabet.map( (value, i) =>
-                    value === ' ' ?
-                        <div key={i} className={css(styles.legendNewline)}></div>
-                        :
-                        <div key={i} className={css(styles.legendCell)}>
-                            <div>
-                                <CuneiformChar value={value}/>
-                            </div>
-                            <div>{value}</div>
-                        </div>
-                )
-            }
+            {alphabet.map(
+                (value, i) =>
+                    value === ' '
+                        ? <div key={i} className={css(styles.legendNewline)} />
+                        : <div key={i} className={css(styles.legendCell)}>
+                              <div>
+                                  <CuneiformChar value={value} />
+                              </div>
+                              <div>
+                                  {value}
+                              </div>
+                          </div>
+            )}
         </div>
     </Scrollbars>
 

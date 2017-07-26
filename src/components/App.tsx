@@ -11,21 +11,19 @@ const styles = StyleSheet.create({
     appContainer: {
         display: 'flex',
         flexDirection: 'column',
-        flex: 1,
+        flex: 1
     }
 })
 
 export default class App extends React.Component {
-
     render() {
         return (
             <div className={css(styles.appContainer)}>
                 <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route path='/game' component={MesopotamiaJones} />
+                    <Route exact path="/" component={Home} />
+                    <Route path="/game" component={MesopotamiaJones} />
                 </Switch>
             </div>
         )
     }
-
 }

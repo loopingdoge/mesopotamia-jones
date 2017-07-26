@@ -19,15 +19,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FDF6E3',
+        backgroundColor: '#FDF6E3'
     },
     content: {
-        height: 'inherit',
+        height: 'inherit'
     }
 })
 
-const getPosition: (gameState: string) => 'initial' | 'absolute' = (gameState: string) =>
-    gameState === GAME ? 'initial' : 'absolute'
+const getPosition: (gameState: string) => 'initial' | 'absolute' = (
+    gameState: string
+) => (gameState === GAME ? 'initial' : 'absolute')
 
 const getStyles = (gameState: string) => ({
     game: {
@@ -35,12 +36,12 @@ const getStyles = (gameState: string) => ({
         flex: 1,
         position: getPosition(gameState),
         opacity: gameState === GAME ? 1 : 0,
-        zIndex: gameState === GAME ? 0 : -9999,
+        zIndex: gameState === GAME ? 0 : -9999
     },
     riddle: {
         display: gameState === RIDDLE ? 'flex' : 'none',
-        flex: 1,
-    },
+        flex: 1
+    }
 })
 
 export interface MesopotamiaJonesProps {
@@ -49,11 +50,19 @@ export interface MesopotamiaJonesProps {
     pageHeight: number
 }
 
-const MesopotamiaJones = ({ gameState, pageWidth, pageHeight }: MesopotamiaJonesProps) => {
+const MesopotamiaJones = ({
+    gameState,
+    pageWidth,
+    pageHeight
+}: MesopotamiaJonesProps) => {
     const MaybeHeader = onlyIf(gameState !== RIDDLE, <GameHeader />)
     const MaybeInventory = onlyIf(gameState !== RIDDLE, <Inventory />)
-    const MaybeRiddle = onlyIf(gameState === RIDDLE,
-        <div style={getStyles(gameState).riddle} className={css(styles.content)}>
+    const MaybeRiddle = onlyIf(
+        gameState === RIDDLE,
+        <div
+            style={getStyles(gameState).riddle}
+            className={css(styles.content)}
+        >
             <Riddle />
         </div>
     )
@@ -62,7 +71,10 @@ const MesopotamiaJones = ({ gameState, pageWidth, pageHeight }: MesopotamiaJones
             <div style={{ width: pageWidth, height: pageHeight }}>
                 <DialogUI />
                 {MaybeHeader}
-                <div style={getStyles(gameState).game} className={css(styles.content)}>
+                <div
+                    style={getStyles(gameState).game}
+                    className={css(styles.content)}
+                >
                     <Game width={pageWidth} height={pageHeight} />
                     {MaybeInventory}
                 </div>
@@ -79,8 +91,10 @@ interface MesopotamiaJonesContainerProps {
 
 @inject('gameStore', 'uiStore')
 @observer
-class MesopotamiaJonesContainer extends React.Component<MesopotamiaJonesContainerProps, undefined> {
-
+class MesopotamiaJonesContainer extends React.Component<
+    MesopotamiaJonesContainerProps,
+    undefined
+> {
     componentDidMount() {
         this.props.gameStore.startGame()
     }

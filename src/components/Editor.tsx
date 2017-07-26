@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     editorWrapper: {
         flex: 1,
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
     toolbar: {
         zIndex: 1,
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         borderBottom: '2px solid #FDF6E3',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     }
 })
 
@@ -34,15 +34,21 @@ export interface EditorProps {
     width: string
 }
 
-const Editor = ({ code, defaultCode, onUserCodeInput, height, width }: EditorProps) =>
+const Editor = ({
+    code,
+    defaultCode,
+    onUserCodeInput,
+    height,
+    width
+}: EditorProps) =>
     <div className={css(styles.editorWrapper)}>
         <AceEditor
-            mode='javascript'
-            theme='solarized_light'
+            mode="javascript"
+            theme="solarized_light"
             onChange={onUserCodeInput}
-            name='code-editor'
+            name="code-editor"
             value={code || defaultCode}
-            editorProps={{$blockScrolling: Infinity}}
+            editorProps={{ $blockScrolling: Infinity }}
             tabSize={4}
             fontSize={16}
             height={height}

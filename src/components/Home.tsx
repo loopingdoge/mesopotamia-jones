@@ -10,17 +10,15 @@ const styles = StyleSheet.create({
     homeContainer: {
         display: 'flex',
         flexDirection: 'column',
-        flex: 1,
+        flex: 1
     },
     body: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
+        flex: 1
     },
-    footer: {
-
-    },
+    footer: {}
 })
 
 export interface HomeProps {

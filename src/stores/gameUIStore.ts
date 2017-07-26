@@ -2,9 +2,9 @@ import { observable, action, computed } from 'mobx'
 
 import { Riddle } from '../config/riddles'
 
-export const GAME   = 'GAME'
-export const MAP    = 'MAP'
-export const BLUEP  = 'BLUEPRINT'
+export const GAME = 'GAME'
+export const MAP = 'MAP'
+export const BLUEP = 'BLUEPRINT'
 
 const getGameScale = (pageWidth: number, pageHeight: number) => {
     let width: number
@@ -18,42 +18,45 @@ const getGameScale = (pageWidth: number, pageHeight: number) => {
     return { width, height }
 }
 
-
 export interface IGameUIStore {
     selected: string
     selectedRiddle: Riddle
 }
 
 export class UIStore {
+    @observable
+    width: number = getGameScale(window.innerWidth, window.innerHeight).width
+    @observable
+    height: number = getGameScale(window.innerWidth, window.innerHeight).height
 
-    @observable width: number = getGameScale(window.innerWidth, window.innerHeight).width
-    @observable height: number = getGameScale(window.innerWidth, window.innerHeight).height
-
-    @action changeWidth = (width: number) => this.width = width
-    @action changeHeight = (height: number) => this.height = height
+    @action changeWidth = (width: number) => (this.width = width)
+    @action changeHeight = (height: number) => (this.height = height)
 
     @observable state: IGameUIStore
 
-    @computed get selectedRiddle(): Riddle {
+    @computed
+    get selectedRiddle(): Riddle {
         return this.state.selectedRiddle
     }
 
     constructor() {
         this.state = {
             selected: GAME,
-            selectedRiddle: null,
+            selectedRiddle: null
         }
     }
 
-    @action show = (selected: string) => {
+    @action
+    show = (selected: string) => {
         this.state = {
             ...this.state,
             selected,
-            selectedRiddle: selected === GAME ? null : this.state.selectedRiddle,
+            selectedRiddle: selected === GAME ? null : this.state.selectedRiddle
         }
     }
 
-    @action onMapDoorClick = (selectedRiddle: Riddle) => {
+    @action
+    onMapDoorClick = (selectedRiddle: Riddle) => {
         this.state = {
             ...this.state,
             selectedRiddle
@@ -64,7 +67,10 @@ export class UIStore {
 const uiStore = new UIStore()
 
 window.onresize = () => {
-    const { width, height } = getGameScale(window.innerWidth, window.innerHeight)
+    const { width, height } = getGameScale(
+        window.innerWidth,
+        window.innerHeight
+    )
     uiStore.changeWidth(width)
     uiStore.changeHeight(height)
 }

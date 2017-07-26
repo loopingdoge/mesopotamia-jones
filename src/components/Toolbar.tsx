@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         height: 30,
-        border: '1px solid black',
+        border: '1px solid black'
     },
     spacer: {
-        flex: 1,
+        flex: 1
     }
 })
 
@@ -20,7 +20,9 @@ export interface BackButtonSectionProps {
 
 const BackButtonSection = ({ goBack }: BackButtonSectionProps) =>
     <div>
-        <button onClick={goBack}>{'⬅️'}</button>
+        <button onClick={goBack}>
+            {'⬅️'}
+        </button>
     </div>
 
 export interface ToolbarButtonProps {
@@ -30,7 +32,9 @@ export interface ToolbarButtonProps {
 
 const ToolbarButton = ({ action, content }: ToolbarButtonProps) =>
     <div>
-        <button onClick={action}>{content}</button>
+        <button onClick={action}>
+            {content}
+        </button>
     </div>
 
 export interface ToolbarProps {
@@ -41,7 +45,7 @@ export interface ToolbarProps {
 const Toolbar = ({ goBack, openInfo }: ToolbarProps) =>
     <div className={css(styles.toolbar)}>
         <BackButtonSection goBack={goBack} />
-        <div className={css(styles.spacer)}/>
+        <div className={css(styles.spacer)} />
         <ToolbarButton action={() => console.log('TODO')} content={'🔄'} />
         <ToolbarButton action={openInfo} content={'ℹ️️'} />
     </div>

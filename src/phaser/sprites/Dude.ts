@@ -3,10 +3,9 @@ import ISprite from '../classes/ISprite'
 import gameStore, { GAME } from '../../stores/gameStore'
 
 export default class Dude extends Phaser.Sprite {
-
     cursors: Phaser.CursorKeys
 
-    constructor ({ game, x, y, key}: ISprite) {
+    constructor({ game, x, y, key }: ISprite) {
         super(game, x, y, key)
         this.anchor.setTo(0.5)
         this.cursors = this.game.input.keyboard.createCursorKeys()
@@ -58,13 +57,14 @@ export default class Dude extends Phaser.Sprite {
             }
         }
 
-        if ((!movingHorizontal && !movingVertical) || gameStore.gameState !== GAME) {
+        if (
+            (!movingHorizontal && !movingVertical) ||
+            gameStore.gameState !== GAME
+        ) {
             this.animations.stop()
             this.frame = 4
             this.body.velocity.x = 0
             this.body.velocity.y = 0
         }
-
     }
-
 }

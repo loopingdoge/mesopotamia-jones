@@ -5,7 +5,13 @@ import { UIStore } from './gameUIStore'
 
 import { Room, rooms, getGameDoor, Door } from '../config/map'
 import { Dialog, getDialogById } from '../config/dialogs'
-import { Inventory, Item, defaultInventory, addItem, Computer } from '../config/inventory'
+import {
+    Inventory,
+    Item,
+    defaultInventory,
+    addItem,
+    Computer
+} from '../config/inventory'
 
 import PhaserGame from '../phaser'
 
@@ -21,7 +27,6 @@ export interface IGameStore {
 }
 
 export class GameStore {
-
     game: PhaserGame
     riddleStore: RiddleStore
     uiStore: UIStore
@@ -31,23 +36,28 @@ export class GameStore {
 
     @observable state: IGameStore
 
-    @computed get room(): Room {
+    @computed
+    get room(): Room {
         return this.state.room
     }
 
-    @computed get lastDoor(): Door {
+    @computed
+    get lastDoor(): Door {
         return this.state.lastDoor
     }
 
-    @computed get dialog(): Dialog {
+    @computed
+    get dialog(): Dialog {
         return this.state.dialog
     }
 
-    @computed get gameState(): string {
+    @computed
+    get gameState(): string {
         return this.state.gameState
     }
 
-    @computed get inventory(): Inventory {
+    @computed
+    get inventory(): Inventory {
         return this.state.inventory
     }
 
@@ -57,7 +67,7 @@ export class GameStore {
             lastDoor: null,
             dialog: null,
             gameState: GAME,
-            inventory: defaultInventory(),
+            inventory: defaultInventory()
         }
     }
 
@@ -82,10 +92,10 @@ export class GameStore {
         reaction(
             () => this.dialog,
             (dialog: Dialog) => {
-                if ( dialog ) {
+                if (dialog) {
                     this.lineId = 0
                     let timer = setInterval(() => {
-                        if ( this.lineId < this.dialog.lines.length - 1 ) {
+                        if (this.lineId < this.dialog.lines.length - 1) {
                             this.lineId++
                         } else {
                             gameStore.hideDialog()
@@ -95,30 +105,25 @@ export class GameStore {
                 }
             }
         )
-        reaction(
-            () => this.state.room,
-            () => this.saveGameState()
-        )
-        reaction(
-            () => this.uiStore.selectedRiddle,
-            () => this.saveGameState()
-        )
-
+        reaction(() => this.state.room, () => this.saveGameState())
+        reaction(() => this.uiStore.selectedRiddle, () => this.saveGameState())
     }
 
-    @action startGame = () => {
+    @action
+    startGame = () => {
         this.game = new PhaserGame()
         this.game.start()
     }
 
-    @action newGame = () => {
+    @action
+    newGame = () => {
         localStorage.setItem('gameState', null)
         this.state = {
             room: rooms[0],
             lastDoor: null,
             dialog: null,
             gameState: GAME,
-            inventory: defaultInventory(),
+            inventory: defaultInventory()
         }
     }
 
@@ -132,7 +137,8 @@ export class GameStore {
      * @param x: x position of the door
      * @param y: y position of the door
      */
-    @action activateRiddle = (x: number, y: number) => {
+    @action
+    activateRiddle = (x: number, y: number) => {
         const gameDoor = getGameDoor(this.room, x, y)
         const workspace = this.computer.workspace[gameDoor.door.riddle.id]
 
@@ -144,54 +150,63 @@ export class GameStore {
         }
     }
 
-    @action deactivateRiddle = () => {
+    @action
+    deactivateRiddle = () => {
         this.state = {
             ...this.state,
-            gameState: GAME,
+            gameState: GAME
         }
         this.game.loadRoom()
     }
 
-    @action riddleSolved = () => {
+    @action
+    riddleSolved = () => {
         let newState = this.state
         if (this.gameState === RIDDLE) {
             newState = {
                 ...newState,
                 room: this.riddleStore.currentGameDoor.to,
-                gameState: GAME,
+                gameState: GAME
             }
         }
         this.state = newState
         this.game.loadRoom()
-        this.setRiddleWorkspace(this.riddleStore.currentRiddle.id, this.riddleStore.workspace)
+        this.setRiddleWorkspace(
+            this.riddleStore.currentRiddle.id,
+            this.riddleStore.workspace
+        )
 
         this.riddleStore.isSolved = false
     }
 
-    @action showDialog = (dialogId: string) => {
-        if ( !this.state.dialog ) {
+    @action
+    showDialog = (dialogId: string) => {
+        if (!this.state.dialog) {
             this.state = {
                 ...this.state,
-                dialog: getDialogById(dialogId),
+                dialog: getDialogById(dialogId)
             }
         }
     }
 
-    @action hideDialog = () => {
+    @action
+    hideDialog = () => {
         this.state = {
             ...this.state,
-            dialog: null,
+            dialog: null
         }
     }
 
-    @action addItem = (item: Item) => {
+    @action
+    addItem = (item: Item) => {
         this.state = {
             ...this.state,
             inventory: addItem(this.state.inventory, item)
         }
     }
 
-    @action setRiddleWorkspace = (riddleId: string, workspace: string) => {
+    @action
+    setRiddleWorkspace = (riddleId: string, workspace: string) => {
         this.computer.workspace[riddleId] = workspace
         this.state = {
             ...this.state

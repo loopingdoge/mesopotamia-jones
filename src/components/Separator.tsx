@@ -9,38 +9,38 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         width: 44,
-        padding: '0 8px',
+        padding: '0 8px'
     },
     separatorHContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
         height: 44,
-        padding: '8px 0',
+        padding: '8px 0'
     },
     lineVContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
         flex: 1,
-        padding: '10px',
+        padding: '10px'
     },
     lineHContainer: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         flex: 1,
-        padding: '10px',
+        padding: '10px'
     },
     line: {
-        backgroundColor: '#333',
+        backgroundColor: '#333'
     },
     vLine: {
-        width: 2,
+        width: 2
     },
     hLine: {
-        height: 2,
-    },
+        height: 2
+    }
 })
 
 interface LineProps {
@@ -48,7 +48,9 @@ interface LineProps {
 }
 
 const Line = ({ isVertical }: LineProps) =>
-    <div className={css(styles.line, isVertical ? styles.vLine : styles.hLine)}></div>
+    <div
+        className={css(styles.line, isVertical ? styles.vLine : styles.hLine)}
+    />
 
 export interface SeparatorProps {
     isVertical: boolean
@@ -58,9 +60,23 @@ export interface SeparatorProps {
     expand: () => void
 }
 
-const Separator = ({ isVertical, isButtonToggled, expanded, shrink, expand }: SeparatorProps) =>
-    <div className={css(isVertical ? styles.separatorVContainer : styles.separatorHContainer)}>
-        <div className={css(isVertical ? styles.lineVContainer : styles.lineHContainer)}>
+const Separator = ({
+    isVertical,
+    isButtonToggled,
+    expanded,
+    shrink,
+    expand
+}: SeparatorProps) =>
+    <div
+        className={css(
+            isVertical ? styles.separatorVContainer : styles.separatorHContainer
+        )}
+    >
+        <div
+            className={css(
+                isVertical ? styles.lineVContainer : styles.lineHContainer
+            )}
+        >
             <Line isVertical={isVertical} />
         </div>
         <CircularButton
@@ -68,7 +84,11 @@ const Separator = ({ isVertical, isButtonToggled, expanded, shrink, expand }: Se
             toggled={isButtonToggled}
             vertical={isVertical}
         />
-        <div className={css(isVertical ? styles.lineVContainer : styles.lineHContainer)}>
+        <div
+            className={css(
+                isVertical ? styles.lineVContainer : styles.lineHContainer
+            )}
+        >
             <Line isVertical={isVertical} />
         </div>
     </div>

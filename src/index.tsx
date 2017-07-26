@@ -15,7 +15,7 @@ const routingStore = new RouterStore()
 
 gameStore.init(riddleStore, uiStore)
 
-const stores = { gameStore, routingStore , riddleStore, riddleUIStore, uiStore }
+const stores = { gameStore, routingStore, riddleStore, riddleUIStore, uiStore }
 
 const hashHistory = createHashHistory()
 const history = syncHistoryWithStore(hashHistory, routingStore)

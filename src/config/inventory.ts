@@ -3,17 +3,14 @@ export interface Item {
 }
 
 export class Computer implements Item {
-
     id: string = COMPUTER
     workspace: { [riddleId: string]: string } = {}
-
 }
 
 export const COMPUTER = 'COMPUTER'
 export const ROCK_SMASHER = 'ROCK_SMASHER'
 
-export const defaultToolbox =
-    `<xml id="toolbox" style="display: none">
+export const defaultToolbox = `<xml id="toolbox" style="display: none">
         <block type="controls_if"></block>
         <block type="controls_repeat_ext"></block>
         <block type="logic_compare"></block>
@@ -23,7 +20,7 @@ export const defaultToolbox =
         <block type="text_print"></block>
     </xml>`
 
-const item = (id: string): Item => ({id})
+const item = (id: string): Item => ({ id })
 
 export const computer = new Computer()
 

@@ -86,8 +86,15 @@ const Inventory = ({
                                   workspace={selectedRiddle.defaultWorkspace(
                                       []
                                   )}
-                                  onWorkspaceChange={(workspace: string) => gameStore.setRiddleWorkspace(selectedRiddle.id, workspace)}
-                                  onCodeRun={() => console.warn('TODO: implement onCodeRun in Inventory.tsx')}
+                                  onWorkspaceChange={(workspace: string) =>
+                                      gameStore.setRiddleWorkspace(
+                                          selectedRiddle.id,
+                                          workspace
+                                      )}
+                                  onCodeRun={() =>
+                                      console.warn(
+                                          'TODO: implement onCodeRun in Inventory.tsx'
+                                      )}
                               />
                             : <div className={css(styles.placeholder)}>
                                   Clicca una porta per iniziare ad editare

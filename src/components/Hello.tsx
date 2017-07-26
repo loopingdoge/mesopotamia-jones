@@ -8,7 +8,9 @@ export interface HelloProps {
 
 const Hello = ({ level }: HelloProps) =>
     <div>
-        <h1>We are at level: {level}</h1>
+        <h1>
+            We are at level: {level}
+        </h1>
     </div>
 
 export interface HelloContainerProps {
@@ -20,9 +22,7 @@ export interface HelloContainerProps {
 class HelloContainer extends React.Component<HelloContainerProps, undefined> {
     render() {
         const level = this.props.gameStore.room.id
-        return (
-            <Hello level={level} />
-        )
+        return <Hello level={level} />
     }
 }
 
