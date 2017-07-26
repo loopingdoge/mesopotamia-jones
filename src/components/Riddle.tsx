@@ -113,8 +113,9 @@ const EditorSection = ({
     height
 }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
-        <BlocklyEditor
+        <BlocklyEditor // TODO toolbar parametrica presa da inventory
             toolbox={`<xml id="toolbox" style="display: none">
+                    <block type="variables_get"></block>
                     <block type="controls_if"></block>
                     <block type="controls_repeat_ext"></block>
                     <block type="logic_compare"></block>

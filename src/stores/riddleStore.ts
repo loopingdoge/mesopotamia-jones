@@ -71,6 +71,75 @@ export class RiddleStore {
             codeResult: null,
             isSolved: false
         }
+
+        // TODO fare una factory dei blocchi
+        // probabilmente ogni root block di ogni indovinello va messo nel riddle
+        let mathChangeJson: any = {
+            type: 'sum',
+            message0: 'dati %1 e %2 %3 %4 il risultato è: %5',
+            args0: [
+                {
+                    type: 'field_variable',
+                    name: 'x',
+                    variable: 'numero1'
+                },
+                {
+                    type: 'field_variable',
+                    name: 'y',
+                    variable: 'numero2'
+                },
+                {
+                    type: 'input_dummy'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'function_code',
+                    check: 'Number'
+                },
+                {
+                    type: 'input_value',
+                    name: 'return',
+                    check: 'Number',
+                    align: 'RIGHT'
+                }
+            ],
+            inputsInline: false,
+            colour: 45,
+            tooltip:
+                'I dati sono numeri, quindi il risultato deve essere un numero',
+            helpUrl: ''
+        }
+
+        Blockly.Blocks['sum'] = {
+            init: function() {
+                this.jsonInit(mathChangeJson)
+                // Assign 'this' to a variable for use in the tooltip closure below.
+                let thisBlock: any = this
+            }
+        }
+        Blockly.JavaScript['sum'] = function(block: any) {
+            let variable_x = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('x'),
+                Blockly.Variables.NAME_TYPE
+            )
+            let variable_y = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('y'),
+                Blockly.Variables.NAME_TYPE
+            )
+            let statements_function_code = Blockly.JavaScript.statementToCode(
+                block,
+                'function_code'
+            )
+            let value_return = Blockly.JavaScript.valueToCode(
+                block,
+                'return',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            debugger
+            let code = '...\n'
+            return code
+        }
+
         reaction(
             () => this.codeResult,
             result => {

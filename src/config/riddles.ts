@@ -31,14 +31,7 @@ const riddles: Riddle[] = [
         question: ([a]: number[]) => `Inserisci il numero ${a}`,
         defaultWorkspace: ([a]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-            <block type="procedures_defreturn" id="tu=J+M:Ap=x8XtDF-,-Y" deletable="false" x="38" y="38">
-                <mutation>
-                    <arg name="x"></arg>
-                    <arg name="y"></arg>
-                </mutation>
-                <field name="NAME">sum</field>
-                <comment pinned="false" h="80" w="160">Sum of two numbers</comment>
-            </block>
+            <block type="sum" id="tu=J+M:Ap=x8XtDF-,-Y" deletable="false" x="38" y="38"></block>
         </xml>`,
         parameters: ([a]: number[]) => [`var a = ${a};`],
         solution: ([a]: number[]) => `${a}`,
