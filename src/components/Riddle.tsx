@@ -124,7 +124,7 @@ const EditorSection = ({
                     <block type="text"></block>
                     <block type="text_print"></block>
                 </xml>`}
-            workspace={workspace}
+            workspaceXML={workspace}
             onWorkspaceChange={setWorkspace}
             onCodeRun={() => console.log('coderun')}
         />

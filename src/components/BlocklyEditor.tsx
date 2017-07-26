@@ -36,7 +36,7 @@ const blocklyOptions = {
 
 export interface BlockEditorProps {
     toolbox: string
-    workspace: string
+    workspaceXML: string
     onWorkspaceChange: (workspace: string) => any
     onCodeRun?: Function
 }
@@ -51,22 +51,16 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     constructor() {
         super()
         this.onResize = this.onResize.bind(this)
+        this.injectWorkspaceXML = this.injectWorkspaceXML.bind(this)
     }
 
     componentDidMount() {
+        console.log(this.props.workspaceXML)
         this.workspace = Blockly.inject(this.resizableDiv.id, {
             ...blocklyOptions,
             toolbox: this.props.toolbox
         })
-        const xml = Blockly.Xml.textToDom(this.props.workspace)
-        Blockly.Xml.domToWorkspace(xml, this.workspace)
-
-        this.workspace.addChangeListener(() => {
-            const xml = Blockly.Xml.workspaceToDom(this.workspace)
-            const xmlString = Blockly.Xml.domToPrettyText(xml)
-            this.props.onWorkspaceChange(xmlString)
-        })
-
+        this.injectWorkspaceXML(this.props.workspaceXML)
         window.addEventListener('resize', this.onResize)
         setTimeout(this.onResize, 100)
     }
@@ -75,16 +69,37 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         window.removeEventListener('resize', this.onResize)
     }
 
+    componentWillReceiveProps(nextProps: BlockEditorProps) {
+        if (nextProps.workspaceXML !== this.props.workspaceXML) {
+            this.injectWorkspaceXML(nextProps.workspaceXML)
+        }
+    }
+
+    injectWorkspaceXML(workspaceXML: string) {
+        console.log(workspaceXML)
+
+        this.workspace.clear()
+
+        const xml = Blockly.Xml.textToDom(workspaceXML)
+        Blockly.Xml.domToWorkspace(xml, this.workspace)
+
+        this.workspace.addChangeListener(() => {
+            const xml = Blockly.Xml.workspaceToDom(this.workspace)
+            const xmlString = Blockly.Xml.domToPrettyText(xml)
+            this.props.onWorkspaceChange(xmlString)
+        })
+    }
+
     onResize() {
         // Compute the absolute coordinates and dimensions of blocklyArea.
         let element = this.workspaceDiv
         let x = 0
         let y = 0
-        do {
-            x += element.offsetLeft
-            y += element.offsetTop
-            element = element.offsetParent as any
-        } while (element)
+        // do {
+        x += element.offsetLeft
+        y += element.offsetTop
+        // element = element.offsetParent as any
+        // } while (element)
         // Position blocklyDiv over blocklyArea.
         this.resizableDiv.style.left = x + 'px'
         this.resizableDiv.style.top = y + 'px'
