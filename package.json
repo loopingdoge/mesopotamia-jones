@@ -51,6 +51,7 @@
     "lint-staged": "^4.0.2",
     "mobx-react-devtools": "^4.2.15",
     "mocha": "^3.2.0",
+    "prettier": "^1.5.3",
     "react-addons-test-utils": "^15.4.2",
     "sinon": "^1.17.7",
     "source-map-loader": "^0.1.6",
