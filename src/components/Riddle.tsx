@@ -99,7 +99,6 @@ const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
 
 export interface EditorSectionProps {
     workspace: string
-    parameters: string[]
     width: string
     height: string
     setWorkspace: (code: string) => void
@@ -107,15 +106,13 @@ export interface EditorSectionProps {
 
 const EditorSection = ({
     workspace,
-    parameters,
     setWorkspace,
     width,
     height
 }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
-        <BlocklyEditor // TODO toolbar parametrica presa da inventory
+        <BlocklyEditor // TODO toolbar parametrica presa da inventory<block type="variables_get"></block>
             toolbox={`<xml id="toolbox" style="display: none">
-                    <block type="variables_get"></block>
                     <block type="controls_if"></block>
                     <block type="controls_repeat_ext"></block>
                     <block type="logic_compare"></block>
@@ -158,7 +155,6 @@ export interface RiddleProps {
     solutionLength: number
     solutionType: SolutionType
     workspace: string
-    parameters: string[]
     userSolution: string
     codeResult: string
     isNotificationVisible: boolean
@@ -186,7 +182,6 @@ const Riddle = ({
     solutionLength,
     solutionType,
     workspace,
-    parameters,
     userSolution,
     codeResult,
     isNotificationVisible,
@@ -275,7 +270,6 @@ const Riddle = ({
                                 <div className={css(styles.editorSection)}>
                                     <EditorSection
                                         workspace={workspace}
-                                        parameters={parameters}
                                         setWorkspace={setWorkspace}
                                         height={`${height}px`}
                                         width={'100%'}
@@ -342,7 +336,6 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             setWorkspaceXML,
             setUserSolution,
             workspaceXML,
-            parameters,
             userSolution,
             question
         } = this.props.riddleStore
@@ -369,7 +362,6 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 solutionLength={currentRiddle.solutionLength}
                 solutionType={currentRiddle.solutionType}
                 workspace={workspaceXML}
-                parameters={parameters}
                 userSolution={userSolution}
                 codeResult={codeResult}
                 isLegendExpanded={isLegendExpanded}
