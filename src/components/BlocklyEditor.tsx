@@ -89,7 +89,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     onResize() {
-        console.warn('onResize')
         // Compute the absolute coordinates and dimensions of blocklyArea.
         let element = this.workspaceDiv
         let x = 0

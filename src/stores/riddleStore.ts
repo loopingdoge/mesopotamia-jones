@@ -66,52 +66,6 @@ export class RiddleStore {
             isSolved: false
         }
 
-        // TODO fare una factory dei blocchi
-        // probabilmente ogni root block di ogni indovinello va messo nel riddle
-        let mathChangeJson: any = {
-            type: 'sum',
-            message0: 'dati %1 e %2 %3 %4 il risultato è: %5',
-            args0: [
-                {
-                    type: 'field_variable',
-                    name: 'x',
-                    variable: 'numero1'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'y',
-                    variable: 'numero2'
-                },
-                {
-                    type: 'input_dummy'
-                },
-                {
-                    type: 'input_statement',
-                    name: 'USERCODE',
-                    check: 'Number'
-                },
-                {
-                    type: 'input_value',
-                    name: 'RETURN',
-                    check: 'Number',
-                    align: 'RIGHT'
-                }
-            ],
-            inputsInline: false,
-            colour: 45,
-            tooltip:
-                'I dati sono numeri, quindi il risultato deve essere un numero',
-            helpUrl: ''
-        }
-
-        Blockly.Blocks['sum'] = {
-            init: function() {
-                this.jsonInit(mathChangeJson)
-                // Assign 'this' to a variable for use in the tooltip closure below.
-                let thisBlock: any = this
-            }
-        }
-
         reaction(
             () => this.codeResult,
             result => {
@@ -144,6 +98,8 @@ export class RiddleStore {
     @action
     activateDoor = (gameDoor: GameDoor, workspaceXML: string) => {
         const riddle = gameDoor.door.riddle
+        const rootBlockID = `riddle_${riddle.id}`
+
         this.state = {
             ...this.state,
             currentGameDoor: gameDoor,
@@ -155,27 +111,16 @@ export class RiddleStore {
             isSolved: false
         }
 
+        if (!Blockly.Blocks[rootBlockID]) {
+            Blockly.Blocks[rootBlockID] = {
+                init: function() {
+                    this.jsonInit(riddle.rootBlock)
+                }
+            }
+        }
         // TODO parametrizzare questa cosa
         let self: any = this
-        Blockly.JavaScript['sum'] = function(block: any) {
-            let x = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('x'),
-                Blockly.Variables.NAME_TYPE
-            )
-            let y = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('y'),
-                Blockly.Variables.NAME_TYPE
-            )
-            let userCode = Blockly.JavaScript.statementToCode(block, 'USERCODE')
-            let ret = Blockly.JavaScript.valueToCode(
-                block,
-                'RETURN',
-                Blockly.JavaScript.ORDER_ATOMIC
-            )
-            let code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${self
-                .state.generatedArgs})`
-            return code
-        }
+        Blockly.JavaScript[rootBlockID] = riddle.getCodeGen(this.generatedArgs)
 
         this.setWorkspaceXML(
             workspaceXML ||
