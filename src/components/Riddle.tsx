@@ -9,7 +9,7 @@ import { UIStore } from '../stores/gameUIStore'
 import { RiddleUIStore } from '../stores/riddleUIStore'
 import { RiddleStore } from '../stores/riddleStore'
 import { SolutionType } from '../config/riddles'
-import { Inventory, hasItem, computer } from '../config/inventory'
+import { Inventory, hasItem, computer, getToolbox } from '../config/inventory'
 import { onlyIf } from '../utils'
 import Editor from './Editor'
 import Toolbar from './Toolbar'
@@ -98,6 +98,7 @@ const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
     </div>
 
 export interface EditorSectionProps {
+    toolbox: string
     workspace: string
     width: string
     height: string
@@ -105,22 +106,15 @@ export interface EditorSectionProps {
 }
 
 const EditorSection = ({
+    toolbox,
     workspace,
     setWorkspace,
     width,
     height
 }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
-        <BlocklyEditor // TODO toolbar parametrica presa da inventory<block type="variables_get"></block>
-            toolbox={`<xml id="toolbox" style="display: none">
-                    <block type="controls_if"></block>
-                    <block type="controls_repeat_ext"></block>
-                    <block type="logic_compare"></block>
-                    <block type="math_number"></block>
-                    <block type="math_arithmetic"></block>
-                    <block type="text"></block>
-                    <block type="text_print"></block>
-                </xml>`}
+        <BlocklyEditor
+            toolboxXML={toolbox}
             workspaceXML={workspace}
             onWorkspaceChange={setWorkspace}
             onCodeRun={() => console.log('coderun')}
@@ -269,6 +263,7 @@ const Riddle = ({
                                 />
                                 <div className={css(styles.editorSection)}>
                                     <EditorSection
+                                        toolbox={getToolbox()}
                                         workspace={workspace}
                                         setWorkspace={setWorkspace}
                                         height={`${height}px`}

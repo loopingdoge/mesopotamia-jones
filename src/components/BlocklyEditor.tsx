@@ -35,7 +35,7 @@ const blocklyOptions = {
 }
 
 export interface BlockEditorProps {
-    toolbox: string
+    toolboxXML: string
     workspaceXML: string
     onWorkspaceChange: (workspace: string) => any
     onCodeRun?: Function
@@ -57,7 +57,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     componentDidMount() {
         this.workspace = Blockly.inject(this.resizableDiv.id, {
             ...blocklyOptions,
-            toolbox: this.props.toolbox
+            toolbox: this.props.toolboxXML
         })
         this.injectWorkspaceXML(this.props.workspaceXML)
         window.addEventListener('resize', this.onResize)

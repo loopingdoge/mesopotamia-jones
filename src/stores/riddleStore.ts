@@ -119,7 +119,6 @@ export class RiddleStore {
             }
         }
         // TODO parametrizzare questa cosa
-        let self: any = this
         Blockly.JavaScript[rootBlockID] = riddle.getCodeGen(this.generatedArgs)
 
         this.setWorkspaceXML(
