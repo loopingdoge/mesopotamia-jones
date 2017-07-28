@@ -19,7 +19,7 @@ export interface HelloContainerProps {
 
 @inject('gameStore')
 @observer
-class HelloContainer extends React.Component<HelloContainerProps, undefined> {
+class HelloContainer extends React.Component<HelloContainerProps> {
     render() {
         const level = this.props.gameStore.room.id
         return <Hello level={level} />

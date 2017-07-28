@@ -8,9 +8,20 @@
   "scripts": {
     "start": "webpack",
     "build": "webpack --config webpack.production.config.js",
-    "test": "mocha -r ts-node/register ./src/.test-setup.js ./src/**/*.test.ts ./src/**/*.test.tsx",
+    "test": "jest",
     "lint": "tslint -c tslint.json src/**/*.ts src/**/*.tsx",
     "precommit": "lint-staged"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -20,10 +31,9 @@
   },
   "devDependencies": {
     "@types/aphrodite": "^0.5.6",
-    "@types/chai": "^3.4.34",
-    "@types/enzyme": "^2.8.2",
+    "@types/enzyme": "^2.8.4",
     "@types/history": "^4.6.0",
-    "@types/mocha": "^2.2.38",
+    "@types/jest": "^20.0.5",
     "@types/react": "^15.0.38",
     "@types/react-addons-test-utils": "^0.14.17",
     "@types/react-custom-scrollbars": "^4.0.1",
@@ -39,7 +49,6 @@
     "babel-preset-es2015": "^6.18.0",
     "browser-sync": "^2.18.6",
     "browser-sync-webpack-plugin": "^1.1.3",
-    "chai": "^3.5.0",
     "enzyme": "^2.9.1",
     "eslint": "^3.13.1",
     "eslint-config-standard": "^6.2.1",
@@ -47,15 +56,15 @@
     "eslint-plugin-standard": "^2.0.1",
     "expose-loader": "^0.7.1",
     "husky": "^0.14.3",
-    "jsdom": "^9.9.1",
+    "jest": "^20.0.4",
     "lint-staged": "^4.0.2",
     "mobx-react-devtools": "^4.2.15",
-    "mocha": "^3.2.0",
     "prettier": "^1.5.3",
     "react-addons-test-utils": "^15.4.2",
     "sinon": "^1.17.7",
     "source-map-loader": "^0.1.6",
     "tape": "^4.6.3",
+    "ts-jest": "^20.0.7",
     "ts-node": "^2.0.0",
     "tslint": "^5.5.0",
     "typescript": "^2.4.1",
@@ -77,6 +86,7 @@
     "react-dom": "^15.6.1",
     "react-motion": "^0.5.0",
     "react-router": "^4.1.2",
+    "react-test-renderer": "^15.6.1",
     "reactour": "^1.4.1",
     "webfontloader": "^1.6.27"
   }
