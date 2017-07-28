@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
+import * as React from 'react'
 
-import gameStore from '../stores/gameStore'
-import { Room, Edge, Direction, gameDoors, adjacentRooms } from '../config/map'
+import { adjacentRooms, Direction, Edge, gameDoors, Room } from '../config/map'
 import { Riddle } from '../config/riddles'
+import gameStore from '../stores/gameStore'
 
 const roomWidth = 90
 const roomHeight = 90

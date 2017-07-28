@@ -1,9 +1,9 @@
+import createHashHistory from 'history/createHashHistory'
+import { Provider } from 'mobx-react'
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { Provider } from 'mobx-react'
-import { Router, Route } from 'react-router'
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
-import createHashHistory from 'history/createHashHistory'
+import { Route, Router } from 'react-router'
 
 import App from './components/App'
 import gameStore from './stores/gameStore'

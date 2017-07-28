@@ -1,6 +1,6 @@
+import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 import { Motion, spring } from 'react-motion'
-import { css, StyleSheet } from 'aphrodite'
 
 const styles = StyleSheet.create({
     lockCode: {

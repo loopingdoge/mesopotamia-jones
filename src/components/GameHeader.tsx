@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { inject, observer } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
 
 import { onlyIf } from '../utils'
 
-import { GAME, MAP, BLUEP, UIStore } from '../stores/gameUIStore'
+import { BLUEP, GAME, MAP, UIStore } from '../stores/gameUIStore'
 
 const styles = StyleSheet.create({
     inventoryHeader: {

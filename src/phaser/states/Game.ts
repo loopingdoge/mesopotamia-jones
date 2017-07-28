@@ -1,9 +1,9 @@
 /* globals __DEV__ */
 declare const __DEV__: boolean
 import * as Phaser from 'phaser-ce'
-import Dude from '../sprites/Dude'
-import gameStore from '../../stores/gameStore'
 import { GameDoor, getGameDoorById } from '../../config/map'
+import gameStore from '../../stores/gameStore'
+import Dude from '../sprites/Dude'
 
 export default class Game extends Phaser.State {
     player: Phaser.Sprite
@@ -34,11 +34,11 @@ export default class Game extends Phaser.State {
         let centerY: number = this.world.centerY
 
         if (gameStore.lastDoor) {
-            let lastDoor: GameDoor = getGameDoorById(
+            const lastDoor: GameDoor = getGameDoorById(
                 gameStore.lastDoor,
                 gameStore.room
             )
-            let lastDoorTile = map.getTile(lastDoor.x, lastDoor.y, this.layer)
+            const lastDoorTile = map.getTile(lastDoor.x, lastDoor.y, this.layer)
             let cX = lastDoorTile.centerX + lastDoorTile.left
             let cY = lastDoorTile.centerY + lastDoorTile.top
             switch (lastDoorTile.properties.direction) {

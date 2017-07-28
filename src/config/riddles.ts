@@ -61,16 +61,16 @@ const riddles: Riddle[] = [
             helpUrl: ''
         }, // TODO block: any <- impostare type
         getCodeGen: (args: any) => (block: any) => {
-            let x = Blockly.JavaScript.variableDB_.getName(
+            const x = Blockly.JavaScript.variableDB_.getName(
                 block.getFieldValue('x'),
                 Blockly.Variables.NAME_TYPE
             )
-            let ret = Blockly.JavaScript.valueToCode(
+            const ret = Blockly.JavaScript.valueToCode(
                 block,
                 'return',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            let code = `(function( ${x} ) { return ${ret} })(${args})`
+            const code = `(function( ${x} ) { return ${ret} })(${args})`
             return code
         },
         solution: ([a]: number[]) => `${a}`,
@@ -121,21 +121,24 @@ const riddles: Riddle[] = [
             helpUrl: ''
         },
         getCodeGen: (args: any) => (block: any) => {
-            let x = Blockly.JavaScript.variableDB_.getName(
+            const x = Blockly.JavaScript.variableDB_.getName(
                 block.getFieldValue('x'),
                 Blockly.Variables.NAME_TYPE
             )
-            let y = Blockly.JavaScript.variableDB_.getName(
+            const y = Blockly.JavaScript.variableDB_.getName(
                 block.getFieldValue('y'),
                 Blockly.Variables.NAME_TYPE
             )
-            let userCode = Blockly.JavaScript.statementToCode(block, 'USERCODE')
-            let ret = Blockly.JavaScript.valueToCode(
+            const userCode = Blockly.JavaScript.statementToCode(
+                block,
+                'USERCODE'
+            )
+            const ret = Blockly.JavaScript.valueToCode(
                 block,
                 'RETURN',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            let code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${args})`
+            const code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${args})`
             return code
         },
         solution: ([a, b]: number[]) => `${a + b}`,

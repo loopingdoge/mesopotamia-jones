@@ -1,8 +1,8 @@
-import * as React from 'react'
-import AceEditor from 'react-ace'
 import { css, StyleSheet } from 'aphrodite'
 import 'brace/mode/javascript'
 import 'brace/theme/solarized_light'
+import * as React from 'react'
+import AceEditor from 'react-ace'
 
 const styles = StyleSheet.create({
     editorWrapper: {

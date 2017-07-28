@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser-ce'
-import ISprite from '../classes/ISprite'
 import gameStore, { GAME } from '../../stores/gameStore'
+import ISprite from '../classes/ISprite'
 
 export default class Dude extends Phaser.Sprite {
     cursors: Phaser.CursorKeys

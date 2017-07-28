@@ -1,7 +1,7 @@
-import * as React from 'react'
-import { inject, observer } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
+import { inject, observer } from 'mobx-react'
 import { RouterStore } from 'mobx-react-router'
+import * as React from 'react'
 
 import { GameStore } from '../stores/gameStore'
 import Section from './Section'

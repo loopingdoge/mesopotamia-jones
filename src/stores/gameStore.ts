@@ -1,17 +1,17 @@
-import { observable, action, reaction, computed } from 'mobx'
+import { action, computed, observable, reaction } from 'mobx'
 
-import { RiddleStore } from './riddleStore'
 import { UIStore } from './gameUIStore'
+import { RiddleStore } from './riddleStore'
 
-import { Room, rooms, getGameDoor, Door } from '../config/map'
 import { Dialog, getDialogById } from '../config/dialogs'
 import {
-    Inventory,
-    Item,
-    defaultInventory,
     addItem,
-    Computer
+    Computer,
+    defaultInventory,
+    Inventory,
+    Item
 } from '../config/inventory'
+import { Door, getGameDoor, Room, rooms } from '../config/map'
 
 import PhaserGame from '../phaser'
 
@@ -94,7 +94,7 @@ export class GameStore {
             (dialog: Dialog) => {
                 if (dialog) {
                     this.lineId = 0
-                    let timer = setInterval(() => {
+                    const timer = setInterval(() => {
                         if (this.lineId < this.dialog.lines.length - 1) {
                             this.lineId++
                         } else {

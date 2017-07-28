@@ -19,7 +19,7 @@ export default class Boot extends Phaser.State {
             active: this.fontsLoaded
         })
 
-        let text = this.add.text(
+        const text = this.add.text(
             this.world.centerX,
             this.world.centerY,
             'loading fonts',

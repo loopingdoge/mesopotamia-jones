@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 import * as Blockly from 'node-blockly/browser'
+import * as React from 'react'
 
 const styles = StyleSheet.create({
     workspace: {
@@ -90,7 +90,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
 
     onResize() {
         // Compute the absolute coordinates and dimensions of blocklyArea.
-        let element = this.workspaceDiv
+        const element = this.workspaceDiv
         let x = 0
         let y = 0
         // do {

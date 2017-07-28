@@ -1,10 +1,10 @@
-import 'pixi'
 import 'p2'
 import * as Phaser from 'phaser-ce'
+import 'pixi'
 
 import BootState from './states/Boot'
-import SplashState from './states/Splash'
 import GameState from './states/Game'
+import SplashState from './states/Splash'
 
 import config from './config'
 

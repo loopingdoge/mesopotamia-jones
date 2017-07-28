@@ -1,4 +1,4 @@
-import { observable, action, computed, reaction } from 'mobx'
+import { action, computed, observable, reaction } from 'mobx'
 import * as Blockly from 'node-blockly/browser'
 
 import { GameDoor } from '../config/map'
@@ -113,7 +113,7 @@ export class RiddleStore {
 
         if (!Blockly.Blocks[rootBlockID]) {
             Blockly.Blocks[rootBlockID] = {
-                init: function() {
+                init() {
                     this.jsonInit(riddle.rootBlock)
                 }
             }

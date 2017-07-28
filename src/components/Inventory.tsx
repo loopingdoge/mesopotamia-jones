@@ -1,11 +1,11 @@
-import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
+import * as React from 'react'
 
-import { GameStore } from '../stores/gameStore'
-import { UIStore, GAME, MAP, BLUEP } from '../stores/gameUIStore'
-import { Riddle } from '../config/riddles'
 import { getToolbox } from '../config/inventory'
+import { Riddle } from '../config/riddles'
+import { GameStore } from '../stores/gameStore'
+import { BLUEP, GAME, MAP, UIStore } from '../stores/gameUIStore'
 
 import BlocklyEditor from './BlocklyEditor'
 import Map from './Map'

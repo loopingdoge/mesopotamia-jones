@@ -1,17 +1,17 @@
-import * as React from 'react'
-import { inject, observer } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
 
 import { onlyIf } from '../utils'
 
-import { GameStore, GAME, RIDDLE } from '../stores/gameStore'
+import { GAME, GameStore, RIDDLE } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 
-import Game from './Game'
-import Riddle from './Riddle'
 import DialogUI from './DialogUI'
-import Inventory from './Inventory'
+import Game from './Game'
 import GameHeader from './GameHeader'
+import Inventory from './Inventory'
+import Riddle from './Riddle'
 
 const styles = StyleSheet.create({
     mesopotamiaJonesContainer: {

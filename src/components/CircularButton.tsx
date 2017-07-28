@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
-import { spring, Motion, presets } from 'react-motion'
+import * as React from 'react'
+import { Motion, presets, spring } from 'react-motion'
 
 const styles = StyleSheet.create({
     button: {

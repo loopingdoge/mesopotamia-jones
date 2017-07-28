@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { observer, inject } from 'mobx-react'
 import { css, StyleSheet } from 'aphrodite'
+import { inject, observer } from 'mobx-react'
+import * as React from 'react'
 
-import { UIStore } from '../stores/gameUIStore'
-import { GameStore } from '../stores/gameStore'
 import { Dialog } from '../config/dialogs'
+import { GameStore } from '../stores/gameStore'
+import { UIStore } from '../stores/gameUIStore'
 
 const styles = StyleSheet.create({
     dialog: {

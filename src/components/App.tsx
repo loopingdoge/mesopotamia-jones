@@ -1,7 +1,7 @@
 declare const __DEV__: boolean
-import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
+import * as React from 'react'
 import { Route, Switch } from 'react-router'
 
 import Home from './Home'

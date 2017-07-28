@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { css, StyleSheet } from 'aphrodite'
+import * as React from 'react'
 
-import LockCode from './LockCode'
 import { SolutionType } from '../config/riddles'
-import { prev, next, initList } from '../utils'
+import { initList, next, prev } from '../utils'
+import LockCode from './LockCode'
 
 const numbers: string[] = '0123456789'.split('')
 const strings: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
