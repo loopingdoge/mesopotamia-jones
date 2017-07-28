@@ -29,17 +29,17 @@ export default class Splash extends Phaser.State {
         this.load.spritesheet('dude', 'assets/images/dude.png', 32, 48)
         this.load.tilemap(
             'room1',
-            '../../../assets/tilemaps/room1.json',
+            'assets/tilemaps/room1.json',
             null,
             Phaser.Tilemap.TILED_JSON
         )
         this.load.tilemap(
             'room2',
-            '../../../assets/tilemaps/room2.json',
+            'assets/tilemaps/room2.json',
             null,
             Phaser.Tilemap.TILED_JSON
         )
-        this.load.image('tiles', '../../../assets/images/sheet.png')
+        this.load.image('tiles', 'assets/images/sheet.png')
         // this.load.image('mushroom', 'assets/images/mushroom2.png', 32, 48)
     }
 
