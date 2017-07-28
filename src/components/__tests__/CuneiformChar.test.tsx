@@ -1,7 +1,8 @@
-import React from 'react'
-import CuneiformChar from '../CuneiformChar'
-import { mount, shallow, render } from 'enzyme'
+import { shallow } from 'enzyme'
 import {} from 'jest'
+import React from 'react'
+
+import CuneiformChar from '../CuneiformChar'
 
 jest.mock('aphrodite/lib/inject')
 
