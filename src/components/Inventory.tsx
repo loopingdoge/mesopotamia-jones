@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react'
 import { GameStore } from '../stores/gameStore'
 import { UIStore, GAME, MAP, BLUEP } from '../stores/gameUIStore'
 import { Riddle } from '../config/riddles'
-import { defaultToolbox } from '../config/inventory'
+import { getToolbox } from '../config/inventory'
 
 import BlocklyEditor from './BlocklyEditor'
 import Map from './Map'
@@ -86,7 +86,7 @@ const Inventory = ({
                     <div className={css(styles.editorContainer)}>
                         {selectedRiddle
                             ? <BlocklyEditor
-                                  toolbox={defaultToolbox}
+                                  toolboxXML={getToolbox()}
                                   workspaceXML={gameStore.getRiddleWorkspaceXML(
                                       selectedRiddle.id
                                   )}
