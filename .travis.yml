@@ -1,7 +1,9 @@
 language: node_js
 node_js: "7"
+cache: yarn
 before_deploy:
   - npm run build
+  - sed -i '$ d' .gitignore
 deploy:
   provider: pages
   skip_cleanup: true

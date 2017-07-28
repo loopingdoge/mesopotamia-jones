@@ -1,5 +1,7 @@
 node_modules/
-dist/
 .vscode/
 npm_debug.log
 .DS_Store
+
+# Leave dist as last line as it will be removed by Travis
+dist/
