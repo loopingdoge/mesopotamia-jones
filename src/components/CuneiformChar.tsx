@@ -5,7 +5,7 @@ const khosrau = {
     fontFamily: 'Cuneiform',
     fontStyle: 'normal',
     fontWeight: 'normal',
-    src: "url('../../assets/fonts/Khosrau/Khosrau.otf') format('opentype')"
+    src: "url('assets/fonts/Khosrau/Khosrau.otf') format('opentype')"
 }
 
 const styles = StyleSheet.create({
