@@ -1,6 +1,7 @@
+import 'pixi'
+// tslint:disable-next-line
 import 'p2'
 import * as Phaser from 'phaser-ce'
-import 'pixi'
 
 import BootState from './states/Boot'
 import GameState from './states/Game'
