@@ -1,5 +1,5 @@
 /* globals __DEV__ */
-declare const __DEV__: boolean
+declare const process: any
 import * as Phaser from 'phaser-ce'
 import { GameDoor, getGameDoorById } from '../../config/map'
 import gameStore from '../../stores/gameStore'
@@ -70,10 +70,9 @@ export default class Game extends Phaser.State {
     }
 
     render() {
-        if (__DEV__) {
-            // this.game.debug.spriteInfo(this.player, 32, 32)
-            // this.game.debug.body(this.ldoor)
-            // this.game.debug.body(this.player)
+        if (process.env.NODE_ENV === 'debug') {
+            this.game.debug.spriteInfo(this.player, 32, 32)
+            this.game.debug.body(this.player)
         }
     }
 

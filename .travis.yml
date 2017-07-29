@@ -3,10 +3,10 @@ node_js: "7"
 cache: yarn
 before_deploy:
   - npm run build
-  - sed -i '$ d' .gitignore
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
+  local_dir: 'dist'
   on:
     branch: master

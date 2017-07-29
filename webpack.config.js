@@ -1,68 +1,76 @@
-var path = require('path')
-var webpack = require('webpack')
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 // Phaser webpack config
-var phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
-var phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
-var pixi = path.join(phaserModule, 'build/custom/pixi.js')
-var p2 = path.join(phaserModule, 'build/custom/p2.js')
-
-var definePlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true'))
-})
+const phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
+const phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
+const pixi = path.join(phaserModule, 'build/custom/pixi.js')
+const p2 = path.join(phaserModule, 'build/custom/p2.js')
 
 module.exports = {
-  entry: './src/index.tsx',
-  output: {
-    pathinfo: true,
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: './dist/',
-    filename: 'bundle.js'
-  },
-  devtool: 'source-map',
-  watch: true,
-  plugins: [
-    definePlugin,
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */}),
-    new BrowserSyncPlugin({
-      host: process.env.IP || 'localhost',
-      port: process.env.PORT || 3000,
-      server: {
-        baseDir: ['./', './build']
-      }
-    })
-  ],
-  module: {
-    rules: [
-      { test: /pixi\.js/, use: ['expose-loader?PIXI'] },
-      { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
-      { test: /p2\.js/, use: ['expose-loader?p2'] },
-      { test: /\.ts(x?)$/,
-        exclude: /node_modules/,
-        use: [ { loader: 'awesome-typescript-loader' } ]
-      }, {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [ { loader: 'source-map-loader' } ]
-      }
-    ]
-  },
-  node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  },
-  resolve: {
-    alias: {
-      'phaser-ce': phaser,
-      'pixi': pixi,
-      'p2': p2
+    entry: {
+        main: './src/index.tsx',
+        vendor: ['react', 'mobx', 'aphrodite']
     },
-    extensions: ['.ts', '.tsx', '.js']
-  },
-  // externals: {
-  //   "react": "React",
-  //   "react-dom": "ReactDOM"
-  // },
+    devtool: 'source-map',
+    devServer: {
+        contentBase: './dist'
+    },
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new HtmlWebpackPlugin({
+            title: 'Mesopotamia Jones',
+            template: 'src/index.ejs'
+        }),
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'runtime'
+        })
+    ],
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].js'
+    },
+    resolve: {
+        alias: {
+            'phaser-ce': phaser,
+            pixi: pixi,
+            p2: p2
+        },
+        extensions: ['.ts', '.tsx', '.js', 'png', 'json']
+    },
+    module: {
+        rules: [
+            {
+                test: /pixi\.js/,
+                use: ['expose-loader?PIXI']
+            },
+            {
+                test: /phaser-split\.js$/,
+                use: ['expose-loader?Phaser']
+            },
+            {
+                test: /p2\.js/,
+                use: ['expose-loader?p2']
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: ['file-loader']
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                use: ['file-loader']
+            },
+            {
+                test: /\.ts(x?)$/,
+                exclude: /node_modules/,
+                use: ['awesome-typescript-loader']
+            }
+        ]
+    }
 }

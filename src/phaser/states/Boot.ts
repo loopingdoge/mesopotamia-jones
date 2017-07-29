@@ -1,6 +1,9 @@
 import * as Phaser from 'phaser-ce'
 import * as WebFont from 'webfontloader'
 
+import * as loaderBar from '../../../assets/images/loader-bar.png'
+import * as loaderBackground from '../../../assets/images/loader-bg.png'
+
 export default class Boot extends Phaser.State {
     fontsReady: boolean
 
@@ -27,8 +30,8 @@ export default class Boot extends Phaser.State {
         )
         text.anchor.setTo(0.5, 0.5)
 
-        this.load.image('loaderBg', 'assets/images/loader-bg.png')
-        this.load.image('loaderBar', 'assets/images/loader-bar.png')
+        this.load.image('loaderBg', loaderBackground)
+        this.load.image('loaderBar', loaderBar)
     }
 
     render() {

@@ -1,11 +1,13 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 
+import * as Khosrau from '../../assets/fonts/Khosrau/Khosrau.otf'
+
 const khosrau = {
     fontFamily: 'Cuneiform',
     fontStyle: 'normal',
     fontWeight: 'normal',
-    src: "url('assets/fonts/Khosrau/Khosrau.otf') format('opentype')"
+    src: `url(${Khosrau}) format('opentype')`
 }
 
 const styles = StyleSheet.create({
