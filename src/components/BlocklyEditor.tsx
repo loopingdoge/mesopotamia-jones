@@ -3,13 +3,13 @@ import * as Blockly from 'node-blockly/browser'
 import * as React from 'react'
 
 const styles = StyleSheet.create({
-    workspace: {
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'row'
-    },
     resizable: {
         position: 'absolute'
+    },
+    workspace: {
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'row'
     }
 })
 
@@ -17,6 +17,11 @@ const blocklyOptions = {
     collapse: true,
     comments: true,
     disable: true,
+    grid: {
+        spacing: 20,
+        length: 1,
+        colour: '#888'
+    },
     maxBlocks: Infinity,
     trashcan: true,
     horizontalLayout: false,
@@ -26,19 +31,14 @@ const blocklyOptions = {
     rtl: false,
     scrollbars: true,
     sounds: true,
-    oneBasedIndex: true,
-    grid: {
-        spacing: 20,
-        length: 1,
-        colour: '#888'
-    }
+    oneBasedIndex: true
 }
 
 export interface BlockEditorProps {
     toolboxXML: string
     workspaceXML: string
     onWorkspaceChange: (workspace: string) => any
-    onCodeRun?: Function
+    onCodeRun?: () => void
 }
 
 class BlockEditor extends React.Component<BlockEditorProps> {
@@ -66,6 +66,14 @@ class BlockEditor extends React.Component<BlockEditorProps> {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.onResize)
+        const widget = document.querySelector(
+            '.blocklyWidgetDiv'
+        ) as HTMLElement
+        const tooltip = document.querySelector(
+            '.blocklyTooltipDiv'
+        ) as HTMLElement
+        widget.style.display = 'none'
+        tooltip.style.display = 'none'
     }
 
     componentWillReceiveProps(nextProps: BlockEditorProps) {
@@ -82,8 +90,8 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         Blockly.Xml.domToWorkspace(xml, this.workspace)
 
         this.workspace.addChangeListener(() => {
-            const xml = Blockly.Xml.workspaceToDom(this.workspace)
-            const xmlString = Blockly.Xml.domToPrettyText(xml)
+            const newXML = Blockly.Xml.workspaceToDom(this.workspace)
+            const xmlString = Blockly.Xml.domToPrettyText(newXML)
             this.props.onWorkspaceChange(xmlString)
         })
     }
