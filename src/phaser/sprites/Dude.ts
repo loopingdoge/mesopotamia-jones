@@ -29,7 +29,7 @@ export default class Dude extends Phaser.Sprite {
     update() {
         let movingHorizontal = false
         let movingVertical = false
-        if (gameStore.gameState === GAME) {
+        if (gameStore.gameState === GAME && !gameStore.dialog) {
             if (this.cursors.left.isDown) {
                 this.body.velocity.x = -250
                 this.animations.play('left')
