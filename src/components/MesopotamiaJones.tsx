@@ -92,8 +92,7 @@ interface MesopotamiaJonesContainerProps {
 @inject('gameStore', 'uiStore')
 @observer
 class MesopotamiaJonesContainer extends React.Component<
-    MesopotamiaJonesContainerProps,
-    undefined
+    MesopotamiaJonesContainerProps
 > {
     componentDidMount() {
         this.props.gameStore.startGame()

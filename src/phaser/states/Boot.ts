@@ -17,7 +17,7 @@ export default class Boot extends Phaser.State {
     preload() {
         WebFont.load({
             google: {
-                families: ['Bangers']
+                families: ['Arvo', 'Bangers']
             },
             active: this.fontsLoaded
         })

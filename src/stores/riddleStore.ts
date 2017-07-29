@@ -166,9 +166,6 @@ export class RiddleStore {
             codeResult = eval(code)
             // TODO: Check if codeResult is appropriate
             userSolution = String(codeResult)
-            console.warn(
-                'We generate the function but we need the block to call it'
-            )
             console.log(`Code result: ${userSolution}`)
         } catch (e) {
             codeResult = (e as EvalError).message

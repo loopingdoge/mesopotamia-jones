@@ -15,7 +15,10 @@ const getGameScale = (pageWidth: number, pageHeight: number) => {
         height = pageHeight
         width = height * 1.77
     }
-    return { width, height }
+    return {
+        width: Math.floor(width),
+        height: Math.floor(height)
+    }
 }
 
 export interface IGameUIStore {
@@ -26,24 +29,25 @@ export interface IGameUIStore {
 export class UIStore {
     @observable
     width: number = getGameScale(window.innerWidth, window.innerHeight).width
+
     @observable
     height: number = getGameScale(window.innerWidth, window.innerHeight).height
 
-    @action changeWidth = (width: number) => (this.width = width)
-    @action changeHeight = (height: number) => (this.height = height)
-
     @observable state: IGameUIStore
-
-    @computed
-    get selectedRiddle(): Riddle {
-        return this.state.selectedRiddle
-    }
 
     constructor() {
         this.state = {
             selected: GAME,
             selectedRiddle: null
         }
+    }
+
+    @action changeWidth = (width: number) => (this.width = width)
+    @action changeHeight = (height: number) => (this.height = height)
+
+    @computed
+    get selectedRiddle(): Riddle {
+        return this.state.selectedRiddle
     }
 
     @action

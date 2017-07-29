@@ -92,16 +92,19 @@ export class GameStore {
         reaction(
             () => this.dialog,
             (dialog: Dialog) => {
+                const nextLine = () => {
+                    if (this.lineId < this.dialog.lines.length - 1) {
+                        this.lineId++
+                    } else {
+                        gameStore.hideDialog()
+                        document.removeEventListener('keydown', nextLine)
+                        document.removeEventListener('mousedown', nextLine)
+                    }
+                }
                 if (dialog) {
                     this.lineId = 0
-                    const timer = setInterval(() => {
-                        if (this.lineId < this.dialog.lines.length - 1) {
-                            this.lineId++
-                        } else {
-                            gameStore.hideDialog()
-                            clearInterval(timer)
-                        }
-                    }, 2000)
+                    document.addEventListener('keydown', nextLine)
+                    document.addEventListener('mousedown', nextLine)
                 }
             }
         )
