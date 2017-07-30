@@ -33,6 +33,8 @@ export class UIStore {
     @observable
     height: number = getGameScale(window.innerWidth, window.innerHeight).height
 
+    @observable isInteractionHintVisible: boolean = false
+
     @observable state: IGameUIStore
 
     constructor() {
@@ -65,6 +67,16 @@ export class UIStore {
             ...this.state,
             selectedRiddle
         }
+    }
+
+    @action
+    showInteractionHint = () => {
+        this.isInteractionHintVisible = true
+    }
+
+    @action
+    hideInteractionHint = () => {
+        this.isInteractionHintVisible = false
     }
 }
 

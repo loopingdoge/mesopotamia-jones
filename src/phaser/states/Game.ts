@@ -1,18 +1,14 @@
-/* globals __DEV__ */
-declare const process: any
 import * as Phaser from 'phaser-ce'
+
 import { GameDoor, getGameDoorById } from '../../config/map'
-import gameStore from '../../stores/gameStore'
+import gameStore, { GAME } from '../../stores/gameStore'
 import Dude from '../sprites/Dude'
 
 export default class Game extends Phaser.State {
     player: Phaser.Sprite
     walls: Phaser.Group
     layer: Phaser.TilemapLayer
-
-    init() {}
-
-    preload() {}
+    lines: Phaser.Line[]
 
     create() {
         this.game.stage.backgroundColor = '#E37710'
@@ -70,39 +66,93 @@ export default class Game extends Phaser.State {
     }
 
     render() {
-        if (process.env.NODE_ENV === 'debug') {
-            this.game.debug.spriteInfo(this.player, 32, 32)
-            this.game.debug.body(this.player)
-        }
+        // if ('debug') {
+        //     this.lines.forEach(line => {
+        //         this.game.debug.geom(line)
+        //     })
+        //     this.game.debug.spriteInfo(this.player, 32, 32)
+        //     this.game.debug.body(this.player)
+        // }
     }
 
     update() {
+        this.lines = [
+            new Phaser.Line(
+                this.player.position.x,
+                this.player.position.y,
+                this.player.position.x,
+                this.player.position.y + 30
+            ), // down
+            new Phaser.Line(
+                this.player.position.x,
+                this.player.position.y,
+                this.player.position.x + 30,
+                this.player.position.y
+            ), // right
+            new Phaser.Line(
+                this.player.position.x,
+                this.player.position.y,
+                this.player.position.x,
+                this.player.position.y - 15
+            ), // up
+            new Phaser.Line(
+                this.player.position.x,
+                this.player.position.y,
+                this.player.position.x - 30,
+                this.player.position.y
+            ) // left
+        ]
+
         this.game.physics.arcade.collide(
             this.player,
             this.layer,
-            this.onCollision,
+            null,
             null,
             this
         )
+
+        let nearTiles: Phaser.Tile[] = []
+
+        this.lines.forEach(line => {
+            const tiles = this.layer
+                .getRayCastTiles(line, 1, true)
+                .filter(tile => tile.index === 63 || tile.properties.isDoor)
+            nearTiles = [...nearTiles, ...tiles]
+        })
+
+        nearTiles.forEach(tile => {
+            this.onNearTile(tile)
+        })
+
+        if (nearTiles.length === 0) {
+            gameStore.removeInteraction()
+        }
     }
 
     reloadRoom() {
         this.game.add.tilemap(gameStore.room.id)
     }
 
-    onCollision(player: Phaser.Sprite, collidedObject: Phaser.TilemapLayer) {
-        if (collidedObject.index === 63) gameStore.showDialog('dialog1')
-        if (this.isCollisionWithDoor(collidedObject)) {
-            this.activateDoor(collidedObject.x, collidedObject.y)
+    onNearTile(tile: Phaser.Tile) {
+        if (!gameStore.state.dialog) {
+            if (tile.index === 63) {
+                this.activateDialogue('dialog1')
+            }
+            if (this.isCollisionWithDoor(tile)) {
+                this.activateDoor(tile.x, tile.y)
+            }
         }
     }
 
-    isCollisionWithDoor(collidedObject: Phaser.TilemapLayer) {
-        const c = collidedObject as any
-        return c.properties.isDoor
+    isCollisionWithDoor(tile: Phaser.Tile) {
+        return tile.properties.isDoor
+    }
+
+    activateDialogue(dialogueId: string) {
+        gameStore.readyInteraction({ type: 'object', id: dialogueId })
     }
 
     activateDoor(x: number, y: number) {
-        gameStore.activateRiddle(x, y)
+        gameStore.readyInteraction({ type: 'door', x, y })
     }
 }

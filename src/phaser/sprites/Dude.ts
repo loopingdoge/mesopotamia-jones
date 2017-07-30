@@ -57,10 +57,7 @@ export default class Dude extends Phaser.Sprite {
             }
         }
 
-        if (
-            (!movingHorizontal && !movingVertical) ||
-            gameStore.gameState !== GAME
-        ) {
+        if (!movingHorizontal && !movingVertical) {
             this.animations.stop()
             this.frame = 4
             this.body.velocity.x = 0

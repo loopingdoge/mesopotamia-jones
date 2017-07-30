@@ -24,7 +24,21 @@ export interface IGameStore {
     dialog: Dialog
     gameState: string
     inventory: Inventory
+    interaction: Interaction
 }
+
+export interface DoorInteraction {
+    type: 'door'
+    x: number
+    y: number
+}
+
+export interface ObjectInteraction {
+    type: 'object'
+    id: string
+}
+
+export type Interaction = DoorInteraction | ObjectInteraction
 
 export class GameStore {
     game: PhaserGame
@@ -67,7 +81,8 @@ export class GameStore {
             lastDoor: null,
             dialog: null,
             gameState: GAME,
-            inventory: defaultInventory()
+            inventory: defaultInventory(),
+            interaction: null
         }
     }
 
@@ -110,6 +125,16 @@ export class GameStore {
         )
         reaction(() => this.state.room, () => this.saveGameState())
         reaction(() => this.uiStore.selectedRiddle, () => this.saveGameState())
+
+        // React to interaction visibility
+        reaction(
+            () => this.state.interaction,
+            () => {
+                this.state.interaction
+                    ? this.uiStore.showInteractionHint()
+                    : this.uiStore.hideInteractionHint()
+            }
+        )
     }
 
     @action
@@ -122,6 +147,7 @@ export class GameStore {
     newGame = () => {
         localStorage.setItem('gameState', null)
         this.state = {
+            ...this.state,
             room: rooms[0],
             lastDoor: null,
             dialog: null,
@@ -211,8 +237,38 @@ export class GameStore {
     @action
     setRiddleWorkspaceXML = (riddleId: string, workspace: string) => {
         this.computer.workspace[riddleId] = workspace
+    }
+
+    interaction = (event: KeyboardEvent) => {
+        // TODO: Add support for mobile devices
+        if (event.key === 'f' || event.key === 'F') {
+            switch (this.state.interaction.type) {
+                case 'door':
+                    const { x, y } = this.state.interaction
+                    this.activateRiddle(x, y)
+                    break
+                case 'object':
+                    this.showDialog(this.state.interaction.id)
+                    break
+            }
+        }
+    }
+
+    @action
+    readyInteraction = (interaction: Interaction) => {
+        document.addEventListener('keydown', this.interaction)
         this.state = {
-            ...this.state
+            ...this.state,
+            interaction
+        }
+    }
+
+    @action
+    removeInteraction = () => {
+        document.removeEventListener('keydown', this.interaction)
+        this.state = {
+            ...this.state,
+            interaction: null
         }
     }
 

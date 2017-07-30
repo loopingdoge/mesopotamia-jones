@@ -44,7 +44,6 @@
     "@types/react-router": "^4.0.14",
     "@types/sinon": "^2.3.3",
     "@types/webfontloader": "^1.6.28",
-    "@types/webpack-env": "^1.13.0",
     "awesome-typescript-loader": "^3.2.2",
     "browser-sync": "^2.18.13",
     "browser-sync-webpack-plugin": "^1.1.3",
