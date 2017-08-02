@@ -240,7 +240,6 @@ export class GameStore {
     }
 
     interaction = (event: KeyboardEvent) => {
-        // TODO: Add support for mobile devices
         if (event.key === 'f' || event.key === 'F') {
             switch (this.state.interaction.type) {
                 case 'door':

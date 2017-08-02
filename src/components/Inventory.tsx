@@ -13,7 +13,6 @@ import Map from './Map'
 const styles = StyleSheet.create({
     inventoryWrapper: {
         position: 'absolute',
-        display: 'flex',
         flexDirection: 'column',
         flex: 1
     },
@@ -124,7 +123,14 @@ const Inventory = ({
     }
 
     return (
-        <div className={css(styles.inventoryWrapper)} style={{ width, height }}>
+        <div
+            className={css(styles.inventoryWrapper)}
+            style={{
+                width,
+                height,
+                display: selected === GAME ? 'none' : 'flex'
+            }}
+        >
             {content}
         </div>
     )

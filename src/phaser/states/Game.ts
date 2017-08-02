@@ -2,13 +2,19 @@ import * as Phaser from 'phaser-ce'
 
 import { GameDoor, getGameDoorById } from '../../config/map'
 import gameStore, { GAME } from '../../stores/gameStore'
-import Dude from '../sprites/Dude'
+import ActionButton from '../sprites/ActionButton'
+import Joystick from '../sprites/Joystick'
+import Keyboard from '../sprites/Keyboard'
+import Player from '../sprites/Player'
 
 export default class Game extends Phaser.State {
-    player: Phaser.Sprite
+    player: Player
+    joystick: Joystick
+    keyboard: Keyboard
+    actionButton: ActionButton
     walls: Phaser.Group
     layer: Phaser.TilemapLayer
-    lines: Phaser.Line[]
+    detectCollisionLines: Phaser.Line[]
 
     create() {
         this.game.stage.backgroundColor = '#E37710'
@@ -56,27 +62,55 @@ export default class Game extends Phaser.State {
         }
 
         this.player = this.game.add.existing(
-            new Dude({
+            new Player({
                 game: this.game,
                 x: centerX,
                 y: centerY,
-                key: 'dude'
+                key: 'player'
             })
         )
+
+        if (this.game.device.touch) {
+            this.joystick = this.game.add.existing(
+                new Joystick(
+                    {
+                        game: this.game,
+                        x: 100,
+                        y: 200,
+                        key: 'joystick'
+                    },
+                    this.player.events
+                )
+            )
+            this.actionButton = this.game.add.existing(
+                new ActionButton({
+                    game: this.game,
+                    x: 400,
+                    y: 200,
+                    key: 'actionButton'
+                })
+            )
+        } else {
+            this.keyboard = this.game.add.existing(
+                new Keyboard(this.game, this.player.events)
+            )
+        }
     }
 
     render() {
         // if ('debug') {
-        //     this.lines.forEach(line => {
+        //     this.detectCollisionLines.forEach(line => {
         //         this.game.debug.geom(line)
         //     })
         //     this.game.debug.spriteInfo(this.player, 32, 32)
         //     this.game.debug.body(this.player)
+        //     this.game.debug.body(this.joystick.getChildAt(1) as Phaser.Sprite)
+        //     this.game.debug.spriteInfo(this.joystick.getChildAt(1) as Phaser.Sprite, 32, 32)
         // }
     }
 
     update() {
-        this.lines = [
+        this.detectCollisionLines = [
             new Phaser.Line(
                 this.player.position.x,
                 this.player.position.y,
@@ -113,7 +147,7 @@ export default class Game extends Phaser.State {
 
         let nearTiles: Phaser.Tile[] = []
 
-        this.lines.forEach(line => {
+        this.detectCollisionLines.forEach(line => {
             const tiles = this.layer
                 .getRayCastTiles(line, 1, true)
                 .filter(tile => tile.index === 63 || tile.properties.isDoor)
