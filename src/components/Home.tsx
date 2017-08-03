@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
     homeContainer: {
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         flex: 1
     },
     body: {
@@ -29,11 +31,14 @@ export interface HomeProps {
 
 const Home = ({ startGame, newGame, showCredits }: HomeProps) =>
     <div className={css(styles.homeContainer)}>
-        <Section startGame={startGame} newGame={newGame} />
-        {/*<div>
+        <h1>Mesopotamia Jones</h1>
+        <div>
             <button onClick={newGame}>New Game</button>
+            <button onClick={startGame}>Continue</button>
+        </div>
+        <div>
             <button onClick={showCredits}>Credits</button>
-        </div>*/}
+        </div>
     </div>
 
 export interface HomeContainerProps {
@@ -44,18 +49,25 @@ export interface HomeContainerProps {
 @inject('gameStore', 'routingStore')
 @observer
 class HomeContainer extends React.Component<HomeContainerProps, undefined> {
-    render() {
-        const { push } = this.props.routingStore
-        const newGame = () => {
-            this.props.gameStore.newGame()
-            push('/game')
-        }
+    startGame = () => {
+        this.props.routingStore.push('/game')
+    }
 
+    newGame = () => {
+        this.props.gameStore.newGame()
+        this.props.routingStore.push('/game')
+    }
+
+    showCredits = () => {
+        console.log('TODO credits')
+    }
+
+    render() {
         return (
             <Home
-                startGame={() => push('/game')}
-                newGame={newGame}
-                showCredits={() => {}}
+                startGame={this.startGame}
+                newGame={this.newGame}
+                showCredits={this.showCredits}
             />
         )
     }
