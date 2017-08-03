@@ -1,5 +1,6 @@
 import { CursorKeys, Point, Sprite } from 'phaser-ce'
 import gameStore, { GAME } from '../../stores/gameStore'
+import { linearMap } from '../../utils'
 import ISprite from '../classes/ISprite'
 import PlayerEvents from '../classes/PlayerEvents'
 
@@ -20,37 +21,63 @@ export default class Player extends Sprite {
         this.body.offset = new Point(0, 34)
         this.body.height = 13
 
-        this.events.onMoveDown.add((velocity: number) => {
-            this.body.velocity.y = velocity || 250
+        this.events.onMoveBottomDown.add((velocity: number) => {
+            this.body.velocity.y = linearMap(0, 1, 0, 250, velocity) || 250
             // this.animations.play('up')
         })
 
-        this.events.onMoveUp.add((velocity: number) => {
-            this.body.velocity.y = velocity || -250
+        this.events.onMoveBottomUp.add(() => {
+            this.body.velocity.y = 0
+        })
+
+        this.events.onMoveTopDown.add((velocity: number) => {
+            this.body.velocity.y = -linearMap(0, 1, 0, 250, velocity) || 250
             // this.animations.play('down')
         })
 
-        this.events.onMoveRight.add((velocity: number) => {
-            this.body.velocity.x = velocity || 250
+        this.events.onMoveTopUp.add(() => {
+            this.body.velocity.y = 0
+        })
+
+        this.events.onMoveRightDown.add((velocity: number) => {
+            this.body.velocity.x = linearMap(0, 1, 0, 250, velocity) || 250
             this.animations.play('right')
         })
 
-        this.events.onMoveLeft.add((velocity: number) => {
-            this.body.velocity.x = velocity || -250
+        this.events.onMoveRightUp.add(() => {
+            this.body.velocity.x = 0
+            this.animations.stop('right')
+        })
+
+        this.events.onMoveLeftDown.add((velocity: number) => {
+            this.body.velocity.x = -linearMap(0, 1, 0, 250, velocity) || 250
             this.animations.play('left')
         })
 
-        this.events.onStopMoving.add(() => {
-            this.animations.stop()
-            this.frame = 4
+        this.events.onMoveLeftUp.add((velocity: number) => {
             this.body.velocity.x = 0
-            this.body.velocity.y = 0
-            this.floorPosition()
+            this.animations.stop('left')
         })
+
+        this.events.onStopMoving.add(this.stopMoving)
+    }
+
+    stopMoving = () => {
+        this.animations.stop()
+        this.frame = 4
+        this.body.velocity.x = 0
+        this.body.velocity.y = 0
+        this.floorPosition()
     }
 
     floorPosition() {
         this.position.x = Math.floor(this.position.x)
         this.position.y = Math.floor(this.position.y)
+    }
+
+    update() {
+        if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+            this.stopMoving()
+        }
     }
 }

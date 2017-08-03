@@ -19,7 +19,9 @@ export function prev<T>(list: T[], index: number) {
 
 export function initList(length: number) {
     const list = new Array(length)
-    for (let i = 0; i < list.length; i++) list[i] = 0
+    for (let i = 0; i < list.length; i++) {
+        list[i] = 0
+    }
     return list
 }
 
@@ -28,4 +30,14 @@ export function onlyIf(
     component: JSX.Element
 ): Maybe<JSX.Element> {
     return condition ? component : null
+}
+
+export function linearMap(
+    fromMin: number,
+    fromMax: number,
+    toMin: number,
+    toMax: number,
+    val: number
+) {
+    return (val - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin
 }

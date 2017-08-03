@@ -2,6 +2,7 @@
 
 import { Point, Pointer, Sprite } from 'phaser-ce'
 import gameStore, { GAME } from '../../stores/gameStore'
+import { linearMap } from '../../utils'
 import ISprite from '../classes/ISprite'
 import PlayerEvents from '../classes/PlayerEvents'
 
@@ -9,8 +10,6 @@ export interface JoystickProps {
     spriteProps: ISprite
     events: PlayerEvents
 }
-
-const linearMap = (x: number) => (x - 1) * -250 - 250
 
 export default class Joystick extends Sprite {
     innerCircle: Sprite
@@ -60,24 +59,35 @@ export default class Joystick extends Sprite {
             const position = this.invisibleDrag.position
             const innerCirclePos = this.innerCircle.position
             const angle = new Point(0, 0).angle(position)
-            const distance = position.getMagnitude()
+            let distance = position.getMagnitude()
             const direction = Point.normalize(position, this.direction)
 
             innerCirclePos.copyFrom(position)
             if (distance > 30) {
                 innerCirclePos.setMagnitude(30)
+                distance = 30
             }
 
+            const mappedDistance = linearMap(0, 30, 0, 1, distance)
+
             if (direction.x > 0) {
-                this.events.onMoveRight.dispatch(-linearMap(direction.x))
+                this.events.onMoveRightDown.dispatch(
+                    Math.abs(direction.x * mappedDistance)
+                )
             } else if (direction.x < 0) {
-                this.events.onMoveLeft.dispatch(-linearMap(direction.x))
+                this.events.onMoveLeftDown.dispatch(
+                    Math.abs(direction.x * mappedDistance)
+                )
             }
 
             if (direction.y > 0) {
-                this.events.onMoveDown.dispatch(-linearMap(direction.y))
+                this.events.onMoveBottomDown.dispatch(
+                    Math.abs(direction.y * mappedDistance)
+                )
             } else if (direction.y < 0) {
-                this.events.onMoveUp.dispatch(-linearMap(direction.y))
+                this.events.onMoveTopDown.dispatch(
+                    Math.abs(direction.y * mappedDistance)
+                )
             }
         }
     }
