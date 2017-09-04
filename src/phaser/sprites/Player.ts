@@ -21,8 +21,8 @@ export default class Player extends Sprite {
         this.body.offset = new Point(0, 34)
         this.body.height = 13
 
-        this.events.onMoveBottomDown.add((velocity: number) => {
-            this.body.velocity.y = linearMap(0, 1, 0, 250, velocity) || 250
+        this.events.onMoveBottomDown.add((velocity = 1) => {
+            this.body.velocity.y = linearMap(0, 1, 0, 250, velocity)
             // this.animations.play('up')
         })
 
@@ -30,8 +30,8 @@ export default class Player extends Sprite {
             this.body.velocity.y = 0
         })
 
-        this.events.onMoveTopDown.add((velocity: number) => {
-            this.body.velocity.y = -linearMap(0, 1, 0, 250, velocity) || 250
+        this.events.onMoveTopDown.add((velocity = 1) => {
+            this.body.velocity.y = -linearMap(0, 1, 0, 250, velocity)
             // this.animations.play('down')
         })
 
@@ -39,8 +39,8 @@ export default class Player extends Sprite {
             this.body.velocity.y = 0
         })
 
-        this.events.onMoveRightDown.add((velocity: number) => {
-            this.body.velocity.x = linearMap(0, 1, 0, 250, velocity) || 250
+        this.events.onMoveRightDown.add((velocity = 1) => {
+            this.body.velocity.x = linearMap(0, 1, 0, 250, velocity)
             this.animations.play('right')
         })
 
@@ -49,8 +49,8 @@ export default class Player extends Sprite {
             this.animations.stop('right')
         })
 
-        this.events.onMoveLeftDown.add((velocity: number) => {
-            this.body.velocity.x = -linearMap(0, 1, 0, 250, velocity) || 250
+        this.events.onMoveLeftDown.add((velocity = 1) => {
+            this.body.velocity.x = -linearMap(0, 1, 0, 250, velocity)
             this.animations.play('left')
         })
 
