@@ -26,6 +26,7 @@ export default class Player extends Sprite {
         this.interactionHint = game.add.existing(
             new InteractionHint(game, 25, 0)
         )
+        this.addChild(this.interactionHint)
 
         this.events.onMoveBottomDown.add((velocity = 1) => {
             this.body.velocity.y = linearMap(0, 1, 0, 250, velocity)
@@ -82,11 +83,13 @@ export default class Player extends Sprite {
     }
 
     showInteractionHint() {
-        this.addChild(this.interactionHint)
+        this.interactionHint.visible = true
+        this.interactionHint.startAnimation()
     }
 
     hideInteractionHint() {
-        this.removeChild(this.interactionHint)
+        this.interactionHint.visible = false
+        this.interactionHint.stopAnimation()
     }
 
     update() {

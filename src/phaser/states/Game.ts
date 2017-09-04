@@ -12,7 +12,6 @@ export default class Game extends Phaser.State {
     player: Player
     joystick: Joystick
     keyboard: Keyboard
-    hint: InteractionHint
     actionButton: ActionButton
     walls: Phaser.Group
     layer: Phaser.TilemapLayer
