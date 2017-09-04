@@ -320,6 +320,15 @@ export interface RiddleContainerProps {
 @inject('gameStore', 'uiStore', 'riddleStore', 'riddleUIStore')
 @observer
 class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
+    componentDidMount() {
+        setTimeout(() => {
+            if (!this.props.gameStore.firstRoomVisited) {
+                this.props.riddleUIStore.showTutorial()
+                this.props.gameStore.firstRoomVisited = true
+            }
+        }, 200)
+    }
+
     render() {
         const { inventory } = this.props.gameStore
         const { width, height } = this.props.uiStore

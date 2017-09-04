@@ -1,9 +1,11 @@
 export interface Item {
     id: string
+    name: string
 }
 
 export class Computer implements Item {
     id: string = COMPUTER
+    name = 'computer'
     workspace: { [riddleId: string]: string } = {}
 }
 
@@ -40,15 +42,20 @@ export const getToolbox = () => {
 // <block type="text"></block>
 // <block type="text_print"></block>
 
-const item = (id: string): Item => ({ id })
+const item = (id: string, name: string): Item => ({ id, name })
 
 export const computer = new Computer()
 
-export const rockSmasher = item(ROCK_SMASHER)
+export const rockSmasher = item(ROCK_SMASHER, 'rock smasher')
+
+const items: Item[] = [computer, rockSmasher]
 
 export type Inventory = Item[]
 
-export const defaultInventory = (): Inventory => [computer]
+export const getItemById = (id: string) =>
+    items.filter((item: Item) => item.id === id)[0]
+
+export const defaultInventory = (): Inventory => []
 
 export const hasItem = (inventory: Inventory, item: Item): boolean => {
     return inventory.filter(i => i.id === item.id).length > 0

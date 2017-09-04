@@ -7,7 +7,8 @@ import { onlyIf } from '../utils'
 import { GAME, GameStore, RIDDLE } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 
-import DialogUI from './DialogUI'
+import Dialogue from './Dialogue'
+import FadedContainer from './FadedContainer'
 import Game from './Game'
 import GameHeader from './GameHeader'
 import Inventory from './Inventory'
@@ -69,7 +70,9 @@ const MesopotamiaJones = ({
     return (
         <div className={css(styles.mesopotamiaJonesContainer)}>
             <div style={{ width: pageWidth, height: pageHeight }}>
-                <DialogUI />
+                <FadedContainer>
+                    <Dialogue />
+                </FadedContainer>
                 {MaybeHeader}
                 <div
                     style={getStyles(gameState).game}

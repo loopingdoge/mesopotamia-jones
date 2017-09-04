@@ -1,11 +1,10 @@
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
-import * as React from 'react'
-import * as WebFont from 'webfontloader'
-
 import { Dialog } from '../config/dialogs'
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
+
+import * as React from 'react'
 
 const translateArrowKeyframes = {
     '0%, 100%': {
@@ -74,15 +73,14 @@ const styles = StyleSheet.create({
     }
 })
 
-export interface DialogUIProps {
+export interface DialogProps {
     lineId: number
     dialog: Dialog
     width: number
     height: number
 }
 
-const DialogUI = ({ lineId = 0, dialog, width, height }: DialogUIProps) => {
-    const containerStyle = { width, height }
+const Dialogue = ({ lineId, dialog, width, height }: DialogProps) => {
     const charThumbStyle = {
         backgroundImage:
             dialog && 'url(' + dialog.lines[lineId].character.image + ')',
@@ -92,39 +90,32 @@ const DialogUI = ({ lineId = 0, dialog, width, height }: DialogUIProps) => {
     const wrapperStyle = {
         height: Math.floor(height / 100 * 50)
     }
-
     return (
-        <div
-            id="dialog"
-            className={css(styles.dialog, !dialog && styles.hidden)}
-            style={containerStyle}
-        >
-            <div className={css(styles.wrapper)} style={wrapperStyle}>
-                <div className={css(styles.charThumb)} style={charThumbStyle} />
-                <div className={css(styles.textWrapper)}>
-                    <div className={css(styles.characterName)}>
-                        {dialog && dialog.lines[lineId].character.name}
+        <div className={css(styles.wrapper)} style={wrapperStyle}>
+            <div className={css(styles.charThumb)} style={charThumbStyle} />
+            <div className={css(styles.textWrapper)}>
+                <div className={css(styles.characterName)}>
+                    {dialog && dialog.lines[lineId].character.name}
+                </div>
+                <div className={css(styles.text)}>
+                    <div className={css(styles.dialogueText)}>
+                        {dialog && dialog.lines[lineId].text}
                     </div>
-                    <div className={css(styles.text)}>
-                        <div className={css(styles.dialogueText)}>
-                            {dialog && dialog.lines[lineId].text}
-                        </div>
-                        <div className={css(styles.arrow)}>➞</div>
-                    </div>
+                    <div className={css(styles.arrow)}>➞</div>
                 </div>
             </div>
         </div>
     )
 }
 
-interface DialogUIContainerProps {
+interface DialogContainerProps {
     gameStore?: GameStore
     uiStore?: UIStore
 }
 
 export default inject('gameStore', 'uiStore')(
-    observer(({ gameStore, uiStore }: DialogUIContainerProps) =>
-        <DialogUI
+    observer(({ gameStore, uiStore }: DialogContainerProps) =>
+        <Dialogue
             lineId={gameStore.lineId}
             dialog={gameStore.state.dialog}
             width={uiStore.width}

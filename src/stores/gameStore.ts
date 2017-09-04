@@ -6,8 +6,11 @@ import { RiddleStore } from './riddleStore'
 import { Dialog, getDialogById } from '../config/dialogs'
 import {
     addItem,
+    COMPUTER,
     Computer,
     defaultInventory,
+    getItemById,
+    hasItem,
     Inventory,
     Item
 } from '../config/inventory'
@@ -46,6 +49,8 @@ export class GameStore {
     uiStore: UIStore
     computer: Computer
 
+    @observable firstRoomVisited = false
+
     @observable lineId: number
 
     @observable state: IGameStore
@@ -75,6 +80,11 @@ export class GameStore {
         return this.state.inventory
     }
 
+    @computed
+    get showDialogOrItem(): boolean {
+        return this.dialog !== null //TODO: or item
+    }
+
     constructor() {
         this.state = {
             room: null,
@@ -95,7 +105,11 @@ export class GameStore {
             room: rooms[0],
             ...JSON.parse(localStorage.getItem('gameState'))
         }
-        this.computer = this.state.inventory[0] as Computer
+
+        if (hasItem(this.inventory, getItemById(COMPUTER))) {
+            // TODO: gestire meglio questa cosa
+            this.computer = this.inventory[0] as Computer
+        }
 
         // React to riddle solved by the user
         reaction(
@@ -206,6 +220,11 @@ export class GameStore {
         )
 
         this.riddleStore.isSolved = false
+    }
+
+    @action
+    showFoundItem = (itemId: string) => {
+        //TODO: implement
     }
 
     @action
