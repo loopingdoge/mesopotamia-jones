@@ -27,7 +27,11 @@ const line = (character: Character, text: string): Line => ({ character, text })
 const dialog = (id: string, lines: Line[]): Dialog => ({ id, lines })
 
 export const characters: Character[] = [
-    character('mj', 'Mesopotamia Jones', 'https://tinyurl.com/jjzbuz4'),
+    character(
+        'mj',
+        'Mesopotamia Jones',
+        'http://www.fun-lover.com/graphic-shop/Clips/images/Misc/IndianaJones.png'
+    ),
     character(
         'fv',
         'Farren Von Talin',
@@ -42,8 +46,11 @@ export const characters: Character[] = [
 
 export const dialogs: Dialog[] = [
     dialog('dialog1', [
-        line(characters[0], 'Ah che bello faccio una passeggiata..'),
-        line(characters[0], 'Orcodd.. sono finito in un buco...'),
+        line(
+            characters[0],
+            'Ah che bello faccio una passeggiata nel deserto...'
+        ),
+        line(characters[0], 'Accidenti, sono finito in un buco...'),
         line(characters[0], '...e non ho goduto nemmeno')
     ]),
     dialog('dialog2', [
