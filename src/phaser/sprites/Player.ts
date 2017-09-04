@@ -3,8 +3,10 @@ import gameStore, { GAME } from '../../stores/gameStore'
 import { linearMap } from '../../utils'
 import ISprite from '../classes/ISprite'
 import PlayerEvents from '../classes/PlayerEvents'
+import InteractionHint from './InteractionHint'
 
 export default class Player extends Sprite {
+    interactionHint: InteractionHint
     events: PlayerEvents
 
     constructor({ game, x, y, key }: ISprite) {
@@ -20,6 +22,10 @@ export default class Player extends Sprite {
         this.animations.add('right', [5, 6, 7, 8], 10, true)
         this.body.offset = new Point(0, 34)
         this.body.height = 13
+
+        this.interactionHint = game.add.existing(
+            new InteractionHint(game, 25, 0)
+        )
 
         this.events.onMoveBottomDown.add((velocity = 1) => {
             this.body.velocity.y = linearMap(0, 1, 0, 250, velocity)
@@ -73,6 +79,14 @@ export default class Player extends Sprite {
     floorPosition() {
         this.position.x = Math.floor(this.position.x)
         this.position.y = Math.floor(this.position.y)
+    }
+
+    showInteractionHint() {
+        this.addChild(this.interactionHint)
+    }
+
+    hideInteractionHint() {
+        this.removeChild(this.interactionHint)
     }
 
     update() {

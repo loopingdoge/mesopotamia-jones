@@ -3,6 +3,7 @@ import * as Phaser from 'phaser-ce'
 import { GameDoor, getGameDoorById } from '../../config/map'
 import gameStore, { GAME } from '../../stores/gameStore'
 import ActionButton from '../sprites/ActionButton'
+import InteractionHint from '../sprites/InteractionHint'
 import Joystick from '../sprites/Joystick'
 import Keyboard from '../sprites/Keyboard'
 import Player from '../sprites/Player'
@@ -11,6 +12,7 @@ export default class Game extends Phaser.State {
     player: Player
     joystick: Joystick
     keyboard: Keyboard
+    hint: InteractionHint
     actionButton: ActionButton
     walls: Phaser.Group
     layer: Phaser.TilemapLayer
@@ -159,7 +161,10 @@ export default class Game extends Phaser.State {
         })
 
         if (nearTiles.length === 0) {
+            this.player.hideInteractionHint()
             gameStore.removeInteraction()
+        } else {
+            this.player.showInteractionHint()
         }
     }
 
