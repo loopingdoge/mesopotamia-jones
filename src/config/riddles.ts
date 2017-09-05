@@ -33,7 +33,7 @@ const riddles: Riddle[] = [
         question: ([a]: number[]) => `Inserisci il numero ${a}`,
         defaultWorkspace: ([a]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml">
-            <block type="riddle_return" id="/QI!ZS}BFk1e9b%%q*p" deletable="false"></block>
+            <block type="riddle_return" id="riddle_return" deletable="false"></block>
         </xml>`,
         rootBlock: {
             type: 'riddle_return',
@@ -83,7 +83,7 @@ const riddles: Riddle[] = [
         question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
         defaultWorkspace: ([a, b]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-            <block type="riddle_somma" id="tu=J+M:Ap=x8XtDF-,-Y" deletable="false"></block>
+            <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
         </xml>`,
         rootBlock: {
             type: 'riddle_somma',

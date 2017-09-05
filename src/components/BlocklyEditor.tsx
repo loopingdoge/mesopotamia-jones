@@ -55,13 +55,23 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     componentDidMount() {
+        // tslint:disable-next-line:no-this-assignment
+        const self = this
         this.workspace = Blockly.inject(this.resizableDiv.id, {
             ...blocklyOptions,
             toolbox: this.props.toolboxXML
         })
         this.injectWorkspaceXML(this.props.workspaceXML)
         window.addEventListener('resize', this.onResize)
-        setTimeout(this.onResize, 100)
+
+        setTimeout(() => {
+            this.onResize()
+            const topBlocks = self.workspace.getTopBlocks()
+            for (const block of topBlocks) {
+                block.moveBy(80, 10)
+                // TODO: get block initial position and toolbox width
+            }
+        }, 100)
     }
 
     componentWillUnmount() {

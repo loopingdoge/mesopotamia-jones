@@ -31,6 +31,7 @@ export const addToolboxEntry = (id: string, xml: string) =>
 
 export const getToolbox = () => {
     let toolbox = '<xml id="toolbox" style="display: none">'
+    // tslint:disable-next-line:curly
     for (const entry of toolboxEntries) toolbox += entry.xml
     toolbox += '</xml>'
     return toolbox
