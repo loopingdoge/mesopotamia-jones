@@ -6,6 +6,7 @@ import { RiddleStore } from './riddleStore'
 import { Dialog, getDialogById } from '../config/dialogs'
 import {
     addItem,
+    computer,
     COMPUTER,
     Computer,
     defaultInventory,
@@ -106,9 +107,9 @@ export class GameStore {
             ...JSON.parse(localStorage.getItem('gameState'))
         }
 
-        if (hasItem(this.inventory, getItemById(COMPUTER))) {
+        if (hasItem(this.inventory, computer)) {
             // TODO: gestire meglio questa cosa
-            this.computer = this.inventory[0] as Computer
+            this.computer = computer
         }
 
         // React to riddle solved by the user
