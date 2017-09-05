@@ -3,7 +3,7 @@ import { action, computed, observable, reaction } from 'mobx'
 import { UIStore } from './gameUIStore'
 import { RiddleStore } from './riddleStore'
 
-import { Dialog, getDialogById } from '../config/dialogs'
+import { Dialogue, getDialogById } from '../config/dialogues'
 import {
     addItem,
     computer,
@@ -18,19 +18,31 @@ import {
 import { Door, getGameDoor, Room, rooms } from '../config/map'
 
 import PhaserGame from '../phaser'
+import { Maybe } from '../utils'
 
-export const GAME = 'GAME'
-export const RIDDLE = 'RIDDLE'
+export type GamePhase = 'Game' | 'Riddle'
 
-export interface IGameStore {
+export interface GameState {
+    activeDialogue: Maybe<Dialogue>
+    activeFoundItem: Maybe<Item>
     firstRiddleVisited: boolean
     room: Room
     lastDoor: Door
-    dialog: Dialog
-    gameState: string
+    phase: GamePhase
     inventory: Inventory
     interaction: Interaction
 }
+
+const defaultGameStoreState: () => GameState = () => ({
+    activeDialogue: null,
+    activeFoundItem: null,
+    firstRiddleVisited: false,
+    room: rooms[0],
+    lastDoor: null,
+    phase: 'Game',
+    inventory: defaultInventory(),
+    interaction: null
+})
 
 export interface DoorInteraction {
     type: 'door'
@@ -49,11 +61,12 @@ export class GameStore {
     game: PhaserGame
     riddleStore: RiddleStore
     uiStore: UIStore
+
     computer: Computer
 
-    @observable lineId: number
+    @observable state: GameState
 
-    @observable state: IGameStore
+    @observable lineId: number
 
     @computed
     get room(): Room {
@@ -66,13 +79,8 @@ export class GameStore {
     }
 
     @computed
-    get dialog(): Dialog {
-        return this.state.dialog
-    }
-
-    @computed
     get gameState(): string {
-        return this.state.gameState
+        return this.state.phase
     }
 
     @computed
@@ -81,8 +89,8 @@ export class GameStore {
     }
 
     @computed
-    get showDialogOrItem(): boolean {
-        return this.dialog !== null //TODO: or item
+    get lastItemFound(): Item {
+        return this.inventory[this.inventory.length - 1]
     }
 
     @computed
@@ -90,16 +98,17 @@ export class GameStore {
         return this.state.firstRiddleVisited
     }
 
+    @computed
+    get controlsEnabled() {
+        return (
+            this.state.phase === 'Game' &&
+            !this.state.activeDialogue &&
+            !this.state.activeFoundItem
+        )
+    }
+
     constructor() {
-        this.state = {
-            firstRiddleVisited: false,
-            room: null,
-            lastDoor: null,
-            dialog: null,
-            gameState: GAME,
-            inventory: defaultInventory(),
-            interaction: null
-        }
+        this.state = defaultGameStoreState()
     }
 
     init(riddleStore: RiddleStore, uiStore: UIStore) {
@@ -113,7 +122,6 @@ export class GameStore {
         }
 
         if (hasItem(this.inventory, computer)) {
-            // TODO: gestire meglio questa cosa
             this.computer = computer
         }
 
@@ -125,13 +133,13 @@ export class GameStore {
 
         // React to dialog opening
         reaction(
-            () => this.dialog,
-            (dialog: Dialog) => {
+            () => this.state.activeDialogue,
+            (dialog: Dialogue) => {
                 const nextLine = () => {
-                    if (this.lineId < this.dialog.lines.length - 1) {
+                    if (this.lineId < dialog.lines.length - 1) {
                         this.lineId++
                     } else {
-                        gameStore.hideDialog()
+                        gameStore.hideDialogue()
                         document.removeEventListener('keydown', nextLine)
                         document.removeEventListener('mousedown', nextLine)
                     }
@@ -166,14 +174,7 @@ export class GameStore {
     @action
     newGame = () => {
         localStorage.setItem('gameState', null)
-        this.state = {
-            ...this.state,
-            room: rooms[0],
-            lastDoor: null,
-            dialog: null,
-            gameState: GAME,
-            inventory: defaultInventory()
-        }
+        this.state = defaultGameStoreState()
     }
 
     saveGameState = () => {
@@ -195,7 +196,7 @@ export class GameStore {
         this.state = {
             ...this.state,
             lastDoor: gameDoor.door,
-            gameState: RIDDLE
+            phase: 'Riddle'
         }
     }
 
@@ -203,7 +204,7 @@ export class GameStore {
     deactivateRiddle = () => {
         this.state = {
             ...this.state,
-            gameState: GAME
+            phase: 'Game'
         }
         this.game.loadRoom()
     }
@@ -211,11 +212,11 @@ export class GameStore {
     @action
     riddleSolved = () => {
         let newState = this.state
-        if (this.gameState === RIDDLE) {
+        if (this.gameState === 'Riddle') {
             newState = {
                 ...newState,
                 room: this.riddleStore.currentGameDoor.to,
-                gameState: GAME
+                phase: 'Game'
             }
         }
         this.state = newState
@@ -230,24 +231,37 @@ export class GameStore {
 
     @action
     showFoundItem = (itemId: string) => {
-        //TODO: implement
-    }
-
-    @action
-    showDialog = (dialogId: string) => {
-        if (!this.state.dialog) {
+        if (!this.state.activeFoundItem) {
             this.state = {
                 ...this.state,
-                dialog: getDialogById(dialogId)
+                activeFoundItem: getItemById(itemId)
             }
         }
     }
 
     @action
-    hideDialog = () => {
+    hideFoundItem = (itemId: string) => {
         this.state = {
             ...this.state,
-            dialog: null
+            activeFoundItem: null
+        }
+    }
+
+    @action
+    showDialogue = (dialogId: string) => {
+        if (!this.state.activeDialogue) {
+            this.state = {
+                ...this.state,
+                activeDialogue: getDialogById(dialogId)
+            }
+        }
+    }
+
+    @action
+    hideDialogue = () => {
+        this.state = {
+            ...this.state,
+            activeDialogue: null
         }
     }
 
@@ -272,7 +286,7 @@ export class GameStore {
                     this.activateRiddle(x, y)
                     break
                 case 'object':
-                    this.showDialog(this.state.interaction.id)
+                    this.showDialogue(this.state.interaction.id)
                     break
             }
         }

@@ -1,5 +1,5 @@
 import { CursorKeys, Game, Point, Pointer, Signal, Sprite } from 'phaser-ce'
-import gameStore, { GAME } from '../../stores/gameStore'
+import gameStore from '../../stores/gameStore'
 import ISprite from '../classes/ISprite'
 import PlayerEvents from '../classes/PlayerEvents'
 
@@ -26,7 +26,7 @@ export default class Keyboard extends Sprite {
     }
 
     update() {
-        if (gameStore.gameState === GAME && !gameStore.dialog) {
+        if (gameStore.controlsEnabled) {
             if (this.cursors.left.isDown) {
                 this.keyboardEvents.onMoveLeftDown.dispatch()
             } else if (this.cursors.left.justUp) {

@@ -1,5 +1,5 @@
 import { CursorKeys, Point, Sprite } from 'phaser-ce'
-import gameStore, { GAME } from '../../stores/gameStore'
+import gameStore from '../../stores/gameStore'
 import { linearMap } from '../../utils'
 import ISprite from '../classes/ISprite'
 import PlayerEvents from '../classes/PlayerEvents'

@@ -1,5 +1,5 @@
 import { Signal, Sprite } from 'phaser-ce'
-import gameStore, { GAME } from '../../stores/gameStore'
+import gameStore from '../../stores/gameStore'
 import ISprite from '../classes/ISprite'
 
 export default class ActionButton extends Sprite {

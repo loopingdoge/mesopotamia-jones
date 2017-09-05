@@ -1,4 +1,4 @@
-export type Maybe<T> = T | void
+export type Maybe<T> = T | null
 
 /**
  * Modulo operation which works on negative numbers too
@@ -30,6 +30,18 @@ export function onlyIf(
     component: JSX.Element
 ): Maybe<JSX.Element> {
     return condition ? component : null
+}
+
+function isDefined<T>(x: Maybe<T>): x is T {
+    return x !== null
+}
+
+function isUndefined<T>(x: Maybe<T>): x is null {
+    return x === null
+}
+
+export function getOrElse<T>(x: Maybe<T>, defaultValue: T): T {
+    return isDefined(x) ? x : defaultValue
 }
 
 export function linearMap(

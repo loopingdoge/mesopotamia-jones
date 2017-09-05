@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser-ce'
 
 import { GameDoor, getGameDoorById } from '../../config/map'
-import gameStore, { GAME } from '../../stores/gameStore'
+import gameStore from '../../stores/gameStore'
 import ActionButton from '../sprites/ActionButton'
 import InteractionHint from '../sprites/InteractionHint'
 import Joystick from '../sprites/Joystick'
@@ -172,7 +172,7 @@ export default class Game extends Phaser.State {
     }
 
     onNearTile(tile: Phaser.Tile) {
-        if (!gameStore.state.dialog) {
+        if (gameStore.controlsEnabled) {
             if (tile.index === 63) {
                 this.activateDialogue('dialog1')
             }

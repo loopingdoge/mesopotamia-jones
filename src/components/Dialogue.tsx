@@ -1,8 +1,9 @@
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
-import { Dialog } from '../config/dialogs'
+import { Dialogue } from '../config/dialogues'
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
+import { Maybe } from '../utils'
 
 import * as React from 'react'
 
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
 
 export interface DialogProps {
     lineId: number
-    dialog: Dialog
+    dialog: Maybe<Dialogue>
     width: number
     height: number
 }
@@ -117,7 +118,7 @@ export default inject('gameStore', 'uiStore')(
     observer(({ gameStore, uiStore }: DialogContainerProps) =>
         <Dialogue
             lineId={gameStore.lineId}
-            dialog={gameStore.state.dialog}
+            dialog={gameStore.state.activeDialogue}
             width={uiStore.width}
             height={uiStore.height}
         />

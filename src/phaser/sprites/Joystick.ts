@@ -1,7 +1,7 @@
 // Inspired by: https://github.com/netcell, https://gist.github.com/netcell/9083b5cef97125128420
 
 import { Point, Pointer, Sprite } from 'phaser-ce'
-import gameStore, { GAME } from '../../stores/gameStore'
+import gameStore from '../../stores/gameStore'
 import { linearMap } from '../../utils'
 import ISprite from '../classes/ISprite'
 import PlayerEvents from '../classes/PlayerEvents'

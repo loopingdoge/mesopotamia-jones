@@ -11,7 +11,7 @@ export interface Line {
     text: string
 }
 
-export interface Dialog {
+export interface Dialogue {
     id: string
     lines: Line[]
 }
@@ -24,7 +24,7 @@ const character = (id: string, name: string, image: string): Character => ({
 
 const line = (character: Character, text: string): Line => ({ character, text })
 
-const dialog = (id: string, lines: Line[]): Dialog => ({ id, lines })
+const dialog = (id: string, lines: Line[]): Dialogue => ({ id, lines })
 
 export const characters: Character[] = [
     character(
@@ -44,7 +44,7 @@ export const characters: Character[] = [
     )
 ]
 
-export const dialogs: Dialog[] = [
+export const dialogs: Dialogue[] = [
     dialog('dialog1', [
         line(
             characters[0],
@@ -63,7 +63,7 @@ export const dialogs: Dialog[] = [
     ])
 ]
 
-const dialogById = (dialogId: string) => (dialog: Dialog) =>
+const dialogById = (dialogId: string) => (dialog: Dialogue) =>
     dialog.id === dialogId
 
 export const getDialogById = (dialogId: string) =>
