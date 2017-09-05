@@ -101,6 +101,10 @@ const Inventory = ({
                                       console.warn(
                                           'TODO: implement onCodeRun in Inventory.tsx'
                                       )}
+                                  runCode={() =>
+                                      console.warn(
+                                          'TODO: implement onCodeRun in Inventory.tsx'
+                                      )}
                               />
                             : <div className={css(styles.placeholder)}>
                                   Clicca una porta per iniziare ad editare
