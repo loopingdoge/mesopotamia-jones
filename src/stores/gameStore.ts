@@ -23,6 +23,7 @@ export const GAME = 'GAME'
 export const RIDDLE = 'RIDDLE'
 
 export interface IGameStore {
+    firstRiddleVisited: boolean
     room: Room
     lastDoor: Door
     dialog: Dialog
@@ -49,8 +50,6 @@ export class GameStore {
     riddleStore: RiddleStore
     uiStore: UIStore
     computer: Computer
-
-    @observable firstRoomVisited = false
 
     @observable lineId: number
 
@@ -86,8 +85,14 @@ export class GameStore {
         return this.dialog !== null //TODO: or item
     }
 
+    @computed
+    get firstRiddleVisited() {
+        return this.state.firstRiddleVisited
+    }
+
     constructor() {
         this.state = {
+            firstRiddleVisited: false,
             room: null,
             lastDoor: null,
             dialog: null,
@@ -293,6 +298,14 @@ export class GameStore {
 
     getRiddleWorkspaceXML = (riddleId: string) =>
         this.computer.workspace[riddleId]
+
+    @action
+    enterFirstRiddle = () => {
+        this.state = {
+            ...this.state,
+            firstRiddleVisited: true
+        }
+    }
 }
 
 const gameStore = new GameStore()

@@ -322,9 +322,9 @@ export interface RiddleContainerProps {
 class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
     componentDidMount() {
         setTimeout(() => {
-            if (!this.props.gameStore.firstRoomVisited) {
+            if (!this.props.gameStore.firstRiddleVisited) {
                 this.props.riddleUIStore.showTutorial()
-                this.props.gameStore.firstRoomVisited = true
+                this.props.gameStore.enterFirstRiddle()
             }
         }, 200)
     }
