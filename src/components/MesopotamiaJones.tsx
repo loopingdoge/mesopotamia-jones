@@ -77,7 +77,7 @@ const MesopotamiaJones = ({
     const MaybeFoundItem = onlyIf(
         gameState.activeFoundItem !== null,
         <FadedContainer>
-            <FoundItem />
+            <FoundItem item={gameState.activeFoundItem} />
         </FadedContainer>
     )
 
@@ -85,6 +85,7 @@ const MesopotamiaJones = ({
         <div className={css(styles.mesopotamiaJonesContainer)}>
             <div style={{ width: pageWidth, height: pageHeight }}>
                 {MaybeDialogue}
+                {MaybeFoundItem}
                 {MaybeHeader}
                 <div
                     style={getStyles(gameState.phase).game}

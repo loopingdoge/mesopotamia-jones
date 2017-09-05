@@ -3,6 +3,7 @@ import { action, computed, observable, reaction } from 'mobx'
 import { UIStore } from './gameUIStore'
 import { RiddleStore } from './riddleStore'
 
+import { getChestById } from '../config/chests'
 import { Dialogue, getDialogById } from '../config/dialogues'
 import {
     addItem,
@@ -55,14 +56,17 @@ export interface ObjectInteraction {
     id: string
 }
 
-export type Interaction = DoorInteraction | ObjectInteraction
+export interface NpcInteraction {
+    type: 'npc'
+    id: string
+}
+
+export type Interaction = DoorInteraction | ObjectInteraction | NpcInteraction
 
 export class GameStore {
     game: PhaserGame
     riddleStore: RiddleStore
     uiStore: UIStore
-
-    computer: Computer
 
     @observable state: GameState
 
@@ -121,10 +125,6 @@ export class GameStore {
             ...JSON.parse(localStorage.getItem('gameState'))
         }
 
-        if (hasItem(this.inventory, computer)) {
-            this.computer = computer
-        }
-
         // React to riddle solved by the user
         reaction(
             () => this.riddleStore.isSolved,
@@ -151,6 +151,20 @@ export class GameStore {
                 }
             }
         )
+
+        reaction(
+            () => this.state.activeFoundItem,
+            item => {
+                const hideItemScreen = () => {
+                    this.state.activeFoundItem = null
+                    document.removeEventListener('keydown', hideItemScreen)
+                    document.removeEventListener('mousedown', hideItemScreen)
+                }
+                document.addEventListener('keydown', hideItemScreen)
+                document.addEventListener('mousedown', hideItemScreen)
+            }
+        )
+
         reaction(() => this.state.room, () => this.saveGameState())
         reaction(() => this.uiStore.selectedRiddle, () => this.saveGameState())
 
@@ -190,7 +204,7 @@ export class GameStore {
     @action
     activateRiddle = (x: number, y: number) => {
         const gameDoor = getGameDoor(this.room, x, y)
-        const workspace = this.computer.workspace[gameDoor.door.riddle.id]
+        const workspace = computer.workspace[gameDoor.door.riddle.id]
 
         this.riddleStore.activateDoor(gameDoor, workspace)
         this.state = {
@@ -230,11 +244,11 @@ export class GameStore {
     }
 
     @action
-    showFoundItem = (itemId: string) => {
+    showFoundItem = (item: Item) => {
         if (!this.state.activeFoundItem) {
             this.state = {
                 ...this.state,
-                activeFoundItem: getItemById(itemId)
+                activeFoundItem: item
             }
         }
     }
@@ -266,7 +280,7 @@ export class GameStore {
     }
 
     @action
-    addItem = (item: Item) => {
+    addItemToInventory = (item: Item) => {
         this.state = {
             ...this.state,
             inventory: addItem(this.state.inventory, item)
@@ -275,7 +289,7 @@ export class GameStore {
 
     @action
     setRiddleWorkspaceXML = (riddleId: string, workspace: string) => {
-        this.computer.workspace[riddleId] = workspace
+        computer.workspace[riddleId] = workspace
     }
 
     interaction = (event: KeyboardEvent) => {
@@ -286,6 +300,11 @@ export class GameStore {
                     this.activateRiddle(x, y)
                     break
                 case 'object':
+                    const chest = getChestById(this.state.interaction.id)
+                    this.showFoundItem(chest.item)
+                    this.addItemToInventory(chest.item)
+                    break
+                case 'npc':
                     this.showDialogue(this.state.interaction.id)
                     break
             }
@@ -310,8 +329,7 @@ export class GameStore {
         }
     }
 
-    getRiddleWorkspaceXML = (riddleId: string) =>
-        this.computer.workspace[riddleId]
+    getRiddleWorkspaceXML = (riddleId: string) => computer.workspace[riddleId]
 
     @action
     enterFirstRiddle = () => {

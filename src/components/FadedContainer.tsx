@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
         zIndex: 100,
         flex: 1,
         display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-end'
+        flexDirection: 'row'
     }
 })
 
