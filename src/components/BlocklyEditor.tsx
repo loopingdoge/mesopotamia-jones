@@ -81,21 +81,20 @@ class BlockEditor extends React.Component<BlockEditorProps> {
 
     componentDidMount() {
         // tslint:disable-next-line:no-this-assignment
-        const self = this
-        this.workspace = Blockly.inject(this.resizableDiv.id, {
-            ...blocklyOptions,
-            toolbox: this.props.toolboxXML
-        })
-        this.injectWorkspaceXML(this.props.workspaceXML)
         window.addEventListener('resize', this.onResize)
 
         setTimeout(() => {
             this.onResize()
-            const topBlocks = self.workspace.getTopBlocks()
-            for (const block of topBlocks) {
-                block.moveBy(80, 10)
-                // TODO: get block initial position and toolbox width
-            }
+
+            this.workspace = Blockly.inject(this.resizableDiv.id, {
+                ...blocklyOptions,
+                toolbox: this.props.toolboxXML
+            })
+            this.injectWorkspaceXML(this.props.workspaceXML)
+
+            const topBlocks = this.workspace.getTopBlocks()
+            // tslint:disable-next-line:curly
+            for (const block of topBlocks) block.moveBy(10, 0)
         }, 100)
     }
 
@@ -146,7 +145,8 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         this.resizableDiv.style.top = y + 'px'
         this.resizableDiv.style.width = this.workspaceDiv.offsetWidth + 'px'
         this.resizableDiv.style.height = this.workspaceDiv.offsetHeight + 'px'
-        Blockly.svgResize(this.workspace)
+        // tslint:disable-next-line:curly
+        if (this.workspace) Blockly.svgResize(this.workspace)
     }
 
     render() {
