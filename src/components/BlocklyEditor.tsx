@@ -10,6 +10,30 @@ const styles = StyleSheet.create({
         display: 'flex',
         flex: 1,
         flexDirection: 'row'
+    },
+    circle: {
+        position: 'relative',
+        width: 50,
+        height: 50,
+        left: '50px',
+        top: '-webkit-calc(100% - 50px)',
+        zIndex: 100,
+        margin: '-25px 0 0 -25px',
+        background: 'green',
+        borderRadius: 50,
+        outline: 'none'
+    },
+    play: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        display: 'block',
+        width: 0,
+        height: 0,
+        borderStyle: 'solid',
+        borderWidth: '10px 0 10px 20px',
+        borderColor: 'transparent transparent transparent #ffffff',
+        margin: '-10px 0 0 -7px'
     }
 })
 
@@ -39,6 +63,7 @@ export interface BlockEditorProps {
     workspaceXML: string
     onWorkspaceChange: (workspace: string) => any
     onCodeRun?: () => void
+    runCode: () => void
 }
 
 class BlockEditor extends React.Component<BlockEditorProps> {
@@ -140,6 +165,13 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                     }}
                     className={css(styles.resizable)}
                 />
+                <button
+                    id="play"
+                    onClick={this.props.runCode}
+                    className={css(styles.circle)}
+                >
+                    <div className={css(styles.play)} />
+                </button>
                 {/* <svg className='play-button' width='64' height='64' viewBox='0 0 64 64'>
                     <title id='title'>Play Button</title>
                     <path fill='#CFCFCF' d='M929.5,480.4L91.3,14.6c-9.7-5.5-18-6.1-24.9-1.9C59.5,16.9,56,24.5,56,35.5v929.1c0,10.9,3.5,18.5,10.4,22.7c6.9,4.2,15.3,3.6,24.9-1.9l838.2-465.8c9.7-5.5,14.5-12,14.5-19.6C944,492.4,939.2,485.9,929.5,480.4z'/>

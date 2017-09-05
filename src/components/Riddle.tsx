@@ -103,6 +103,8 @@ export interface EditorSectionProps {
     width: string
     height: string
     setWorkspace: (code: string) => void
+    codeResult: string
+    runCode: () => void
 }
 
 const EditorSection = ({
@@ -110,7 +112,9 @@ const EditorSection = ({
     workspace,
     setWorkspace,
     width,
-    height
+    height,
+    codeResult,
+    runCode
 }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <BlocklyEditor
@@ -118,20 +122,8 @@ const EditorSection = ({
             workspaceXML={workspace}
             onWorkspaceChange={setWorkspace}
             onCodeRun={() => console.log('coderun')}
+            runCode={runCode}
         />
-    </div>
-
-export interface SolutionSection {
-    codeResult: string
-    runCode: () => void
-}
-
-const SolutionSection = ({ codeResult, runCode }: SolutionSection) =>
-    <div className={css(styles.solutionSection)}>
-        <div>
-            {codeResult}
-        </div>
-        <button onClick={runCode}>Run Code</button>
     </div>
 
 const expandedToFlex = (isExpanded: boolean) => (isExpanded ? 1 : 0)
@@ -268,8 +260,6 @@ const Riddle = ({
                                         setWorkspace={setWorkspace}
                                         height={`${height}px`}
                                         width={'100%'}
-                                    />
-                                    <SolutionSection
                                         codeResult={codeResult}
                                         runCode={runCode}
                                     />
