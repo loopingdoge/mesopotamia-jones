@@ -50,7 +50,7 @@ module.exports = {
             description: 'Learn to code with games!',
             background_color: '#ffffff',
             orientation: 'landscape',
-            display: 'standalone',
+            display: 'fullscreen',
             icons: [
                 {
                     src: path.resolve('assets/images/favicon.png'),
