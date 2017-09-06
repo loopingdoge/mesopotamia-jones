@@ -46,8 +46,8 @@ module.exports = {
         }),
         new WebpackPwaManifest({
             name: 'Mesopotamia Jones',
-            short_name: 'MJ',
-            description: 'Learn to code with games!',
+            short_name: 'Mesopotamia Jones',
+            description: 'Learn to code while having fun!',
             background_color: '#ffffff',
             orientation: 'landscape',
             display: 'fullscreen',
