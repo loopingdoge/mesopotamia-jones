@@ -1,15 +1,9 @@
 // Inspired by: https://github.com/netcell, https://gist.github.com/netcell/9083b5cef97125128420
 
-import { Point, Pointer, Sprite } from 'phaser-ce'
+import { Game, Point, Pointer, Sprite } from 'phaser-ce'
 import gameStore from '../../stores/gameStore'
 import { linearMap } from '../../utils'
-import ISprite from '../classes/ISprite'
 import PlayerEvents from '../classes/PlayerEvents'
-
-export interface JoystickProps {
-    spriteProps: ISprite
-    events: PlayerEvents
-}
 
 export default class Joystick extends Sprite {
     innerCircle: Sprite
@@ -20,8 +14,8 @@ export default class Joystick extends Sprite {
 
     events: PlayerEvents
 
-    constructor({ game, x, y, key }: ISprite, events: PlayerEvents) {
-        super(game, x, y, key)
+    constructor(game: Game, x: number, y: number, events: PlayerEvents) {
+        super(game, x, y, 'joystick')
         this.events = events
         this.anchor.setTo(0.5, 0.5)
         this.isDragging = false

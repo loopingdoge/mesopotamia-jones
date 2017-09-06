@@ -1,10 +1,9 @@
-import { Signal, Sprite } from 'phaser-ce'
+import { Game, Signal, Sprite } from 'phaser-ce'
 import gameStore from '../../stores/gameStore'
-import ISprite from '../classes/ISprite'
 
 export default class ActionButton extends Sprite {
-    constructor({ game, x, y, key }: ISprite) {
-        super(game, x, y, key)
+    constructor(game: Game, x: number, y: number) {
+        super(game, x, y, 'actionButton')
         this.anchor.setTo(0.5, 0.5)
         this.inputEnabled = true
         this.events.onInputDown.add(() =>

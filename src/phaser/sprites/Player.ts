@@ -1,7 +1,6 @@
-import { CursorKeys, Point, Sprite } from 'phaser-ce'
+import { CursorKeys, Game, Point, Sprite } from 'phaser-ce'
 import gameStore from '../../stores/gameStore'
 import { linearMap } from '../../utils'
-import ISprite from '../classes/ISprite'
 import PlayerEvents from '../classes/PlayerEvents'
 import InteractionHint from './InteractionHint'
 
@@ -9,8 +8,8 @@ export default class Player extends Sprite {
     interactionHint: InteractionHint
     events: PlayerEvents
 
-    constructor({ game, x, y, key }: ISprite) {
-        super(game, x, y, key)
+    constructor(game: Game, x: number, y: number) {
+        super(game, x, y, 'player')
         this.events = new PlayerEvents(this)
 
         this.anchor.setTo(0.5)
@@ -21,6 +20,7 @@ export default class Player extends Sprite {
         this.animations.add('left', [0, 1, 2, 3], 10, true)
         this.animations.add('right', [5, 6, 7, 8], 10, true)
         this.body.offset = new Point(0, 34)
+        this.body.width = 30
         this.body.height = 13
 
         this.interactionHint = game.add.existing(

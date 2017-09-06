@@ -7,7 +7,7 @@ import BootState from './states/Boot'
 import GameState from './states/Game'
 import SplashState from './states/Splash'
 
-import config from './config'
+import { gameHeight, gameWidth } from './config'
 
 declare global {
     interface Window {
@@ -18,19 +18,17 @@ declare global {
 const calculateDimesions = () => {
     const docElement = document.documentElement
     const width =
-        docElement.clientWidth > config.gameWidth
-            ? config.gameWidth
-            : docElement.clientWidth
+        docElement.clientWidth > gameWidth ? gameWidth : docElement.clientWidth
     const height =
-        docElement.clientHeight > config.gameHeight
-            ? config.gameHeight
+        docElement.clientHeight > gameHeight
+            ? gameHeight
             : docElement.clientHeight
     return { width, height }
 }
 
 class Game extends Phaser.Game {
     constructor() {
-        super(config.gameWidth, config.gameHeight, Phaser.CANVAS, 'game', null)
+        super(gameWidth, gameHeight, Phaser.CANVAS, 'game', null)
 
         this.state.add('Boot', BootState, false)
         this.state.add('Splash', SplashState, false)

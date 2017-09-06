@@ -292,7 +292,7 @@ export class GameStore {
         computer.workspace[riddleId] = workspace
     }
 
-    interaction = (event: KeyboardEvent) => {
+    interactionListener = (event: KeyboardEvent) => {
         if (event.key === 'f' || event.key === 'F') {
             switch (this.state.interaction.type) {
                 case 'door':
@@ -313,7 +313,7 @@ export class GameStore {
 
     @action
     readyInteraction = (interaction: Interaction) => {
-        document.addEventListener('keydown', this.interaction)
+        document.addEventListener('keydown', this.interactionListener)
         this.state = {
             ...this.state,
             interaction
@@ -322,7 +322,7 @@ export class GameStore {
 
     @action
     removeInteraction = () => {
-        document.removeEventListener('keydown', this.interaction)
+        document.removeEventListener('keydown', this.interactionListener)
         this.state = {
             ...this.state,
             interaction: null

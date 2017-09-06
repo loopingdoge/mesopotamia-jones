@@ -1,6 +1,5 @@
 import { CursorKeys, Game, Point, Pointer, Signal, Sprite } from 'phaser-ce'
 import gameStore from '../../stores/gameStore'
-import ISprite from '../classes/ISprite'
 import PlayerEvents from '../classes/PlayerEvents'
 
 export interface KeyboardEvents {

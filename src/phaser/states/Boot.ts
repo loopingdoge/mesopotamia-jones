@@ -4,11 +4,6 @@ import * as WebFont from 'webfontloader'
 import * as loaderBar from '../../../assets/images/loader-bar.png'
 import * as loaderBackground from '../../../assets/images/loader-bg.png'
 
-import * as innerJoystick from '../../../assets/images/inner-circle.png'
-import * as outerJoystick from '../../../assets/images/outer-circle.png'
-
-import * as pressF from '../../../assets/images/pressf.png'
-
 export default class Boot extends Phaser.State {
     fontsReady: boolean
 
@@ -37,10 +32,6 @@ export default class Boot extends Phaser.State {
 
         this.load.image('loaderBg', loaderBackground)
         this.load.image('loaderBar', loaderBar)
-        this.load.image('joystick', outerJoystick)
-        this.load.image('innerJoystick', innerJoystick)
-        this.load.image('actionButton', innerJoystick)
-        this.load.image('pressf', pressF)
     }
 
     render() {
