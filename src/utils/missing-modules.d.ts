@@ -1,3 +1,6 @@
 declare module 'node-blockly'
 declare module 'node-blockly/browser'
 declare module 'reactour'
+declare module 'react-icons-kit'
+declare module 'react-icons-kit/ionicons/*'
+declare module 'react-icons-kit/entypo/*'

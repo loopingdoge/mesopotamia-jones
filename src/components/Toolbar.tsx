@@ -1,13 +1,22 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
+import { Icon } from 'react-icons-kit'
+import { androidRefresh, chevronLeft, help } from 'react-icons-kit/ionicons/'
 
 const styles = StyleSheet.create({
     toolbar: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        height: 30,
+        height: 40,
         border: '1px solid black'
+    },
+    customButton: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 40,
+        padding: 10
     },
     spacer: {
         flex: 1
@@ -18,22 +27,31 @@ export interface BackButtonSectionProps {
     goBack: () => void
 }
 
+// const MyButton =
+//     horizontalCenter(
+//         props => <button>{props.children}</button>
+//     );
+// <MyButton><IconBrown16 icon={home3}/> Press Me </MyButton>
+
 const BackButtonSection = ({ goBack }: BackButtonSectionProps) =>
     <div>
-        <button onClick={goBack}>
-            {'⬅️'}
+        <button onClick={goBack} className={css(styles.customButton)}>
+            <Icon icon={chevronLeft} />
+            {'Back'}
         </button>
     </div>
 
 export interface ToolbarButtonProps {
     action: () => void
-    content: string
+    icon: any
+    text: string
 }
 
-const ToolbarButton = ({ action, content }: ToolbarButtonProps) =>
+const ToolbarButton = ({ action, icon, text }: ToolbarButtonProps) =>
     <div>
-        <button onClick={action}>
-            {content}
+        <button onClick={action} className={css(styles.customButton)}>
+            <Icon icon={icon} />
+            {text}
         </button>
     </div>
 
@@ -46,8 +64,12 @@ const Toolbar = ({ goBack, openInfo }: ToolbarProps) =>
     <div className={css(styles.toolbar)}>
         <BackButtonSection goBack={goBack} />
         <div className={css(styles.spacer)} />
-        <ToolbarButton action={() => console.log('TODO')} content={'🔄'} />
-        <ToolbarButton action={openInfo} content={'ℹ️️'} />
+        <ToolbarButton
+            action={() => console.log('TODO')}
+            icon={androidRefresh}
+            text={'Clear'}
+        />
+        <ToolbarButton action={openInfo} icon={help} text={'Help'} />
     </div>
 
 export default Toolbar
