@@ -7,6 +7,28 @@ import widthHeightProvider from '../containers/widthHeightProvider'
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 
+const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '8px 64px',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    itemDescription: {
+        display: 'flex',
+        flexDirection: 'row',
+        fontFamily: 'Arvo',
+        color: '#FFF',
+        fontSize: 24
+    },
+    itemName: {
+        marginLeft: 6,
+        fontWeight: 600
+    }
+})
+
 export interface FoundItemProps {
     item: Item
     width: number
@@ -16,16 +38,19 @@ export interface FoundItemProps {
 const FoundItem = ({ item, width, height }: FoundItemProps) => {
     const imageStyle = {
         backgroundImage: `url(${'https://openclipart.org/image/2400px/svg_to_png/262417/hp-android_smartphone.png'})`,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
         width: Math.floor(width / 100 * 20),
         height: Math.floor(height / 100 * 40)
     }
 
     return (
-        <div>
+        <div className={css(styles.wrapper)}>
             <div style={imageStyle} />
-            <div>
+            <div className={css(styles.itemDescription)}>
                 <div>You found a</div>
-                <div>
+                <div className={css(styles.itemName)}>
                     {item.name}
                 </div>
             </div>

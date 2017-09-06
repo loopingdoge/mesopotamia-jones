@@ -56,7 +56,7 @@ export type Inventory = Item[]
 export const getItemById = (id: string) =>
     items.filter((item: Item) => item.id === id)[0]
 
-export const defaultInventory = (): Inventory => [computer]
+export const defaultInventory = (): Inventory => []
 
 export const hasItem = (inventory: Inventory, item: Item): boolean =>
     inventory.filter(i => i.id === item.id).length > 0

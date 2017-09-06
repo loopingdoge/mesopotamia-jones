@@ -17,23 +17,12 @@ const translateArrowKeyframes = {
 }
 
 const styles = StyleSheet.create({
-    dialog: {
-        position: 'absolute',
-        overflow: 'hidden',
-        backgroundColor: 'rgba(0,0,0,0.4)',
-        backgroundImage:
-            'linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.25))',
-        zIndex: 100,
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-end'
-    },
     wrapper: {
         flex: 1,
         display: 'flex',
         flexDirection: 'row',
-        padding: '8px 64px'
+        padding: '8px 64px',
+        alignSelf: 'flex-end'
     },
     charThumb: {
         marginRight: 30,
