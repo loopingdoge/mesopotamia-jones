@@ -27,12 +27,6 @@ export interface BackButtonSectionProps {
     goBack: () => void
 }
 
-// const MyButton =
-//     horizontalCenter(
-//         props => <button>{props.children}</button>
-//     );
-// <MyButton><IconBrown16 icon={home3}/> Press Me </MyButton>
-
 const BackButtonSection = ({ goBack }: BackButtonSectionProps) =>
     <div>
         <button onClick={goBack} className={css(styles.customButton)}>
