@@ -2,6 +2,10 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
+
+const PUBLIC_PATH = 'https://loopingdoge.github.io/mesopotamia-jones/'
 
 // Phaser webpack config
 const phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
@@ -22,7 +26,8 @@ module.exports = {
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             title: 'Mesopotamia Jones',
-            template: 'src/index.ejs'
+            template: 'src/index.ejs',
+            favicon: path.resolve('assets/images/favicon.png')
         }),
         new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
@@ -30,6 +35,26 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'runtime'
+        }),
+        new SWPrecacheWebpackPlugin({
+            cacheId: 'mesopotamia-jones',
+            dontCacheBustUrlsMatching: /\.\w{8}\./,
+            filename: 'service-worker.js',
+            minify: true,
+            navigateFallback: PUBLIC_PATH,
+            staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+        }),
+        new WebpackPwaManifest({
+            name: 'Mesopotamia Jones',
+            short_name: 'MJ',
+            description: 'Learn to code with games!',
+            background_color: '#ffffff',
+            icons: [
+                {
+                    src: path.resolve('assets/images/favicon.png'),
+                    sizes: [96, 128, 192, 256, 384, 512]
+                }
+            ]
         })
     ],
     output: {

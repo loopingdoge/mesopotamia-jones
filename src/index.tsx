@@ -5,6 +5,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Route, Router } from 'react-router'
 
+import registerServiceWorker from './utils/registerServiceWorker'
 import App from './components/App'
 import gameStore from './stores/gameStore'
 import uiStore from './stores/gameUIStore'
@@ -28,3 +29,4 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('app')
 )
+registerServiceWorker()
