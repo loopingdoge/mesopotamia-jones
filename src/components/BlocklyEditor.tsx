@@ -172,10 +172,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                 >
                     <div className={css(styles.play)} />
                 </button>
-                {/* <svg className='play-button' width='64' height='64' viewBox='0 0 64 64'>
-                    <title id='title'>Play Button</title>
-                    <path fill='#CFCFCF' d='M929.5,480.4L91.3,14.6c-9.7-5.5-18-6.1-24.9-1.9C59.5,16.9,56,24.5,56,35.5v929.1c0,10.9,3.5,18.5,10.4,22.7c6.9,4.2,15.3,3.6,24.9-1.9l838.2-465.8c9.7-5.5,14.5-12,14.5-19.6C944,492.4,939.2,485.9,929.5,480.4z'/>
-                </svg> */}
             </div>
         )
     }
