@@ -13,7 +13,7 @@ import VonTalin from '../sprites/VonTalin'
 
 export default class Game extends Phaser.State {
     player: Player
-    npcs: Npc[]
+    npcs: Npc[] = []
     joystick: Joystick
     keyboard: Keyboard
     actionButton: ActionButton
