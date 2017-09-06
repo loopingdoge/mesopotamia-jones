@@ -49,6 +49,8 @@ module.exports = {
             short_name: 'MJ',
             description: 'Learn to code with games!',
             background_color: '#ffffff',
+            orientation: 'landscape',
+            display: 'standalone',
             icons: [
                 {
                     src: path.resolve('assets/images/favicon.png'),
