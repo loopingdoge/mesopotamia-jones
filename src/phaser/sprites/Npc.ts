@@ -1,5 +1,7 @@
 import { Game, Point, Sprite } from 'phaser-ce'
 
+import { GameState } from '../../stores/gameStore'
+
 export default class Npc extends Sprite {
     constructor(game: Game, x: number, y: number, key: string) {
         super(game, x, y, key)
@@ -12,7 +14,7 @@ export default class Npc extends Sprite {
         this.body.height += 6
     }
 
-    dialogueInRoom(roomId: string): string {
+    dialogue(state: GameState): string {
         return ''
     }
 }

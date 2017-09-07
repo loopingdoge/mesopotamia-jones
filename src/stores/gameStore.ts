@@ -4,12 +4,13 @@ import { UIStore } from './gameUIStore'
 import { RiddleStore } from './riddleStore'
 
 import { getChestById } from '../config/chests'
-import { Dialogue, getDialogById } from '../config/dialogues'
+import { Dialogue, getDialogById, NEED_KEY } from '../config/dialogues'
 import {
     addItem,
     computer,
     COMPUTER,
     Computer,
+    computerKey,
     defaultInventory,
     getItemById,
     hasItem,
@@ -142,6 +143,10 @@ export class GameStore {
                         gameStore.hideDialogue()
                         document.removeEventListener('keydown', nextLine)
                         document.removeEventListener('mousedown', nextLine)
+                        if (dialog.id === 'dialog2') {
+                            this.showFoundItem(computerKey)
+                            this.addItemToInventory(computerKey)
+                        }
                     }
                 }
                 if (dialog) {
@@ -293,20 +298,26 @@ export class GameStore {
     }
 
     interactionListener = (event: KeyboardEvent) => {
-        if (event.key === 'f' || event.key === 'F') {
-            switch (this.state.interaction.type) {
-                case 'door':
-                    const { x, y } = this.state.interaction
-                    this.activateRiddle(x, y)
-                    break
-                case 'object':
-                    const chest = getChestById(this.state.interaction.id)
-                    this.showFoundItem(chest.item)
-                    this.addItemToInventory(chest.item)
-                    break
-                case 'npc':
-                    this.showDialogue(this.state.interaction.id)
-                    break
+        if (!this.state.activeDialogue && !this.state.activeFoundItem) {
+            if (event.key === 'f' || event.key === 'F') {
+                switch (this.state.interaction.type) {
+                    case 'door':
+                        const { x, y } = this.state.interaction
+                        this.activateRiddle(x, y)
+                        break
+                    case 'object':
+                        const chest = getChestById(this.state.interaction.id)
+                        if (hasItem(this.state.inventory, chest.requiredItem)) {
+                            this.showFoundItem(chest.item)
+                            this.addItemToInventory(chest.item)
+                        } else {
+                            this.showDialogue(NEED_KEY)
+                        }
+                        break
+                    case 'npc':
+                        this.showDialogue(this.state.interaction.id)
+                        break
+                }
             }
         }
     }

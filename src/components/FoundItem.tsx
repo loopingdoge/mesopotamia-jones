@@ -37,12 +37,13 @@ export interface FoundItemProps {
 
 const FoundItem = ({ item, width, height }: FoundItemProps) => {
     const imageStyle = {
-        backgroundImage: `url(${'https://openclipart.org/image/2400px/svg_to_png/262417/hp-android_smartphone.png'})`,
+        backgroundImage: `url(${item.image})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         width: Math.floor(width / 100 * 20),
-        height: Math.floor(height / 100 * 40)
+        height: Math.floor(height / 100 * 40),
+        marginBottom: '16px'
     }
 
     return (

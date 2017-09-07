@@ -192,7 +192,6 @@ export default class Game extends Phaser.State {
     onNearTile(tile: Phaser.Tile) {
         if (gameStore.controlsEnabled) {
             if (tile.index === 63) {
-                // this.activateDialogue('dialog1')
                 this.activateChest('chest1')
             }
             if (this.isCollisionWithDoor(tile)) {
@@ -203,7 +202,7 @@ export default class Game extends Phaser.State {
 
     onNearNpc(npc: Npc) {
         if (gameStore.controlsEnabled) {
-            const dialogueId = npc.dialogueInRoom(gameStore.room.id)
+            const dialogueId = npc.dialogue(gameStore.state)
             this.activateDialogue(dialogueId)
         }
     }

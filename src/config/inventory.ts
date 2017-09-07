@@ -1,17 +1,23 @@
+import * as ComputerImage from '../../assets/images/computer.png'
+import * as ComputerKeyImage from '../../assets/images/key.png'
+
 export interface Item {
     id: string
     name: string
+    image: any
 }
 
 export class Computer implements Item {
     id: string = COMPUTER
     name = 'computer'
     workspace: { [riddleId: string]: string } = {}
+    image = ComputerImage
 }
 
 // Computer allows user to have the blockly editor
 export const COMPUTER = 'COMPUTER'
 export const ROCK_SMASHER = 'ROCK_SMASHER'
+export const COMPUTER_KEY = 'COMPUTER_KEY'
 
 export const toolboxEntries: any = [
     {
@@ -43,11 +49,15 @@ export const getToolbox = () => {
 // <block type="text"></block>
 // <block type="text_print"></block>
 
-const item = (id: string, name: string): Item => ({ id, name })
+const item = (id: string, name: string, image: any): Item => ({
+    id,
+    name,
+    image
+})
 
 export const computer = new Computer()
-
-export const rockSmasher = item(ROCK_SMASHER, 'rock smasher')
+export const rockSmasher = item(ROCK_SMASHER, 'rock smasher', '')
+export const computerKey = item(COMPUTER_KEY, 'old chest key', ComputerKeyImage)
 
 const items: Item[] = [computer, rockSmasher]
 

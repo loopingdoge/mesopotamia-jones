@@ -24,7 +24,7 @@ const character = (id: string, name: string, image: string): Character => ({
 
 const line = (character: Character, text: string): Line => ({ character, text })
 
-const dialog = (id: string, lines: Line[]): Dialogue => ({ id, lines })
+const dialogue = (id: string, lines: Line[]): Dialogue => ({ id, lines })
 
 export const characters: Character[] = [
     character(
@@ -44,8 +44,10 @@ export const characters: Character[] = [
     )
 ]
 
-export const dialogs: Dialogue[] = [
-    dialog('dialog1', [
+export const NEED_KEY = 'NEED_KEY'
+
+export const dialogues: Dialogue[] = [
+    dialogue('dialog1', [
         line(
             characters[0],
             'Ah che bello faccio una passeggiata nel deserto...'
@@ -53,13 +55,19 @@ export const dialogs: Dialogue[] = [
         line(characters[0], 'Accidenti, sono finito in un buco...'),
         line(characters[0], '...e non ho goduto nemmeno')
     ]),
-    dialog('dialog2', [
-        line(characters[1], 'La tua vita fa schifo'),
-        line(characters[0], 'Quando escono i voti di UUX caputtana?')
+    dialogue('dialog2', [
+        line(
+            characters[1],
+            "Sono il fantasma della piramide, ti vorrei raccontare la mia storia e di come An-Ki Hammurtossi mi ha rinchiuso dentro questa stanza, ma ora l'autore del dialogo non ha molta voglia di scriverlo.\nQuindi prendi questa chiave e recupera il mio computer."
+        ),
+        line(characters[0], 'Ok lol')
     ]),
-    dialog('dialog3', [
+    dialogue('dialog3', [
         line(characters[2], "Benvenuthi all'inferno"),
         line(characters[1], 'Sei proprio diaboliho')
+    ]),
+    dialogue(NEED_KEY, [
+        line(characters[0], "E' chiuso... servirebbe una chiave")
     ])
 ]
 
@@ -67,4 +75,4 @@ const dialogById = (dialogId: string) => (dialog: Dialogue) =>
     dialog.id === dialogId
 
 export const getDialogById = (dialogId: string) =>
-    dialogs.filter(dialogById(dialogId))[0]
+    dialogues.filter(dialogById(dialogId))[0]
