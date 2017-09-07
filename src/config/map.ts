@@ -33,11 +33,13 @@ export enum Direction {
 }
 
 function direction({ x, y }: GameDoor): Direction {
+    // tslint:disable:curly
     if (x === 7 && y === 0) return Direction.TOP
     else if (x === 15 && y === 4) return Direction.RIGHT
     else if (x === 7 && y === 8) return Direction.BOTTOM
     else if (x === 0 && y === 4) return Direction.LEFT
     else return null
+    // tslint:enable:curly
 }
 
 const door = (id: string, room1: Room, room2: Room, riddle: Riddle): Door => ({
@@ -63,18 +65,31 @@ const edge = (direction: Direction, to: Room, riddle: Riddle) => ({
     riddle
 })
 
-export const rooms: Room[] = [room('room1'), room('room2'), room('room3')]
+export const rooms: Room[] = [
+    room('room1'),
+    room('room2'),
+    room('room3'),
+    room('room4'),
+    room('room5')
+]
 
 export const doors: Door[] = [
     door('door1', rooms[0], rooms[1], riddles[0]),
-    door('door2', rooms[1], rooms[2], riddles[1])
+    door('door2', rooms[1], rooms[2], riddles[1]),
+    door('door3', rooms[1], rooms[3], riddles[2]),
+    door('door4', rooms[3], rooms[4], riddles[3]),
+    door('door5', rooms[4], rooms[5], riddles[4])
 ]
 
 export const gameDoors: GameDoor[] = [
     gameDoor(doors[0], rooms[0], rooms[1], 15, 4),
     gameDoor(doors[0], rooms[1], rooms[0], 0, 4),
     gameDoor(doors[1], rooms[1], rooms[2], 7, 0),
-    gameDoor(doors[1], rooms[2], rooms[1], 7, 8)
+    gameDoor(doors[1], rooms[2], rooms[1], 7, 8),
+    gameDoor(doors[2], rooms[1], rooms[3], 15, 4),
+    gameDoor(doors[2], rooms[3], rooms[1], 0, 4),
+    gameDoor(doors[3], rooms[3], rooms[4], 15, 4),
+    gameDoor(doors[3], rooms[4], rooms[3], 0, 4)
 ]
 
 export const getRoomById = (id: string): Room =>

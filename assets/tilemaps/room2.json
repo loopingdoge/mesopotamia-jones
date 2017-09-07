@@ -1,7 +1,8 @@
 { "height":9,
+ "infinite":false,
  "layers":[
         {
-         "data":[111, 1, 2, 3, 4, 5, 32, 33, 34, 1, 4, 5, 3, 4, 3, 112, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 86, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 87, 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 88, 133, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 78, 77, 87, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 78, 77, 77, 85, 125, 43, 45, 43, 46, 47, 43, 43, 46, 45, 47, 43, 45, 43, 46, 126],
+         "data":[111, 1, 2, 3, 4, 6, 32, 33, 34, 6, 4, 5, 3, 4, 3, 112, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 86, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 101, 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 115, 133, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 129, 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 78, 77, 87, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 78, 77, 77, 85, 125, 43, 45, 43, 46, 47, 43, 43, 46, 45, 47, 43, 45, 43, 46, 126],
          "height":9,
          "name":"Livello tile 1",
          "opacity":1,
@@ -14,6 +15,8 @@
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
+ "templategroups":[],
+ "tiledversion":"v1.0.2-200-gcf67c77",
  "tileheight":32,
  "tilesets":[
         {
@@ -36,31 +39,96 @@
             {
              "118":
                 {
-                 "isDoor":true,
-                 "direction":"right"
+                 "direction":"right",
+                 "isDoor":true
                 },
              "32":
                 {
-                 "isDoor":true,
-                 "direction":"bottom"
+                 "direction":"bottom",
+                 "isDoor":true
+                },
+             "114":
+                {
+                 "direction":"left",
+                 "isDoor":true
                 }
             },
          "tilepropertytypes":
             {
              "118":
                 {
-                 "isDoor":"bool",
-                 "direction":"string"
+                 "direction":"string",
+                 "isDoor":"bool"
                 },
              "32":
                 {
-                 "isDoor":"bool",
-                 "direction":"string"
+                 "direction":"string",
+                 "isDoor":"bool"
+                },
+             "114":
+                {
+                 "direction":"string",
+                 "isDoor":"bool"
                 }
             },
          "tilewidth":32
+        }, 
+        {
+         "columns":14,
+         "firstgid":141,
+         "image":"..\/images\/sheet.png",
+         "imageheight":320,
+         "imagewidth":448,
+         "margin":0,
+         "name":"sheet",
+         "spacing":0,
+         "terrains":[
+                {
+                 "name":"Nuovo terreno",
+                 "tile":-1
+                }],
+         "tilecount":140,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":14,
+         "firstgid":281,
+         "image":"..\/images\/sheet.png",
+         "imageheight":320,
+         "imagewidth":448,
+         "margin":0,
+         "name":"sheet",
+         "spacing":0,
+         "terrains":[
+                {
+                 "name":"Nuovo terreno",
+                 "tile":-1
+                }],
+         "tilecount":140,
+         "tileheight":32,
+         "tilewidth":32
+        }, 
+        {
+         "columns":14,
+         "firstgid":421,
+         "image":"..\/images\/sheet.png",
+         "imageheight":320,
+         "imagewidth":448,
+         "margin":0,
+         "name":"sheet",
+         "spacing":0,
+         "terrains":[
+                {
+                 "name":"Nuovo terreno",
+                 "tile":-1
+                }],
+         "tilecount":140,
+         "tileheight":32,
+         "tilewidth":32
         }],
  "tilewidth":32,
+ "type":"map",
  "version":1,
  "width":16
 }

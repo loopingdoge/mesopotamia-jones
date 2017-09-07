@@ -48,9 +48,10 @@ export default class Game extends Phaser.State {
             const lastDoorTile = map.getTile(lastDoor.x, lastDoor.y, this.scene)
             let cX = lastDoorTile.centerX + lastDoorTile.left
             let cY = lastDoorTile.centerY + lastDoorTile.top
+
             switch (lastDoorTile.properties.direction) {
                 case 'top':
-                    cY -= lastDoorTile.height
+                    cY -= lastDoorTile.height + 10 // TODO: distanza precisa dal muro
                     break
                 case 'left':
                     cX -= lastDoorTile.width

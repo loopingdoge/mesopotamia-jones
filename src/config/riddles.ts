@@ -22,6 +22,7 @@ const randomNum = (min: number, max: number) => {
 
 export const userSolutionInit = (type: SolutionType, length: number) => {
     let str = ''
+    // tslint:disable-next-line:curly
     for (let i = 0; i < length; i++)
         str = str.concat(type === 'string' ? 'a' : '0')
     return str
@@ -77,6 +78,142 @@ const riddles: Riddle[] = [
         solutionLength: 1,
         solutionType: 'number',
         argsGenerator: () => [randomNum(1, 9)]
+    },
+    {
+        id: 'somma',
+        question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
+        defaultWorkspace: ([a, b]) => `
+        <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+            <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
+        </xml>`,
+        rootBlock: {
+            type: 'riddle_somma',
+            message0: 'dati %1 e %2 %3 %4 il risultato è: %5',
+            args0: [
+                {
+                    type: 'field_variable',
+                    name: 'x',
+                    variable: 'numero1'
+                },
+                {
+                    type: 'field_variable',
+                    name: 'y',
+                    variable: 'numero2'
+                },
+                {
+                    type: 'input_dummy'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'USERCODE',
+                    check: 'Number'
+                },
+                {
+                    type: 'input_value',
+                    name: 'RETURN',
+                    check: 'Number',
+                    align: 'RIGHT'
+                }
+            ],
+            inputsInline: false,
+            colour: 45,
+            tooltip:
+                'I dati sono numeri, quindi il risultato deve essere un numero',
+            helpUrl: ''
+        },
+        getCodeGen: (args: any) => (block: any) => {
+            const x = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('x'),
+                Blockly.Variables.NAME_TYPE
+            )
+            const y = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('y'),
+                Blockly.Variables.NAME_TYPE
+            )
+            const userCode = Blockly.JavaScript.statementToCode(
+                block,
+                'USERCODE'
+            )
+            const ret = Blockly.JavaScript.valueToCode(
+                block,
+                'RETURN',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${args})`
+            return code
+        },
+        solution: ([a, b]: number[]) => `${a + b}`,
+        solutionLength: 1,
+        solutionType: 'number',
+        argsGenerator: () => [randomNum(1, 4), randomNum(1, 4)]
+    },
+    {
+        id: 'somma',
+        question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
+        defaultWorkspace: ([a, b]) => `
+        <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+            <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
+        </xml>`,
+        rootBlock: {
+            type: 'riddle_somma',
+            message0: 'dati %1 e %2 %3 %4 il risultato è: %5',
+            args0: [
+                {
+                    type: 'field_variable',
+                    name: 'x',
+                    variable: 'numero1'
+                },
+                {
+                    type: 'field_variable',
+                    name: 'y',
+                    variable: 'numero2'
+                },
+                {
+                    type: 'input_dummy'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'USERCODE',
+                    check: 'Number'
+                },
+                {
+                    type: 'input_value',
+                    name: 'RETURN',
+                    check: 'Number',
+                    align: 'RIGHT'
+                }
+            ],
+            inputsInline: false,
+            colour: 45,
+            tooltip:
+                'I dati sono numeri, quindi il risultato deve essere un numero',
+            helpUrl: ''
+        },
+        getCodeGen: (args: any) => (block: any) => {
+            const x = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('x'),
+                Blockly.Variables.NAME_TYPE
+            )
+            const y = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('y'),
+                Blockly.Variables.NAME_TYPE
+            )
+            const userCode = Blockly.JavaScript.statementToCode(
+                block,
+                'USERCODE'
+            )
+            const ret = Blockly.JavaScript.valueToCode(
+                block,
+                'RETURN',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${args})`
+            return code
+        },
+        solution: ([a, b]: number[]) => `${a + b}`,
+        solutionLength: 1,
+        solutionType: 'number',
+        argsGenerator: () => [randomNum(1, 4), randomNum(1, 4)]
     },
     {
         id: 'somma',
