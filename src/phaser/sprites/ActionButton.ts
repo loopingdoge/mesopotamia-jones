@@ -6,7 +6,7 @@ export default class ActionButton extends Sprite {
         super(game, x, y, 'actionButton')
         this.anchor.setTo(0.5, 0.5)
         this.inputEnabled = true
-        this.events.onInputDown.add(() =>
+        this.events.onInputUp.add(() =>
             document.dispatchEvent(new KeyboardEvent('keydown', { key: 'f' }))
         )
     }

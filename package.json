@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "src/main.ts",
   "scripts": {
-    "start": "cross-env NODE_ENV=debug PLATFORM=web webpack-dev-server --open --port 3000 --progress --colors",
+    "start": "cross-env NODE_ENV=debug PLATFORM=web webpack-dev-server --host 0.0.0.0 --public 192.168.1.50:3000 --open --port 3000 --progress --colors",
     "build": "cross-env NODE_ENV=production PLATFORM=web webpack -p --progress --colors",
     "test": "jest",
     "lint": "tslint -c tslint.json src/**/*.ts src/**/*.tsx",
