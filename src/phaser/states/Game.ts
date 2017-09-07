@@ -10,6 +10,7 @@ import Keyboard from '../sprites/Keyboard'
 import Npc from '../sprites/Npc'
 import Player from '../sprites/Player'
 import VonTalin from '../sprites/VonTalin'
+import Hammurtossi from '../sprites/Hammurtossi'
 
 export default class Game extends Phaser.State {
     player: Player
@@ -84,9 +85,15 @@ export default class Game extends Phaser.State {
             )
         }
 
-        if (gameStore.room.id === 'room2') {
+        if (gameStore.room.id === 'room3') {
             this.npcs = [
-                new VonTalin(this.game, coord2Pixel(13), coord2Pixel(1))
+                new VonTalin(this.game, coord2Pixel(7.5), coord2Pixel(2))
+            ]
+            this.game.add.existing(this.npcs[0])
+        }
+        if (gameStore.room.id === 'room5') {
+            this.npcs = [
+                new Hammurtossi(this.game, coord2Pixel(7.5), coord2Pixel(1))
             ]
             this.game.add.existing(this.npcs[0])
         }
