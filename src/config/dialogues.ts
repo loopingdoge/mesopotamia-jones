@@ -40,7 +40,7 @@ export const characters: Character[] = [
     character(
         'ab',
         'An-Ki Hammurtossi',
-        'http://3.bp.blogspot.com/-6JLvoXcxvNU/U3IdCOWrW9I/AAAAAAACDPc/wwO1wCLLXh0/s1600/Mummy+(5).png'
+        'https://www.unibo.it/uniboweb/utils/UserImage.aspx?IdAnagrafica=574467&IdFoto=d54747a1'
     )
 ]
 
@@ -64,7 +64,7 @@ export const dialogues: Dialogue[] = [
     ]),
     dialogue('dialog3', [
         line(characters[2], "Benvenuthi all'inferno"),
-        line(characters[1], 'Sei proprio diaboliho')
+        line(characters[0], 'Sei proprio diaboliho')
     ]),
     dialogue(NEED_KEY, [
         line(characters[0], "E' chiuso... servirebbe una chiave")
