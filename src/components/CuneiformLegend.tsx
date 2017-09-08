@@ -38,7 +38,7 @@ const CuneiformLegend = () =>
     <div className={css(styles.legend)}>
         <div className={css(styles.alphabet)}>
             {alphabetRows.map((row, rowIndex) =>
-                <div className={css(styles.alphabetRow)}>
+                <div key={rowIndex} className={css(styles.alphabetRow)}>
                     {row.split('').map((letter, letterIndex) =>
                         <div
                             key={letterIndex}
