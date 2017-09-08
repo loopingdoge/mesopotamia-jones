@@ -320,19 +320,23 @@ export class GameStore {
 
     @action
     readyInteraction = (interaction: Interaction) => {
-        document.addEventListener('keydown', this.interactionListener)
-        this.state = {
-            ...this.state,
-            interaction
+        if (!this.state.interaction) {
+            document.addEventListener('keydown', this.interactionListener)
+            this.state = {
+                ...this.state,
+                interaction
+            }
         }
     }
 
     @action
     removeInteraction = () => {
-        document.removeEventListener('keydown', this.interactionListener)
-        this.state = {
-            ...this.state,
-            interaction: null
+        if (this.state.interaction) {
+            document.removeEventListener('keydown', this.interactionListener)
+            this.state = {
+                ...this.state,
+                interaction: null
+            }
         }
     }
 
