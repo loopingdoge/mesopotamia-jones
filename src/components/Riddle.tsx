@@ -228,7 +228,8 @@ const Riddle = ({
                             <div
                                 style={{
                                     flex: legendFlex,
-                                    opacity: legendFlex
+                                    opacity: legendFlex,
+                                    overflow: 'hidden'
                                 }}
                                 data-tour={2}
                             >

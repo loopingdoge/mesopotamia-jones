@@ -13,6 +13,7 @@
         ],
         "max-classes-per-file": [
             false
-        ]
+        ],
+        "jsx-boolean-value": false
     }
 }
