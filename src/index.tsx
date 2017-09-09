@@ -5,12 +5,12 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Route, Router } from 'react-router'
 
-import registerServiceWorker from './utils/registerServiceWorker'
 import App from './components/App'
 import gameStore from './stores/gameStore'
 import uiStore from './stores/gameUIStore'
 import riddleStore from './stores/riddleStore'
 import riddleUIStore from './stores/riddleUIStore'
+import registerServiceWorker from './utils/registerServiceWorker'
 
 const routingStore = new RouterStore()
 

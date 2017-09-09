@@ -7,7 +7,10 @@ import { getOrElse, onlyIf } from '../utils'
 import { GamePhase, GameState, GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 
-import Dialogue from './Dialogue'
+import { Dialogue } from '../config/dialogues'
+import { Item } from '../config/inventory'
+
+import DialogueUI from './Dialogue'
 import FadedContainer from './FadedContainer'
 import FoundItem from './FoundItem'
 import Game from './Game'
@@ -47,39 +50,50 @@ const getStyles = (phase: GamePhase) => ({
 })
 
 export interface MesopotamiaJonesProps {
-    gameState: GameState
+    gamePhase: GamePhase
+    activeDialogue: Dialogue
+    activeFoundItem: Item
     pageWidth: number
     pageHeight: number
 }
 
 const MesopotamiaJones = ({
-    gameState,
+    gamePhase,
+    activeDialogue,
+    activeFoundItem,
     pageWidth,
     pageHeight
 }: MesopotamiaJonesProps) => {
-    const MaybeHeader = onlyIf(gameState.phase !== 'Riddle', <GameHeader />)
-    const MaybeInventory = onlyIf(gameState.phase !== 'Riddle', <Inventory />)
+    const MaybeHeader = onlyIf(gamePhase !== 'Riddle', <GameHeader />)
+    const MaybeInventory = onlyIf(gamePhase !== 'Riddle', <Inventory />)
     const MaybeRiddle = onlyIf(
-        gameState.phase === 'Riddle',
+        gamePhase === 'Riddle',
         <div
-            style={getStyles(gameState.phase).riddle}
+            style={getStyles(gamePhase).riddle}
             className={css(styles.content)}
         >
             <Riddle />
         </div>
     )
     const MaybeDialogue = onlyIf(
-        gameState.activeDialogue !== null,
+        activeDialogue !== null,
         <FadedContainer>
-            <Dialogue />
+            <DialogueUI />
         </FadedContainer>
     )
     const MaybeFoundItem = onlyIf(
-        gameState.activeFoundItem !== null,
+        activeFoundItem !== null,
         <FadedContainer>
-            <FoundItem item={gameState.activeFoundItem} />
+            <FoundItem item={activeFoundItem} />
         </FadedContainer>
     )
+
+    if (pageWidth < 1280 || pageHeight < 720) {
+        // TODO: Show an error
+        console.error(
+            'a minimum resolution of 1280x720 is required to run the game'
+        )
+    }
 
     return (
         <div className={css(styles.mesopotamiaJonesContainer)}>
@@ -88,7 +102,7 @@ const MesopotamiaJones = ({
                 {MaybeFoundItem}
                 {MaybeHeader}
                 <div
-                    style={getStyles(gameState.phase).game}
+                    style={getStyles(gamePhase).game}
                     className={css(styles.content)}
                 >
                     <Game width={pageWidth} height={pageHeight} />
@@ -116,10 +130,13 @@ class MesopotamiaJonesContainer extends React.Component<
 
     render() {
         const { state } = this.props.gameStore
+        const { phase, activeDialogue, activeFoundItem } = state
         const { width, height } = this.props.uiStore
         return (
             <MesopotamiaJones
-                gameState={state}
+                gamePhase={phase}
+                activeDialogue={activeDialogue}
+                activeFoundItem={activeFoundItem}
                 pageWidth={width}
                 pageHeight={height}
             />

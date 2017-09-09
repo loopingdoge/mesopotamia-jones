@@ -9,7 +9,17 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
+        justifyContent: 'center',
         padding: 8
+    },
+    alphabet: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'wrap'
+    },
+    alphabetRow: {
+        display: 'flex',
+        flexDirection: 'row'
     },
     legendCell: {
         display: 'flex',
@@ -17,31 +27,35 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         minWidth: 40,
         minHeight: 30
-    },
-    legendNewline: {
-        width: '100%'
     }
 })
 
-const alphabet = 'abcdefghijklmnopqrstuvz 0123456789 +-/*=?'.split('')
+const alphabet = 'abcdefghijklmnopqrstuvwxyz 0123456789 +-/*=?'
+const alphabetRows = alphabet.split(' ')
 
 const CuneiformLegend = () =>
-    <Scrollbars autoHide>
-        <div className={css(styles.legend)}>
-            {alphabet.map(
-                (value, i) =>
-                    value === ' '
-                        ? <div key={i} className={css(styles.legendNewline)} />
-                        : <div key={i} className={css(styles.legendCell)}>
-                              <div>
-                                  <CuneiformChar value={value} />
-                              </div>
-                              <div>
-                                  {value}
-                              </div>
-                          </div>
+    // <Scrollbars autoHide>
+    <div className={css(styles.legend)}>
+        <div className={css(styles.alphabet)}>
+            {alphabetRows.map((row, rowIndex) =>
+                <div key={rowIndex} className={css(styles.alphabetRow)}>
+                    {row.split('').map((letter, letterIndex) =>
+                        <div
+                            key={letterIndex}
+                            className={css(styles.legendCell)}
+                        >
+                            <div>
+                                <CuneiformChar value={letter} />
+                            </div>
+                            <div>
+                                {letter}
+                            </div>
+                        </div>
+                    )}
+                </div>
             )}
         </div>
-    </Scrollbars>
+    </div>
+// </Scrollbars>
 
 export default CuneiformLegend

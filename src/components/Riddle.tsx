@@ -228,7 +228,8 @@ const Riddle = ({
                             <div
                                 style={{
                                     flex: legendFlex,
-                                    opacity: legendFlex
+                                    opacity: legendFlex,
+                                    overflow: 'hidden'
                                 }}
                                 data-tour={2}
                             >
@@ -276,9 +277,8 @@ const Riddle = ({
                                 content: () =>
                                     <div>
                                         <span>
-                                            Wow mother father! Credo che dovrei
-                                            girare la rotella e spingere il
-                                            bottone
+                                            Cosa sono questi simboli? Dovrei
+                                            provare a tradurli...
                                         </span>
                                     </div>
                             },
@@ -287,9 +287,7 @@ const Riddle = ({
                                 content: () =>
                                     <div>
                                         <span>
-                                            Very bella questa legenda, credo
-                                            proprio che dovrei cercare di
-                                            tradurre i simboli
+                                            Forse questa legenda può aiutarmi?
                                         </span>
                                     </div>
                             }

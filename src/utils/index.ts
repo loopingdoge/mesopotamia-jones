@@ -53,3 +53,19 @@ export function linearMap(
 ) {
     return (val - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin
 }
+
+export function addListener(callback: () => any) {
+    if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) {
+        document.addEventListener('touchend', callback)
+    } else {
+        document.addEventListener('keydown', callback)
+    }
+}
+
+export function removeListener(callback: () => any) {
+    if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) {
+        document.removeEventListener('touchend', callback)
+    } else {
+        document.removeEventListener('keydown', callback)
+    }
+}

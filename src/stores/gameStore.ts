@@ -20,7 +20,7 @@ import {
 import { Door, getGameDoor, Room, rooms } from '../config/map'
 
 import PhaserGame from '../phaser'
-import { Maybe } from '../utils'
+import { addListener, Maybe, removeListener } from '../utils'
 
 export type GamePhase = 'Game' | 'Riddle'
 
@@ -141,8 +141,7 @@ export class GameStore {
                         this.lineId++
                     } else {
                         gameStore.hideDialogue()
-                        document.removeEventListener('keydown', nextLine)
-                        document.removeEventListener('mousedown', nextLine)
+                        removeListener(nextLine)
                         if (dialog.id === 'dialog2') {
                             this.showFoundItem(computerKey)
                             this.addItemToInventory(computerKey)
@@ -151,8 +150,7 @@ export class GameStore {
                 }
                 if (dialog) {
                     this.lineId = 0
-                    document.addEventListener('keydown', nextLine)
-                    document.addEventListener('mousedown', nextLine)
+                    setTimeout(() => addListener(nextLine), 500)
                 }
             }
         )
@@ -162,11 +160,9 @@ export class GameStore {
             item => {
                 const hideItemScreen = () => {
                     this.state.activeFoundItem = null
-                    document.removeEventListener('keydown', hideItemScreen)
-                    document.removeEventListener('mousedown', hideItemScreen)
+                    removeListener(hideItemScreen)
                 }
-                document.addEventListener('keydown', hideItemScreen)
-                document.addEventListener('mousedown', hideItemScreen)
+                setTimeout(() => addListener(hideItemScreen), 500)
             }
         )
 
@@ -324,19 +320,23 @@ export class GameStore {
 
     @action
     readyInteraction = (interaction: Interaction) => {
-        document.addEventListener('keydown', this.interactionListener)
-        this.state = {
-            ...this.state,
-            interaction
+        if (!this.state.interaction) {
+            document.addEventListener('keydown', this.interactionListener)
+            this.state = {
+                ...this.state,
+                interaction
+            }
         }
     }
 
     @action
     removeInteraction = () => {
-        document.removeEventListener('keydown', this.interactionListener)
-        this.state = {
-            ...this.state,
-            interaction: null
+        if (this.state.interaction) {
+            document.removeEventListener('keydown', this.interactionListener)
+            this.state = {
+                ...this.state,
+                interaction: null
+            }
         }
     }
 
