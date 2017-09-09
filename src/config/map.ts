@@ -13,7 +13,6 @@ export interface Door {
 
 export interface Room {
     id: string
-    npcs: Npc[]
 }
 
 export interface GameDoor {
@@ -62,7 +61,7 @@ const gameDoor = (
     y: number
 ): GameDoor => ({ door, from, to, x, y })
 
-const room = (id: string, npcs: Npc[]): Room => ({ id, npcs })
+const room = (id: string): Room => ({ id })
 
 const edge = (direction: Direction, to: Room, riddle: Riddle) => ({
     direction,
@@ -71,21 +70,11 @@ const edge = (direction: Direction, to: Room, riddle: Riddle) => ({
 })
 
 export const rooms: Room[] = [
-    room('room1', []),
-    room('room2', []),
-    room(
-        'room3',
-        [
-            // new VonTalin(this.game, coord2Pixel(7.5), coord2Pixel(2))
-        ]
-    ),
-    room('room4', []),
-    room(
-        'room5',
-        [
-            // new Hammurtossi(this.game, coord2Pixel(7.5), coord2Pixel(2))
-        ]
-    )
+    room('room1'),
+    room('room2'),
+    room('room3'),
+    room('room4'),
+    room('room5')
 ]
 
 export const doors: Door[] = [

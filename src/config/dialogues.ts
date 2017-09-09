@@ -1,4 +1,7 @@
+import * as Hammurtossi from '../../assets/images/mummy.png'
 import { Riddle } from './riddles'
+
+setTimeout(() => console.log(typeof Hammurtossi), 10000)
 
 export interface Character {
     id: string
@@ -37,11 +40,7 @@ export const characters: Character[] = [
         'Farren Von Talin',
         'http://vignette2.wikia.nocookie.net/witcher/images/4/49/People_Leos_ghost.png'
     ),
-    character(
-        'ab',
-        'An-Ki Hammurtossi',
-        'https://www.unibo.it/uniboweb/utils/UserImage.aspx?IdAnagrafica=574467&IdFoto=d54747a1'
-    )
+    character('ab', 'An-Ki Hammurtossi', Hammurtossi as any)
 ]
 
 export const NEED_KEY = 'NEED_KEY'
