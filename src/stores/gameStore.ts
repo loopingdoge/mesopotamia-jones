@@ -126,6 +126,8 @@ export class GameStore {
             ...JSON.parse(localStorage.getItem('gameState'))
         }
 
+        this.state.interaction = null
+
         // React to riddle solved by the user
         reaction(
             () => this.riddleStore.isSolved,
@@ -314,6 +316,7 @@ export class GameStore {
                         this.showDialogue(this.state.interaction.id)
                         break
                 }
+                this.state.interaction = null
             }
         }
     }
