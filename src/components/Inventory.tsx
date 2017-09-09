@@ -90,7 +90,6 @@ const Inventory = ({
                                       selectedRiddle.id
                                   )}
                                   onWorkspaceChange={(workspace: string) => {
-                                      console.log(selectedRiddle.id)
                                       // TODO: Invece che salvare ogni volta bisognerebbe mettere un bottone
                                       gameStore.setRiddleWorkspaceXML(
                                           selectedRiddle.id,
