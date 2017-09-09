@@ -1,9 +1,11 @@
 import { css, StyleSheet } from 'aphrodite'
+import { isEqual } from 'lodash'
+import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { RouterStore } from 'mobx-react-router'
 import * as React from 'react'
 
-import { GameStore } from '../stores/gameStore'
+import { defaultGameStoreState, GameStore } from '../stores/gameStore'
 import Section from './Section'
 
 const styles = StyleSheet.create({
@@ -83,15 +85,16 @@ class HomeContainer extends React.Component<HomeContainerProps, undefined> {
     }
 
     render() {
-        console.log(this.props.gameStore.state)
         return (
             <Home
                 startGame={this.startGame}
                 newGame={this.newGame}
                 showCredits={this.showCredits}
                 saveFileExists={
-                    this.props.gameStore.lastDoor !== undefined &&
-                    this.props.gameStore.lastDoor !== null
+                    !isEqual(
+                        defaultGameStoreState(),
+                        toJS(this.props.gameStore.state)
+                    )
                 }
             />
         )

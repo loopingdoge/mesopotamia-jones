@@ -35,7 +35,7 @@ export interface GameState {
     interaction: Interaction
 }
 
-const defaultGameStoreState: () => GameState = () => ({
+export const defaultGameStoreState: () => GameState = () => ({
     activeDialogue: null,
     activeFoundItem: null,
     firstRiddleVisited: false,
@@ -84,7 +84,7 @@ export class GameStore {
     }
 
     @computed
-    get gameState(): string {
+    get gamePhase(): string {
         return this.state.phase
     }
 
@@ -122,7 +122,6 @@ export class GameStore {
 
         this.state = {
             ...this.state,
-            room: rooms[0],
             ...JSON.parse(localStorage.getItem('gameState'))
         }
 
@@ -229,7 +228,7 @@ export class GameStore {
     @action
     riddleSolved = () => {
         let newState = this.state
-        if (this.gameState === 'Riddle') {
+        if (this.gamePhase === 'Riddle') {
             newState = {
                 ...newState,
                 room: this.riddleStore.currentGameDoor.to,
