@@ -1,8 +1,6 @@
 import * as Hammurtossi from '../../assets/images/mummy.png'
 import { Riddle } from './riddles'
 
-setTimeout(() => console.log(typeof Hammurtossi), 10000)
-
 export interface Character {
     id: string
     name: string

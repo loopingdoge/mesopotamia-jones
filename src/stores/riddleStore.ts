@@ -178,8 +178,10 @@ export class RiddleStore {
             // tslint:disable-next-line: no-eval
             codeResult = eval(code)
             // TODO: Check if codeResult is appropriate
-            userSolution = String(codeResult)
-            console.log(`Code result: ${userSolution}`)
+            if (codeResult) {
+                userSolution = String(codeResult)
+                console.log(`Code result: ${userSolution}`)
+            }
         } catch (e) {
             codeResult = (e as EvalError).message
         }

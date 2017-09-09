@@ -40,6 +40,7 @@ class Game extends Phaser.Game {
     }
 
     loadRoom() {
+        this.state.clearCurrentState()
         this.state.start('Game')
     }
 
