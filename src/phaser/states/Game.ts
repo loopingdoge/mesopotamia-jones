@@ -14,7 +14,7 @@ import Hammurtossi from '../sprites/Hammurtossi'
 
 export default class Game extends Phaser.State {
     player: Player
-    npcs: Npc[] = []
+    npcs: Npc[]
     joystick: Joystick
     keyboard: Keyboard
     actionButton: ActionButton
@@ -67,6 +67,8 @@ export default class Game extends Phaser.State {
             centerX = cX || centerX
             centerY = cY || centerY
         }
+
+        this.npcs = []
 
         this.player = this.game.add.existing(
             new Player(this.game, centerX, centerY)
