@@ -8,14 +8,13 @@ const styles = StyleSheet.create({
     legend: {
         display: 'flex',
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        padding: 8
+        // justifyContent: 'center', TODO: questo sarebbe da centrare, il problema e' che quando non c'e' abbastanza spazio non si vede piu' la parte sinistra
+        padding: 8,
+        overflowX: 'scroll'
     },
     alphabet: {
         display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'wrap'
+        flexDirection: 'column'
     },
     alphabetRow: {
         display: 'flex',
