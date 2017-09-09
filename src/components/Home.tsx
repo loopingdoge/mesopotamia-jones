@@ -9,16 +9,31 @@ import Section from './Section'
 const styles = StyleSheet.create({
     homeContainer: {
         display: 'flex',
-        flexDirection: 'column',
+        flex: 1,
+        backgroundColor: '#FDF6E3',
         alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1
+        justifyContent: 'center'
+    },
+    home: {
+        width: '600px',
+        display: 'flex',
+        flexDirection: 'column'
     },
     body: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1
+    },
+    title: {
+        padding: '24px',
+        textAlign: 'center',
+        fontSize: 'xx-large'
+    },
+    buttonsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
     },
     footer: {}
 })
@@ -27,17 +42,22 @@ export interface HomeProps {
     startGame: () => void
     newGame: () => void
     showCredits: () => void
+    saveFileExists: boolean
 }
 
-const Home = ({ startGame, newGame, showCredits }: HomeProps) =>
+const Home = ({ startGame, newGame, showCredits, saveFileExists }: HomeProps) =>
     <div className={css(styles.homeContainer)}>
-        <h1>Mesopotamia Jones</h1>
-        <div>
-            <button onClick={newGame}>New Game</button>
-            <button onClick={startGame}>Continue</button>
-        </div>
-        <div>
-            <button onClick={showCredits}>Credits</button>
+        <div className={css(styles.home)}>
+            <div className={css(styles.title)}>
+                <h1>Mesopotamia Jones</h1>
+            </div>
+            <div className={css(styles.buttonsContainer)}>
+                <button onClick={newGame}>New Game</button>
+                <button onClick={startGame} disabled={!saveFileExists}>
+                    Continue
+                </button>
+                <button onClick={showCredits}>Credits</button>
+            </div>
         </div>
     </div>
 
@@ -63,11 +83,16 @@ class HomeContainer extends React.Component<HomeContainerProps, undefined> {
     }
 
     render() {
+        console.log(this.props.gameStore.state)
         return (
             <Home
                 startGame={this.startGame}
                 newGame={this.newGame}
                 showCredits={this.showCredits}
+                saveFileExists={
+                    this.props.gameStore.lastDoor !== undefined &&
+                    this.props.gameStore.lastDoor !== null
+                }
             />
         )
     }
