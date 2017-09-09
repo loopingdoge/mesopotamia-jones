@@ -1,6 +1,7 @@
 import { action, computed, observable, reaction } from 'mobx'
 import * as Blockly from 'node-blockly/browser'
 
+import { blocks } from '../config/blocks'
 import { GameDoor } from '../config/map'
 import { Riddle, userSolutionInit } from '../config/riddles'
 import riddleUIStore from './riddleUIStore'
@@ -77,6 +78,18 @@ export class RiddleStore {
                 }
             }
         )
+
+        // Init custom blocks
+        for (const block of blocks) {
+            // Visual properties
+            Blockly.Blocks[block.id] = {
+                init() {
+                    this.jsonInit(block.json)
+                }
+            }
+            // Codegen
+            Blockly.JavaScript[block.id] = block.generator
+        }
     }
 
     @action

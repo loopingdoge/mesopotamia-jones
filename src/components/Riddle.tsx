@@ -139,6 +139,7 @@ export interface RiddleProps {
     riddleText: string
     solutionLength: number
     solutionType: SolutionType
+    riddleToolbox: any[]
     workspace: string
     userSolution: string
     codeResult: string
@@ -166,6 +167,7 @@ const Riddle = ({
     riddleText,
     solutionLength,
     solutionType,
+    riddleToolbox,
     workspace,
     userSolution,
     codeResult,
@@ -255,7 +257,7 @@ const Riddle = ({
                                 />
                                 <div className={css(styles.editorSection)}>
                                     <EditorSection
-                                        toolbox={getToolbox()}
+                                        toolbox={getToolbox(riddleToolbox)}
                                         workspace={workspace}
                                         setWorkspace={setWorkspace}
                                         height={`${height}px`}
@@ -352,6 +354,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 riddleText={question}
                 solutionLength={currentRiddle.solutionLength}
                 solutionType={currentRiddle.solutionType}
+                riddleToolbox={currentRiddle.defaultToolbox}
                 workspace={workspaceXML}
                 userSolution={userSolution}
                 codeResult={codeResult}

@@ -23,22 +23,24 @@ export const toolboxEntries: any = [
     {
         id: 'math_number',
         xml: `<block type="math_number"></block>`
-    },
-    {
-        id: 'variables_get',
-        xml: `<block type="variables_get">
-            <field name="VAR">variable</field>
-        </block>`
     }
+    // {
+    //     id: 'variables_get',
+    //     xml: `<block type="variables_get">
+    //         <field name="VAR">variable</field>
+    //     </block>`
+    // }
 ]
 
 export const addToolboxEntry = (id: string, xml: string) =>
     toolboxEntries.push({ id, xml })
 
-export const getToolbox = () => {
+export const getToolbox = (additionalEntries: any[]) => {
     let toolbox = '<xml id="toolbox" style="display: none">'
-    // tslint:disable-next-line:curly
+    // tslint:disable:curly
+    for (const entry of additionalEntries) toolbox += entry
     for (const entry of toolboxEntries) toolbox += entry.xml
+    // tslint:enable:curly
     toolbox += '</xml>'
     return toolbox
 }

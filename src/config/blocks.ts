@@ -2,52 +2,61 @@ import * as Blockly from 'node-blockly/browser'
 
 export interface Block {
     id: string
-    definition: any
+    json: any
     toolboxEntry: string
     generator: (block: any) => string
 }
 
 const block = (
     id: string,
-    definition: any,
+    json: any,
     toolboxEntry: string,
     generator: (block: any) => any
 ) => ({
     id,
-    definition,
+    json,
     toolboxEntry,
     generator
 })
 
-const blocks: Block[] = [
-    // TODO questo dovrebbe essere un blocco parametro, un solo socket di input e col nome personalizzabile
-    // al momento fa schifo
+export const blocks: Block[] = [
     block(
-        'param',
+        'numero1',
         {
-            type: 'param',
-            message0: 'var_name = %1',
-            args0: [
-                {
-                    type: 'input_value',
-                    name: 'value'
-                }
-            ],
-            inputsInline: false,
-            colour: 260,
+            type: 'numero1',
+            message0: 'numero1',
+            output: 'Number',
+            colour: 20,
             tooltip: '',
             helpUrl: ''
         },
-        `<block type="param"></block>`,
-        (block: any) => {
-            const value = Blockly.JavaScript.valueToCode(
-                block,
-                'value',
-                Blockly.JavaScript.ORDER_ATOMIC
-            )
-            const code = '...;\n'
-            return code
-        }
+        `<block type="numero1"></block>`,
+        (block: any) => [
+            Blockly.JavaScript.variableDB_.getName(
+                'numero1',
+                Blockly.Variables.NAME_TYPE
+            ),
+            Blockly.JavaScript.ORDER_ATOMIC
+        ]
+    ),
+    block(
+        'numero2',
+        {
+            type: 'numero2',
+            message0: 'numero2',
+            output: 'Number',
+            colour: 20,
+            tooltip: '',
+            helpUrl: ''
+        },
+        `<block type="numero2"></block>`,
+        (block: any) => [
+            Blockly.JavaScript.variableDB_.getName(
+                'numero2',
+                Blockly.Variables.NAME_TYPE
+            ),
+            Blockly.JavaScript.ORDER_ATOMIC
+        ]
     )
 ]
 

@@ -85,7 +85,7 @@ const Inventory = ({
                     <div className={css(styles.editorContainer)}>
                         {selectedRiddle
                             ? <BlocklyEditor
-                                  toolboxXML={getToolbox()}
+                                  toolboxXML={getToolbox([])}
                                   workspaceXML={gameStore.getRiddleWorkspaceXML(
                                       selectedRiddle.id
                                   )}

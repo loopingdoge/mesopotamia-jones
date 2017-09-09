@@ -3,6 +3,7 @@ import * as Blockly from 'node-blockly/browser'
 export interface Riddle {
     id: string
     question: (variables: any[]) => string
+    defaultToolbox: string[]
     defaultWorkspace: (variables: any[]) => string
     solution: (variables: any[]) => string
     solutionLength: number
@@ -32,6 +33,7 @@ const riddles: Riddle[] = [
     {
         id: 'return',
         question: ([a]: number[]) => `Inserisci il numero ${a}`,
+        defaultToolbox: [`<block type="numero1"></block>`],
         defaultWorkspace: ([a]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml">
             <block type="riddle_return" id="riddle_return" deletable="false"></block>
@@ -69,9 +71,11 @@ const riddles: Riddle[] = [
             const ret = Blockly.JavaScript.valueToCode(
                 block,
                 'return',
-                Blockly.JavaScript.ORDER_ATOMIC
+                Blockly.JavaScript.ORDER_ADDITION
             )
+            console.log('ROOTBLOCK', x, ret)
             const code = `(function( ${x} ) { return ${ret} })(${args})`
+            console.log(code)
             return code
         },
         solution: ([a]: number[]) => `${a}`,
@@ -82,6 +86,23 @@ const riddles: Riddle[] = [
     {
         id: 'somma',
         question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
+        defaultToolbox: [
+            `<block type="numero1"></block>`,
+            `<block type="numero2"></block>`,
+            `<block type="math_arithmetic">
+                <field name="OP">ADD</field>
+                <value name="A">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+                </value>
+                <value name="B">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+                </value>
+            </block>`
+        ],
         defaultWorkspace: ([a, b]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
             <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
@@ -150,6 +171,7 @@ const riddles: Riddle[] = [
     {
         id: 'somma',
         question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
+        defaultToolbox: [`<block type="math_number"></block>`],
         defaultWorkspace: ([a, b]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
             <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
@@ -218,6 +240,7 @@ const riddles: Riddle[] = [
     {
         id: 'somma',
         question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
+        defaultToolbox: [`<block type="math_number"></block>`],
         defaultWorkspace: ([a, b]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
             <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
