@@ -88,7 +88,7 @@ export interface CuneiformSectionProps {
 }
 
 const CuneiformSection = ({ riddle }: CuneiformSectionProps) => (
-    <div className={css(styles.cuneiformSection)}>
+    <div className={css(styles.cuneiformSection)} id="cuneiformRiddle">
         <p>
             {riddle
                 .split('')
@@ -236,7 +236,6 @@ const Riddle = ({
                                     opacity: legendFlex,
                                     overflow: 'hidden'
                                 }}
-                                data-tour={2}
                             >
                                 <CuneiformLegend />
                             </div>
@@ -275,10 +274,10 @@ const Riddle = ({
                     <Tour
                         isOpen={isTutorialOpen}
                         onRequestClose={hideTutorial}
-                        showNumber={false}
+                        maskSpace={0}
                         steps={[
                             {
-                                selector: '[data-tour="1"]',
+                                selector: '#cuneiformRiddle',
                                 content: () => (
                                     <div>
                                         <span>
@@ -289,11 +288,46 @@ const Riddle = ({
                                 )
                             },
                             {
-                                selector: '[data-tour="2"]',
+                                selector: '#cuneiformLegend',
                                 content: () => (
                                     <div>
                                         <span>
                                             Forse questa legenda può aiutarmi?
+                                        </span>
+                                    </div>
+                                )
+                            },
+                            {
+                                selector: '#blocklyArea',
+                                content: () => (
+                                    <div>
+                                        <span>
+                                            Grazie al computer posso risolvere
+                                            questi indovinelli una volta per
+                                            tutte!
+                                        </span>
+                                    </div>
+                                )
+                            },
+                            {
+                                selector: '.blocklyFlyout',
+                                content: () => (
+                                    <div>
+                                        <span>
+                                            Posso trascinare questi elementi
+                                            nell'area bianca!
+                                        </span>
+                                    </div>
+                                )
+                            },
+                            {
+                                selector: '#play',
+                                content: () => (
+                                    <div>
+                                        <span>
+                                            Se premo questo bottone il computer
+                                            eseguirà questo codice e sposterà
+                                            automaticamente gli ingranaggi
                                         </span>
                                     </div>
                                 )

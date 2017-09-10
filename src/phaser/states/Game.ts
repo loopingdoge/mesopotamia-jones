@@ -4,13 +4,13 @@ import { GameDoor, getGameDoorById } from '../../config/map'
 import gameStore from '../../stores/gameStore'
 import { coord2Pixel } from '../config'
 import ActionButton from '../sprites/ActionButton'
+import Hammurtossi from '../sprites/Hammurtossi'
 import InteractionHint from '../sprites/InteractionHint'
 import Joystick from '../sprites/Joystick'
 import Keyboard from '../sprites/Keyboard'
 import Npc from '../sprites/Npc'
 import Player from '../sprites/Player'
 import VonTalin from '../sprites/VonTalin'
-import Hammurtossi from '../sprites/Hammurtossi'
 
 export default class Game extends Phaser.State {
     player: Player
@@ -21,6 +21,10 @@ export default class Game extends Phaser.State {
     scene: Phaser.TilemapLayer
     characters: Phaser.Group
     detectCollisionLines: Phaser.Line[]
+
+    init() {
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    }
 
     create() {
         this.game.stage.backgroundColor = '#E37710'
