@@ -34,7 +34,7 @@ const alphabetRows = alphabet.split(' ')
 
 const CuneiformLegend = () =>
     // <Scrollbars autoHide>
-    <div className={css(styles.legend)}>
+    <div className={css(styles.legend)} id="cuneiformLegend">
         <div className={css(styles.alphabet)}>
             {alphabetRows.map((row, rowIndex) =>
                 <div key={rowIndex} className={css(styles.alphabetRow)}>
