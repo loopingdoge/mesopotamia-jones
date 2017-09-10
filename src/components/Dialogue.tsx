@@ -7,6 +7,15 @@ import { Maybe } from '../utils'
 
 import * as React from 'react'
 
+import * as Arvo from '../../assets/fonts/Arvo/Arvo-Regular.ttf'
+
+const arvo = {
+    fontFamily: 'Arvo',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    src: `url(${Arvo}) format('truetype')`
+}
+
 const translateArrowKeyframes = {
     '0%, 100%': {
         transform: 'translateX(0px)'
@@ -36,7 +45,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        fontFamily: 'Arvo',
+        fontFamily: [arvo, 'sans-serif'],
         color: '#FFF'
     },
     characterName: {
