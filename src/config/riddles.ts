@@ -73,9 +73,7 @@ const riddles: Riddle[] = [
                 'return',
                 Blockly.JavaScript.ORDER_ADDITION
             )
-            console.log('ROOTBLOCK', x, ret)
             const code = `(function( ${x} ) { return ${ret} })(${args})`
-            console.log(code)
             return code
         },
         solution: ([a]: number[]) => `${a}`,
