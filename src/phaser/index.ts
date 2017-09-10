@@ -5,15 +5,8 @@ import * as Phaser from 'phaser-ce'
 
 import BootState from './states/Boot'
 import GameState from './states/Game'
-import SplashState from './states/Splash'
 
 import { gameHeight, gameWidth } from './config'
-
-declare global {
-    interface Window {
-        game: Phaser.Game
-    }
-}
 
 const calculateDimesions = () => {
     const docElement = document.documentElement
@@ -31,7 +24,6 @@ class Game extends Phaser.Game {
         super(gameWidth, gameHeight, Phaser.CANVAS, 'game', null)
 
         this.state.add('Boot', BootState, false)
-        this.state.add('Splash', SplashState, false)
         this.state.add('Game', GameState, false)
     }
 
