@@ -198,6 +198,20 @@ export class GameStore {
         localStorage.setItem('gameState', JSON.stringify(this.state))
     }
 
+    getComputer = () => {
+        let computer = null
+        const result = this.inventory.filter(item => item.id === COMPUTER)
+        if (result) computer = result[0] as Computer
+        return computer
+    }
+
+    setComputerWorkspace = (riddleId: string, workspace: string) => {
+        const computer = this.getComputer()
+        if (computer) {
+            computer.workspace[riddleId] = workspace
+        }
+    }
+
     /**
      * To call when a door is touched
      * @param x: x position of the door
@@ -206,7 +220,10 @@ export class GameStore {
     @action
     activateRiddle = (x: number, y: number) => {
         const gameDoor = getGameDoor(this.room, x, y)
-        const workspace = computer.workspace[gameDoor.door.riddle.id]
+
+        const computer = this.getComputer()
+        let workspace = null
+        if (computer) workspace = computer.workspace[gameDoor.door.riddle.id]
 
         this.riddleStore.activateDoor(gameDoor, workspace)
         this.state = {
@@ -291,12 +308,13 @@ export class GameStore {
 
     @action
     setRiddleWorkspaceXML = (riddleId: string, workspace: string) => {
-        computer.workspace[riddleId] = workspace
+        this.setComputerWorkspace(riddleId, workspace)
     }
 
     interactionListener = (event: KeyboardEvent) => {
         if (!this.state.activeDialogue && !this.state.activeFoundItem) {
             if (event.key === 'f' || event.key === 'F') {
+                // TODO: cannot read type of null
                 switch (this.state.interaction.type) {
                     case 'door':
                         const { x, y } = this.state.interaction
