@@ -101,12 +101,12 @@ const MesopotamiaJones = ({
                 {MaybeDialogue}
                 {MaybeFoundItem}
                 {MaybeHeader}
+                {MaybeInventory}
                 <div
                     style={getStyles(gamePhase).game}
                     className={css(styles.content)}
                 >
                     <Game width={pageWidth} height={pageHeight} />
-                    {MaybeInventory}
                 </div>
                 {MaybeRiddle}
             </div>
