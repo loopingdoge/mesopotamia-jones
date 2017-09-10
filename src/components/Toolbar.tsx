@@ -27,13 +27,14 @@ export interface BackButtonSectionProps {
     goBack: () => void
 }
 
-const BackButtonSection = ({ goBack }: BackButtonSectionProps) =>
+const BackButtonSection = ({ goBack }: BackButtonSectionProps) => (
     <div>
         <button onClick={goBack} className={css(styles.customButton)}>
             <Icon icon={chevronLeft} />
             {'Back'}
         </button>
     </div>
+)
 
 export interface ToolbarButtonProps {
     action: () => void
@@ -41,29 +42,31 @@ export interface ToolbarButtonProps {
     text: string
 }
 
-const ToolbarButton = ({ action, icon, text }: ToolbarButtonProps) =>
+const ToolbarButton = ({ action, icon, text }: ToolbarButtonProps) => (
     <div>
         <button onClick={action} className={css(styles.customButton)}>
             <Icon icon={icon} />
             {text}
         </button>
     </div>
+)
 
 export interface ToolbarProps {
     goBack: () => void
     openInfo: () => void
 }
 
-const Toolbar = ({ goBack, openInfo }: ToolbarProps) =>
+const Toolbar = ({ goBack, openInfo }: ToolbarProps) => (
     <div className={css(styles.toolbar)}>
         <BackButtonSection goBack={goBack} />
         <div className={css(styles.spacer)} />
-        <ToolbarButton
+        {/*<ToolbarButton
             action={() => console.log('TODO')}
             icon={androidRefresh}
             text={'Clear'}
-        />
+        />*/}
         <ToolbarButton action={openInfo} icon={help} text={'Help'} />
     </div>
+)
 
 export default Toolbar

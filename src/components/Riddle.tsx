@@ -87,7 +87,7 @@ export interface CuneiformSectionProps {
     riddle: string
 }
 
-const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
+const CuneiformSection = ({ riddle }: CuneiformSectionProps) => (
     <div className={css(styles.cuneiformSection)}>
         <p>
             {riddle
@@ -95,6 +95,7 @@ const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
                 .map((value, i) => <CuneiformChar key={i} value={value} />)}
         </p>
     </div>
+)
 
 export interface EditorSectionProps {
     toolbox: string
@@ -114,7 +115,7 @@ const EditorSection = ({
     height,
     codeResult,
     runCode
-}: EditorSectionProps) =>
+}: EditorSectionProps) => (
     <div className={css(styles.editorSection)}>
         <BlocklyEditor
             toolboxXML={toolbox}
@@ -122,8 +123,10 @@ const EditorSection = ({
             onWorkspaceChange={setWorkspace}
             onCodeRun={() => console.log('coderun')}
             runCode={runCode}
+            codeResult={codeResult}
         />
     </div>
+)
 
 const expandedToFlex = (isExpanded: boolean) => (isExpanded ? 1 : 0)
 const flexToExpandedFromShrinked = (flex: number) =>
@@ -189,7 +192,7 @@ const Riddle = ({
     isTutorialOpen,
     showTutorial,
     hideTutorial
-}: RiddleProps) =>
+}: RiddleProps) => (
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} openInfo={showTutorial} />
         <Motion
@@ -198,7 +201,7 @@ const Riddle = ({
                 legendFlex: spring(expandedToFlex(isLegendExpanded))
             }}
         >
-            {({ columnFlex, legendFlex }) =>
+            {({ columnFlex, legendFlex }) => (
                 <div className={css(styles.riddleContainer)}>
                     <div
                         className={css(styles.riddleColumn)}
@@ -276,28 +279,32 @@ const Riddle = ({
                         steps={[
                             {
                                 selector: '[data-tour="1"]',
-                                content: () =>
+                                content: () => (
                                     <div>
                                         <span>
                                             Cosa sono questi simboli? Dovrei
                                             provare a tradurli...
                                         </span>
                                     </div>
+                                )
                             },
                             {
                                 selector: '[data-tour="2"]',
-                                content: () =>
+                                content: () => (
                                     <div>
                                         <span>
                                             Forse questa legenda può aiutarmi?
                                         </span>
                                     </div>
+                                )
                             }
                         ]}
                     />
-                </div>}
+                </div>
+            )}
         </Motion>
     </div>
+)
 
 export interface RiddleContainerProps {
     gameStore?: GameStore

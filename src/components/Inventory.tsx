@@ -83,31 +83,34 @@ const Inventory = ({
                         <Map onMapDoorClick={onMapDoorClick} />
                     </div>
                     <div className={css(styles.editorContainer)}>
-                        {selectedRiddle
-                            ? <BlocklyEditor
-                                  toolboxXML={getToolbox([])}
-                                  workspaceXML={gameStore.getRiddleWorkspaceXML(
-                                      selectedRiddle.id
-                                  )}
-                                  onWorkspaceChange={(workspace: string) => {
-                                      // TODO: Invece che salvare ogni volta bisognerebbe mettere un bottone
-                                      gameStore.setRiddleWorkspaceXML(
-                                          selectedRiddle.id,
-                                          workspace
-                                      )
-                                  }}
-                                  onCodeRun={() =>
-                                      console.warn(
-                                          'TODO: implement onCodeRun in Inventory.tsx'
-                                      )}
-                                  runCode={() =>
-                                      console.warn(
-                                          'TODO: implement onCodeRun in Inventory.tsx'
-                                      )}
-                              />
-                            : <div className={css(styles.placeholder)}>
-                                  Clicca una porta per iniziare ad editare
-                              </div>}
+                        {selectedRiddle ? (
+                            <BlocklyEditor
+                                toolboxXML={getToolbox([])}
+                                workspaceXML={gameStore.getRiddleWorkspaceXML(
+                                    selectedRiddle.id
+                                )}
+                                onWorkspaceChange={(workspace: string) => {
+                                    // TODO: Invece che salvare ogni volta bisognerebbe mettere un bottone
+                                    gameStore.setRiddleWorkspaceXML(
+                                        selectedRiddle.id,
+                                        workspace
+                                    )
+                                }}
+                                onCodeRun={() =>
+                                    console.warn(
+                                        'TODO: implement onCodeRun in Inventory.tsx'
+                                    )}
+                                runCode={() =>
+                                    console.warn(
+                                        'TODO: implement onCodeRun in Inventory.tsx'
+                                    )}
+                                codeResult={'null'}
+                            />
+                        ) : (
+                            <div className={css(styles.placeholder)}>
+                                Clicca una porta per iniziare ad editare
+                            </div>
+                        )}
                     </div>
                 </div>
             )

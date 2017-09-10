@@ -1,25 +1,55 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as Blockly from 'node-blockly/browser'
 import * as React from 'react'
+import Icon from 'react-icons-kit'
+import { androidDelete } from 'react-icons-kit/ionicons/androidDelete'
 
 const styles = StyleSheet.create({
     resizable: {
         position: 'absolute'
     },
     workspace: {
+        margin: '20px 20px 20px 10px',
+        border: '20px solid #333',
+        borderRadius: 10,
         display: 'flex',
         flex: 1,
         flexDirection: 'row'
     },
-    circle: {
+    result: {
         position: 'relative',
+        top: 'calc(100% - 80px)',
+        maxWidth: '100%',
+        width: '100%',
+        height: 80,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#e4e4e4'
+    },
+    output: {
+        resize: 'none',
+        height: 50,
+        width: 20
+    },
+    run: {
+        position: 'relative',
+        left: 20,
         width: 50,
         height: 50,
-        left: '50px',
-        top: '-webkit-calc(100% - 50px)',
         zIndex: 100,
-        margin: '-25px 0 0 -25px',
         background: 'green',
+        borderRadius: 50,
+        outline: 'none'
+    },
+    clear: {
+        position: 'relative',
+        right: 20,
+        width: 50,
+        height: 50,
+        zIndex: 100,
+        background: 'red',
         borderRadius: 50,
         outline: 'none'
     },
@@ -63,6 +93,7 @@ export interface BlockEditorProps {
     workspaceXML: string
     onWorkspaceChange: (workspace: string) => any
     onCodeRun?: () => void
+    codeResult: string
     runCode: () => void
 }
 
@@ -110,6 +141,14 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         tooltip.style.display = 'none'
     }
 
+    // TODO: non funziona
+    shouldComponentUpdate(nextProps: BlockEditorProps, nextState: any) {
+        if (nextProps.codeResult !== this.props.codeResult) {
+            return true
+        }
+        return false
+    }
+
     componentWillReceiveProps(nextProps: BlockEditorProps) {
         // TODO a cosa dovrebbe servire?
         // if (nextProps.workspaceXML !== this.props.workspaceXML) {
@@ -133,8 +172,8 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     onResize() {
         // Compute the absolute coordinates and dimensions of blocklyArea.
         const element = this.workspaceDiv
-        let x = 0
-        let y = 0
+        let x = 20
+        let y = 20
         // do {
         x += element.offsetLeft
         y += element.offsetTop
@@ -143,8 +182,10 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         // Position blocklyDiv over blocklyArea.
         this.resizableDiv.style.left = x + 'px'
         this.resizableDiv.style.top = y + 'px'
-        this.resizableDiv.style.width = this.workspaceDiv.offsetWidth + 'px'
-        this.resizableDiv.style.height = this.workspaceDiv.offsetHeight + 'px'
+        this.resizableDiv.style.width =
+            this.workspaceDiv.offsetWidth - 1 - 40 + 'px' // -1 altrimenti si vede scrollbar
+        this.resizableDiv.style.height =
+            this.workspaceDiv.offsetHeight - 40 - 80 + 'px' // 50 = height sezione risultato
         // tslint:disable-next-line:curly
         if (this.workspace) Blockly.svgResize(this.workspace)
     }
@@ -165,13 +206,35 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                     }}
                     className={css(styles.resizable)}
                 />
-                <button
-                    id="play"
-                    onClick={this.props.runCode}
-                    className={css(styles.circle)}
-                >
-                    <div className={css(styles.play)} />
-                </button>
+                <div id="resultDiv" className={css(styles.result)}>
+                    <button
+                        id="play"
+                        onClick={this.props.runCode}
+                        className={css(styles.run)}
+                    >
+                        <div className={css(styles.play)} />
+                    </button>
+                    <textarea
+                        readOnly={true}
+                        // TODO: perche' cazzo non si aggiorna?
+                        defaultValue={
+                            this.props.codeResult ||
+                            'Premi il pulsante "Play" per eseguire il codice'
+                        }
+                        className={css(styles.output)}
+                    />
+                    <button
+                        id="clear"
+                        onClick={() => console.log('TODO')}
+                        className={css(styles.clear)}
+                    >
+                        <Icon
+                            icon={androidDelete}
+                            size={32}
+                            style={{ color: 'white' }}
+                        />
+                    </button>
+                </div>
             </div>
         )
     }
