@@ -21,7 +21,7 @@ const calculateDimesions = () => {
 
 class Game extends Phaser.Game {
     constructor() {
-        super(gameWidth, gameHeight, Phaser.CANVAS, 'game', null)
+        super(gameWidth, gameHeight, Phaser.AUTO, 'game', null, false, false)
 
         this.state.add('Boot', BootState, false)
         this.state.add('Game', GameState, false)
