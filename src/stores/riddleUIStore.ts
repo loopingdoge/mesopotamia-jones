@@ -6,8 +6,23 @@ export class RiddleUIStore {
     @observable isNotificationVisible: boolean = false
     @observable isTutorialOpen: boolean = false
 
-    @action shrinkCuneiform = () => (this.isCuneiformExpanded = false)
-    @action expandCuneiform = () => (this.isCuneiformExpanded = true)
+    @action
+    shrinkCuneiform = () => {
+        this.isCuneiformExpanded = false
+        const event = document.createEvent('HTMLEvents')
+        event.initEvent('resize', true, false)
+        for (let i = 100; i < 600; i += 25)
+            setTimeout(() => window.dispatchEvent(event), i)
+    }
+
+    @action
+    expandCuneiform = () => {
+        this.isCuneiformExpanded = true
+        const event = document.createEvent('HTMLEvents')
+        event.initEvent('resize', true, false)
+        for (let i = 100; i < 600; i += 25)
+            setTimeout(() => window.dispatchEvent(event), i)
+    }
 
     @action shrinkLegend = () => (this.isLegendExpanded = false)
     @action expandLegend = () => (this.isLegendExpanded = true)
