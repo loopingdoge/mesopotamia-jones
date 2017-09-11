@@ -141,14 +141,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         tooltip.style.display = 'none'
     }
 
-    // TODO: non funziona
-    shouldComponentUpdate(nextProps: BlockEditorProps, nextState: any) {
-        if (nextProps.codeResult !== this.props.codeResult) {
-            return true
-        }
-        return false
-    }
-
     componentWillReceiveProps(nextProps: BlockEditorProps) {
         // TODO a cosa dovrebbe servire?
         // if (nextProps.workspaceXML !== this.props.workspaceXML) {
@@ -217,7 +209,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                     <textarea
                         readOnly={true}
                         // TODO: perche' cazzo non si aggiorna?
-                        defaultValue={
+                        value={
                             this.props.codeResult ||
                             'Premi il pulsante "Play" per eseguire il codice'
                         }
