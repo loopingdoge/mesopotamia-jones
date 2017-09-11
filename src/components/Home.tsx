@@ -1,6 +1,4 @@
 import { css, StyleSheet } from 'aphrodite'
-import { isEqual } from 'lodash'
-import { toJS } from 'mobx'
 import { inject, observer } from 'mobx-react'
 import { RouterStore } from 'mobx-react-router'
 import * as React from 'react'
@@ -91,10 +89,7 @@ class HomeContainer extends React.Component<HomeContainerProps, undefined> {
                 newGame={this.newGame}
                 showCredits={this.showCredits}
                 saveFileExists={
-                    !isEqual(
-                        defaultGameStoreState(),
-                        toJS(this.props.gameStore.state)
-                    )
+                    this.props.gameStore.state.progression.isGameStarted
                 }
             />
         )

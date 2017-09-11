@@ -47,10 +47,8 @@ export const dialogues: Dialogue[] = [
     dialogue('dialog1', [
         line(
             characters[0],
-            'Ah che bello faccio una passeggiata nel deserto...'
-        ),
-        line(characters[0], 'Accidenti, sono finito in un buco...'),
-        line(characters[0], '...e non ho goduto nemmeno')
+            'Accidenti, mentre esploravo sono caduto in buco di questa piramide... devo cercare di uscire da qui'
+        )
     ]),
     dialogue('dialog2', [
         line(

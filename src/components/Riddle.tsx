@@ -4,8 +4,16 @@ import * as React from 'react'
 import { Motion, spring } from 'react-motion'
 import Tour from 'reactour'
 
-import { computer, getToolbox, hasItem, Inventory } from '../config/inventory'
+import {
+    computer,
+    getToolbox,
+    hasItem,
+    Inventory,
+    reactourInventory
+} from '../config/inventory'
+import { reactourStartIndex } from '../config/progression'
 import { SolutionType } from '../config/riddles'
+
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 import { RiddleStore } from '../stores/riddleStore'
@@ -87,7 +95,7 @@ export interface CuneiformSectionProps {
     riddle: string
 }
 
-const CuneiformSection = ({ riddle }: CuneiformSectionProps) => (
+const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)} id="cuneiformRiddle">
         <p>
             {riddle
@@ -95,7 +103,6 @@ const CuneiformSection = ({ riddle }: CuneiformSectionProps) => (
                 .map((value, i) => <CuneiformChar key={i} value={value} />)}
         </p>
     </div>
-)
 
 export interface EditorSectionProps {
     toolbox: string
@@ -115,7 +122,7 @@ const EditorSection = ({
     height,
     codeResult,
     runCode
-}: EditorSectionProps) => (
+}: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <BlocklyEditor
             toolboxXML={toolbox}
@@ -126,7 +133,6 @@ const EditorSection = ({
             codeResult={codeResult}
         />
     </div>
-)
 
 const expandedToFlex = (isExpanded: boolean) => (isExpanded ? 1 : 0)
 const flexToExpandedFromShrinked = (flex: number) =>
@@ -164,6 +170,7 @@ export interface RiddleProps {
     setWorkspace: (code: string) => void
     onChangeSolution: (sol: string) => void
     tryOpenDoor: () => void
+    tutorialStartIndex: number
 }
 
 const Riddle = ({
@@ -191,8 +198,9 @@ const Riddle = ({
     height,
     isTutorialOpen,
     showTutorial,
-    hideTutorial
-}: RiddleProps) => (
+    hideTutorial,
+    tutorialStartIndex
+}: RiddleProps) =>
     <div className={css(styles.wrapper)}>
         <Toolbar goBack={goBack} openInfo={showTutorial} />
         <Motion
@@ -201,7 +209,7 @@ const Riddle = ({
                 legendFlex: spring(expandedToFlex(isLegendExpanded))
             }}
         >
-            {({ columnFlex, legendFlex }) => (
+            {({ columnFlex, legendFlex }) =>
                 <div className={css(styles.riddleContainer)}>
                     <div
                         className={css(styles.riddleColumn)}
@@ -275,70 +283,41 @@ const Riddle = ({
                         isOpen={isTutorialOpen}
                         onRequestClose={hideTutorial}
                         maskSpace={0}
+                        startAt={tutorialStartIndex}
                         steps={[
                             {
                                 selector: '#cuneiformRiddle',
-                                content: () => (
+                                content: () =>
                                     <div>
                                         <span>
                                             Cosa sono questi simboli? Dovrei
                                             provare a tradurli...
                                         </span>
                                     </div>
-                                )
                             },
                             {
                                 selector: '#cuneiformLegend',
-                                content: () => (
+                                content: () =>
                                     <div>
                                         <span>
                                             Forse questa legenda può aiutarmi?
                                         </span>
                                     </div>
-                                )
                             },
-                            {
-                                selector: '#blocklyArea',
-                                content: () => (
+                            ...reactourInventory(inventory).map(tutorial => ({
+                                selector: tutorial.selector,
+                                content: () =>
                                     <div>
                                         <span>
-                                            Grazie al computer posso risolvere
-                                            questi indovinelli una volta per
-                                            tutte!
+                                            {tutorial.text}
                                         </span>
                                     </div>
-                                )
-                            },
-                            {
-                                selector: '.blocklyFlyout',
-                                content: () => (
-                                    <div>
-                                        <span>
-                                            Posso trascinare questi elementi
-                                            nell'area bianca!
-                                        </span>
-                                    </div>
-                                )
-                            },
-                            {
-                                selector: '#play',
-                                content: () => (
-                                    <div>
-                                        <span>
-                                            Se premo questo bottone il computer
-                                            eseguirà questo codice e sposterà
-                                            automaticamente gli ingranaggi
-                                        </span>
-                                    </div>
-                                )
-                            }
+                            }))
                         ]}
                     />
-                </div>
-            )}
+                </div>}
         </Motion>
     </div>
-)
 
 export interface RiddleContainerProps {
     gameStore?: GameStore
@@ -355,6 +334,9 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             if (!this.props.gameStore.firstRiddleVisited) {
                 this.props.riddleUIStore.showTutorial()
                 this.props.gameStore.enterFirstRiddle()
+            }
+            if (this.props.riddleUIStore.tutorialStartIndex) {
+                this.props.riddleUIStore.showTutorial()
             }
         }, 200)
     }
@@ -386,7 +368,8 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             isNotificationVisible,
             showTutorial,
             hideTutorial,
-            isTutorialOpen
+            isTutorialOpen,
+            tutorialStartIndex
         } = this.props.riddleUIStore
 
         return (
@@ -416,6 +399,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 hideTutorial={hideTutorial}
                 width={width}
                 height={height}
+                tutorialStartIndex={tutorialStartIndex}
             />
         )
     }

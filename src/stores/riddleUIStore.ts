@@ -5,6 +5,7 @@ export class RiddleUIStore {
     @observable isLegendExpanded: boolean = true
     @observable isNotificationVisible: boolean = false
     @observable isTutorialOpen: boolean = false
+    @observable tutorialStartIndex: number = 0
 
     @action
     shrinkCuneiform = () => {

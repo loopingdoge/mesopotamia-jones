@@ -1,7 +1,9 @@
-import { action, computed, observable, reaction } from 'mobx'
+import { isEqual } from 'lodash'
+import { action, computed, observable, reaction, toJS } from 'mobx'
 
 import { UIStore } from './gameUIStore'
 import { RiddleStore } from './riddleStore'
+import riddleUIStore from './riddleUIStore'
 
 import { Chest, Chests, defaultChests } from '../config/chests'
 import { Dialogue, getDialogById, NEED_KEY } from '../config/dialogues'
@@ -18,6 +20,11 @@ import {
     Item
 } from '../config/inventory'
 import { Door, getGameDoor, Room, rooms } from '../config/map'
+import {
+    defaultProgression,
+    Progression,
+    reactourStartIndex
+} from '../config/progression'
 
 import PhaserGame from '../phaser'
 import { addListener, Maybe, removeListener } from '../utils'
@@ -34,6 +41,7 @@ export interface GameState {
     inventory: Inventory
     interaction: Interaction
     chests: Chests
+    progression: Progression
 }
 
 export const defaultGameStoreState: () => GameState = () => ({
@@ -45,7 +53,8 @@ export const defaultGameStoreState: () => GameState = () => ({
     phase: 'Game',
     inventory: defaultInventory(),
     interaction: null,
-    chests: defaultChests
+    chests: defaultChests,
+    progression: defaultProgression()
 })
 
 export interface DoorInteraction {
@@ -73,7 +82,7 @@ export class GameStore {
 
     @observable state: GameState
 
-    @observable lineId: number
+    @observable lineId = 0
 
     @computed
     get room(): Room {
@@ -181,6 +190,10 @@ export class GameStore {
                     : this.uiStore.hideInteractionHint()
             }
         )
+
+        if (!this.state.progression.isGameStarted) {
+            this.showDialogue('dialog1')
+        }
     }
 
     @action
@@ -193,6 +206,7 @@ export class GameStore {
     newGame = () => {
         localStorage.setItem('gameState', null)
         this.state = defaultGameStoreState()
+        this.state.progression.isGameStarted = true
     }
 
     saveGameState = () => {
@@ -232,6 +246,11 @@ export class GameStore {
             ...this.state,
             lastDoor: gameDoor.door,
             phase: 'Riddle'
+        }
+
+        if (reactourStartIndex(this.state.inventory, this.state.progression)) {
+            this.state.progression.hasShownComputerTutorial = true
+            riddleUIStore.tutorialStartIndex = 2
         }
     }
 

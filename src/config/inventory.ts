@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 import * as ComputerImage from '../../assets/images/computer.png'
 import * as ComputerKeyImage from '../../assets/images/key.png'
 
@@ -51,15 +53,19 @@ export const getToolbox = (additionalEntries: any[]) => {
 // <block type="text"></block>
 // <block type="text_print"></block>
 
-const item = (id: string, name: string, image: any): Item => ({
+const createItem = (id: string, name: string, image: any): Item => ({
     id,
     name,
     image
 })
 
 export const computer = new Computer()
-export const rockSmasher = item(ROCK_SMASHER, 'rock smasher', '')
-export const computerKey = item(COMPUTER_KEY, 'old chest key', ComputerKeyImage)
+export const rockSmasher = createItem(ROCK_SMASHER, 'rock smasher', '')
+export const computerKey = createItem(
+    COMPUTER_KEY,
+    'old chest key',
+    ComputerKeyImage
+)
 
 const items: Item[] = [computer, rockSmasher]
 
@@ -79,4 +85,31 @@ export const addItem = (inventory: Inventory, item: Item): Inventory => {
     } else {
         return [...inventory, item]
     }
+}
+
+export const reactourInventory = (inventory: Inventory) => {
+    const tutorials = inventory.map(item => {
+        if (item.id === COMPUTER) {
+            return [
+                {
+                    selector: '#blocklyArea',
+                    text:
+                        'Grazie al computer posso risolvere questi indovinelli una volta per tutte!'
+                },
+                {
+                    selector: '.blocklyFlyout',
+                    text: "Posso trascinare questi elementi nell'area bianca!"
+                },
+                {
+                    selector: '#play',
+                    text:
+                        'Se premo questo bottone il computer eseguirà questo codice e sposterà automaticamente gli ingranaggi'
+                }
+            ]
+        }
+    })
+    return tutorials.reduce(
+        (prev, curr) => (curr ? prev.concat(curr) : prev),
+        []
+    )
 }

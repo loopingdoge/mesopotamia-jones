@@ -143,6 +143,7 @@ export class RiddleStore {
             this.runCode()
             this.checkSolution()
         }
+        riddleUIStore.tutorialStartIndex = 0
     }
 
     @action
