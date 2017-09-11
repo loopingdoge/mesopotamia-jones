@@ -11,8 +11,9 @@ export class RiddleUIStore {
         this.isCuneiformExpanded = false
         const event = document.createEvent('HTMLEvents')
         event.initEvent('resize', true, false)
-        for (let i = 100; i < 600; i += 25)
+        for (let i = 100; i < 1000; i += 25) {
             setTimeout(() => window.dispatchEvent(event), i)
+        }
     }
 
     @action
@@ -20,8 +21,9 @@ export class RiddleUIStore {
         this.isCuneiformExpanded = true
         const event = document.createEvent('HTMLEvents')
         event.initEvent('resize', true, false)
-        for (let i = 100; i < 600; i += 25)
+        for (let i = 100; i < 1000; i += 25) {
             setTimeout(() => window.dispatchEvent(event), i)
+        }
     }
 
     @action shrinkLegend = () => (this.isLegendExpanded = false)

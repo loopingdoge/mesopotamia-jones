@@ -1,7 +1,7 @@
 { "height":9,
  "layers":[
         {
-         "data":[111, 1, 2, 3, 4, 5, 1, 2, 3, 1, 4, 5, 3, 4, 3, 112, 91, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 86, 93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 99, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 113, 93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 94, 0, 0, 77, 78, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 87, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 125, 43, 45, 43, 46, 47, 43, 43, 46, 45, 47, 43, 45, 43, 46, 126],
+         "data":[111, 1, 2, 3, 4, 5, 1, 2, 3, 1, 4, 5, 3, 4, 3, 112, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 86, 93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 99, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 113, 93, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 94, 0, 0, 77, 78, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 87, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 125, 43, 45, 43, 46, 47, 43, 43, 46, 45, 47, 43, 45, 43, 46, 126],
          "height":9,
          "name":"Livello tile 1",
          "opacity":1,
@@ -10,8 +10,32 @@
          "width":16,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":9,
+         "name":"items",
+         "objects":[
+                {
+                 "gid":142,
+                 "height":32,
+                 "id":11,
+                 "name":"chest1",
+                 "rotation":0,
+                 "type":"chest",
+                 "visible":true,
+                 "width":32,
+                 "x":128,
+                 "y":64
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":16,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":1,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":32,
@@ -36,16 +60,37 @@
             {
              "112":
                 {
-                 "isDoor":true,
-                 "direction":"left"
+                 "direction":"left",
+                 "isDoor":true
                 }
             },
          "tilepropertytypes":
             {
              "112":
                 {
-                 "isDoor":"bool",
-                 "direction":"string"
+                 "direction":"string",
+                 "isDoor":"bool"
+                }
+            },
+         "tilewidth":32
+        }, 
+        {
+         "columns":0,
+         "firstgid":141,
+         "margin":0,
+         "name":"objects",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":32,
+         "tiles":
+            {
+             "1":
+                {
+                 "image":"..\/images\/chest-close.png"
+                },
+             "2":
+                {
+                 "image":"..\/images\/chest-open.png"
                 }
             },
          "tilewidth":32
