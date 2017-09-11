@@ -1,5 +1,4 @@
 { "height":9,
- "infinite":false,
  "layers":[
         {
          "data":[111, 1, 2, 3, 4, 6, 3, 1, 1, 1, 6, 5, 3, 4, 3, 112, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 130, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 102, 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 116, 133, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 130, 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 102, 125, 43, 45, 43, 43, 48, 44, 45, 43, 43, 48, 43, 45, 43, 46, 126],
@@ -11,12 +10,22 @@
          "width":16,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":9,
+         "name":"items",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":16,
+         "x":0,
+         "y":0
         }],
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "templategroups":[],
- "tiledversion":"v1.0.2-200-gcf67c77",
  "tileheight":32,
  "tilesets":[
         {
@@ -64,7 +73,6 @@
          "tilewidth":32
         }],
  "tilewidth":32,
- "type":"map",
  "version":1,
  "width":16
 }

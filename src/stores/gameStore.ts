@@ -3,7 +3,7 @@ import { action, computed, observable, reaction } from 'mobx'
 import { UIStore } from './gameUIStore'
 import { RiddleStore } from './riddleStore'
 
-import { getChestById } from '../config/chests'
+import { Chest, Chests, defaultChests } from '../config/chests'
 import { Dialogue, getDialogById, NEED_KEY } from '../config/dialogues'
 import {
     addItem,
@@ -33,6 +33,7 @@ export interface GameState {
     phase: GamePhase
     inventory: Inventory
     interaction: Interaction
+    chests: Chests
 }
 
 export const defaultGameStoreState: () => GameState = () => ({
@@ -43,7 +44,8 @@ export const defaultGameStoreState: () => GameState = () => ({
     lastDoor: null,
     phase: 'Game',
     inventory: defaultInventory(),
-    interaction: null
+    interaction: null,
+    chests: defaultChests
 })
 
 export interface DoorInteraction {
@@ -312,22 +314,19 @@ export class GameStore {
     }
 
     interactionListener = (event: KeyboardEvent) => {
-        if (!this.state.activeDialogue && !this.state.activeFoundItem) {
+        if (
+            !this.state.activeDialogue &&
+            !this.state.activeFoundItem &&
+            this.state.interaction
+        ) {
             if (event.key === 'f' || event.key === 'F') {
-                // TODO: cannot read type of null
                 switch (this.state.interaction.type) {
                     case 'door':
                         const { x, y } = this.state.interaction
                         this.activateRiddle(x, y)
                         break
                     case 'object':
-                        const chest = getChestById(this.state.interaction.id)
-                        if (hasItem(this.state.inventory, chest.requiredItem)) {
-                            this.showFoundItem(chest.item)
-                            this.addItemToInventory(chest.item)
-                        } else {
-                            this.showDialogue(NEED_KEY)
-                        }
+                        this.openChest(this.state.interaction.id)
                         break
                     case 'npc':
                         this.showDialogue(this.state.interaction.id)
@@ -367,6 +366,27 @@ export class GameStore {
         this.state = {
             ...this.state,
             firstRiddleVisited: true
+        }
+    }
+
+    @action
+    openChest = (id: string) => {
+        const chest = this.state.chests[id]
+        if (hasItem(this.state.inventory, chest.requiredItem)) {
+            this.showFoundItem(chest.item)
+            this.addItemToInventory(chest.item)
+            this.state = {
+                ...this.state,
+                chests: {
+                    ...this.state.chests,
+                    [id]: {
+                        ...this.state.chests.id,
+                        open: true
+                    }
+                }
+            }
+        } else {
+            this.showDialogue(NEED_KEY)
         }
     }
 }

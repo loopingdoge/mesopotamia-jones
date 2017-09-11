@@ -5,6 +5,9 @@ import gameStore from '../../stores/gameStore'
 import * as DoorImage from '../../../assets/images/door.png'
 import * as DudeImage from '../../../assets/images/dude.png'
 
+import * as ChestClose from '../../../assets/images/chest-close.png'
+import * as ChestOpen from '../../../assets/images/chest-open.png'
+
 import * as Room1 from '../../../assets/tilemaps/room1.json'
 import * as Room2 from '../../../assets/tilemaps/room2.json'
 import * as Room3 from '../../../assets/tilemaps/room3.json'
@@ -36,6 +39,8 @@ export default class Boot extends Phaser.State {
         this.load.image('innerJoystick', innerJoystick)
         this.load.image('actionButton', innerJoystick)
         this.load.image('pressf', pressF)
+        this.load.image('chest-close', ChestClose)
+        this.load.image('chest-open', ChestOpen)
     }
 
     create() {

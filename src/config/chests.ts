@@ -4,18 +4,26 @@ export interface Chest {
     id: string
     item: Item
     requiredItem: Item
+    open: boolean
 }
 
-const chest: (id: string, item: Item, requiredItemId: Item) => Chest = (
+export interface Chests {
+    [id: string]: Chest
+}
+
+const createChest: (id: string, item: Item, requiredItemId: Item) => Chest = (
     id: string,
     item: Item,
     requiredItem: Item
 ) => ({
     id,
     item,
-    requiredItem
+    requiredItem,
+    open: false
 })
 
-const chests: Chest[] = [chest('chest1', computer, computerKey)]
-
-export const getChestById = (id: string) => chests.filter(c => c.id === id)[0]
+export const defaultChests: Chests = {
+    chest1: {
+        ...createChest('chest1', computer, computerKey)
+    }
+}

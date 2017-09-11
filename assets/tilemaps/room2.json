@@ -1,5 +1,4 @@
 { "height":9,
- "infinite":false,
  "layers":[
         {
          "data":[111, 1, 2, 3, 4, 6, 32, 33, 34, 6, 4, 5, 3, 4, 3, 112, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 86, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 101, 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 115, 133, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 129, 94, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 78, 77, 87, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 78, 77, 77, 85, 125, 43, 45, 43, 46, 47, 43, 43, 46, 45, 47, 43, 45, 43, 46, 126],
@@ -11,12 +10,22 @@
          "width":16,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":9,
+         "name":"items",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":16,
+         "x":0,
+         "y":0
         }],
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "templategroups":[],
- "tiledversion":"v1.0.2-200-gcf67c77",
  "tileheight":32,
  "tilesets":[
         {
@@ -37,6 +46,11 @@
          "tileheight":32,
          "tileproperties":
             {
+             "114":
+                {
+                 "direction":"left",
+                 "isDoor":true
+                },
              "118":
                 {
                  "direction":"right",
@@ -46,26 +60,21 @@
                 {
                  "direction":"bottom",
                  "isDoor":true
-                },
-             "114":
-                {
-                 "direction":"left",
-                 "isDoor":true
                 }
             },
          "tilepropertytypes":
             {
+             "114":
+                {
+                 "direction":"string",
+                 "isDoor":"bool"
+                },
              "118":
                 {
                  "direction":"string",
                  "isDoor":"bool"
                 },
              "32":
-                {
-                 "direction":"string",
-                 "isDoor":"bool"
-                },
-             "114":
                 {
                  "direction":"string",
                  "isDoor":"bool"
@@ -128,7 +137,6 @@
          "tilewidth":32
         }],
  "tilewidth":32,
- "type":"map",
  "version":1,
  "width":16
 }

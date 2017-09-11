@@ -1,9 +1,12 @@
 import * as Phaser from 'phaser-ce'
 
+import { Chest } from '../../config/chests'
 import { GameDoor, getGameDoorById } from '../../config/map'
+
 import gameStore from '../../stores/gameStore'
 import { coord2Pixel } from '../config'
 import ActionButton from '../sprites/ActionButton'
+import ChestSprite from '../sprites/Chest'
 import Hammurtossi from '../sprites/Hammurtossi'
 import InteractionHint from '../sprites/InteractionHint'
 import Joystick from '../sprites/Joystick'
@@ -12,14 +15,18 @@ import Npc from '../sprites/Npc'
 import Player from '../sprites/Player'
 import VonTalin from '../sprites/VonTalin'
 
+type GameObject = ChestSprite
+
 export default class Game extends Phaser.State {
     player: Player
     npcs: Npc[]
     joystick: Joystick
     keyboard: Keyboard
     actionButton: ActionButton
+    map: Phaser.Tilemap
     scene: Phaser.TilemapLayer
     characters: Phaser.Group
+    objects: Phaser.Group
     detectCollisionLines: Phaser.Line[]
 
     init() {
@@ -29,28 +36,51 @@ export default class Game extends Phaser.State {
     create() {
         this.game.stage.backgroundColor = '#E37710'
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
-        const map = this.game.add.tilemap(gameStore.room.id)
+        this.map = this.game.add.tilemap(gameStore.room.id)
 
-        map.addTilesetImage('sheet', 'tiles')
+        this.map.addTilesetImage('sheet', 'tiles')
 
-        this.scene = map.createLayer('Livello tile 1')
+        this.scene = this.map.createLayer('Livello tile 1')
 
-        map.setCollisionByExclusion(
+        this.map.setCollisionByExclusion(
             [7, 8, 9, 21, 22, 23, 35, 36, 37].map(n => n + 1)
         )
 
         //  This resizes the game world to match the layer dimensions
         this.scene.resizeWorld()
 
-        let centerX: number = this.world.centerX
-        let centerY: number = this.world.centerY
+        this.createPlayer()
+
+        this.createNpcs()
+
+        if (this.game.device.touch) {
+            this.joystick = this.game.add.existing(
+                new Joystick(this.game, 100, 200, this.player.events)
+            )
+            this.actionButton = this.game.add.existing(
+                new ActionButton(this.game, 400, 200)
+            )
+        } else {
+            this.keyboard = this.game.add.existing(
+                new Keyboard(this.game, this.player.events)
+            )
+        }
+    }
+
+    createPlayer() {
+        let playerX: number = this.world.centerX
+        let playerY: number = this.world.centerY
 
         if (gameStore.lastDoor) {
             const lastDoor: GameDoor = getGameDoorById(
                 gameStore.lastDoor,
                 gameStore.room
             )
-            const lastDoorTile = map.getTile(lastDoor.x, lastDoor.y, this.scene)
+            const lastDoorTile = this.map.getTile(
+                lastDoor.x,
+                lastDoor.y,
+                this.scene
+            )
             let cX = lastDoorTile.centerX + lastDoorTile.left
             let cY = lastDoorTile.centerY + lastDoorTile.top
 
@@ -68,28 +98,37 @@ export default class Game extends Phaser.State {
                     cX += lastDoorTile.width
                     break
             }
-            centerX = cX || centerX
-            centerY = cY || centerY
+            playerX = cX || playerX
+            playerY = cY || playerY
         }
-
-        this.npcs = []
 
         this.player = this.game.add.existing(
-            new Player(this.game, centerX, centerY)
+            new Player(this.game, playerX, playerY)
         )
+    }
 
-        if (this.game.device.touch) {
-            this.joystick = this.game.add.existing(
-                new Joystick(this.game, 100, 200, this.player.events)
-            )
-            this.actionButton = this.game.add.existing(
-                new ActionButton(this.game, 400, 200)
-            )
-        } else {
-            this.keyboard = this.game.add.existing(
-                new Keyboard(this.game, this.player.events)
-            )
-        }
+    createObjects() {
+        this.objects = this.game.add.group()
+        this.objects.enableBody = true
+        const objects = this.map.objects as any
+        objects.items.forEach((object: any) => {
+            if (object.type === 'chest') {
+                this.objects.add(
+                    this.game.add.existing(
+                        new ChestSprite(
+                            this.game,
+                            object.x,
+                            object.y,
+                            object.name
+                        )
+                    )
+                )
+            }
+        })
+    }
+
+    createNpcs() {
+        this.npcs = []
 
         if (gameStore.room.id === 'room3') {
             this.npcs = [
@@ -103,6 +142,8 @@ export default class Game extends Phaser.State {
             ]
             this.game.add.existing(this.npcs[0])
         }
+
+        this.createObjects()
 
         this.characters = new Phaser.Group(this.game)
         this.characters.add(this.player)
@@ -159,12 +200,12 @@ export default class Game extends Phaser.State {
             this
         )
 
-        this.npcs.forEach(npc =>
-            this.game.physics.arcade.collide(this.player, npc, null, null, this)
-        )
+        this.game.physics.arcade.collide(this.player, this.objects)
+        this.game.physics.arcade.collide(this.player, this.characters)
 
         let nearTiles: Phaser.Tile[] = []
         let nearNpc: Npc = null
+        let nearItem: GameObject = null
 
         this.detectCollisionLines.forEach(line => {
             const tiles = this.scene
@@ -174,24 +215,32 @@ export default class Game extends Phaser.State {
         })
 
         nearTiles.forEach(tile => {
-            this.onNearTile(tile)
+            if (tile.properties.isDoor) {
+                this.onNearTile(tile)
+            }
         })
 
         this.npcs.forEach(npc => {
-            if (
-                Phaser.Math.distance(
-                    this.player.x,
-                    this.player.y,
-                    npc.x,
-                    npc.y
-                ) < 40
-            ) {
+            if (this.isSpriteNearPlayer(npc)) {
                 nearNpc = npc
                 this.onNearNpc(npc)
             }
         })
 
-        if (nearTiles.length === 0 && nearNpc === null) {
+        this.objects.forEach((item: GameObject) => {
+            if (this.isSpriteNearPlayer(item)) {
+                switch (item.objectId) {
+                    case 'chest':
+                        if (!gameStore.state.chests[item.chestId].open) {
+                            nearItem = item
+                            this.onNearChest(item)
+                        }
+                        break
+                }
+            }
+        }, this)
+
+        if (nearTiles.length === 0 && nearNpc === null && nearItem === null) {
             this.player.hideInteractionHint()
             gameStore.removeInteraction()
         } else {
@@ -214,6 +263,12 @@ export default class Game extends Phaser.State {
         }
     }
 
+    onNearChest(chest: ChestSprite) {
+        if (gameStore.controlsEnabled) {
+            this.activateChest(chest.chestId)
+        }
+    }
+
     onNearNpc(npc: Npc) {
         if (gameStore.controlsEnabled) {
             const dialogueId = npc.dialogue(gameStore.state)
@@ -224,6 +279,10 @@ export default class Game extends Phaser.State {
     isCollisionWithDoor(tile: Phaser.Tile) {
         return tile.properties.isDoor
     }
+
+    isSpriteNearPlayer = (sprite: Phaser.Sprite) =>
+        Phaser.Math.distance(this.player.x, this.player.y, sprite.x, sprite.y) <
+        40
 
     activateChest(chestId: string) {
         gameStore.readyInteraction({ type: 'object', id: chestId })

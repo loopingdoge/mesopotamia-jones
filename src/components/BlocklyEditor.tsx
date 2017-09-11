@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     output: {
         resize: 'none',
         height: 50,
-        width: 20
+        width: 100
     },
     run: {
         position: 'relative',
