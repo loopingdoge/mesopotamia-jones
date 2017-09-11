@@ -40,7 +40,7 @@ export default class Game extends Phaser.State {
 
         this.map.addTilesetImage('sheet', 'tiles')
 
-        this.scene = this.map.createLayer('Livello tile 1')
+        this.scene = this.map.createLayer('blocking')
 
         this.map.setCollisionByExclusion(
             [7, 8, 9, 21, 22, 23, 35, 36, 37].map(n => n + 1)
@@ -210,7 +210,7 @@ export default class Game extends Phaser.State {
         this.detectCollisionLines.forEach(line => {
             const tiles = this.scene
                 .getRayCastTiles(line, 1, true)
-                .filter(tile => tile.index === 63 || tile.properties.isDoor)
+                .filter(tile => tile.properties.isDoor)
             nearTiles = [...nearTiles, ...tiles]
         })
 
