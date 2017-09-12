@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
     lockCode: {
         display: 'flex',
         flexDirection: 'column',
-        padding: '0 8px'
+        padding: '0 8px',
+        fontFamily: 'monospace'
     },
     fieldsColumn: {
         height: 125,
@@ -84,9 +85,9 @@ const SolutionLabel = ({
 // -------------------------------------------------------------------------------
 
 const columnOffset = (currentIndex: number) => {
-    let offset = 41
+    let offset = 42
     if (currentIndex > 0) {
-        offset = (currentIndex - 1) * -41
+        offset = (currentIndex - 1) * -offset
     }
     return offset
 }

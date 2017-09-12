@@ -21,6 +21,12 @@ const randomNum = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
+const randomLetter = () => {
+    const letters = 'abcdefghijklmnopqrstuvwxyz'.split('')
+    const randomIndex = Math.floor(Math.random() * letters.length)
+    return letters[randomIndex]
+}
+
 export const userSolutionInit = (type: SolutionType, length: number) => {
     let str = ''
     // tslint:disable-next-line:curly
@@ -90,14 +96,8 @@ const riddles: Riddle[] = [
             `<block type="math_arithmetic">
                 <field name="OP">ADD</field>
                 <value name="A">
-                <shadow type="math_number">
-                    <field name="NUM">1</field>
-                </shadow>
                 </value>
                 <value name="B">
-                <shadow type="math_number">
-                    <field name="NUM">1</field>
-                </shadow>
                 </value>
             </block>`
         ],
@@ -167,10 +167,11 @@ const riddles: Riddle[] = [
         argsGenerator: () => [randomNum(1, 4), randomNum(1, 4)]
     },
     {
-        id: 'somma',
-        question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
+        id: 'word',
+        question: ([a, b, c, d]: string[]) =>
+            `Metti assieme le lettere ${a} ${b} ${c} ${d}`,
         defaultToolbox: [`<block type="math_number"></block>`],
-        defaultWorkspace: ([a, b]) => `
+        defaultWorkspace: ([a, b, c, d]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
             <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
         </xml>`,
@@ -230,10 +231,15 @@ const riddles: Riddle[] = [
             const code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${args})`
             return code
         },
-        solution: ([a, b]: number[]) => `${a + b}`,
-        solutionLength: 1,
-        solutionType: 'number',
-        argsGenerator: () => [randomNum(1, 4), randomNum(1, 4)]
+        solution: ([a, b, c, d]: string[]) => `${a + b + c + d}`,
+        solutionLength: 4,
+        solutionType: 'string',
+        argsGenerator: () => [
+            randomLetter(),
+            randomLetter(),
+            randomLetter(),
+            randomLetter()
+        ]
     },
     {
         id: 'somma',
