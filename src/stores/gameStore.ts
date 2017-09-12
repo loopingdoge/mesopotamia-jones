@@ -27,7 +27,7 @@ import {
 } from '../config/progression'
 
 import PhaserGame from '../phaser'
-import { addListener, Maybe, removeListener } from '../utils'
+import { addActionListener, Maybe, removeActionListener } from '../utils'
 
 export type GamePhase = 'Game' | 'Riddle'
 
@@ -153,7 +153,7 @@ export class GameStore {
                         this.lineId++
                     } else {
                         gameStore.hideDialogue()
-                        removeListener(nextLine)
+                        removeActionListener(nextLine)
                         if (dialog.id === 'dialog2') {
                             this.showFoundItem(computerKey)
                             this.addItemToInventory(computerKey)
@@ -162,7 +162,7 @@ export class GameStore {
                 }
                 if (dialog) {
                     this.lineId = 0
-                    setTimeout(() => addListener(nextLine), 500)
+                    setTimeout(() => addActionListener(nextLine), 100)
                 }
             }
         )
@@ -172,9 +172,9 @@ export class GameStore {
             item => {
                 const hideItemScreen = () => {
                     this.state.activeFoundItem = null
-                    removeListener(hideItemScreen)
+                    removeActionListener(hideItemScreen)
                 }
-                setTimeout(() => addListener(hideItemScreen), 500)
+                setTimeout(() => addActionListener(hideItemScreen), 100)
             }
         )
 

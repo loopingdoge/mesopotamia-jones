@@ -54,18 +54,24 @@ export function linearMap(
     return (val - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin
 }
 
-export function addListener(callback: () => any) {
+export function addActionListener(
+    callback: EventListenerOrEventListenerObject,
+    useCapture: boolean = false
+) {
     if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) {
-        document.addEventListener('touchend', callback)
+        addEventListener('touchend', callback, useCapture)
     } else {
-        document.addEventListener('keydown', callback)
+        addEventListener('keydown', callback, useCapture)
     }
 }
 
-export function removeListener(callback: () => any) {
+export function removeActionListener(
+    callback: EventListenerOrEventListenerObject,
+    useCapture: boolean = false
+) {
     if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) {
-        document.removeEventListener('touchend', callback)
+        removeEventListener('touchend', callback, useCapture)
     } else {
-        document.removeEventListener('keydown', callback)
+        removeEventListener('keydown', callback, useCapture)
     }
 }
