@@ -1,4 +1,7 @@
+import * as MesopotamiaJonesImage from '../../assets/images/mesopotamia-jones.png'
 import * as Hammurtossi from '../../assets/images/mummy.png'
+import * as VonTalin from '../../assets/images/von-talin.png'
+
 import { Riddle } from './riddles'
 
 export interface Character {
@@ -28,16 +31,8 @@ const line = (character: Character, text: string): Line => ({ character, text })
 const dialogue = (id: string, lines: Line[]): Dialogue => ({ id, lines })
 
 export const characters: Character[] = [
-    character(
-        'mj',
-        'Mesopotamia Jones',
-        'http://www.fun-lover.com/graphic-shop/Clips/images/Misc/IndianaJones.png'
-    ),
-    character(
-        'fv',
-        'Farren Von Talin',
-        'http://vignette2.wikia.nocookie.net/witcher/images/4/49/People_Leos_ghost.png'
-    ),
+    character('mj', 'Mesopotamia Jones', MesopotamiaJonesImage as any),
+    character('fv', 'Farren Von Talin', VonTalin as any),
     character('ab', 'An-Ki Hammurtossi', Hammurtossi as any)
 ]
 
