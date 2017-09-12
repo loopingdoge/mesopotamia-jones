@@ -4,17 +4,9 @@ import { Dialogue } from '../config/dialogues'
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 import { addActionListener, Maybe, removeActionListener } from '../utils'
+import { arvo } from '../utils/fonts'
 
 import * as React from 'react'
-
-import * as Arvo from '../../assets/fonts/Arvo/Arvo-Regular.ttf'
-
-const arvo = {
-    fontFamily: 'Arvo',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    src: `url(${Arvo}) format('truetype')`
-}
 
 const translateArrowKeyframes = {
     '0%, 100%': {
@@ -107,19 +99,17 @@ class DialogueUI extends React.Component<DialogProps, DialogueState> {
     }
 
     scheduleLetters = (text: string) => {
-        text
-            .split('')
-            .forEach((letter: string, letterIndex: number) =>
-                this.timeouts.push(
-                    setTimeout(
-                        () =>
-                            this.setState({
-                                dialogueLine: this.state.dialogueLine + letter
-                            }),
-                        letterIndex * this.letterDelay
-                    )
+        text.split('').forEach((letter: string, letterIndex: number) =>
+            this.timeouts.push(
+                setTimeout(
+                    () =>
+                        this.setState({
+                            dialogueLine: this.state.dialogueLine + letter
+                        }),
+                    letterIndex * this.letterDelay
                 )
             )
+        )
 
         setTimeout(
             () => removeActionListener(this.skipToLineEnd, true),

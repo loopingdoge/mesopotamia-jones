@@ -1,4 +1,5 @@
 import { css, StyleSheet } from 'aphrodite'
+import { upperFirst } from 'lodash'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 
@@ -7,6 +8,8 @@ import widthHeightProvider from '../containers/widthHeightProvider'
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 
+import { arvo } from '../utils/fonts'
+
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
@@ -14,17 +17,41 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         padding: '8px 64px',
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    itemDescription: {
-        display: 'flex',
-        flexDirection: 'row',
-        fontFamily: 'Arvo',
+        alignItems: 'center',
+        fontFamily: [arvo, 'sans-serif'],
         color: '#FFF',
         fontSize: 24
     },
+    itemYouFound: {
+        fontSize: 34,
+        fontWeight: 600,
+        paddingBottom: 36,
+        marginBottom: 36,
+        borderBottom: '1px #ffffff solid',
+        textAlign: 'center'
+    },
+    itemTitle: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 36
+    },
+    itemImageContainer: {
+        padding: 10,
+        border: '1px #ffffff',
+        borderStyle: 'groove',
+        borderRadius: 10,
+        background: '#6b482f'
+    },
+    itemImage: {
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        width: 125,
+        height: 125
+    },
     itemName: {
-        marginLeft: 6,
+        marginLeft: 48,
         fontWeight: 600
     }
 })
@@ -37,22 +64,29 @@ export interface FoundItemProps {
 
 const FoundItem = ({ item, width, height }: FoundItemProps) => {
     const imageStyle = {
-        backgroundImage: `url(${item.image})`,
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        width: Math.floor(width / 100 * 20),
-        height: Math.floor(height / 100 * 40),
-        marginBottom: '16px'
+        backgroundImage: `url(${item.image})`
+    }
+    const centeredContainer = {
+        width: width * 0.6
     }
 
     return (
         <div className={css(styles.wrapper)}>
-            <div style={imageStyle} />
-            <div className={css(styles.itemDescription)}>
-                <div>You found a</div>
-                <div className={css(styles.itemName)}>
-                    {item.name}
+            <div style={centeredContainer}>
+                <div className={css(styles.itemYouFound)}>Hai trovato</div>
+                <div className={css(styles.itemTitle)}>
+                    <div className={css(styles.itemImageContainer)}>
+                        <div
+                            className={css(styles.itemImage)}
+                            style={imageStyle}
+                        />
+                    </div>
+                    <div className={css(styles.itemName)}>
+                        {upperFirst(item.name)}
+                    </div>
+                </div>
+                <div>
+                    {upperFirst(item.description)}
                 </div>
             </div>
         </div>

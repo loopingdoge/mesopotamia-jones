@@ -6,12 +6,14 @@ import * as ComputerKeyImage from '../../assets/images/key.png'
 export interface Item {
     id: string
     name: string
+    description: string
     image: any
 }
 
 export class Computer implements Item {
     id: string = COMPUTER
     name = 'computer'
+    description = 'il computer che Von Talin in passato ha cercato di costruire. Questo artefatto si collega alle porte della piramide e permette di risolvere gli enigmi automaticamente, se programmato correttamente'
     workspace: { [riddleId: string]: string } = {}
     image = ComputerImage
 }
@@ -53,21 +55,28 @@ export const getToolbox = (additionalEntries: any[]) => {
 // <block type="text"></block>
 // <block type="text_print"></block>
 
-const createItem = (id: string, name: string, image: any): Item => ({
+const createItem = (
+    id: string,
+    name: string,
+    description: string,
+    image: any
+): Item => ({
     id,
     name,
+    description,
     image
 })
 
 export const computer = new Computer()
-export const rockSmasher = createItem(ROCK_SMASHER, 'rock smasher', '')
+// export const rockSmasher = createItem(ROCK_SMASHER, 'rock smasher', '')
 export const computerKey = createItem(
     COMPUTER_KEY,
-    'old chest key',
+    'vecchia chiave',
+    'questa chiave serve ad aprire una cassa contenente il computer di Von Talin',
     ComputerKeyImage
 )
 
-const items: Item[] = [computer, rockSmasher]
+const items: Item[] = [computer]
 
 export type Inventory = Item[]
 
