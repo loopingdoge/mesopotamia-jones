@@ -2,7 +2,7 @@ import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 
 import { SolutionType } from '../config/riddles'
-import { initList, next, prev } from '../utils'
+import { initList, mod, next, prev } from '../utils'
 import LockCode from './LockCode'
 
 const numbers: string[] = '0123456789'.split('')
@@ -39,10 +39,50 @@ export interface SolutionProps {
     onChangeValue: (value: string) => void
 }
 
+export interface SolutionState {
+    focusedIndex: number
+}
+
 export default class Solution extends React.Component<
     SolutionProps,
-    undefined
+    SolutionState
 > {
+    constructor(props: SolutionProps) {
+        super(props)
+        this.state = { focusedIndex: 0 }
+    }
+
+    componentDidMount() {
+        addEventListener('keydown', this.onKeyDown)
+    }
+
+    componentWillUnmount() {
+        removeEventListener('keydown', this.onKeyDown)
+    }
+
+    onKeyDown = (event: KeyboardEvent) => {
+        switch (event.key) {
+            case 'ArrowLeft':
+                this.setState({
+                    focusedIndex: mod(
+                        this.state.focusedIndex - 1,
+                        this.props.length
+                    )
+                })
+                break
+            case 'ArrowRight':
+                this.setState({
+                    focusedIndex:
+                        (this.state.focusedIndex + 1) % this.props.length
+                })
+                break
+        }
+    }
+
+    setFocus = (i: number) => {
+        this.setState({ focusedIndex: i })
+    }
+
     /**
      * Returns a list containing the (numbers|strings)'s index for every field
      */
@@ -88,6 +128,9 @@ export default class Solution extends React.Component<
                     this.updateField(this.indexesInList[i], i, next)}
                 onDecrement={() =>
                     this.updateField(this.indexesInList[i], i, prev)}
+                focused={this.state.focusedIndex === i}
+                setFocus={() => this.setFocus(i)}
+                index={i}
             />
         )
     }
