@@ -9,14 +9,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         height: 40,
-        border: '1px solid black'
+        padding: '5px 10px 0px 10px'
     },
     customButton: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         height: 40,
-        padding: 10
+        padding: 10,
+        backgroundColor: '#fdd466',
+        borderRadius: 4,
+        border: '2px solid #90752d',
+        outline: 'none'
     },
     spacer: {
         flex: 1
@@ -27,14 +31,13 @@ export interface BackButtonSectionProps {
     goBack: () => void
 }
 
-const BackButtonSection = ({ goBack }: BackButtonSectionProps) => (
+const BackButtonSection = ({ goBack }: BackButtonSectionProps) =>
     <div>
         <button onClick={goBack} className={css(styles.customButton)}>
             <Icon icon={chevronLeft} />
             {'Back'}
         </button>
     </div>
-)
 
 export interface ToolbarButtonProps {
     action: () => void
@@ -42,21 +45,20 @@ export interface ToolbarButtonProps {
     text: string
 }
 
-const ToolbarButton = ({ action, icon, text }: ToolbarButtonProps) => (
+const ToolbarButton = ({ action, icon, text }: ToolbarButtonProps) =>
     <div>
         <button onClick={action} className={css(styles.customButton)}>
             <Icon icon={icon} />
             {text}
         </button>
     </div>
-)
 
 export interface ToolbarProps {
     goBack: () => void
     openInfo: () => void
 }
 
-const Toolbar = ({ goBack, openInfo }: ToolbarProps) => (
+const Toolbar = ({ goBack, openInfo }: ToolbarProps) =>
     <div className={css(styles.toolbar)}>
         <BackButtonSection goBack={goBack} />
         <div className={css(styles.spacer)} />
@@ -67,6 +69,5 @@ const Toolbar = ({ goBack, openInfo }: ToolbarProps) => (
         />*/}
         <ToolbarButton action={openInfo} icon={help} text={'Help'} />
     </div>
-)
 
 export default Toolbar
