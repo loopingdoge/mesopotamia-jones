@@ -2,7 +2,7 @@ import { css, StyleSheet } from 'aphrodite'
 import * as Blockly from 'node-blockly/browser'
 import * as React from 'react'
 import Icon from 'react-icons-kit'
-import { androidDelete } from 'react-icons-kit/ionicons/androidDelete'
+import { androidDelete, play } from 'react-icons-kit/ionicons/'
 
 const styles = StyleSheet.create({
     resizable: {
@@ -25,45 +25,24 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         backgroundColor: '#e4e4e4'
     },
     output: {
         resize: 'none',
         height: 50,
-        width: 100
+        width: 20,
+        flexGrow: 0.7
     },
-    run: {
-        position: 'relative',
-        left: 20,
+    computerButton: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         width: 50,
         height: 50,
         zIndex: 100,
-        background: 'green',
         borderRadius: 50,
         outline: 'none'
-    },
-    clear: {
-        position: 'relative',
-        right: 20,
-        width: 50,
-        height: 50,
-        zIndex: 100,
-        background: 'red',
-        borderRadius: 50,
-        outline: 'none'
-    },
-    play: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        display: 'block',
-        width: 0,
-        height: 0,
-        borderStyle: 'solid',
-        borderWidth: '10px 0 10px 20px',
-        borderColor: 'transparent transparent transparent #ffffff',
-        margin: '-10px 0 0 -7px'
     }
 })
 
@@ -202,9 +181,14 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                     <button
                         id="play"
                         onClick={this.props.runCode}
-                        className={css(styles.run)}
+                        className={css(styles.computerButton)}
+                        style={{ backgroundColor: 'green' }}
                     >
-                        <div className={css(styles.play)} />
+                        <Icon
+                            icon={play}
+                            size={32}
+                            style={{ color: 'white' }}
+                        />
                     </button>
                     <textarea
                         readOnly={true}
@@ -218,7 +202,8 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                     <button
                         id="clear"
                         onClick={() => console.log('TODO')}
-                        className={css(styles.clear)}
+                        className={css(styles.computerButton)}
+                        style={{ backgroundColor: 'red' }}
                     >
                         <Icon
                             icon={androidDelete}
