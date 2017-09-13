@@ -46,7 +46,7 @@ const riddles: Riddle[] = [
         </xml>`,
         rootBlock: {
             type: 'riddle_return',
-            message0: 'dato %1 %2 il risultato è: %3',
+            message0: 'dato %1 %2 apri la porta con: %3',
             args0: [
                 {
                     type: 'field_variable',
@@ -107,7 +107,7 @@ const riddles: Riddle[] = [
         </xml>`,
         rootBlock: {
             type: 'riddle_somma',
-            message0: 'dati %1 e %2 %3 %4 il risultato è: %5',
+            message0: 'dati %1 e %2 %3 %4 apri la porta con: %5',
             args0: [
                 {
                     type: 'field_variable',
