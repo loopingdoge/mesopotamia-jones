@@ -144,29 +144,6 @@ export class GameStore {
             (isSolved: boolean) => isSolved && this.riddleSolved()
         )
 
-        // React to dialog opening
-        reaction(
-            () => this.state.activeDialogue,
-            (dialog: Dialogue) => {
-                const nextLine = () => {
-                    if (this.lineId < dialog.lines.length - 1) {
-                        this.lineId++
-                    } else {
-                        gameStore.hideDialogue()
-                        removeActionListener(nextLine)
-                        if (dialog.id === 'dialog2') {
-                            this.showFoundItem(computerKey)
-                            this.addItemToInventory(computerKey)
-                        }
-                    }
-                }
-                if (dialog) {
-                    this.lineId = 0
-                    setTimeout(() => addActionListener(nextLine), 100)
-                }
-            }
-        )
-
         reaction(
             () => this.state.activeFoundItem,
             item => {
@@ -190,10 +167,6 @@ export class GameStore {
                     : this.uiStore.hideInteractionHint()
             }
         )
-
-        if (!this.state.progression.isGameStarted) {
-            this.showDialogue('dialog1')
-        }
     }
 
     @action
@@ -206,6 +179,7 @@ export class GameStore {
     newGame = () => {
         localStorage.setItem('gameState', null)
         this.state = defaultGameStoreState()
+        this.showDialogue('dialog1')
         this.state.progression.isGameStarted = true
     }
 
@@ -313,6 +287,10 @@ export class GameStore {
 
     @action
     hideDialogue = () => {
+        if (this.state.activeDialogue.id === 'dialog2') {
+            this.showFoundItem(computerKey)
+            this.addItemToInventory(computerKey)
+        }
         this.state = {
             ...this.state,
             activeDialogue: null
