@@ -2,7 +2,7 @@ import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 
 import Icon from 'react-icons-kit'
-import { androidClose, chevronRight } from 'react-icons-kit/ionicons/'
+import { chevronRight } from 'react-icons-kit/ionicons/'
 
 import * as ReactModal from 'react-modal'
 
@@ -23,28 +23,17 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
         width: 300,
         height: 200,
         backgroundColor: '#FDF6E3',
         outline: 'none',
         border: '2px solid black'
     },
-    modalHeader: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        width: '100%',
-        height: 32
-    },
     modalBody: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
-    },
-    modalCloseButton: {
-        padding: '2px !important',
-        border: 'none',
-        outline: 'none',
-        backgroundColor: 'transparent'
     },
     modalButton: {
         display: 'flex',
@@ -99,14 +88,6 @@ class Modal extends React.Component<ModalProps> {
                 className={css(styles.modalContent)}
                 contentLabel="Modal"
             >
-                <div className={css(styles.modalHeader)}>
-                    <button
-                        onClick={this.closeModal}
-                        className={css(styles.modalCloseButton)}
-                    >
-                        <Icon icon={androidClose} size={28} />
-                    </button>
-                </div>
                 {this.props.content}
             </ReactModal>
         )

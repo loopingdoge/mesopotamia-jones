@@ -234,7 +234,6 @@ const Riddle = ({
                                     onChangeValue={onChangeSolution}
                                     value={userSolution}
                                 />
-                                <button onClick={tryOpenDoor}>Open</button>
                             </div>
                             <Separator
                                 isVertical={false}
