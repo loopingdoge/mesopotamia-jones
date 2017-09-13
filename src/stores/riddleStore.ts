@@ -141,7 +141,7 @@ export class RiddleStore {
         if (workspaceXML) {
             // ex userCode
             this.runCode()
-            this.checkSolution()
+            this.tryOpenDoor()
         }
         riddleUIStore.tutorialStartIndex = 0
     }
@@ -149,14 +149,17 @@ export class RiddleStore {
     @action
     checkSolution = () => {
         const riddleSolution = this.currentRiddle.solution(this.generatedArgs)
-        let newState: IRiddleStore = this.state
-        if (riddleSolution === this.userSolution) {
-            newState = {
+        return riddleSolution === this.userSolution
+    }
+
+    @action
+    tryOpenDoor = () => {
+        if (this.checkSolution()) {
+            this.state = {
                 ...this.state,
                 isSolved: true
             }
         }
-        this.state = newState
     }
 
     @action

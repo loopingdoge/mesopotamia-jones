@@ -2,7 +2,12 @@ import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Motion, spring } from 'react-motion'
+
+import * as Modal from 'react-modal'
 import Tour from 'reactour'
+
+import Icon from 'react-icons-kit'
+import { chevronRight } from 'react-icons-kit/ionicons/'
 
 import {
     computer,
@@ -88,6 +93,33 @@ const styles = StyleSheet.create({
     },
     solutionInput: {
         flex: 1
+    },
+    modalOverlay: {
+        zIndex: 101,
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.65)'
+    },
+    modalContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 300,
+        height: 200,
+        backgroundColor: '#FDF6E3',
+        outline: 'none'
+    },
+    modalButton: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 })
 
@@ -169,6 +201,7 @@ export interface RiddleProps {
     hideTutorial: () => void
     setWorkspace: (code: string) => void
     onChangeSolution: (sol: string) => void
+    checkSolution: () => boolean
     tryOpenDoor: () => void
     tutorialStartIndex: number
 }
@@ -192,6 +225,7 @@ const Riddle = ({
     expandLegend,
     setWorkspace,
     onChangeSolution,
+    checkSolution,
     tryOpenDoor,
     inventory,
     width,
@@ -202,6 +236,22 @@ const Riddle = ({
     tutorialStartIndex
 }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
+        <Modal
+            isOpen={checkSolution()}
+            onAfterOpen={() => 'jesu'}
+            // tslint:disable-next-line:jsx-no-lambda
+            onRequestClose={() => 'sjdhs'}
+            closeTimeoutMS={0}
+            overlayClassName={css(styles.modalOverlay)}
+            className={css(styles.modalContent)}
+            contentLabel="Modal"
+        >
+            <h1>Indovinello risolto!</h1>
+            <button onClick={tryOpenDoor} className={css(styles.modalButton)}>
+                <p>Apri la porta</p>
+                <Icon icon={chevronRight} />
+            </button>
+        </Modal>
         <Toolbar goBack={goBack} openInfo={showTutorial} />
         <Motion
             style={{
@@ -349,6 +399,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             codeResult,
             runCode,
             checkSolution,
+            tryOpenDoor,
             setWorkspaceXML,
             setUserSolution,
             workspaceXML,
@@ -389,7 +440,8 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 runCode={runCode}
                 setWorkspace={setWorkspaceXML}
                 onChangeSolution={setUserSolution}
-                tryOpenDoor={checkSolution}
+                checkSolution={checkSolution}
+                tryOpenDoor={tryOpenDoor}
                 shrinkCuneiform={shrinkCuneiform}
                 expandCuneiform={expandCuneiform}
                 shrinkLegend={shrinkLegend}
