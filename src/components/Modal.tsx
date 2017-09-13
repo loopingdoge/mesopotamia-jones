@@ -5,6 +5,7 @@ import Icon from 'react-icons-kit'
 import { chevronRight } from 'react-icons-kit/ionicons/'
 
 import * as ReactModal from 'react-modal'
+import Button from './Button'
 
 const styles = StyleSheet.create({
     modalOverlay: {
@@ -34,16 +35,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
-    },
-    modalButton: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 40,
-        backgroundColor: '#fdd466',
-        borderRadius: 4,
-        border: '2px solid #90752d',
-        outline: 'none'
     }
 })
 
@@ -54,10 +45,7 @@ export interface SolvedRiddleModalProps {
 export const SolvedRiddleModal = ({ onClick }: SolvedRiddleModalProps) =>
     <div className={css(styles.modalBody)}>
         <h1>Indovinello risolto!</h1>
-        <button onClick={onClick} className={css(styles.modalButton)}>
-            <p>Apri la porta</p>
-            <Icon icon={chevronRight} />
-        </button>
+        <Button icon={chevronRight} text={'Apri la porta'} onClick={onClick} />
     </div>
 
 export interface ModalProps {
