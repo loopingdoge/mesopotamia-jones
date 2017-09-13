@@ -64,37 +64,46 @@ const styles = StyleSheet.create({
     }
 })
 
-export interface DialogProps {
-    lineId: number
-    dialog: Maybe<Dialogue>
+export interface DialogueProps {
+    dialogue: Maybe<Dialogue>
+    onDialogueEnd: (...args: any[]) => any
     width: number
     height: number
 }
 
 interface DialogueState {
-    dialogueLine: string
+    visibleCharacters: string
+    pageIndex: number
 }
 
-class DialogueUI extends React.Component<DialogProps, DialogueState> {
+class DialogueUI extends React.Component<DialogueProps, DialogueState> {
     letterDelay = 35
     timeouts: number[] = []
 
-    constructor(props: DialogProps) {
+    constructor(props: DialogueProps) {
         super(props)
-        this.state = { dialogueLine: '' }
+        this.state = { visibleCharacters: '', pageIndex: 0 }
     }
 
     componentDidMount() {
-        this.scheduleLetters(this.props.dialog.lines[this.props.lineId].text)
+        this.scheduleLetters(
+            this.props.dialogue.lines[this.state.pageIndex].text
+        )
+        setTimeout(() => addActionListener(this.nextPage), 100)
         addActionListener(this.skipToLineEnd, true)
     }
 
-    componentWillReceiveProps(nextProps: DialogProps) {
-        if (nextProps.lineId !== this.props.lineId) {
+    nextPage = () => {
+        const { dialogue } = this.props
+        if (this.state.pageIndex < dialogue.lines.length - 1) {
+            const nextPageIndex = this.state.pageIndex + 1
             this.timeouts.forEach(timeout => clearTimeout(timeout))
             this.timeouts = []
-            this.setState({ dialogueLine: '' })
-            this.scheduleLetters(nextProps.dialog.lines[nextProps.lineId].text)
+            this.scheduleLetters(this.props.dialogue.lines[nextPageIndex].text)
+            this.setState({ visibleCharacters: '', pageIndex: nextPageIndex })
+        } else {
+            this.props.onDialogueEnd()
+            removeActionListener(this.nextPage)
         }
     }
 
@@ -104,7 +113,8 @@ class DialogueUI extends React.Component<DialogProps, DialogueState> {
                 setTimeout(
                     () =>
                         this.setState({
-                            dialogueLine: this.state.dialogueLine + letter
+                            visibleCharacters:
+                                this.state.visibleCharacters + letter
                         }),
                     letterIndex * this.letterDelay
                 )
@@ -119,18 +129,21 @@ class DialogueUI extends React.Component<DialogProps, DialogueState> {
 
     skipToLineEnd = (event: Event) => {
         event.stopPropagation()
-        const text = this.props.dialog.lines[this.props.lineId].text
+        const text = this.props.dialogue.lines[this.state.pageIndex].text
         this.timeouts.forEach(timeout => clearTimeout(timeout))
         this.timeouts = []
-        this.setState({ dialogueLine: text })
+        this.setState({ visibleCharacters: text })
         removeActionListener(this.skipToLineEnd, true)
     }
 
     render() {
-        const { lineId, dialog, width, height } = this.props
+        const { dialogue, width, height } = this.props
         const charThumbStyle = {
             backgroundImage:
-                dialog && 'url(' + dialog.lines[lineId].character.image + ')',
+                dialogue &&
+                'url(' +
+                    dialogue.lines[this.state.pageIndex].character.image +
+                    ')',
             width: Math.floor(width / 100 * 20),
             height: Math.floor(height / 100 * 40)
         }
@@ -142,11 +155,12 @@ class DialogueUI extends React.Component<DialogProps, DialogueState> {
                 <div className={css(styles.charThumb)} style={charThumbStyle} />
                 <div className={css(styles.textWrapper)}>
                     <div className={css(styles.characterName)}>
-                        {dialog && dialog.lines[lineId].character.name}
+                        {dialogue &&
+                            dialogue.lines[this.state.pageIndex].character.name}
                     </div>
                     <div className={css(styles.text)}>
                         <div className={css(styles.dialogueText)}>
-                            {dialog && this.state.dialogueLine}
+                            {dialogue && this.state.visibleCharacters}
                         </div>
                         <div className={css(styles.arrow)}>➞</div>
                     </div>
@@ -164,8 +178,8 @@ interface DialogContainerProps {
 export default inject('gameStore', 'uiStore')(
     observer(({ gameStore, uiStore }: DialogContainerProps) =>
         <DialogueUI
-            lineId={gameStore.lineId}
-            dialog={gameStore.state.activeDialogue}
+            dialogue={gameStore.state.activeDialogue}
+            onDialogueEnd={gameStore.hideDialogue}
             width={uiStore.width}
             height={uiStore.height}
         />
