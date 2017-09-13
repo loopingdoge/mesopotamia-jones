@@ -252,7 +252,8 @@ const Riddle = ({
                                 style={{
                                     flex: legendFlex,
                                     opacity: legendFlex,
-                                    overflow: 'hidden'
+                                    overflow: 'hidden',
+                                    display: 'flex'
                                 }}
                             >
                                 <CuneiformLegend />

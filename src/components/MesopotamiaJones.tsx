@@ -90,9 +90,9 @@ const MesopotamiaJones = ({
 
     if (pageWidth < 1280 || pageHeight < 720) {
         // TODO: Show an error
-        console.error(
-            'a minimum resolution of 1280x720 is required to run the game'
-        )
+        // console.error(
+        //     'a minimum resolution of 1280x720 is required to run the game'
+        // )
     }
 
     return (
