@@ -3,6 +3,12 @@ import * as React from 'react'
 
 import Icon from 'react-icons-kit'
 
+const push = {
+    '50%': {
+        transform: 'scale(0.9)'
+    }
+}
+
 const styles = StyleSheet.create({
     button: {
         display: 'flex',
@@ -13,7 +19,16 @@ const styles = StyleSheet.create({
         padding: '0px 10px',
         backgroundColor: '#fdd466',
         borderRadius: 4,
-        outline: 'none'
+        outline: 'none',
+        fontFamily: 'sans-serif',
+        ':hover': {
+            animationName: [push],
+            animationDuration: '0.25s'
+        },
+        ':active': {
+            animationName: [push],
+            animationDuration: '0.5s'
+        }
     }
 })
 
@@ -24,7 +39,10 @@ export interface ButtonProps {
 }
 
 const Button = ({ icon, text, onClick }: ButtonProps) =>
-    <div onClick={onClick} className={css(styles.button)}>
+    <div
+        onClick={() => setTimeout(() => onClick(), 250)}
+        className={css(styles.button)}
+    >
         <Icon icon={icon} />
         {text}
     </div>
