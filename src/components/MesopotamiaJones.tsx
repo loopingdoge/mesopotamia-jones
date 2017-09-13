@@ -24,10 +24,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundImage: 'linear-gradient(#FDF6E3, #ffd25f);'
+        backgroundColor: '#FDF6E3'
     },
     content: {
-        height: 'inherit'
+        height: 'inherit',
+        borderTop: '2px solid black',
+        borderBottom: '2px solid black'
     }
 })
 
