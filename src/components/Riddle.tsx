@@ -44,7 +44,9 @@ const styles = StyleSheet.create({
     wrapper: {
         display: 'flex',
         flexDirection: 'column',
-        flex: 1
+        flex: 1,
+        borderTop: '2px solid black',
+        borderBottom: '2px solid black'
     },
     riddleContainer: {
         display: 'flex',

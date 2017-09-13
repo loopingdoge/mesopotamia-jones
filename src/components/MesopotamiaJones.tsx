@@ -27,9 +27,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FDF6E3'
     },
     content: {
-        height: 'inherit',
-        borderTop: '2px solid black',
-        borderBottom: '2px solid black'
+        height: 'inherit'
     }
 })
 
