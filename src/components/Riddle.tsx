@@ -104,13 +104,15 @@ export interface CuneiformSectionProps {
 const CuneiformSection = ({ riddle, translated }: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)} id="cuneiformRiddle">
         <p>
-            {translated
-                ? riddle
-                : riddle
-                      .split('')
-                      .map((value, i) =>
-                          <CuneiformChar key={i} value={value} />
-                      )}
+            {riddle
+                .split('')
+                .map((value, i) =>
+                    <CuneiformChar
+                        key={i}
+                        value={value}
+                        translated={translated}
+                    />
+                )}
         </p>
     </div>
 
@@ -232,7 +234,6 @@ const Riddle = ({
                         style={{ flex: columnFlex, opacity: columnFlex }}
                     >
                         <div className={css(styles.column)}>
-                            {console.log(inventory)}
                             <CuneiformSection
                                 riddle={riddleText}
                                 translated={hasItem(inventory, translator)}

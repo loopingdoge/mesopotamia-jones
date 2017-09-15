@@ -47,7 +47,10 @@ const CuneiformLegend = () =>
                             className={css(styles.legendCell)}
                         >
                             <div>
-                                <CuneiformChar value={letter} />
+                                <CuneiformChar
+                                    value={letter}
+                                    translated={false}
+                                />
                             </div>
                             <div>
                                 {letter}

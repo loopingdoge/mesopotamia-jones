@@ -15,6 +15,10 @@ const styles = StyleSheet.create({
         fontFamily: [khosrau, 'sans-serif'],
         fontSize: 30
     },
+    translated: {
+        fontFamily: 'sans-serif',
+        fontSize: 30
+    },
     cuneiformLetter: {
         color: '#333'
     },
@@ -28,14 +32,18 @@ const styles = StyleSheet.create({
 
 export interface CuneiformCharProps {
     value: string
+    translated: boolean
 }
 
 class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
     style: any
+    font: any
     isNumber: RegExp = /^\d+$/
     isLetter: RegExp = /^[a-zA-Z]+$/
 
     componentWillMount() {
+        this.font = styles.cuneiform
+
         if (this.props.value.match(this.isLetter)) {
             this.style = styles.cuneiformLetter
         } else if (this.props.value.match(this.isNumber)) {
@@ -45,9 +53,18 @@ class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
         }
     }
 
+    componentDidMount() {
+        if (this.props.translated) {
+            setTimeout(() => {
+                this.font = styles.translated
+                this.forceUpdate()
+            }, 200 + Math.random() * 1500)
+        }
+    }
+
     render() {
         return (
-            <span className={css(styles.cuneiform, this.style)}>
+            <span className={css(this.font, this.style)}>
                 {this.props.value}
             </span>
         )

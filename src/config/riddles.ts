@@ -169,7 +169,7 @@ const riddles: Riddle[] = [
     {
         id: 'word',
         question: ([a, b, c, d]: string[]) =>
-            `Se la porta aprire vorrai, in fila le seguenti lettere mettere dovrai ${a}, ${b}, ${c}, ${d}`,
+            `Se la porta aprire vorrai, in ordine queste lettere inserire dovrai: ${a}, ${b}, ${c}, ${d}`,
         defaultToolbox: [`<block type="math_number"></block>`],
         defaultWorkspace: ([a, b, c, d]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
