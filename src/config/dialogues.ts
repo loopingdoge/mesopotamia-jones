@@ -1,7 +1,7 @@
 import * as MesopotamiaJonesImage from '../../assets/images/mesopotamia-jones.png'
 import * as Hammurtossi from '../../assets/images/mummy.png'
 import * as VonTalin from '../../assets/images/von-talin.png'
-import { computerKey, Item } from './inventory'
+import { computerKey, Item, translator } from './inventory'
 
 import { Riddle } from './riddles'
 
@@ -79,10 +79,10 @@ export const dialogues: Dialogue[] = [
             ),
             line(
                 characters[1],
-                '...ecco fatto, ti ho installato eclipse e camunda come mi avevi chiesto.\n Prendi anche questo, ti aiuterà a tradurre gli indovinelli sulle porte...'
+                '...ecco fatto, ti ho installato eclipse e camunda come mi avevi chiesto.\n Prendi anche questa roccia senziente, ti aiuterà a tradurre dal cuneiforme gli indovinelli sulle porte...'
             )
         ],
-        []
+        [translator]
     ),
     dialogue(
         'dialog4',

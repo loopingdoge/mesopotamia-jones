@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import * as ComputerImage from '../../assets/images/computer.png'
 import * as ComputerKeyImage from '../../assets/images/key.png'
+import * as TranslatorImage from '../../assets/images/rock.png'
 
 export interface Item {
     id: string
@@ -20,8 +21,9 @@ export class Computer implements Item {
 
 // Computer allows user to have the blockly editor
 export const COMPUTER = 'COMPUTER'
-export const ROCK_SMASHER = 'ROCK_SMASHER'
+// export const ROCK_SMASHER = 'ROCK_SMASHER'
 export const COMPUTER_KEY = 'COMPUTER_KEY'
+export const TRANSLATOR = 'CUNEIFORM_TRANSLATOR'
 
 export const toolboxEntries: any = [
     {
@@ -74,6 +76,13 @@ export const computerKey = createItem(
     'vecchia chiave',
     'questa chiave serve ad aprire una cassa contenente il computer di Von Talin',
     ComputerKeyImage
+)
+
+export const translator = createItem(
+    TRANSLATOR,
+    'una roccia',
+    'questo oggetto traduce automaticamente i testi degli indovinelli. Sembra contenere il fantasma di un maestro di cuneiforme',
+    TranslatorImage
 )
 
 const items: Item[] = [computer]

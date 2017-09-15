@@ -12,7 +12,8 @@ import {
     getToolbox,
     hasItem,
     Inventory,
-    reactourInventory
+    reactourInventory,
+    translator
 } from '../config/inventory'
 import { reactourStartIndex } from '../config/progression'
 import { SolutionType } from '../config/riddles'
@@ -97,14 +98,19 @@ const styles = StyleSheet.create({
 
 export interface CuneiformSectionProps {
     riddle: string
+    translated: boolean
 }
 
-const CuneiformSection = ({ riddle }: CuneiformSectionProps) =>
+const CuneiformSection = ({ riddle, translated }: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)} id="cuneiformRiddle">
         <p>
-            {riddle
-                .split('')
-                .map((value, i) => <CuneiformChar key={i} value={value} />)}
+            {translated
+                ? riddle
+                : riddle
+                      .split('')
+                      .map((value, i) =>
+                          <CuneiformChar key={i} value={value} />
+                      )}
         </p>
     </div>
 
@@ -226,7 +232,11 @@ const Riddle = ({
                         style={{ flex: columnFlex, opacity: columnFlex }}
                     >
                         <div className={css(styles.column)}>
-                            <CuneiformSection riddle={riddleText} />
+                            {console.log(inventory)}
+                            <CuneiformSection
+                                riddle={riddleText}
+                                translated={hasItem(inventory, translator)}
+                            />
                             <div className={css(styles.lockRow)} data-tour={1}>
                                 <Solution
                                     length={solutionLength}
