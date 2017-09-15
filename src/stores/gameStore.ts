@@ -287,9 +287,11 @@ export class GameStore {
 
     @action
     hideDialogue = () => {
-        if (this.state.activeDialogue.id === 'dialog2') {
-            this.showFoundItem(computerKey)
-            this.addItemToInventory(computerKey)
+        if (this.state.activeDialogue.loot.length) {
+            for (const item of this.state.activeDialogue.loot) {
+                this.showFoundItem(item)
+                this.addItemToInventory(item)
+            }
         }
         this.state = {
             ...this.state,
