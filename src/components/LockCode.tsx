@@ -9,6 +9,8 @@ import { Motion, spring } from 'react-motion'
 
 import Button from './Button'
 
+const labelHeight = 42
+
 const styles = StyleSheet.create({
     lockCode: {
         display: 'flex',
@@ -27,8 +29,9 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     solutionLabel: {
-        padding: '8px 0px',
-        fontSize: 22
+        fontSize: 22,
+        height: labelHeight,
+        lineHeight: `${labelHeight}px`
     }
 })
 
@@ -92,7 +95,7 @@ const SolutionLabel = ({
 // -------------------------------------------------------------------------------
 
 const columnOffset = (currentIndex: number) => {
-    let offset = 42
+    let offset = labelHeight
     if (currentIndex > 0) {
         offset = (currentIndex - 1) * -offset
     }
