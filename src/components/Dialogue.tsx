@@ -3,7 +3,13 @@ import { inject, observer } from 'mobx-react'
 import { Dialogue } from '../config/dialogues'
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
-import { addActionListener, Maybe, removeActionListener } from '../utils'
+
+import Actions, {
+    addActionListener,
+    removeActionListener
+} from '../config/actions'
+
+import { Maybe } from '../utils'
 import { arvo } from '../utils/fonts'
 
 import * as React from 'react'
@@ -89,8 +95,15 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
         this.scheduleLetters(
             this.props.dialogue.lines[this.state.pageIndex].text
         )
-        setTimeout(() => addActionListener(this.nextPage), 100)
-        addActionListener(this.skipToLineEnd, true)
+        setTimeout(
+            () => addActionListener(Actions.NEXT_DIALOGUE_LINE, this.nextPage),
+            100
+        )
+        addActionListener(
+            Actions.SKIP_TO_DIALOGUE_END,
+            this.skipToLineEnd,
+            true
+        )
     }
 
     nextPage = () => {
@@ -100,10 +113,15 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
             this.timeouts.forEach(timeout => clearTimeout(timeout))
             this.timeouts = []
             this.scheduleLetters(this.props.dialogue.lines[nextPageIndex].text)
+            addActionListener(
+                Actions.SKIP_TO_DIALOGUE_END,
+                this.skipToLineEnd,
+                true
+            )
             this.setState({ visibleCharacters: '', pageIndex: nextPageIndex })
         } else {
             this.props.onDialogueEnd()
-            removeActionListener(this.nextPage)
+            removeActionListener(Actions.NEXT_DIALOGUE_LINE)
         }
     }
 
@@ -122,7 +140,7 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
         )
 
         setTimeout(
-            () => removeActionListener(this.skipToLineEnd, true),
+            () => removeActionListener(Actions.SKIP_TO_DIALOGUE_END),
             text.length * this.letterDelay
         )
     }
@@ -133,7 +151,7 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
         this.timeouts.forEach(timeout => clearTimeout(timeout))
         this.timeouts = []
         this.setState({ visibleCharacters: text })
-        removeActionListener(this.skipToLineEnd, true)
+        removeActionListener(Actions.SKIP_TO_DIALOGUE_END)
     }
 
     render() {

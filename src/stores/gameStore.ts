@@ -5,6 +5,10 @@ import { UIStore } from './gameUIStore'
 import { RiddleStore } from './riddleStore'
 import riddleUIStore from './riddleUIStore'
 
+import Actions, {
+    addActionListener,
+    removeActionListener
+} from '../config/actions'
 import { Chest, Chests, defaultChests } from '../config/chests'
 import { Dialogue, getDialogById, NEED_KEY } from '../config/dialogues'
 import {
@@ -27,7 +31,7 @@ import {
 } from '../config/progression'
 
 import PhaserGame from '../phaser'
-import { addActionListener, Maybe, removeActionListener } from '../utils'
+import { Maybe } from '../utils'
 
 export type GamePhase = 'Game' | 'Riddle'
 
@@ -149,9 +153,16 @@ export class GameStore {
             item => {
                 const hideItemScreen = () => {
                     this.state.activeFoundItem = null
-                    removeActionListener(hideItemScreen)
+                    removeActionListener(Actions.CLOSE_ITEM_SCREEN)
                 }
-                setTimeout(() => addActionListener(hideItemScreen), 100)
+                setTimeout(
+                    () =>
+                        addActionListener(
+                            Actions.CLOSE_ITEM_SCREEN,
+                            hideItemScreen
+                        ),
+                    100
+                )
             }
         )
 
