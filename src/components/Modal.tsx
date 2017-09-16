@@ -1,10 +1,9 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
-
 import Icon from 'react-icons-kit'
 import { chevronRight } from 'react-icons-kit/ionicons/'
-
 import * as ReactModal from 'react-modal'
+
 import Button from './Button'
 
 const styles = StyleSheet.create({
@@ -45,7 +44,12 @@ export interface SolvedRiddleModalProps {
 export const SolvedRiddleModal = ({ onClick }: SolvedRiddleModalProps) =>
     <div className={css(styles.modalBody)}>
         <h1>Indovinello risolto!</h1>
-        <Button icon={chevronRight} text={'Apri la porta'} onClick={onClick} />
+        <Button
+            icon={chevronRight}
+            text={'Apri la porta'}
+            onClick={onClick}
+            autofocus
+        />
     </div>
 
 export interface ModalProps {

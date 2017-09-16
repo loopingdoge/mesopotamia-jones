@@ -36,15 +36,39 @@ export interface ButtonProps {
     icon: any
     text: string
     onClick: () => void
+    autofocus?: boolean
 }
 
-const Button = ({ icon, text, onClick }: ButtonProps) =>
-    <div
-        onClick={() => setTimeout(() => onClick(), 250)}
-        className={css(styles.button)}
-    >
-        <Icon icon={icon} />
-        {text}
-    </div>
+class Button extends React.Component<ButtonProps> {
+    containerDiv: HTMLElement
+
+    componentDidMount() {
+        if (this.props.autofocus) {
+            this.containerDiv.focus()
+        }
+    }
+
+    onKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+        if (event.key === 'Enter') {
+            this.props.onClick()
+        }
+    }
+
+    render() {
+        const { icon, text, onClick } = this.props
+        return (
+            <div
+                onClick={this.props.onClick}
+                onKeyDown={this.onKeyDown}
+                className={css(styles.button)}
+                tabIndex={0}
+                ref={element => (this.containerDiv = element)}
+            >
+                <Icon icon={icon} />
+                {text}
+            </div>
+        )
+    }
+}
 
 export default Button
