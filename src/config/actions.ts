@@ -1,3 +1,5 @@
+import { getOrElse, Maybe } from '../utils'
+
 enum Actions {
     SKIP_TO_DIALOGUE_END = 'SKIP_TO_DIALOGUE_END',
     NEXT_DIALOGUE_LINE = 'NEXT_DIALOGUE_LINE',
@@ -6,7 +8,7 @@ enum Actions {
 
 type ActionCallback = (event: Event) => any
 
-const callbackMap = new Map<Actions, [ActionCallback, boolean]>()
+const callbackMap = new Map<Actions, Maybe<[ActionCallback, boolean]>>()
 
 const callbackIfPressedF = (callback: ActionCallback) => (
     event: KeyboardEvent
@@ -29,14 +31,20 @@ export const addActionListener = (
     const event = eventTouchOrKeyboard()
     const newCallback =
         event === 'keydown' ? callbackIfPressedF(callback) : callback
+    if (getOrElse(callbackMap.get(action), null)) {
+        removeActionListener(action)
+    }
     addEventListener(event, newCallback, useCapture)
     callbackMap.set(action, [newCallback, useCapture])
 }
 
 export const removeActionListener = (action: Actions) => {
-    const callbackTuple = callbackMap.get(action)
-    const event = eventTouchOrKeyboard()
-    removeEventListener(event, callbackTuple[0], callbackTuple[1])
+    const callbackTuple = getOrElse(callbackMap.get(action), null)
+    if (callbackTuple) {
+        const event = eventTouchOrKeyboard()
+        removeEventListener(event, callbackTuple[0], callbackTuple[1])
+        callbackMap.set(action, null)
+    }
 }
 
 export default Actions
