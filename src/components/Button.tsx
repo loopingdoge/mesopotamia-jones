@@ -3,31 +3,23 @@ import * as React from 'react'
 
 import Icon from 'react-icons-kit'
 
-const push = {
-    '50%': {
-        transform: 'scale(0.9)'
-    }
-}
-
 const styles = StyleSheet.create({
     button: {
+        transition: 'transform 0.3s ease',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 40,
+        cursor: 'pointer',
         border: '2px solid #90752d',
-        padding: '0px 10px',
         backgroundColor: '#fdd466',
         borderRadius: 4,
         outline: 'none',
         fontFamily: 'sans-serif',
         ':hover': {
-            animationName: [push],
-            animationDuration: '0.25s'
+            transform: 'scale(0.95)'
         },
         ':active': {
-            animationName: [push],
-            animationDuration: '0.5s'
+            transform: 'scale(0.90)'
         }
     }
 })
@@ -37,6 +29,7 @@ export interface ButtonProps {
     text: string
     onClick: () => void
     autofocus?: boolean
+    small?: boolean
 }
 
 class Button extends React.Component<ButtonProps> {
@@ -55,7 +48,10 @@ class Button extends React.Component<ButtonProps> {
     }
 
     render() {
-        const { icon, text, onClick } = this.props
+        const { icon, text, onClick, small } = this.props
+        const style = {
+            padding: small ? '5px' : '10px'
+        }
         return (
             <div
                 onClick={this.props.onClick}
@@ -63,6 +59,7 @@ class Button extends React.Component<ButtonProps> {
                 className={css(styles.button)}
                 tabIndex={0}
                 ref={element => (this.containerDiv = element)}
+                style={style}
             >
                 <Icon icon={icon} />
                 {text}

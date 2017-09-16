@@ -1,7 +1,10 @@
 import { css, StyleSheet } from 'aphrodite'
 import { throttle } from 'lodash'
 import * as React from 'react'
+import { iosArrowDown, iosArrowUp } from 'react-icons-kit/ionicons/'
 import { Motion, spring } from 'react-motion'
+
+import Button from './Button'
 
 const styles = StyleSheet.create({
     lockCode: {
@@ -186,7 +189,13 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                 onTouchMove={this.onTouchMove}
                 onMouseDown={this.props.setFocus}
             >
-                <button onClick={onDecrement}>⬆</button>
+                <Button
+                    icon={iosArrowUp}
+                    text={''}
+                    onClick={onDecrement}
+                    small
+                />
+                {/* <button onClick={onDecrement}>⬆</button> */}
                 <div className={css(styles.fieldsColumn)}>
                     <Motion
                         style={{
@@ -202,7 +211,13 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                             </div>}
                     </Motion>
                 </div>
-                <button onClick={onIncrement}>⬇</button>
+                <Button
+                    icon={iosArrowDown}
+                    text={''}
+                    onClick={onIncrement}
+                    small
+                />
+                {/* <button onClick={onIncrement}>⬇</button> */}
             </div>
         )
     }
