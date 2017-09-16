@@ -100,6 +100,7 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
             this.timeouts.forEach(timeout => clearTimeout(timeout))
             this.timeouts = []
             this.scheduleLetters(this.props.dialogue.lines[nextPageIndex].text)
+            addActionListener(this.skipToLineEnd, true)
             this.setState({ visibleCharacters: '', pageIndex: nextPageIndex })
         } else {
             this.props.onDialogueEnd()
