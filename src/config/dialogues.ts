@@ -1,5 +1,7 @@
 import * as MesopotamiaJonesImage from '../../assets/images/mesopotamia-jones.png'
 import * as Hammurtossi from '../../assets/images/mummy.png'
+import * as Rock from '../../assets/images/rock.png'
+import * as VonDogen from '../../assets/images/von-dogen.png'
 import * as VonTalin from '../../assets/images/von-talin.png'
 import { computerKey, Item, translator } from './inventory'
 
@@ -39,7 +41,9 @@ const dialogue = (id: string, lines: Line[], loot: Item[]): Dialogue => ({
 export const characters: Character[] = [
     character('mj', 'Mesopotamia Jones', MesopotamiaJonesImage as any),
     character('fv', 'Farren Von Talin', VonTalin as any),
-    character('ab', 'An-Ki Hammurtossi', Hammurtossi as any)
+    character('ab', 'An-Ki Hammurtossi', Hammurtossi as any),
+    character('do', 'Wow Von Dogen', VonDogen as any),
+    character('rs', 'Roccia Senziente', Rock as any)
 ]
 
 export const NEED_KEY = 'NEED_KEY'
@@ -79,16 +83,32 @@ export const dialogues: Dialogue[] = [
             ),
             line(
                 characters[1],
-                '...ecco fatto, ti ho installato eclipse e camunda come mi avevi chiesto.\n Prendi anche questa roccia senziente, ti aiuterà a tradurre dal cuneiforme gli indovinelli sulle porte...'
+                '...ecco fatto, ti ho installato eclipse e camunda come mi avevi chiesto.\n Prendi anche questa roccia senziente, ti aiuterà a tradurre gli indovinelli sulle porte dal cuneiforme...'
             )
         ],
         [translator]
     ),
     dialogue(
         'dialog4',
+        [line(characters[1], 'Per caso hai visto il mio cane?')],
+        []
+    ),
+    dialogue(
+        'dialog5',
         [
             line(characters[2], "Benvenuthi all'inferno"),
             line(characters[0], 'Sei proprio diaboliho')
+        ],
+        []
+    ),
+    dialogue(
+        'dialog6',
+        [
+            line(characters[3], 'Wow...'),
+            line(
+                characters[4],
+                'Traduzione: "Attento esploratore, oltra quella porta troverai solo pericolo"'
+            )
         ],
         []
     ),

@@ -1,6 +1,6 @@
 import { Game } from 'phaser-ce'
 
-import { computer, hasItem } from '../../config/inventory'
+import { computer, hasItem, translator } from '../../config/inventory'
 import { GameState } from '../../stores/gameStore'
 import Npc from './Npc'
 
@@ -16,7 +16,8 @@ export default class VonTalin extends Npc {
             case 'room3':
                 // tslint:disable:curly
                 if (!hasItem(state.inventory, computer)) return 'dialog2'
-                else return 'dialog3'
+                if (!hasItem(state.inventory, translator)) return 'dialog3'
+                else return 'dialog4'
             // tslint:enable:curly
             default:
                 return ''
