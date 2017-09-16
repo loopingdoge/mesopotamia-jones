@@ -7,12 +7,15 @@ import gameStore from '../../stores/gameStore'
 import { coord2Pixel } from '../config'
 import ActionButton from '../sprites/ActionButton'
 import ChestSprite from '../sprites/Chest'
-import Hammurtossi from '../sprites/Hammurtossi'
 import InteractionHint from '../sprites/InteractionHint'
 import Joystick from '../sprites/Joystick'
 import Keyboard from '../sprites/Keyboard'
-import Npc from '../sprites/Npc'
 import Player from '../sprites/Player'
+
+// tslint:disable-next-line:ordered-imports
+import Npc from '../sprites/Npc'
+import Hammurtossi from '../sprites/Hammurtossi'
+import VonDogen from '../sprites/VonDogen'
 import VonTalin from '../sprites/VonTalin'
 
 type GameObject = ChestSprite
@@ -129,7 +132,7 @@ export default class Game extends Phaser.State {
 
     createNpcs() {
         this.npcs = []
-
+        // TODO switch?
         if (gameStore.room.id === 'room3') {
             this.npcs = [
                 new VonTalin(this.game, coord2Pixel(7.5), coord2Pixel(2))
@@ -142,7 +145,12 @@ export default class Game extends Phaser.State {
             ]
             this.game.add.existing(this.npcs[0])
         }
-
+        if (gameStore.room.id === 'room4') {
+            this.npcs = [
+                new VonDogen(this.game, coord2Pixel(7.5), coord2Pixel(1))
+            ]
+            this.game.add.existing(this.npcs[0])
+        }
         this.createObjects()
 
         this.characters = new Phaser.Group(this.game)
