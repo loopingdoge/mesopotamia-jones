@@ -32,10 +32,11 @@ import Solution from './Solution'
 import Toolbar from './Toolbar'
 
 const styles = StyleSheet.create({
-    column: {
+    riddleContent: {
         display: 'flex',
         flexDirection: 'column',
-        flex: 1
+        flex: 1,
+        paddingLeft: 20
     },
     row: {
         display: 'flex',
@@ -233,7 +234,7 @@ const Riddle = ({
                         className={css(styles.riddleColumn)}
                         style={{ flex: columnFlex, opacity: columnFlex }}
                     >
-                        <div className={css(styles.column)}>
+                        <div className={css(styles.riddleContent)}>
                             <CuneiformSection
                                 riddle={riddleText}
                                 translated={hasItem(inventory, translator)}
