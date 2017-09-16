@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
         cursor: 'pointer',
         border: '2px solid #90752d',
         backgroundColor: '#fdd466',
-        borderRadius: 4,
         outline: 'none',
         fontFamily: 'sans-serif',
         ':hover': {
@@ -30,6 +29,7 @@ export interface ButtonProps {
     onClick: () => void
     autofocus?: boolean
     small?: boolean
+    circular?: boolean
 }
 
 class Button extends React.Component<ButtonProps> {
@@ -48,9 +48,10 @@ class Button extends React.Component<ButtonProps> {
     }
 
     render() {
-        const { icon, text, onClick, small } = this.props
+        const { icon, text, onClick, small, circular } = this.props
         const style = {
-            padding: small ? '5px' : '10px'
+            padding: small ? '5px' : '10px',
+            borderRadius: circular ? (small ? '15px' : '20px') : '4px'
         }
         return (
             <div

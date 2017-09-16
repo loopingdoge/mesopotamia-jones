@@ -1,7 +1,10 @@
 import { css, StyleSheet } from 'aphrodite'
 import { throttle } from 'lodash'
 import * as React from 'react'
-import { iosArrowDown, iosArrowUp } from 'react-icons-kit/ionicons/'
+import {
+    androidArrowDropdown,
+    androidArrowDropup
+} from 'react-icons-kit/ionicons/'
 import { Motion, spring } from 'react-motion'
 
 import Button from './Button'
@@ -190,10 +193,11 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                 onMouseDown={this.props.setFocus}
             >
                 <Button
-                    icon={iosArrowUp}
+                    icon={androidArrowDropup}
                     text={''}
                     onClick={onDecrement}
                     small
+                    circular
                 />
                 {/* <button onClick={onDecrement}>⬆</button> */}
                 <div className={css(styles.fieldsColumn)}>
@@ -212,10 +216,11 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                     </Motion>
                 </div>
                 <Button
-                    icon={iosArrowDown}
+                    icon={androidArrowDropdown}
                     text={''}
                     onClick={onIncrement}
                     small
+                    circular
                 />
                 {/* <button onClick={onIncrement}>⬇</button> */}
             </div>

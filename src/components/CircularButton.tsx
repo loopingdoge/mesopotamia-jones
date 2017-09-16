@@ -1,6 +1,9 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
+import { iosArrowDown } from 'react-icons-kit/ionicons/'
 import { Motion, presets, spring } from 'react-motion'
+
+import Button from './Button'
 
 const styles = StyleSheet.create({
     button: {
@@ -25,9 +28,9 @@ interface CircularButtonProps {
 
 const getRotation = (vertical: boolean, toggled: boolean) => {
     if (vertical) {
-        return toggled ? 180 : 0
+        return toggled ? 270 : 90
     } else {
-        return toggled ? 90 : 270
+        return toggled ? 180 : 0
     }
 }
 
@@ -40,7 +43,6 @@ const CircularButton = ({
     toggled,
     onClick
 }: CircularButtonProps) => {
-    const label = '<'
     return (
         <Motion
             style={{
@@ -48,10 +50,8 @@ const CircularButton = ({
             }}
         >
             {({ rotation }) =>
-                <div onClick={onClick} className={css(styles.button)}>
-                    <span style={getButtonStyle(rotation)}>
-                        {label}
-                    </span>
+                <div style={getButtonStyle(rotation)}>
+                    <Button icon={iosArrowDown} text={''} onClick={onClick} />
                 </div>}
         </Motion>
     )
