@@ -26,10 +26,10 @@ export const COMPUTER_KEY = 'COMPUTER_KEY'
 export const TRANSLATOR = 'CUNEIFORM_TRANSLATOR'
 
 export const toolboxEntries: any = [
-    {
-        id: 'math_number',
-        xml: `<block type="math_number"></block>`
-    }
+    // {
+    //     id: 'math_number',
+    //     xml: `<block type="math_number"></block>`
+    // }
     // {
     //     id: 'variables_get',
     //     xml: `<block type="variables_get">

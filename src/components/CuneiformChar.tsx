@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     cuneiformLetter: {
-        color: '#333'
+        color: 'rgb(165, 91, 91)'
     },
     cuneiformNumber: {
         color: '#099'

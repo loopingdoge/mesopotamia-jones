@@ -107,7 +107,7 @@ const riddles: Riddle[] = [
         </xml>`,
         rootBlock: {
             type: 'riddle_somma',
-            message0: 'dati %1 e %2 %3 %4 apri la porta con: %5',
+            message0: 'dati %1 %2 e %3 %4 apri la porta con: %5',
             args0: [
                 {
                     type: 'field_variable',
@@ -115,21 +115,21 @@ const riddles: Riddle[] = [
                     variable: 'numero1'
                 },
                 {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
                     type: 'field_variable',
                     name: 'y',
                     variable: 'numero2'
                 },
                 {
-                    type: 'input_dummy'
-                },
-                {
-                    type: 'input_statement',
-                    name: 'USERCODE',
-                    check: 'Number'
+                    type: 'input_dummy',
+                    align: 'RIGHT'
                 },
                 {
                     type: 'input_value',
-                    name: 'RETURN',
+                    name: 'return',
                     check: 'Number',
                     align: 'RIGHT'
                 }
@@ -149,16 +149,12 @@ const riddles: Riddle[] = [
                 block.getFieldValue('y'),
                 Blockly.Variables.NAME_TYPE
             )
-            const userCode = Blockly.JavaScript.statementToCode(
-                block,
-                'USERCODE'
-            )
             const ret = Blockly.JavaScript.valueToCode(
                 block,
-                'RETURN',
+                'return',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            const code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${args})`
+            const code = `(function( ${x}, ${y} ) { return ${ret} })(${args})`
             return code
         },
         solution: ([a, b]: number[]) => `${a + b}`,
@@ -170,37 +166,74 @@ const riddles: Riddle[] = [
         id: 'word',
         question: ([a, b, c, d]: string[]) =>
             `Se la porta aprire vorrai, in ordine queste lettere inserire dovrai: ${a}, ${b}, ${c}, ${d}`,
-        defaultToolbox: [`<block type="math_number"></block>`],
+        defaultToolbox: [
+            `<block type="lettera1"></block>`,
+            `<block type="lettera2"></block>`,
+            `<block type="lettera3"></block>`,
+            `<block type="lettera4"></block>`,
+            `
+            <block type="text">
+                <field name="TEXT"></field>
+            </block>
+            `,
+            `
+            <block type="text_join">
+                <mutation items="4"></mutation>
+            </block>
+            `
+        ],
         defaultWorkspace: ([a, b, c, d]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-            <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
+            <block type="riddle_word" id="riddle_word" deletable="false"></block>
         </xml>`,
         rootBlock: {
-            type: 'riddle_somma',
-            message0: 'dati %1 e %2 %3 %4 il risultato è: %5',
+            type: 'riddle_word',
+            message0:
+                'date le lettere: %1 %2 %3 %4 %5 %6 %7 %8 %9 il risultato è: %10',
             args0: [
-                {
-                    type: 'field_variable',
-                    name: 'x',
-                    variable: 'numero1'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'y',
-                    variable: 'numero2'
-                },
                 {
                     type: 'input_dummy'
                 },
                 {
-                    type: 'input_statement',
-                    name: 'USERCODE',
-                    check: 'Number'
+                    type: 'field_variable',
+                    name: 'a',
+                    variable: 'lettera1'
+                },
+                {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
+                    type: 'field_variable',
+                    name: 'b',
+                    variable: 'lettera2'
+                },
+                {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
+                    type: 'field_variable',
+                    name: 'c',
+                    variable: 'lettera3'
+                },
+                {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
+                    type: 'field_variable',
+                    name: 'd',
+                    variable: 'lettera4'
+                },
+                {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
                 },
                 {
                     type: 'input_value',
-                    name: 'RETURN',
-                    check: 'Number',
+                    name: 'return',
+                    check: 'String',
                     align: 'RIGHT'
                 }
             ],
@@ -211,24 +244,29 @@ const riddles: Riddle[] = [
             helpUrl: ''
         },
         getCodeGen: (args: any) => (block: any) => {
-            const x = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('x'),
+            const a = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('a'),
                 Blockly.Variables.NAME_TYPE
             )
-            const y = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('y'),
+            const b = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('b'),
                 Blockly.Variables.NAME_TYPE
             )
-            const userCode = Blockly.JavaScript.statementToCode(
-                block,
-                'USERCODE'
+            const c = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('c'),
+                Blockly.Variables.NAME_TYPE
+            )
+            const d = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('d'),
+                Blockly.Variables.NAME_TYPE
             )
             const ret = Blockly.JavaScript.valueToCode(
                 block,
-                'RETURN',
+                'return',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            const code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${args})`
+            const code = `(function( ${a}, ${b} , ${c} , ${d} ) { return ${ret} })( '${args[0]}','${args[1]}','${args[2]}','${args[3]}' )`
+            console.log(code)
             return code
         },
         solution: ([a, b, c, d]: string[]) => `${a + b + c + d}`,
@@ -242,16 +280,62 @@ const riddles: Riddle[] = [
         ]
     },
     {
-        id: 'somma',
-        question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
-        defaultToolbox: [`<block type="math_number"></block>`],
-        defaultWorkspace: ([a, b]) => `
+        id: 'if',
+        question: ([a, b, c]: number[]) =>
+            `Se il numero magico è pari la porta si apre con la somma di ${a} e ${b}, altrimenti con il prodotto.\n Il numero magico è ${c}`,
+        defaultToolbox: [
+            `<block type="numero1"></block>`,
+            `<block type="numero2"></block>`,
+            `<block type="numero_magico"></block>`,
+            `
+                <block type="variables_get">
+                    <field name="VAR" id="O@T=,KYexe-SHMAI+Tq%" variabletype="">risultato</field>
+                </block>
+            `,
+            `
+                <block type="variables_set">
+                    <field name="VAR" id="O@T=,KYexe-SHMAI+Tq%" variabletype="">risultato</field>
+                </block>
+            `,
+            `
+                <block type="controls_if">
+                    <mutation else="1"></mutation>
+                </block>
+            `,
+            `
+                <block type="math_arithmetic">
+                    <field name="OP">ADD</field>
+                    <value name="A">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                    </value>
+                    <value name="B">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                    </value>
+                </block>
+            `,
+            `
+                <block type="math_number_property">
+                    <mutation divisor_input="false"></mutation>
+                    <field name="PROPERTY">EVEN</field>
+                    <value name="NUMBER_TO_CHECK">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                    </value>
+                </block>
+            `
+        ],
+        defaultWorkspace: ([a, b, c]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-            <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
+            <block type="riddle_if" id="riddle_if" deletable="false"></block>
         </xml>`,
         rootBlock: {
-            type: 'riddle_somma',
-            message0: 'dati %1 e %2 %3 %4 il risultato è: %5',
+            type: 'riddle_if',
+            message0: 'Dati %1 %2 %3 %4 e %5 %6 %7 apri la porta con %8',
             args0: [
                 {
                     type: 'field_variable',
@@ -259,29 +343,39 @@ const riddles: Riddle[] = [
                     variable: 'numero1'
                 },
                 {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
                     type: 'field_variable',
                     name: 'y',
                     variable: 'numero2'
                 },
                 {
-                    type: 'input_dummy'
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
+                    type: 'field_variable',
+                    name: 'z',
+                    variable: 'numero_magico'
+                },
+                {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
                 },
                 {
                     type: 'input_statement',
-                    name: 'USERCODE',
-                    check: 'Number'
+                    name: 'usercode'
                 },
                 {
                     type: 'input_value',
-                    name: 'RETURN',
-                    check: 'Number',
+                    name: 'return',
                     align: 'RIGHT'
                 }
             ],
-            inputsInline: false,
-            colour: 45,
-            tooltip:
-                'I dati sono numeri, quindi il risultato deve essere un numero',
+            colour: 60,
+            tooltip: '',
             helpUrl: ''
         },
         getCodeGen: (args: any) => (block: any) => {
@@ -293,22 +387,31 @@ const riddles: Riddle[] = [
                 block.getFieldValue('y'),
                 Blockly.Variables.NAME_TYPE
             )
+            const z = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('z'),
+                Blockly.Variables.NAME_TYPE
+            )
             const userCode = Blockly.JavaScript.statementToCode(
                 block,
-                'USERCODE'
+                'usercode'
             )
             const ret = Blockly.JavaScript.valueToCode(
                 block,
-                'RETURN',
+                'return',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            const code = `(function( ${x}, ${y} ) { ${userCode} return ${ret} })(${args})`
+            const code = `(function( ${x}, ${y}, ${z} ) { ${userCode};\n return ${ret} })(${args})`
+            console.log(code)
             return code
         },
         solution: ([a, b]: number[]) => `${a + b}`,
-        solutionLength: 1,
+        solutionLength: 2,
         solutionType: 'number',
-        argsGenerator: () => [randomNum(1, 4), randomNum(1, 4)]
+        argsGenerator: () => [
+            randomNum(1, 4),
+            randomNum(1, 4),
+            randomNum(1, 10)
+        ]
     }
 ]
 
