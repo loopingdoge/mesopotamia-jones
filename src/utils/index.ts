@@ -53,25 +53,3 @@ export function linearMap(
 ) {
     return (val - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin
 }
-
-export function addActionListener(
-    callback: EventListenerOrEventListenerObject,
-    useCapture: boolean = false
-) {
-    if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) {
-        addEventListener('touchend', callback, useCapture)
-    } else {
-        addEventListener('keydown', callback, useCapture)
-    }
-}
-
-export function removeActionListener(
-    callback: EventListenerOrEventListenerObject,
-    useCapture: boolean = false
-) {
-    if ('ontouchstart' in window || navigator.msMaxTouchPoints > 0) {
-        removeEventListener('touchend', callback, useCapture)
-    } else {
-        removeEventListener('keydown', callback, useCapture)
-    }
-}
