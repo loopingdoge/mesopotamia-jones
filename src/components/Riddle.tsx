@@ -222,123 +222,116 @@ const Riddle = ({
             content={<SolvedRiddleModal onClick={tryOpenDoor} />}
         />
         <Toolbar goBack={goBack} openInfo={showTutorial} />
-        <Motion
-            style={{
-                columnFlex: spring(expandedToFlex(isCuneiformExpanded)),
-                legendFlex: spring(expandedToFlex(isLegendExpanded))
-            }}
-        >
-            {({ columnFlex, legendFlex }) =>
-                <div className={css(styles.riddleContainer)}>
+        <div className={css(styles.riddleContainer)}>
+            <div
+                className={css(styles.riddleColumn)}
+                style={{
+                    flex: expandedToFlex(isCuneiformExpanded),
+                    opacity: expandedToFlex(isCuneiformExpanded)
+                }}
+            >
+                <div className={css(styles.riddleContent)}>
+                    <CuneiformSection
+                        riddle={riddleText}
+                        translated={hasItem(inventory, translator)}
+                    />
+                    <div className={css(styles.lockRow)} data-tour={1}>
+                        <Solution
+                            length={solutionLength}
+                            type={solutionType}
+                            onChangeValue={onChangeSolution}
+                            value={userSolution}
+                        />
+                    </div>
+                    <Separator
+                        isVertical={false}
+                        isButtonToggled={
+                            !flexToExpanded(
+                                isLegendExpanded,
+                                expandedToFlex(isLegendExpanded)
+                            )
+                        }
+                        expanded={isLegendExpanded}
+                        shrink={shrinkLegend}
+                        expand={expandLegend}
+                    />
                     <div
-                        className={css(styles.riddleColumn)}
-                        style={{ flex: columnFlex, opacity: columnFlex }}
+                        style={{
+                            flex: expandedToFlex(isLegendExpanded),
+                            opacity: expandedToFlex(isLegendExpanded),
+                            overflow: 'hidden',
+                            display: 'flex'
+                        }}
                     >
-                        <div className={css(styles.riddleContent)}>
-                            <CuneiformSection
-                                riddle={riddleText}
-                                translated={hasItem(inventory, translator)}
+                        <CuneiformLegend />
+                    </div>
+                </div>
+            </div>
+            {onlyIf(
+                hasItem(inventory, computer),
+                <div className={css(styles.editorColumn)}>
+                    <div className={css(styles.row)}>
+                        <Separator
+                            isVertical
+                            isButtonToggled={
+                                !flexToExpanded(
+                                    isCuneiformExpanded,
+                                    expandedToFlex(isCuneiformExpanded)
+                                )
+                            }
+                            expanded={isCuneiformExpanded}
+                            shrink={shrinkCuneiform}
+                            expand={expandCuneiform}
+                        />
+                        <div className={css(styles.editorSection)}>
+                            <EditorSection
+                                toolbox={getToolbox(riddleToolbox)}
+                                workspace={workspace}
+                                setWorkspace={setWorkspace}
+                                height={`${height}px`}
+                                width={'100%'}
+                                codeResult={codeResult}
+                                runCode={runCode}
                             />
-                            <div className={css(styles.lockRow)} data-tour={1}>
-                                <Solution
-                                    length={solutionLength}
-                                    type={solutionType}
-                                    onChangeValue={onChangeSolution}
-                                    value={userSolution}
-                                />
-                            </div>
-                            <Separator
-                                isVertical={false}
-                                isButtonToggled={
-                                    !flexToExpanded(
-                                        isLegendExpanded,
-                                        legendFlex
-                                    )
-                                }
-                                expanded={isLegendExpanded}
-                                shrink={shrinkLegend}
-                                expand={expandLegend}
-                            />
-                            <div
-                                style={{
-                                    flex: legendFlex,
-                                    opacity: legendFlex,
-                                    overflow: 'hidden',
-                                    display: 'flex'
-                                }}
-                            >
-                                <CuneiformLegend />
-                            </div>
                         </div>
                     </div>
-                    {onlyIf(
-                        hasItem(inventory, computer),
-                        <div className={css(styles.editorColumn)}>
-                            <div className={css(styles.row)}>
-                                <Separator
-                                    isVertical
-                                    isButtonToggled={
-                                        !flexToExpanded(
-                                            isCuneiformExpanded,
-                                            columnFlex
-                                        )
-                                    }
-                                    expanded={isCuneiformExpanded}
-                                    shrink={shrinkCuneiform}
-                                    expand={expandCuneiform}
-                                />
-                                <div className={css(styles.editorSection)}>
-                                    <EditorSection
-                                        toolbox={getToolbox(riddleToolbox)}
-                                        workspace={workspace}
-                                        setWorkspace={setWorkspace}
-                                        height={`${height}px`}
-                                        width={'100%'}
-                                        codeResult={codeResult}
-                                        runCode={runCode}
-                                    />
-                                </div>
+                </div>
+            )}
+            <Tour
+                isOpen={isTutorialOpen}
+                onRequestClose={hideTutorial}
+                maskSpace={0}
+                startAt={tutorialStartIndex}
+                steps={[
+                    {
+                        selector: '#cuneiformRiddle',
+                        content: () =>
+                            <div>
+                                <span>
+                                    Cosa sono questi simboli? Dovrei provare a
+                                    tradurli...
+                                </span>
                             </div>
-                        </div>
-                    )}
-                    <Tour
-                        isOpen={isTutorialOpen}
-                        onRequestClose={hideTutorial}
-                        maskSpace={0}
-                        startAt={tutorialStartIndex}
-                        steps={[
-                            {
-                                selector: '#cuneiformRiddle',
-                                content: () =>
-                                    <div>
-                                        <span>
-                                            Cosa sono questi simboli? Dovrei
-                                            provare a tradurli...
-                                        </span>
-                                    </div>
-                            },
-                            {
-                                selector: '#cuneiformLegend',
-                                content: () =>
-                                    <div>
-                                        <span>
-                                            Forse questa legenda può aiutarmi?
-                                        </span>
-                                    </div>
-                            },
-                            ...reactourInventory(inventory).map(tutorial => ({
-                                selector: tutorial.selector,
-                                content: () =>
-                                    <div>
-                                        <span>
-                                            {tutorial.text}
-                                        </span>
-                                    </div>
-                            }))
-                        ]}
-                    />
-                </div>}
-        </Motion>
+                    },
+                    {
+                        selector: '#cuneiformLegend',
+                        content: () =>
+                            <div>
+                                <span>Forse questa legenda può aiutarmi?</span>
+                            </div>
+                    },
+                    ...reactourInventory(inventory).map(tutorial => ({
+                        selector: tutorial.selector,
+                        content: () =>
+                            <div>
+                                <span>
+                                    {tutorial.text}
+                                </span>
+                            </div>
+                    }))
+                ]}
+            />
+        </div>
     </div>
 
 export interface RiddleContainerProps {
