@@ -266,7 +266,6 @@ const riddles: Riddle[] = [
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `(function( ${a}, ${b} , ${c} , ${d} ) { return ${ret} })( '${args[0]}','${args[1]}','${args[2]}','${args[3]}' )`
-            console.log(code)
             return code
         },
         solution: ([a, b, c, d]: string[]) => `${a + b + c + d}`,
@@ -401,10 +400,10 @@ const riddles: Riddle[] = [
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `(function( ${x}, ${y}, ${z} ) { ${userCode};\n return ${ret} })(${args})`
-            console.log(code)
             return code
         },
-        solution: ([a, b]: number[]) => `${a + b}`,
+        solution: ([a, b, c]: number[]) =>
+            c % 2 === 0 ? `${a + b}` : `${a * b}`,
         solutionLength: 2,
         solutionType: 'number',
         argsGenerator: () => [
