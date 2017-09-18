@@ -39,7 +39,10 @@ const riddles: Riddle[] = [
     {
         id: 'return',
         question: ([a]: number[]) => `Inserisci il numero ${a}`,
-        defaultToolbox: [`<block type="numero1"></block>`],
+        defaultToolbox: [
+            `<block type="numero1"></block>`,
+            `<block type="math_number"></block>`
+        ],
         defaultWorkspace: ([a]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml">
             <block type="riddle_return" id="riddle_return" deletable="false"></block>
@@ -93,6 +96,7 @@ const riddles: Riddle[] = [
         defaultToolbox: [
             `<block type="numero1"></block>`,
             `<block type="numero2"></block>`,
+            `<block type="math_number"></block>`,
             `<block type="math_arithmetic">
                 <field name="OP">ADD</field>
                 <value name="A">
