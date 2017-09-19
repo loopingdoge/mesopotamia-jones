@@ -6,6 +6,8 @@ import { Inventory, Item } from '../config/inventory'
 
 import { arvo } from '../utils/fonts'
 
+const itemPreviewSize = 100
+
 const styles = StyleSheet.create({
     inventory: {
         flex: 1,
@@ -14,21 +16,23 @@ const styles = StyleSheet.create({
         fontFamily: [arvo, 'sans-serif']
     },
     inventoryTab: {
-        padding: '20px'
+        border: '1px solid #a3540b'
     },
     itemList: {
         flex: 1,
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        overflowY: 'scroll'
+        overflowY: 'scroll',
+        padding: '20px'
     },
     itemContainer: {
         marginRight: '20px',
         ':last-child': {
             marginRight: '0px'
         },
-        cursor: 'pointer'
+        cursor: 'pointer',
+        maxHeight: itemPreviewSize + 25
     },
     itemImageContainer: {
         padding: 10,
@@ -41,8 +45,8 @@ const styles = StyleSheet.create({
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        width: 100,
-        height: 100
+        width: itemPreviewSize,
+        height: itemPreviewSize
     },
     itemImageBigContainer: {
         display: 'flex',
@@ -66,12 +70,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     itemDescription: {
-        marginTop: '24px'
+        marginTop: '24px',
+        fontSize: 'larger'
     },
     selectedItemContainer: {
         flex: 1,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        padding: '20px'
     }
 })
 
@@ -97,8 +103,8 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
 
     render() {
         return (
-            <div className={css(styles.inventory, styles.inventoryTab)}>
-                <div className={css(styles.itemList)}>
+            <div className={css(styles.inventory)}>
+                <div className={css(styles.itemList, styles.inventoryTab)}>
                     {this.props.inventory.map((item, index) =>
                         <div key={index} className={css(styles.itemContainer)}>
                             <div
