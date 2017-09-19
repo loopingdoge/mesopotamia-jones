@@ -10,39 +10,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#E37710',
         paddingTop: '50px'
-    },
-    editorSection: {
-        padding: 20
-    },
-    gameOverlayWindow: {
-        display: 'flex',
-        flexDirection: 'row',
-        paddingTop: '50px',
-        zIndex: 19,
-        flex: 1
-    },
-    gameOverlayContent: {
-        flex: 1,
-        border: '1px solid #a3540b',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    placeholder: {
-        padding: 20,
-        flex: 1,
-        backgroundColor: '#fff',
-        border: '5px solid #eee',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center'
-    },
-    editorContainer: {
-        display: 'flex',
-        flex: 1,
-        padding: 20,
-        border: '1px solid #a3540b'
     }
 })
 
