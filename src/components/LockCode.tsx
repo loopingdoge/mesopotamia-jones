@@ -13,10 +13,12 @@ const labelHeight = 42
 
 const styles = StyleSheet.create({
     lockCode: {
+        padding: '8px',
+        margin: '0px 2px',
+        fontFamily: 'monospace',
+        outline: 'none',
         display: 'flex',
-        flexDirection: 'column',
-        padding: '0 8px',
-        fontFamily: 'monospace'
+        flexDirection: 'column'
     },
     fieldsColumn: {
         height: 125,
@@ -32,6 +34,16 @@ const styles = StyleSheet.create({
         fontSize: 22,
         height: labelHeight,
         lineHeight: `${labelHeight}px`
+    },
+    solutionHighlight: {
+        backgroundColor: 'rgba(253, 212, 02, 0.3)',
+        width: 30,
+        height: 30,
+        position: 'absolute',
+        marginTop: 77,
+        marginLeft: -2,
+        border: '2px solid #90752d',
+        borderRadius: 4
     }
 })
 
@@ -195,6 +207,7 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                 onTouchMove={this.onTouchMove}
                 onMouseDown={this.props.setFocus}
             >
+                <div className={css(styles.solutionHighlight)} />
                 <Button
                     icon={androidArrowDropup}
                     text={''}
@@ -202,7 +215,6 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                     small
                     circular
                 />
-                {/* <button onClick={onDecrement}>⬆</button> */}
                 <div className={css(styles.fieldsColumn)}>
                     <Motion
                         style={{
@@ -225,7 +237,6 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                     small
                     circular
                 />
-                {/* <button onClick={onIncrement}>⬇</button> */}
             </div>
         )
     }

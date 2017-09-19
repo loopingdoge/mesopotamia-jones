@@ -17,6 +17,8 @@ const listFromType = (type: SolutionType) =>
 
 const styles = StyleSheet.create({
     solution: {
+        borderRadius: 4,
+        border: '2px solid #90752d',
         display: 'flex',
         flexDirection: 'row'
     }
