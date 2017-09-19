@@ -5,7 +5,7 @@ import * as React from 'react'
 import { getOrElse, onlyIf } from '../utils'
 
 import { GamePhase, GameState, GameStore } from '../stores/gameStore'
-import { UIStore } from '../stores/gameUIStore'
+import { GameUI, UIStore } from '../stores/gameUIStore'
 
 import { Dialogue } from '../config/dialogues'
 import { Item } from '../config/inventory'
@@ -15,8 +15,11 @@ import FadedContainer from './FadedContainer'
 import FoundItem from './FoundItem'
 import Game from './Game'
 import GameHeader from './GameHeader'
-import Inventory from './Inventory'
+import GameOverlay from './GameOverlay'
 import Riddle from './Riddle'
+
+import Inventory from '../containers/Inventory'
+import MapWrapper from '../containers/MapWrapper'
 
 const styles = StyleSheet.create({
     mesopotamiaJonesContainer: {
@@ -55,6 +58,7 @@ export interface MesopotamiaJonesProps {
     activeFoundItem: Item
     pageWidth: number
     pageHeight: number
+    gameUi: GameUI
 }
 
 const MesopotamiaJones = ({
@@ -62,10 +66,11 @@ const MesopotamiaJones = ({
     activeDialogue,
     activeFoundItem,
     pageWidth,
-    pageHeight
+    pageHeight,
+    gameUi
 }: MesopotamiaJonesProps) => {
     const MaybeHeader = onlyIf(gamePhase !== 'Riddle', <GameHeader />)
-    const MaybeInventory = onlyIf(gamePhase !== 'Riddle', <Inventory />)
+    // const MaybeOverlay = onlyIf(gamePhase !== 'Riddle', <GameOverlay />)
     const MaybeRiddle = onlyIf(
         gamePhase === 'Riddle',
         <div
@@ -88,6 +93,19 @@ const MesopotamiaJones = ({
         </FadedContainer>
     )
 
+    let overlayContent
+    switch (gameUi) {
+        case GameUI.Game:
+            overlayContent = null
+            break
+        case GameUI.Inventory:
+            overlayContent = <Inventory />
+            break
+        case GameUI.Map:
+            overlayContent = <MapWrapper />
+            break
+    }
+
     if (pageWidth < 1280 || pageHeight < 720) {
         // TODO: Show an error
         // console.error(
@@ -101,7 +119,13 @@ const MesopotamiaJones = ({
                 {MaybeDialogue}
                 {MaybeFoundItem}
                 {MaybeHeader}
-                {MaybeInventory}
+                <GameOverlay
+                    width={pageWidth}
+                    height={pageHeight}
+                    gameUi={gameUi}
+                >
+                    {overlayContent}
+                </GameOverlay>
                 <div
                     style={getStyles(gamePhase).game}
                     className={css(styles.content)}
@@ -139,6 +163,7 @@ class MesopotamiaJonesContainer extends React.Component<
                 activeFoundItem={activeFoundItem}
                 pageWidth={width}
                 pageHeight={height}
+                gameUi={this.props.uiStore.state.ui}
             />
         )
     }

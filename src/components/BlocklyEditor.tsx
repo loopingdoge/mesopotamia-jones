@@ -4,6 +4,8 @@ import * as React from 'react'
 import Icon from 'react-icons-kit'
 import { androidDelete, play } from 'react-icons-kit/ionicons/'
 
+import { onlyIf } from '../utils'
+
 const styles = StyleSheet.create({
     resizable: {
         position: 'absolute'
@@ -71,9 +73,8 @@ export interface BlockEditorProps {
     toolboxXML: string
     workspaceXML: string
     onWorkspaceChange: (workspace: string) => any
-    onCodeRun?: () => void
-    codeResult: string
-    runCode: () => void
+    codeResult?: string
+    runCode?: () => void
 }
 
 class BlockEditor extends React.Component<BlockEditorProps> {
@@ -177,41 +178,44 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                     }}
                     className={css(styles.resizable)}
                 />
-                <div id="resultDiv" className={css(styles.result)}>
-                    <button
-                        id="play"
-                        onClick={this.props.runCode}
-                        className={css(styles.computerButton)}
-                        style={{ backgroundColor: 'green' }}
-                    >
-                        <Icon
-                            icon={play}
-                            size={32}
-                            style={{ color: 'white' }}
+                {onlyIf(
+                    this.props.runCode !== null,
+                    <div id="resultDiv" className={css(styles.result)}>
+                        <button
+                            id="play"
+                            onClick={this.props.runCode}
+                            className={css(styles.computerButton)}
+                            style={{ backgroundColor: 'green' }}
+                        >
+                            <Icon
+                                icon={play}
+                                size={32}
+                                style={{ color: 'white' }}
+                            />
+                        </button>
+                        <textarea
+                            readOnly={true}
+                            // TODO: perche' cazzo non si aggiorna?
+                            value={
+                                this.props.codeResult ||
+                                'Premi il pulsante "Play" per eseguire il codice'
+                            }
+                            className={css(styles.output)}
                         />
-                    </button>
-                    <textarea
-                        readOnly={true}
-                        // TODO: perche' cazzo non si aggiorna?
-                        value={
-                            this.props.codeResult ||
-                            'Premi il pulsante "Play" per eseguire il codice'
-                        }
-                        className={css(styles.output)}
-                    />
-                    <button
-                        id="clear"
-                        onClick={() => console.log('TODO')}
-                        className={css(styles.computerButton)}
-                        style={{ backgroundColor: 'red' }}
-                    >
-                        <Icon
-                            icon={androidDelete}
-                            size={32}
-                            style={{ color: 'white' }}
-                        />
-                    </button>
-                </div>
+                        <button
+                            id="clear"
+                            onClick={() => console.log('TODO')}
+                            className={css(styles.computerButton)}
+                            style={{ backgroundColor: 'red' }}
+                        >
+                            <Icon
+                                icon={androidDelete}
+                                size={32}
+                                style={{ color: 'white' }}
+                            />
+                        </button>
+                    </div>
+                )}
             </div>
         )
     }

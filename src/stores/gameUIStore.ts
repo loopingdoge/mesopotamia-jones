@@ -2,9 +2,11 @@ import { action, computed, observable } from 'mobx'
 
 import { Riddle } from '../config/riddles'
 
-export const GAME = 'GAME'
-export const MAP = 'MAP'
-export const BLUEP = 'BLUEPRINT'
+export enum GameUI {
+    Game,
+    Map,
+    Inventory
+}
 
 const getGameScale = (pageWidth: number, pageHeight: number) => {
     let width: number
@@ -22,7 +24,7 @@ const getGameScale = (pageWidth: number, pageHeight: number) => {
 }
 
 export interface IGameUIStore {
-    selected: string
+    ui: GameUI
     selectedRiddle: Riddle
 }
 
@@ -39,7 +41,7 @@ export class UIStore {
 
     constructor() {
         this.state = {
-            selected: GAME,
+            ui: GameUI.Game,
             selectedRiddle: null
         }
     }
@@ -53,11 +55,12 @@ export class UIStore {
     }
 
     @action
-    show = (selected: string) => {
+    show = (ui: GameUI) => {
         this.state = {
             ...this.state,
-            selected,
-            selectedRiddle: selected === GAME ? null : this.state.selectedRiddle
+            ui,
+            selectedRiddle:
+                ui === GameUI.Game ? null : this.state.selectedRiddle
         }
     }
 

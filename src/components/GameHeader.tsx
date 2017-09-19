@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import { onlyIf } from '../utils'
 
-import { BLUEP, GAME, MAP, UIStore } from '../stores/gameUIStore'
+import { GameUI, UIStore } from '../stores/gameUIStore'
 
 const styles = StyleSheet.create({
     inventoryHeader: {
@@ -29,22 +29,28 @@ const styles = StyleSheet.create({
 })
 
 export interface GameHeaderProps {
-    selected: string
+    gameUi: GameUI
     width: number
-    show: (selected: string) => void
+    show: (gameUi: GameUI) => void
 }
 
-const GameHeader = ({ selected, show, width }: GameHeaderProps) =>
+const GameHeader = ({ gameUi, show, width }: GameHeaderProps) =>
     <div className={css(styles.inventoryHeader)} style={{ width }}>
-        <button className={css(styles.item)} onClick={() => show(MAP)}>
+        <button className={css(styles.item)} onClick={() => show(GameUI.Map)}>
             🗺️
         </button>
-        <button className={css(styles.item)} onClick={() => show(BLUEP)}>
+        <button
+            className={css(styles.item)}
+            onClick={() => show(GameUI.Inventory)}
+        >
             💡
         </button>
         {onlyIf(
-            selected !== GAME,
-            <button className={css(styles.item)} onClick={() => show(GAME)}>
+            gameUi !== GameUI.Game,
+            <button
+                className={css(styles.item)}
+                onClick={() => show(GameUI.Game)}
+            >
                 X
             </button>
         )}
@@ -57,7 +63,7 @@ interface GameHeaderContainerProps {
 export default inject('uiStore')(
     observer(({ uiStore }: GameHeaderContainerProps) =>
         <GameHeader
-            selected={uiStore.state.selected}
+            gameUi={uiStore.state.ui}
             show={uiStore.show}
             width={uiStore.width}
         />

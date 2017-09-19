@@ -141,7 +141,6 @@ const EditorSection = ({
             toolboxXML={toolbox}
             workspaceXML={workspace}
             onWorkspaceChange={setWorkspace}
-            onCodeRun={() => console.log('coderun')}
             runCode={runCode}
             codeResult={codeResult}
         />
