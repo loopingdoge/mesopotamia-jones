@@ -161,10 +161,13 @@ const riddles: Riddle[] = [
             const code = `(function( ${x}, ${y} ) { return ${ret} })(${args})`
             return code
         },
-        solution: ([a, b]: number[]) => `${a + b}`,
-        solutionLength: 1,
+        solution: ([a, b]: number[]) => {
+            const sum = a + b
+            return sum <= 9 ? `0${sum}` : `${sum}`
+        },
+        solutionLength: 2,
         solutionType: 'number',
-        argsGenerator: () => [randomNum(1, 4), randomNum(1, 4)]
+        argsGenerator: () => [randomNum(1, 9), randomNum(1, 9)]
     },
     {
         id: 'word',
@@ -406,13 +409,15 @@ const riddles: Riddle[] = [
             const code = `(function( ${x}, ${y}, ${z} ) { ${userCode};\n return ${ret} })(${args})`
             return code
         },
-        solution: ([a, b, c]: number[]) =>
-            c % 2 === 0 ? `${a + b}` : `${a * b}`,
+        solution: ([a, b, c]: number[]) => {
+            const res = c % 2 === 0 ? a + b : a * b
+            return res <= 9 ? `0${res}` : `${res}`
+        },
         solutionLength: 2,
         solutionType: 'number',
         argsGenerator: () => [
-            randomNum(1, 4),
-            randomNum(1, 4),
+            randomNum(1, 9),
+            randomNum(1, 9),
             randomNum(1, 10)
         ]
     }
