@@ -5,11 +5,18 @@ import { GameUI } from '../stores/gameUIStore'
 
 const styles = StyleSheet.create({
     gameOverlayWrapper: {
-        position: 'absolute',
-        flexDirection: 'column',
         flex: 1,
+        transition: 'transform 0.5s, opacity 0.3s',
+        position: 'absolute',
+        display: 'flex',
+        flexDirection: 'column',
         backgroundColor: '#E37710',
         paddingTop: '50px'
+    },
+    gameOverlayContent: {
+        flex: 1,
+        border: '1px solid #a3540b',
+        display: 'flex'
     }
 })
 
@@ -29,10 +36,15 @@ class GameOverlay extends React.PureComponent<GameOverlayProps> {
                 style={{
                     width,
                     height: height - 50,
-                    display: gameUi === GameUI.Game ? 'none' : 'flex'
+                    transform: `translateY(${gameUi === GameUI.Game
+                        ? '-100%'
+                        : '0%'})`,
+                    opacity: gameUi === GameUI.Game ? 0 : 1
                 }}
             >
-                {gameUi !== GameUI.Game && this.props.children}
+                <div className={css(styles.gameOverlayContent)}>
+                    {gameUi !== GameUI.Game && this.props.children}
+                </div>
             </div>
         )
     }
