@@ -342,7 +342,7 @@ const Riddle = ({
                                 selector: '#cuneiformLegend',
                                 content: () =>
                                     <div>
-                                        <span>
+                                        <span className={css(styles.tourText)}>
                                             Forse questa legenda può aiutarmi?
                                         </span>
                                     </div>
@@ -351,7 +351,7 @@ const Riddle = ({
                                 selector: tutorial.selector,
                                 content: () =>
                                     <div>
-                                        <span>
+                                        <span className={css(styles.tourText)}>
                                             {tutorial.text}
                                         </span>
                                     </div>
