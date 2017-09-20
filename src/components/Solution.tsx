@@ -148,6 +148,7 @@ export default class Solution extends React.Component<
                 focused={this.state.focusedIndex === i}
                 setFocus={() => this.setFocus(i)}
                 index={i}
+                isCorrect={this.props.isCorrect}
             />
         )
     }
