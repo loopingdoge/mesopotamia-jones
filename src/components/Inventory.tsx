@@ -4,6 +4,7 @@ import * as React from 'react'
 
 import { Inventory, Item } from '../config/inventory'
 
+import { mod } from '../utils'
 import { arvo } from '../utils/fonts'
 
 const itemPreviewSize = 100
@@ -39,7 +40,13 @@ const styles = StyleSheet.create({
         border: '1px #000000',
         borderStyle: 'groove',
         borderRadius: 10,
+        transition: 'background 0.3s ease'
+    },
+    nonActiveItemColor: {
         background: '#6b482f'
+    },
+    activeItemColor: {
+        background: '#c1d61f'
     },
     itemImage: {
         backgroundSize: 'contain',
@@ -86,30 +93,63 @@ export interface InventoryProps {
 }
 
 interface InventoryState {
-    item: Item
+    itemIndex: number
 }
 
 class InventoryUI extends React.Component<InventoryProps, InventoryState> {
     constructor(props: InventoryProps) {
         super(props)
         this.state = {
-            item: null
+            itemIndex: 0
         }
     }
 
-    selectItem = (item: Item) => {
-        this.setState({ item })
+    componentDidMount() {
+        addEventListener('keydown', this.onKeyDown)
+    }
+
+    componentWillUnmount() {
+        removeEventListener('keydown', this.onKeyDown)
+    }
+
+    selectItem = (index: number) => {
+        this.setState({ itemIndex: index })
+    }
+
+    onKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'ArrowLeft') {
+            this.setState({
+                itemIndex: mod(
+                    this.state.itemIndex - 1,
+                    this.props.inventory.length
+                )
+            })
+        } else if (event.key === 'ArrowRight') {
+            this.setState({
+                itemIndex: mod(
+                    this.state.itemIndex + 1,
+                    this.props.inventory.length
+                )
+            })
+        }
     }
 
     render() {
+        const inventory = this.props.inventory
+        const itemIndex = this.state.itemIndex
         return (
             <div className={css(styles.inventory)}>
                 <div className={css(styles.itemList, styles.inventoryTab)}>
-                    {this.props.inventory.map((item, index) =>
+                    {inventory.map((item, index) =>
                         <div key={index} className={css(styles.itemContainer)}>
                             <div
-                                className={css(styles.itemImageContainer)}
-                                onClick={this.selectItem.bind(this, item)}
+                                className={css(
+                                    styles.itemImageContainer,
+                                    inventory[itemIndex].id === item.id
+                                        ? styles.activeItemColor
+                                        : styles.nonActiveItemColor
+                                )}
+                                onClick={this.selectItem.bind(this, index)}
                             >
                                 <div
                                     className={css(styles.itemImage)}
@@ -127,10 +167,10 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
                         styles.inventoryTab
                     )}
                 >
-                    {this.state.item
+                    {inventory[itemIndex]
                         ? <div className={css(styles.item)}>
                               <div className={css(styles.itemName)}>
-                                  {upperFirst(this.state.item.name)}
+                                  {upperFirst(inventory[itemIndex].name)}
                               </div>
                               <div
                                   className={css(styles.itemImageBigContainer)}
@@ -138,13 +178,14 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
                                   <div
                                       className={css(styles.itemImageBig)}
                                       style={{
-                                          backgroundImage: `url(${this.state
-                                              .item.image})`
+                                          backgroundImage: `url(${inventory[
+                                              itemIndex
+                                          ].image})`
                                       }}
                                   />
                               </div>
                               <div className={css(styles.itemDescription)}>
-                                  {upperFirst(this.state.item.description)}
+                                  {upperFirst(inventory[itemIndex].description)}
                               </div>
                           </div>
                         : <div>Seleziona un oggetto</div>}
