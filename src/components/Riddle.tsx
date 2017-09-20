@@ -94,6 +94,23 @@ const styles = StyleSheet.create({
     },
     solutionInput: {
         flex: 1
+    },
+    tour: {
+        borderRadius: 4,
+        border: '2px solid #90752d',
+        backgroundColor: '#FDF6E3',
+        boxShadow: '0px 1px 11px -1px #90752d',
+        ':after': {
+            color: 'black',
+            backgroundColor: '#fdd466',
+            border: '2px solid #90752d'
+        },
+        div: {
+            backgroundColor: 'red'
+        }
+    },
+    tourText: {
+        fontFamily: 'sans-serif'
     }
 })
 
@@ -305,6 +322,7 @@ const Riddle = ({
                         </div>
                     )}
                     <Tour
+                        className={css(styles.tour)}
                         isOpen={isTutorialOpen}
                         onRequestClose={hideTutorial}
                         maskSpace={0}
@@ -314,7 +332,7 @@ const Riddle = ({
                                 selector: '#cuneiformRiddle',
                                 content: () =>
                                     <div>
-                                        <span>
+                                        <span className={css(styles.tourText)}>
                                             Cosa sono questi simboli? Dovrei
                                             provare a tradurli...
                                         </span>

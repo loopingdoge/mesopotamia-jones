@@ -15,15 +15,6 @@ const strings: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const listFromType = (type: SolutionType) =>
     type === 'number' ? numbers : strings
 
-const highlight = {
-    from: {
-        backgroundColor: 'rgba(253, 212, 02, 0)'
-    },
-    to: {
-        backgroundColor: 'rgba(253, 212, 02, 0.3)'
-    }
-}
-
 const styles = StyleSheet.create({
     solution: {
         boxShadow: '0px 1px 11px -1px #90752d',
@@ -33,9 +24,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     correctSolution: {
-        backgroundColor: 'rgba(253, 212, 02, 0.3)',
-        boxShadow: '0px 1px 20px 3px rgb(253, 212, 02)',
-        animationName: highlight,
+        boxShadow: '0px 1px 20px 3px rgb(253, 212, 102)',
         animationDuration: '500ms'
     }
 })
