@@ -144,8 +144,8 @@ export class GameStore {
 
         // React to riddle solved by the user
         reaction(
-            () => this.riddleStore.isSolved,
-            (isSolved: boolean) => isSolved && this.riddleSolved()
+            () => this.riddleStore.riddleCompleted,
+            (riddleCompleted: boolean) => riddleCompleted && this.riddleSolved()
         )
 
         reaction(
@@ -266,6 +266,7 @@ export class GameStore {
         )
 
         this.riddleStore.isSolved = false
+        this.riddleStore.riddleCompleted = false
     }
 
     @action

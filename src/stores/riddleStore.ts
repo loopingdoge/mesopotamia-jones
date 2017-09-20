@@ -13,6 +13,7 @@ export interface IRiddleStore {
     userSolution: string
     codeResult: any
     isSolved: boolean
+    riddleCompleted: boolean
 }
 
 export class RiddleStore {
@@ -42,9 +43,16 @@ export class RiddleStore {
     get isSolved(): boolean {
         return this.state.isSolved
     }
-
     set isSolved(isSolved: boolean) {
         this.state.isSolved = isSolved
+    }
+
+    @computed
+    get riddleCompleted(): boolean {
+        return this.state.riddleCompleted
+    }
+    set riddleCompleted(riddleCompleted: boolean) {
+        this.state.riddleCompleted = riddleCompleted
     }
 
     @computed
@@ -64,7 +72,8 @@ export class RiddleStore {
             userSolution: null,
             workspaceXML: null,
             codeResult: null,
-            isSolved: false
+            isSolved: false,
+            riddleCompleted: false
         }
 
         reaction(
@@ -78,6 +87,8 @@ export class RiddleStore {
                 }
             }
         )
+
+        reaction(() => this.userSolution, () => this.checkSolution())
 
         // Init custom blocks
         for (const block of blocks) {
@@ -141,7 +152,7 @@ export class RiddleStore {
         if (workspaceXML) {
             // ex userCode
             this.runCode()
-            this.tryOpenDoor()
+            this.setRiddleCompleted()
         }
         riddleUIStore.tutorialStartIndex = 0
     }
@@ -149,15 +160,20 @@ export class RiddleStore {
     @action
     checkSolution = () => {
         const riddleSolution = this.currentRiddle.solution(this.generatedArgs)
-        return riddleSolution === this.userSolution
+        const isSolved = riddleSolution === this.userSolution
+        this.state = {
+            ...this.state,
+            isSolved
+        }
+        return isSolved
     }
 
     @action
-    tryOpenDoor = () => {
+    setRiddleCompleted = () => {
         if (this.checkSolution()) {
             this.state = {
                 ...this.state,
-                isSolved: true
+                riddleCompleted: true
             }
         }
     }

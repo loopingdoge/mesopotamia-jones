@@ -171,6 +171,7 @@ export interface RiddleProps {
     inventory: Inventory
     width: number
     height: number
+    isSolved: boolean
     goBack: () => void
     runCode: () => void
     shrinkCuneiform: () => void
@@ -182,11 +183,12 @@ export interface RiddleProps {
     setWorkspace: (code: string) => void
     onChangeSolution: (sol: string) => void
     checkSolution: () => boolean
-    tryOpenDoor: () => void
+    riddleSolved: () => void
     tutorialStartIndex: number
 }
 
 const Riddle = ({
+    isSolved,
     riddleText,
     solutionLength,
     solutionType,
@@ -206,7 +208,7 @@ const Riddle = ({
     setWorkspace,
     onChangeSolution,
     checkSolution,
-    tryOpenDoor,
+    riddleSolved,
     inventory,
     width,
     height,
@@ -217,8 +219,8 @@ const Riddle = ({
 }: RiddleProps) =>
     <div className={css(styles.wrapper)}>
         <Modal
-            isOpen={checkSolution()}
-            content={<SolvedRiddleModal onClick={tryOpenDoor} />}
+            isOpen={isSolved}
+            content={<SolvedRiddleModal onClick={riddleSolved} />}
         />
         <Toolbar goBack={goBack} openInfo={showTutorial} />
         <Motion
@@ -364,13 +366,16 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
 
     render() {
         const { inventory } = this.props.gameStore
+
         const { width, height } = this.props.uiStore
+
         const {
             currentRiddle,
             codeResult,
             runCode,
             checkSolution,
-            tryOpenDoor,
+            isSolved,
+            setRiddleCompleted,
             setWorkspaceXML,
             setUserSolution,
             workspaceXML,
@@ -412,7 +417,8 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 setWorkspace={setWorkspaceXML}
                 onChangeSolution={setUserSolution}
                 checkSolution={checkSolution}
-                tryOpenDoor={tryOpenDoor}
+                isSolved={isSolved}
+                riddleSolved={setRiddleCompleted}
                 shrinkCuneiform={shrinkCuneiform}
                 expandCuneiform={expandCuneiform}
                 shrinkLegend={shrinkLegend}
