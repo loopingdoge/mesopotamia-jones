@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import * as ComputerImage from '../../assets/images/computer.png'
 import * as ComputerKeyImage from '../../assets/images/key.png'
+import * as CuneiformLegendImage from '../../assets/images/legend.png'
 import * as TranslatorImage from '../../assets/images/rock.png'
 
 export interface Item {
@@ -14,7 +15,7 @@ export interface Item {
 export class Computer implements Item {
     id: string = COMPUTER
     name = 'computer'
-    description = 'il computer che Von Talin in passato ha cercato di costruire. Questo artefatto si collega alle porte della piramide e permette di risolvere gli enigmi automaticamente, se programmato correttamente'
+    description = 'il computer che Von Talin in passato ha cercato di costruire. Questo artefatto si collega alle porte della piramide e permette di risolvere gli enigmi automaticamente, se programmato correttamente.'
     workspace: { [riddleId: string]: string } = {}
     image = ComputerImage
 }
@@ -24,6 +25,7 @@ export const COMPUTER = 'COMPUTER'
 // export const ROCK_SMASHER = 'ROCK_SMASHER'
 export const COMPUTER_KEY = 'COMPUTER_KEY'
 export const TRANSLATOR = 'CUNEIFORM_TRANSLATOR'
+export const LEGEND = 'LEGEND'
 
 export const toolboxEntries: any = [
     // {
@@ -74,15 +76,22 @@ export const computer = new Computer()
 export const computerKey = createItem(
     COMPUTER_KEY,
     'vecchia chiave',
-    'questa chiave serve ad aprire una cassa contenente il computer di Von Talin',
+    'questa chiave serve ad aprire una cassa contenente il computer di Von Talin.',
     ComputerKeyImage
 )
 
 export const translator = createItem(
     TRANSLATOR,
     'una roccia',
-    'questo oggetto traduce automaticamente i testi degli indovinelli. Sembra contenere il fantasma di un maestro di cuneiforme',
+    'questo oggetto traduce automaticamente i testi degli indovinelli. Sembra contenere il fantasma di un maestro di cuneiforme.',
     TranslatorImage
+)
+
+export const legend = createItem(
+    LEGEND,
+    'legenda di cuneiforme',
+    "una legenda che permette di tradurre l'alfabeto cuneiforme nel nostro alfabeto.",
+    CuneiformLegendImage
 )
 
 const items: Item[] = [computer]
@@ -92,7 +101,7 @@ export type Inventory = Item[]
 export const getItemById = (id: string) =>
     items.filter((item: Item) => item.id === id)[0]
 
-export const defaultInventory = (): Inventory => []
+export const defaultInventory = (): Inventory => [legend]
 
 export const hasItem = (inventory: Inventory, item: Item): boolean =>
     inventory.filter(i => i.id === item.id).length > 0
