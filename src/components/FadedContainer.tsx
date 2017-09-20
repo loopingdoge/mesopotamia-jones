@@ -38,4 +38,4 @@ class FadedContainer extends React.Component<FadedContainerProps> {
     }
 }
 
-export default withWidthHeight(FadedContainer)
+export default FadedContainer
