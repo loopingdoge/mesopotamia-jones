@@ -9,17 +9,19 @@ import Actions, {
     removeActionListener
 } from '../config/actions'
 
-import { Maybe } from '../utils'
+import { isMobile, Maybe, onlyIf } from '../utils'
 import { arvo } from '../utils/fonts'
 
 import * as React from 'react'
 
 const translateArrowKeyframes = {
     '0%, 100%': {
-        transform: 'translateX(0px)'
+        transform: 'scale(1)',
+        opacity: 1
     },
     '50%': {
-        transform: 'translateX(8px)'
+        transform: 'scale(0.97)',
+        opacity: 0.9
     }
 }
 
@@ -52,17 +54,17 @@ const styles = StyleSheet.create({
         fontWeight: 600
     },
     text: {
+        flex: 1,
         display: 'flex',
         flexDirection: 'row'
     },
     dialogueText: {
         fontSize: 24
     },
-    arrow: {
-        marginLeft: '10px',
+    continueHint: {
+        minHeight: '50px',
         fontSize: 24,
-        alignSelf: 'flex-end',
-        textAlign: 'right',
+        textAlign: 'center',
         animationName: translateArrowKeyframes,
         animationDuration: '2s',
         animationIterationCount: 'infinite',
@@ -180,8 +182,17 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
                         <div className={css(styles.dialogueText)}>
                             {dialogue && this.state.visibleCharacters}
                         </div>
-                        <div className={css(styles.arrow)}>➞</div>
                     </div>
+                    {onlyIf(
+                        this.state.visibleCharacters.length ===
+                            this.props.dialogue.lines[this.state.pageIndex].text
+                                .length,
+                        <div className={css(styles.continueHint)}>
+                            {isMobile()
+                                ? 'Tocca per continuare'
+                                : 'Premi F per continuare'}
+                        </div>
+                    )}
                 </div>
             </div>
         )

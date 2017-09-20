@@ -1,4 +1,4 @@
-import { getOrElse, Maybe } from '../utils'
+import { getOrElse, isMobile, Maybe } from '../utils'
 
 enum Actions {
     SKIP_TO_DIALOGUE_END = 'SKIP_TO_DIALOGUE_END',
@@ -18,10 +18,7 @@ const callbackIfPressedF = (callback: ActionCallback) => (
     }
 }
 
-const eventTouchOrKeyboard = () =>
-    'ontouchstart' in window || navigator.msMaxTouchPoints > 0
-        ? 'touchend'
-        : 'keydown'
+const eventTouchOrKeyboard = () => (isMobile() ? 'touchend' : 'keydown')
 
 export const addActionListener = (
     action: Actions,

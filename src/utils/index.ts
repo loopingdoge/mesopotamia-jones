@@ -53,3 +53,7 @@ export function linearMap(
 ) {
     return (val - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin
 }
+
+export function isMobile(): boolean {
+    return 'ontouchstart' in window || navigator.msMaxTouchPoints > 0
+}
