@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
                 backgroundColor: 'rgba(0, 0, 0, 0)'
             }
         },
-        animationDuration: '500ms'
+        animationDuration: '100ms'
     },
     modalContent: {
         display: 'flex',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
                 transform: 'scale(0.8)'
             }
         },
-        animationDuration: '500ms'
+        animationDuration: '250ms'
     },
     modalBody: {
         display: 'flex',

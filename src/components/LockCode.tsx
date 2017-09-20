@@ -128,6 +128,7 @@ export interface LockCodeProps {
     focused: boolean
     setFocus: (...args: any[]) => any
     index: number
+    isCorrect: boolean
 }
 
 class LockCode extends React.PureComponent<LockCodeProps> {
@@ -150,13 +151,17 @@ class LockCode extends React.PureComponent<LockCodeProps> {
         }
     }
 
+    onIncrement = () => !this.props.isCorrect && this.props.onIncrement()
+
+    onDecrement = () => !this.props.isCorrect && this.props.onDecrement()
+
     onKeyDown = (event: any) => {
         switch (event.key) {
             case 'ArrowUp':
-                this.props.onDecrement()
+                this.onDecrement()
                 break
             case 'ArrowDown':
-                this.props.onIncrement()
+                this.onIncrement()
                 break
         }
     }
@@ -170,9 +175,9 @@ class LockCode extends React.PureComponent<LockCodeProps> {
         if (now > this.lastSwipeTime + 500) {
             const swipeY = event.touches[0].clientY
             if (swipeY > this.lastSwipeY) {
-                this.props.onDecrement()
+                this.onDecrement()
             } else {
-                this.props.onIncrement()
+                this.onIncrement()
             }
             this.lastSwipeY = swipeY
             this.lastSwipeTime = now
@@ -180,13 +185,7 @@ class LockCode extends React.PureComponent<LockCodeProps> {
     }
 
     render() {
-        const {
-            list,
-            currentValueIndex,
-            onIncrement,
-            onDecrement,
-            focused
-        } = this.props
+        const { list, currentValueIndex, focused } = this.props
 
         const labelList = list.map((item, i) =>
             <SolutionLabel
@@ -211,7 +210,7 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                 <Button
                     icon={androidArrowDropup}
                     text={''}
-                    onClick={onDecrement}
+                    onClick={this.onDecrement}
                     small
                     circular
                 />
@@ -233,7 +232,7 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                 <Button
                     icon={androidArrowDropdown}
                     text={''}
-                    onClick={onIncrement}
+                    onClick={this.onIncrement}
                     small
                     circular
                 />
