@@ -6,6 +6,15 @@ import * as ReactModal from 'react-modal'
 
 import Button from './Button'
 
+const modalShow = {
+    from: {
+        transform: 'scale(0.8)'
+    },
+    to: {
+        transform: 'scale(1)'
+    }
+}
+
 const styles = StyleSheet.create({
     modalOverlay: {
         zIndex: 101,
@@ -17,7 +26,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.65)'
+        backgroundColor: 'rgba(0, 0, 0, 0.65)',
+        animationName: {
+            from: {
+                backgroundColor: 'rgba(0, 0, 0, 0)'
+            }
+        },
+        animationDuration: '500ms'
     },
     modalContent: {
         display: 'flex',
@@ -28,7 +43,13 @@ const styles = StyleSheet.create({
         height: 200,
         backgroundColor: '#FDF6E3',
         outline: 'none',
-        border: '2px solid black'
+        border: '2px solid black',
+        animationName: {
+            from: {
+                transform: 'scale(0.8)'
+            }
+        },
+        animationDuration: '500ms'
     },
     modalBody: {
         display: 'flex',
@@ -54,16 +75,31 @@ export const SolvedRiddleModal = ({ onClick }: SolvedRiddleModalProps) =>
 
 export interface ModalProps {
     isOpen: boolean
+    onOpenDelay: number
     content: any
 }
 
 class Modal extends React.Component<ModalProps> {
     isCanceled: boolean
+    isOpened: boolean
+    openDelay: number
 
-    constructor() {
-        super()
+    constructor(props: ModalProps) {
+        super(props)
         this.isCanceled = false
+        this.isOpened = props.isOpen || false
+        this.openDelay = props.onOpenDelay || 0
+
         this.closeModal = this.closeModal.bind(this)
+    }
+
+    componentWillReceiveProps(nextProps: ModalProps) {
+        if (nextProps.isOpen && !this.props.isOpen) {
+            setTimeout(() => {
+                this.isOpened = true
+                this.forceUpdate()
+            }, this.openDelay)
+        }
     }
 
     closeModal() {
@@ -74,7 +110,7 @@ class Modal extends React.Component<ModalProps> {
     render() {
         return (
             <ReactModal
-                isOpen={this.props.isOpen && !this.isCanceled}
+                isOpen={this.isOpened && !this.isCanceled}
                 closeTimeoutMS={0}
                 overlayClassName={css(styles.modalOverlay)}
                 className={css(styles.modalContent)}

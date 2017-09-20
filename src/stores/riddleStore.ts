@@ -161,10 +161,12 @@ export class RiddleStore {
     checkSolution = () => {
         const riddleSolution = this.currentRiddle.solution(this.generatedArgs)
         const isSolved = riddleSolution === this.userSolution
+
         this.state = {
             ...this.state,
             isSolved
         }
+
         return isSolved
     }
 

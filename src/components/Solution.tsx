@@ -15,12 +15,26 @@ const strings: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const listFromType = (type: SolutionType) =>
     type === 'number' ? numbers : strings
 
+const highlight = {
+    from: {
+        backgroundColor: 'rgba(253, 212, 02, 0)'
+    },
+    to: {
+        backgroundColor: 'rgba(253, 212, 02, 0.3)'
+    }
+}
+
 const styles = StyleSheet.create({
     solution: {
         borderRadius: 4,
         border: '2px solid #90752d',
         display: 'flex',
         flexDirection: 'row'
+    },
+    correctSolution: {
+        backgroundColor: 'rgba(253, 212, 02, 0.3)',
+        animationName: highlight,
+        animationDuration: '500ms'
     }
 })
 
@@ -38,6 +52,7 @@ export interface SolutionProps {
     length: number
     type: SolutionType
     value: string
+    isCorrect: boolean
     onChangeValue: (value: string) => void
 }
 
@@ -148,7 +163,12 @@ export default class Solution extends React.Component<
 
     render() {
         return (
-            <div className={css(styles.solution)}>
+            <div
+                className={css(
+                    styles.solution,
+                    this.props.isCorrect && styles.correctSolution
+                )}
+            >
                 {this.getFields()}
             </div>
         )

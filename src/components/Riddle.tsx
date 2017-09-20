@@ -220,6 +220,7 @@ const Riddle = ({
     <div className={css(styles.wrapper)}>
         <Modal
             isOpen={isSolved}
+            onOpenDelay={1500}
             content={<SolvedRiddleModal onClick={riddleSolved} />}
         />
         <Toolbar goBack={goBack} openInfo={showTutorial} />
@@ -246,6 +247,7 @@ const Riddle = ({
                                     type={solutionType}
                                     onChangeValue={onChangeSolution}
                                     value={userSolution}
+                                    isCorrect={isSolved}
                                 />
                             </div>
                             <Separator
