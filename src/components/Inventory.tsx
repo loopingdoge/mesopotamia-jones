@@ -9,6 +9,17 @@ import { arvo } from '../utils/fonts'
 
 const itemPreviewSize = 100
 
+const slideRight = {
+    from: {
+        opacity: 0,
+        transform: 'translateX(-30px)'
+    },
+    to: {
+        opacity: 1,
+        transform: 'translateX(0px)'
+    }
+}
+
 const styles = StyleSheet.create({
     inventory: {
         flex: 1,
@@ -90,24 +101,37 @@ const styles = StyleSheet.create({
     }
 })
 
+const slideAnimation = (delay: number) =>
+    StyleSheet.create({
+        animation: {
+            animationName: slideRight,
+            animationDuration: '500ms',
+            animationDelay: `${delay}ms`,
+            animationFillMode: 'both'
+        }
+    })
+
 export interface InventoryProps {
     inventory: Inventory
 }
 
 interface InventoryState {
     itemIndex: number
+    triggerAnimation: boolean
 }
 
 class InventoryUI extends React.Component<InventoryProps, InventoryState> {
     constructor(props: InventoryProps) {
         super(props)
         this.state = {
-            itemIndex: 0
+            itemIndex: 0,
+            triggerAnimation: true
         }
     }
 
     componentDidMount() {
         addEventListener('keydown', this.onKeyDown)
+        setTimeout(() => this.setState({ triggerAnimation: false }), 600)
     }
 
     componentWillUnmount() {
@@ -115,24 +139,21 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
     }
 
     selectItem = (index: number) => {
-        this.setState({ itemIndex: index })
+        if (index !== this.state.itemIndex) {
+            this.setState({ itemIndex: index, triggerAnimation: true })
+            setTimeout(() => this.setState({ triggerAnimation: false }), 600)
+        }
     }
 
     onKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'ArrowLeft') {
-            this.setState({
-                itemIndex: mod(
-                    this.state.itemIndex - 1,
-                    this.props.inventory.length
-                )
-            })
+            this.selectItem(
+                mod(this.state.itemIndex - 1, this.props.inventory.length)
+            )
         } else if (event.key === 'ArrowRight') {
-            this.setState({
-                itemIndex: mod(
-                    this.state.itemIndex + 1,
-                    this.props.inventory.length
-                )
-            })
+            this.selectItem(
+                mod(this.state.itemIndex + 1, this.props.inventory.length)
+            )
         }
     }
 
@@ -171,11 +192,23 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
                 >
                     {inventory[itemIndex]
                         ? <div className={css(styles.item)}>
-                              <div className={css(styles.itemName)}>
+                              <div
+                                  className={css(
+                                      styles.itemName,
+                                      this.state.triggerAnimation
+                                          ? slideAnimation(0).animation
+                                          : null
+                                  )}
+                              >
                                   {upperFirst(inventory[itemIndex].name)}
                               </div>
                               <div
-                                  className={css(styles.itemImageBigContainer)}
+                                  className={css(
+                                      styles.itemImageBigContainer,
+                                      this.state.triggerAnimation
+                                          ? slideAnimation(100).animation
+                                          : null
+                                  )}
                               >
                                   <div
                                       className={css(styles.itemImageBig)}
@@ -186,7 +219,14 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
                                       }}
                                   />
                               </div>
-                              <div className={css(styles.itemDescription)}>
+                              <div
+                                  className={css(
+                                      styles.itemDescription,
+                                      this.state.triggerAnimation
+                                          ? slideAnimation(200).animation
+                                          : null
+                                  )}
+                              >
                                   {upperFirst(inventory[itemIndex].description)}
                               </div>
                           </div>
