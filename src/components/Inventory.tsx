@@ -14,10 +14,12 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         flexDirection: 'row',
-        fontFamily: [arvo, 'sans-serif']
+        fontFamily: [arvo, 'sans-serif'],
+        color: '#FFFFFF',
+        paddingTop: '24px'
     },
     inventoryTab: {
-        border: '1px solid #a3540b'
+        boxShadow: 'rgba(255, 255, 255, 0.28) -2px 7px 24px'
     },
     itemList: {
         flex: 1,
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
         background: '#6b482f'
     },
     activeItemColor: {
-        background: '#c1d61f'
+        background: '#bb8300'
     },
     itemImage: {
         backgroundSize: 'contain',

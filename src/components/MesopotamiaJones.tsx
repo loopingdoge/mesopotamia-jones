@@ -20,6 +20,9 @@ import Riddle from './Riddle'
 
 import Inventory from '../containers/Inventory'
 import MapWrapper from '../containers/MapWrapper'
+import defaultWidthHeight from '../containers/widthHeightProvider'
+
+const PropsedFadedContainer = defaultWidthHeight(FadedContainer)
 
 const styles = StyleSheet.create({
     mesopotamiaJonesContainer: {
@@ -82,15 +85,15 @@ const MesopotamiaJones = ({
     )
     const MaybeDialogue = onlyIf(
         activeDialogue !== null,
-        <FadedContainer>
+        <PropsedFadedContainer>
             <DialogueUI />
-        </FadedContainer>
+        </PropsedFadedContainer>
     )
     const MaybeFoundItem = onlyIf(
         activeFoundItem !== null,
-        <FadedContainer>
+        <PropsedFadedContainer>
             <FoundItem item={activeFoundItem} />
-        </FadedContainer>
+        </PropsedFadedContainer>
     )
 
     let overlayContent
@@ -123,6 +126,7 @@ const MesopotamiaJones = ({
                     width={pageWidth}
                     height={pageHeight}
                     gameUi={gameUi}
+                    gamePhase={gamePhase}
                 >
                     {overlayContent}
                 </GameOverlay>
