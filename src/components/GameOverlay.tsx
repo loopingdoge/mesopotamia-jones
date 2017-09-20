@@ -6,7 +6,8 @@ import { GameUI } from '../stores/gameUIStore'
 const styles = StyleSheet.create({
     gameOverlayWrapper: {
         flex: 1,
-        transition: 'transform 0.5s, opacity 0.3s',
+        transition:
+            'transform 0.5s cubic-bezier(.01,1,.91,.98), opacity 0.3s cubic-bezier(.01,1,.91,.98)',
         position: 'absolute',
         display: 'flex',
         flexDirection: 'column',
