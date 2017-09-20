@@ -26,6 +26,7 @@ const highlight = {
 
 const styles = StyleSheet.create({
     solution: {
+        boxShadow: '0px 1px 11px -1px #90752d',
         borderRadius: 4,
         border: '2px solid #90752d',
         display: 'flex',
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
     },
     correctSolution: {
         backgroundColor: 'rgba(253, 212, 02, 0.3)',
+        boxShadow: '0px 1px 20px 3px rgb(253, 212, 02)',
         animationName: highlight,
         animationDuration: '500ms'
     }
