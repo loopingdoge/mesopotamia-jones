@@ -61,8 +61,14 @@ const styles = StyleSheet.create({
     dialogueText: {
         fontSize: 24
     },
+    dialogueLine: {
+        marginTop: '8px',
+        ':first-child': {
+            marginTop: '0px'
+        }
+    },
     continueHint: {
-        minHeight: '50px',
+        minHeight: '100px',
         fontSize: 24,
         textAlign: 'center',
         animationName: translateArrowKeyframes,
@@ -180,7 +186,17 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
                     </div>
                     <div className={css(styles.text)}>
                         <div className={css(styles.dialogueText)}>
-                            {dialogue && this.state.visibleCharacters}
+                            {dialogue &&
+                                this.state.visibleCharacters
+                                    .split('\n')
+                                    .map((text, i) =>
+                                        <div
+                                            key={i}
+                                            className={css(styles.dialogueLine)}
+                                        >
+                                            {text}
+                                        </div>
+                                    )}
                         </div>
                     </div>
                     {onlyIf(
