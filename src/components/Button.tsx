@@ -3,6 +3,8 @@ import * as React from 'react'
 
 import Icon from 'react-icons-kit'
 
+import { onlyIf } from '../utils'
+
 const styles = StyleSheet.create({
     button: {
         transition: 'transform 0.3s ease',
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
 })
 
 export interface ButtonProps {
-    icon: any
+    icon?: any
     text: string
     onClick: () => void
     autofocus?: boolean
@@ -62,7 +64,7 @@ class Button extends React.Component<ButtonProps> {
                 ref={element => (this.containerDiv = element)}
                 style={style}
             >
-                <Icon icon={icon} />
+                {icon !== undefined ? <Icon icon={icon} /> : ''}
                 {text}
             </div>
         )
