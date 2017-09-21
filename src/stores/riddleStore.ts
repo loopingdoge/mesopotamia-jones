@@ -7,6 +7,8 @@ import riddles from '../config/riddles'
 import { Riddle, userSolutionInit } from '../config/riddles'
 import riddleUIStore from './riddleUIStore'
 
+import { padStart } from 'lodash'
+
 export interface IRiddleStore {
     currentGameDoor: GameDoor
     generatedArgs: any[]
@@ -194,6 +196,10 @@ export class RiddleStore {
     runCode = () => {
         let codeResult
         let userSolution = this.state.userSolution
+        const {
+            solutionType,
+            solutionLength
+        } = this.currentGameDoor.door.riddle
 
         const workspace = new Blockly.Workspace()
         let xml
@@ -209,6 +215,11 @@ export class RiddleStore {
         try {
             // tslint:disable-next-line: no-eval
             codeResult = eval(code)
+
+            // tslint:disable-next-line:curly
+            if (solutionType === 'number')
+                codeResult = padStart(codeResult, solutionLength, '0')
+
             // TODO: Check if codeResult is appropriate
             if (codeResult) {
                 userSolution = String(codeResult)
