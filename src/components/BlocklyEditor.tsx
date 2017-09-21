@@ -76,22 +76,26 @@ export interface BlockEditorProps {
     onWorkspaceChange?: (workspace: string) => any
     codeResult?: string
     runCode?: () => void
+    clearWorkspace?: () => void
 }
 
 class BlockEditor extends React.Component<BlockEditorProps> {
     workspaceDiv: HTMLDivElement
     resizableDiv: HTMLDivElement
     toolboxDiv: HTMLDivElement
+    deafultWorkspace: string
 
     workspace: any
 
     onWorkspaceChange: (workspace: string) => any
     runCode: () => void
 
-    constructor() {
-        super()
+    constructor(props: BlockEditorProps) {
+        super(props)
         this.onResize = this.onResize.bind(this)
         this.injectWorkspaceXML = this.injectWorkspaceXML.bind(this)
+
+        this.deafultWorkspace = props.workspaceXML
     }
 
     componentWillMount() {
@@ -133,7 +137,8 @@ class BlockEditor extends React.Component<BlockEditorProps> {
 
     componentWillReceiveProps(nextProps: BlockEditorProps) {
         if (
-            this.props.readonly &&
+            (this.props.readonly ||
+                nextProps.workspaceXML === this.deafultWorkspace) &&
             nextProps.workspaceXML !== this.props.workspaceXML
         ) {
             this.injectWorkspaceXML(nextProps.workspaceXML)
@@ -215,7 +220,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                         />
                         <button
                             id="clear"
-                            onClick={() => console.log('TODO')}
+                            onClick={this.props.clearWorkspace}
                             className={css(styles.computerButton)}
                             style={{ backgroundColor: 'red' }}
                         >

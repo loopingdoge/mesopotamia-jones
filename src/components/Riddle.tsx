@@ -139,6 +139,7 @@ export interface EditorSectionProps {
     setWorkspace: (code: string) => void
     codeResult: string
     runCode: () => void
+    clearWorkspace: () => void
 }
 
 const EditorSection = ({
@@ -148,7 +149,8 @@ const EditorSection = ({
     width,
     height,
     codeResult,
-    runCode
+    runCode,
+    clearWorkspace
 }: EditorSectionProps) =>
     <div className={css(styles.editorSection)}>
         <BlocklyEditor
@@ -157,6 +159,7 @@ const EditorSection = ({
             onWorkspaceChange={setWorkspace}
             runCode={runCode}
             codeResult={codeResult}
+            clearWorkspace={clearWorkspace}
         />
     </div>
 
@@ -188,6 +191,7 @@ export interface RiddleProps {
     isSolved: boolean
     goBack: () => void
     runCode: () => void
+    clearWorkspace: () => void
     shrinkCuneiform: () => void
     expandCuneiform: () => void
     shrinkLegend: () => void
@@ -215,6 +219,7 @@ const Riddle = ({
     isLegendExpanded,
     goBack,
     runCode,
+    clearWorkspace,
     shrinkCuneiform,
     expandCuneiform,
     shrinkLegend,
@@ -313,6 +318,7 @@ const Riddle = ({
                                         width={'100%'}
                                         codeResult={codeResult}
                                         runCode={runCode}
+                                        clearWorkspace={clearWorkspace}
                                     />
                                 </div>
                             </div>
@@ -390,6 +396,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             currentRiddle,
             codeResult,
             runCode,
+            clearWorkspace,
             checkSolution,
             isSolved,
             setRiddleCompleted,
@@ -431,6 +438,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 isNotificationVisible={isNotificationVisible}
                 inventory={inventory}
                 runCode={runCode}
+                clearWorkspace={clearWorkspace}
                 setWorkspace={setWorkspaceXML}
                 onChangeSolution={setUserSolution}
                 checkSolution={checkSolution}
