@@ -236,6 +236,7 @@ export class GameStore {
 
         const computer = this.getComputer()
         let workspace = null
+
         if (computer) workspace = computer.workspace[gameDoor.door.riddle.id]
 
         this.riddleStore.activateDoor(gameDoor, workspace)
@@ -382,7 +383,10 @@ export class GameStore {
         }
     }
 
-    getRiddleWorkspaceXML = (riddleId: string) => computer.workspace[riddleId]
+    getRiddleWorkspaceXML = (riddleId: string) => {
+        const computer = this.getComputer()
+        return computer.workspace[riddleId]
+    }
 
     @action
     enterFirstRiddle = () => {
