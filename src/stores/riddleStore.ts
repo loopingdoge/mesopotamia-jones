@@ -230,7 +230,8 @@ export class RiddleStore {
             ...this.state,
             workspaceXML: this.currentRiddle.defaultWorkspace([
                 ...this.generatedArgs
-            ])
+            ]),
+            codeResult: null
         }
     }
 }

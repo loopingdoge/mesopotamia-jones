@@ -31,10 +31,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#e4e4e4'
     },
     output: {
-        resize: 'none',
-        height: 50,
-        width: 20,
-        flexGrow: 0.7
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 0.7,
+        border: '1px solid #BBBBBB',
+        borderRadius: '9px',
+        backgroundColor: 'white',
+        width: '20px',
+        height: '50px',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'monospace',
+        fontSize: '24px'
     },
     computerButton: {
         display: 'flex',
@@ -210,14 +218,11 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                                 style={{ color: 'white' }}
                             />
                         </button>
-                        <textarea
-                            readOnly={true}
-                            value={
-                                this.props.codeResult ||
-                                'Premi il pulsante "Play" per eseguire il codice'
-                            }
-                            className={css(styles.output)}
-                        />
+                        <div className={css(styles.output)}>
+                            {this.props.codeResult !== null
+                                ? this.props.codeResult
+                                : 'Premi ▶ per eseguire'}
+                        </div>
                         <button
                             id="clear"
                             onClick={this.props.clearWorkspace}
