@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 
 import { onlyIf } from '../utils'
+import Button from './Button'
 
 import { GameUI, UIStore } from '../stores/gameUIStore'
 
@@ -36,23 +37,11 @@ export interface GameHeaderProps {
 
 const GameHeader = ({ gameUi, show, width }: GameHeaderProps) =>
     <div className={css(styles.inventoryHeader)} style={{ width }}>
-        <button className={css(styles.item)} onClick={() => show(GameUI.Map)}>
-            🗺️
-        </button>
-        <button
-            className={css(styles.item)}
-            onClick={() => show(GameUI.Inventory)}
-        >
-            💡
-        </button>
+        <Button text={'🗺'} onClick={() => show(GameUI.Map)} />
+        <Button text={'💡'} onClick={() => show(GameUI.Inventory)} />
         {onlyIf(
             gameUi !== GameUI.Game,
-            <button
-                className={css(styles.item)}
-                onClick={() => show(GameUI.Game)}
-            >
-                X
-            </button>
+            <Button text={'X'} onClick={() => show(GameUI.Game)} />
         )}
     </div>
 
