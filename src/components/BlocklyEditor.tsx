@@ -70,9 +70,10 @@ const blocklyOptions = {
 }
 
 export interface BlockEditorProps {
-    toolboxXML: string
+    readonly?: boolean
+    toolboxXML?: string
     workspaceXML: string
-    onWorkspaceChange: (workspace: string) => any
+    onWorkspaceChange?: (workspace: string) => any
     codeResult?: string
     runCode?: () => void
 }
@@ -84,13 +85,23 @@ class BlockEditor extends React.Component<BlockEditorProps> {
 
     workspace: any
 
+    onWorkspaceChange: (workspace: string) => any
+    runCode: () => void
+
     constructor() {
         super()
         this.onResize = this.onResize.bind(this)
         this.injectWorkspaceXML = this.injectWorkspaceXML.bind(this)
     }
 
+    componentWillMount() {
+        this.runCode = this.props.runCode || (() => null)
+        this.onWorkspaceChange =
+            this.props.onWorkspaceChange || ((w: string) => null)
+    }
+
     componentDidMount() {
+        console.log(this.props.workspaceXML)
         // tslint:disable-next-line:no-this-assignment
         window.addEventListener('resize', this.onResize)
 
@@ -137,7 +148,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         this.workspace.addChangeListener(() => {
             const newXML = Blockly.Xml.workspaceToDom(this.workspace)
             const xmlString = Blockly.Xml.domToPrettyText(newXML)
-            this.props.onWorkspaceChange(xmlString)
+            this.onWorkspaceChange(xmlString)
         })
     }
 
@@ -163,6 +174,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     render() {
+        console.log(this.props.readonly)
         return (
             <div
                 id="blocklyArea"
@@ -179,11 +191,11 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                     className={css(styles.resizable)}
                 />
                 {onlyIf(
-                    this.props.runCode !== null,
+                    this.props.readonly === undefined,
                     <div id="resultDiv" className={css(styles.result)}>
                         <button
                             id="play"
-                            onClick={this.props.runCode}
+                            onClick={this.runCode}
                             className={css(styles.computerButton)}
                             style={{ backgroundColor: 'green' }}
                         >
@@ -195,7 +207,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                         </button>
                         <textarea
                             readOnly={true}
-                            // TODO: perche' cazzo non si aggiorna?
                             value={
                                 this.props.codeResult ||
                                 'Premi il pulsante "Play" per eseguire il codice'

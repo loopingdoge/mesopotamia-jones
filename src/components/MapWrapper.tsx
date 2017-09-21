@@ -46,29 +46,43 @@ interface MapWrapperProps {
 }
 
 export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
-    workspaceChange = (workspace: string) => {
-        // TODO: Invece che salvare ogni volta bisognerebbe mettere un bottone
-        this.props.gameStore.setRiddleWorkspaceXML(
-            this.props.selectedRiddle.id,
-            workspace
-        )
+    workspaceXML: string
+
+    componentWillMount() {
+        if (this.props.selectedRiddle) {
+            this.workspaceXML = this.props.gameStore.getRiddleWorkspaceXML(
+                this.props.selectedRiddle.id
+            )
+        }
+    }
+
+    componentWillReceiveProps(nextProps: MapWrapperProps) {
+        if (this.props.selectedRiddle != nextProps.selectedRiddle) {
+            this.workspaceXML = this.props.gameStore.getRiddleWorkspaceXML(
+                nextProps.selectedRiddle.id
+            )
+            console.log(
+                'wewe',
+                nextProps.selectedRiddle,
+                nextProps.selectedRiddle.id,
+                this.workspaceXML
+            )
+            this.forceUpdate()
+        }
     }
 
     render() {
-        const { selectedRiddle, onMapDoorClick, gameStore } = this.props
+        const { onMapDoorClick } = this.props
         return (
             <div className={css(styles.wrapper)}>
                 <div className={css(styles.gameOverlayContent)}>
                     <Map onMapDoorClick={onMapDoorClick} />
                 </div>
                 <div className={css(styles.editorContainer)}>
-                    {selectedRiddle
+                    {this.workspaceXML
                         ? <BlocklyEditor
-                              toolboxXML={getToolbox([])}
-                              workspaceXML={gameStore.getRiddleWorkspaceXML(
-                                  selectedRiddle.id
-                              )}
-                              onWorkspaceChange={this.workspaceChange}
+                              readonly={true}
+                              workspaceXML={this.workspaceXML}
                           />
                         : <div className={css(styles.placeholder)}>
                               Seleziona una porta per vedere la tua soluzione
