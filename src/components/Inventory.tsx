@@ -12,11 +12,11 @@ const itemPreviewSize = 100
 const slideRight = {
     from: {
         opacity: 0,
-        transform: 'translateX(-30px)'
+        transform: 'translateY(-10px)'
     },
     to: {
         opacity: 1,
-        transform: 'translateX(0px)'
+        transform: 'translateY(0px)'
     }
 }
 
@@ -30,7 +30,9 @@ const styles = StyleSheet.create({
         paddingTop: '24px'
     },
     inventoryTab: {
-        boxShadow: 'rgba(255, 255, 255, 0.28) -2px 7px 24px'
+        boxShadow: 'rgba(255, 255, 255, 0.28) 0px 0px 24px',
+        backgroundColor: 'rgba(255, 255, 255, 0.12)',
+        border: '1px solid rgba(255, 255, 255, 0.09)'
     },
     itemListSection: {
         flex: 1,
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        padding: '20px'
+        padding: '20px 20px 20px 32px'
     }
 })
 
