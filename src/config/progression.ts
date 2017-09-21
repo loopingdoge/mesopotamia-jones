@@ -1,13 +1,16 @@
 import { computer, hasItem, Inventory } from './inventory'
+import { getRoomById, Room } from './map'
 
 export interface Progression {
     isGameStarted: boolean
     hasShownComputerTutorial: boolean
+    roomsVisited: Room[]
 }
 
 export const defaultProgression = () => ({
     isGameStarted: false,
-    hasShownComputerTutorial: false
+    hasShownComputerTutorial: false,
+    roomsVisited: [getRoomById('room1')]
 })
 
 export const reactourStartIndex = (

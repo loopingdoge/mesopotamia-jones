@@ -200,7 +200,12 @@ const Map = ({ onMapDoorClick }: MapProps) => {
 
         edges.forEach(edge => {
             const toRoom = edge.to
-            if (!visited[toRoom.id]) {
+            if (
+                !visited[toRoom.id] &&
+                gameStore.state.progression.roomsVisited.find(
+                    room => room.id === toRoom.id
+                )
+            ) {
                 visited[toRoom.id] = true
                 queue.push(
                     roomNode(
