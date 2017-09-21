@@ -213,6 +213,16 @@ export class RiddleStore {
             userSolution
         }
     }
+
+    @action
+    clearWorkspace = () => {
+        this.state = {
+            ...this.state,
+            workspaceXML: this.currentRiddle.defaultWorkspace([
+                ...this.generatedArgs
+            ])
+        }
+    }
 }
 
 const riddleStore = new RiddleStore()

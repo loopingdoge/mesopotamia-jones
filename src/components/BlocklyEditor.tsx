@@ -76,6 +76,7 @@ export interface BlockEditorProps {
     onWorkspaceChange?: (workspace: string) => any
     codeResult?: string
     runCode?: () => void
+    clearWorkspace?: () => void
 }
 
 class BlockEditor extends React.Component<BlockEditorProps> {
@@ -215,7 +216,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                         />
                         <button
                             id="clear"
-                            onClick={() => console.log('TODO')}
+                            onClick={this.props.clearWorkspace}
                             className={css(styles.computerButton)}
                             style={{ backgroundColor: 'red' }}
                         >
