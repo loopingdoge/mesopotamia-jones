@@ -13,11 +13,11 @@ const khosrau = {
 const styles = StyleSheet.create({
     cuneiform: {
         fontFamily: [khosrau, 'sans-serif'],
-        fontSize: 30
+        fontSize: 24
     },
     translated: {
         fontFamily: 'sans-serif',
-        fontSize: 30
+        fontSize: 28
     },
     cuneiformLetter: {
         color: 'rgb(165, 91, 91)'
@@ -36,6 +36,7 @@ export interface CuneiformCharProps {
 }
 
 class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
+    char: string
     style: any
     font: any
     isNumber: RegExp = /^\d+$/
@@ -43,6 +44,7 @@ class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
 
     componentWillMount() {
         this.font = styles.cuneiform
+        this.char = this.props.value
 
         if (this.props.value.match(this.isLetter)) {
             this.style = styles.cuneiformLetter
@@ -56,6 +58,7 @@ class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
     componentDidMount() {
         if (this.props.translated) {
             setTimeout(() => {
+                this.char = this.props.value
                 this.font = styles.translated
                 this.forceUpdate()
             }, 200 + Math.random() * 1500)
@@ -65,7 +68,7 @@ class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
     render() {
         return (
             <span className={css(this.font, this.style)}>
-                {this.props.value}
+                {this.char}
             </span>
         )
     }
