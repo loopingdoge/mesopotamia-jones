@@ -101,7 +101,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     componentDidMount() {
-        console.log('WEWEWE', this.props.workspaceXML)
         // tslint:disable-next-line:no-this-assignment
         window.addEventListener('resize', this.onResize)
 
@@ -176,7 +175,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     render() {
-        console.log(this.props.readonly)
         return (
             <div
                 id="blocklyArea"

@@ -61,12 +61,6 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
             this.workspaceXML = this.props.gameStore.getRiddleWorkspaceXML(
                 nextProps.selectedRiddle.id
             )
-            console.log(
-                'wewe',
-                nextProps.selectedRiddle,
-                nextProps.selectedRiddle.id,
-                this.workspaceXML
-            )
             this.forceUpdate()
         }
     }

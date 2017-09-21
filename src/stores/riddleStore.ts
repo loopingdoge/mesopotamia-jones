@@ -3,6 +3,7 @@ import * as Blockly from 'node-blockly/browser'
 
 import { blocks } from '../config/blocks'
 import { GameDoor } from '../config/map'
+import riddles from '../config/riddles'
 import { Riddle, userSolutionInit } from '../config/riddles'
 import riddleUIStore from './riddleUIStore'
 
@@ -90,6 +91,15 @@ export class RiddleStore {
 
         reaction(() => this.userSolution, () => this.checkSolution())
 
+        for (const riddle of riddles) {
+            // Visual properties
+            Blockly.Blocks[`riddle_${riddle.id}`] = {
+                init() {
+                    this.jsonInit(riddle.rootBlock)
+                }
+            }
+        }
+
         // Init custom blocks
         for (const block of blocks) {
             // Visual properties
@@ -135,13 +145,13 @@ export class RiddleStore {
             isSolved: false
         }
 
-        if (!Blockly.Blocks[rootBlockID]) {
-            Blockly.Blocks[rootBlockID] = {
-                init() {
-                    this.jsonInit(riddle.rootBlock)
-                }
-            }
-        }
+        // if (!Blockly.Blocks[rootBlockID]) {
+        //     Blockly.Blocks[rootBlockID] = {
+        //         init() {
+        //             this.jsonInit(riddle.rootBlock)
+        //         }
+        //     }
+        // }
         // TODO parametrizzare questa cosa
         Blockly.JavaScript[rootBlockID] = riddle.getCodeGen(this.generatedArgs)
 
