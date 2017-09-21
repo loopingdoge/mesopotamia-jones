@@ -79,11 +79,15 @@ export const dialogues: Dialogue[] = [
         [
             line(
                 characters[1],
-                'Ora che hai il computer puoi riuscire a fuggire dalla piramide, lascia che ti dia una mano...'
+                'Ora che hai il computer ti sarà più facile uscire dalla piramide, ma lascia che ti aiuti ancora...ecco fatto, ti ho installato Minecraft e Angry Birds proprio come mi avevi chiesto.'
+            ),
+            line(
+                characters[0],
+                'Veramente non ricordo di avertelo chiesto, inoltre non credo che mi saranno di aiuto. Non hai qualcosa di più utile?'
             ),
             line(
                 characters[1],
-                '...ecco fatto, ti ho installato eclipse e camunda come mi avevi chiesto.\n Prendi anche questa roccia senziente, ti aiuterà a tradurre gli indovinelli sulle porte dal cuneiforme...'
+                'Vabbè lo hai voluto tu, sembra che ti serva compagnia ed inoltre è pericoloso andare da solo! Prendi questo.'
             )
         ],
         [translator]
