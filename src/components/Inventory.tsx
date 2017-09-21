@@ -32,16 +32,19 @@ const styles = StyleSheet.create({
     inventoryTab: {
         boxShadow: 'rgba(255, 255, 255, 0.28) -2px 7px 24px'
     },
-    itemList: {
+    itemListSection: {
         flex: 1,
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
         overflowY: 'scroll',
         padding: '20px'
     },
+    itemList: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
     itemContainer: {
         marginRight: '20px',
+        marginBottom: '20px',
         ':last-child': {
             marginRight: '0px'
         },
@@ -162,27 +165,34 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
         const itemIndex = this.state.itemIndex
         return (
             <div className={css(styles.inventory)}>
-                <div className={css(styles.itemList, styles.inventoryTab)}>
-                    {inventory.map((item, index) =>
-                        <div key={index} className={css(styles.itemContainer)}>
+                <div
+                    className={css(styles.itemListSection, styles.inventoryTab)}
+                >
+                    <div className={css(styles.itemList)}>
+                        {inventory.map((item, index) =>
                             <div
-                                className={css(
-                                    styles.itemImageContainer,
-                                    inventory[itemIndex].id === item.id
-                                        ? styles.activeItemColor
-                                        : styles.nonActiveItemColor
-                                )}
-                                onClick={this.selectItem.bind(this, index)}
+                                key={index}
+                                className={css(styles.itemContainer)}
                             >
                                 <div
-                                    className={css(styles.itemImage)}
-                                    style={{
-                                        backgroundImage: `url(${item.image})`
-                                    }}
-                                />
+                                    className={css(
+                                        styles.itemImageContainer,
+                                        inventory[itemIndex].id === item.id
+                                            ? styles.activeItemColor
+                                            : styles.nonActiveItemColor
+                                    )}
+                                    onClick={this.selectItem.bind(this, index)}
+                                >
+                                    <div
+                                        className={css(styles.itemImage)}
+                                        style={{
+                                            backgroundImage: `url(${item.image})`
+                                        }}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
                 <div
                     className={css(
