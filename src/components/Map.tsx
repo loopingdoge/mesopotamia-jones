@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import { adjacentRooms, Direction, Edge, gameDoors, Room } from '../config/map'
 import { Riddle } from '../config/riddles'
+
 import gameStore from '../stores/gameStore'
 
 const roomWidth = 90
@@ -16,9 +17,7 @@ const parentOffset = 1
 
 const styles = StyleSheet.create({
     map: {
-        position: 'relative',
-        left: -100,
-        top: 0
+        position: 'relative'
     },
     room: {
         position: 'absolute',
@@ -214,8 +213,40 @@ const Map = ({ onMapDoorClick }: MapProps) => {
         })
     }
 
+    let negWidth = 0
+    let posWidth = 0
+    let negHeight = 0
+    let posHeight = 0
+
+    roomComponents.forEach(roomComponent => {
+        const props: RoomProps = roomComponent.props
+        const { top, left } = props.position
+        if (negWidth > left && left < 0) {
+            negWidth = left
+        } else if (posWidth < left && left > 0) {
+            posWidth = left
+        }
+
+        if (negHeight > top && top < 0) {
+            negHeight = top
+        } else if (posHeight < top && top > 0) {
+            posHeight = top
+        }
+    })
+
+    const width = Math.abs(negWidth) + posWidth + roomWidth
+    const height = Math.abs(negHeight) + posHeight + roomHeight
+
     return (
-        <div className={css(styles.map)}>
+        <div
+            className={css(styles.map)}
+            style={{
+                width,
+                height,
+                top: Math.abs(negHeight),
+                left: Math.abs(negWidth)
+            }}
+        >
             {roomComponents}
         </div>
     )
