@@ -47,6 +47,7 @@ interface MapWrapperProps {
 
 export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
     workspaceXML: string
+    riddleText: string
 
     componentWillMount() {
         if (this.props.selectedRiddle) {
@@ -61,6 +62,12 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
             this.workspaceXML = this.props.gameStore.getRiddleWorkspaceXML(
                 nextProps.selectedRiddle.id
             )
+            this.riddleText = nextProps.selectedRiddle.question([
+                'a',
+                'b',
+                'c',
+                'd'
+            ])
             this.forceUpdate()
         }
     }
@@ -76,6 +83,7 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
                     {this.workspaceXML
                         ? <BlocklyEditor
                               readonly={true}
+                              riddleText={this.riddleText}
                               workspaceXML={this.workspaceXML}
                           />
                         : <div className={css(styles.placeholder)}>

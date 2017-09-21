@@ -18,6 +18,22 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row'
     },
+    riddle: {
+        position: 'relative',
+        top: 0,
+        maxWidth: '100%',
+        width: '100%',
+        height: 80,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        backgroundColor: '#FDF6E3',
+        boxShadow: 'inset 0 0 10px #90752d',
+        fontFamily: 'sans-serif',
+        color: '#90752d',
+        padding: '0px 30px'
+    },
     result: {
         position: 'relative',
         top: 'calc(100% - 80px)',
@@ -71,6 +87,7 @@ const blocklyOptions = {
 
 export interface BlockEditorProps {
     readonly?: boolean
+    riddleText?: string
     toolboxXML?: string
     workspaceXML: string
     onWorkspaceChange?: (workspace: string) => any
@@ -163,11 +180,12 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         const element = this.workspaceDiv
         let x = 20
         let y = 20
-        // do {
+
         x += element.offsetLeft
         y += element.offsetTop
-        // element = element.offsetParent as any
-        // } while (element)
+
+        if (this.props.readonly) y += 80 // spazio per il testo riddle
+
         // Position blocklyDiv over blocklyArea.
         this.resizableDiv.style.left = x + 'px'
         this.resizableDiv.style.top = y + 'px'
@@ -188,6 +206,12 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                 }}
                 className={css(styles.workspace)}
             >
+                {onlyIf(
+                    this.props.readonly === true,
+                    <div className={css(styles.riddle)}>
+                        {this.props.riddleText}
+                    </div>
+                )}
                 <div
                     id="blocklyDiv"
                     ref={resizableDiv => {
