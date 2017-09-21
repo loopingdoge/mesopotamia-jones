@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
 })
 
 export interface ButtonProps {
+    customCSS?: any
     icon?: any
     text: string
     onClick: () => void
@@ -59,7 +60,7 @@ class Button extends React.Component<ButtonProps> {
             <div
                 onClick={this.props.onClick}
                 onKeyDown={this.onKeyDown}
-                className={css(styles.button)}
+                className={css(styles.button, this.props.customCSS)}
                 tabIndex={0}
                 ref={element => (this.containerDiv = element)}
                 style={style}

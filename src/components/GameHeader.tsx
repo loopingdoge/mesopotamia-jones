@@ -18,14 +18,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.25)'
     },
     item: {
-        width: 40,
-        height: 40,
+        width: 20,
+        height: 20,
         marginLeft: 10,
-        backgroundColor: '#E37710',
-        fontSize: 28,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+        fontSize: 28
     }
 })
 
@@ -37,11 +33,23 @@ export interface GameHeaderProps {
 
 const GameHeader = ({ gameUi, show, width }: GameHeaderProps) =>
     <div className={css(styles.inventoryHeader)} style={{ width }}>
-        <Button text={'🗺'} onClick={() => show(GameUI.Map)} />
-        <Button text={'💡'} onClick={() => show(GameUI.Inventory)} />
+        <Button
+            customCSS={styles.item}
+            text={'🗺'}
+            onClick={() => show(GameUI.Map)}
+        />
+        <Button
+            customCSS={styles.item}
+            text={'💡'}
+            onClick={() => show(GameUI.Inventory)}
+        />
         {onlyIf(
             gameUi !== GameUI.Game,
-            <Button text={'X'} onClick={() => show(GameUI.Game)} />
+            <Button
+                customCSS={styles.item}
+                text={'X'}
+                onClick={() => show(GameUI.Game)}
+            />
         )}
     </div>
 
