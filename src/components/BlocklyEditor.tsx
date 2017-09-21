@@ -102,7 +102,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     componentDidMount() {
-        console.log(this.props.workspaceXML)
+        console.log('WEWEWE', this.props.workspaceXML)
         // tslint:disable-next-line:no-this-assignment
         window.addEventListener('resize', this.onResize)
 
@@ -134,10 +134,12 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     componentWillReceiveProps(nextProps: BlockEditorProps) {
-        // TODO a cosa dovrebbe servire?
-        // if (nextProps.workspaceXML !== this.props.workspaceXML) {
-        //     this.injectWorkspaceXML(nextProps.workspaceXML)
-        // }
+        if (
+            this.props.readonly &&
+            nextProps.workspaceXML !== this.props.workspaceXML
+        ) {
+            this.injectWorkspaceXML(nextProps.workspaceXML)
+        }
     }
 
     injectWorkspaceXML(workspaceXML: string) {
