@@ -166,7 +166,19 @@ export class GameStore {
             }
         )
 
-        reaction(() => this.state.room, () => this.saveGameState())
+        reaction(
+            () => this.state.room,
+            room => {
+                if (
+                    !this.state.progression.roomsVisited.find(
+                        currRoom => room.id === currRoom.id
+                    )
+                ) {
+                    this.state.progression.roomsVisited.push(room)
+                }
+                this.saveGameState()
+            }
+        )
         reaction(() => this.uiStore.selectedRiddle, () => this.saveGameState())
 
         // React to interaction visibility
