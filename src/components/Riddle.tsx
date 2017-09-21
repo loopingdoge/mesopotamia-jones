@@ -104,9 +104,6 @@ const styles = StyleSheet.create({
             color: 'black',
             backgroundColor: '#fdd466',
             border: '2px solid #90752d'
-        },
-        div: {
-            backgroundColor: 'red'
         }
     },
     tourText: {

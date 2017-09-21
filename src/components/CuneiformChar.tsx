@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 export interface CuneiformCharProps {
     value: string
-    translated: boolean
+    translated?: boolean
 }
 
 class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
