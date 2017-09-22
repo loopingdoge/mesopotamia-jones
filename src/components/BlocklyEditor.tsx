@@ -72,12 +72,12 @@ const styles = StyleSheet.create({
     }
 })
 
-const blocklyOptions = {
+let blocklyOptions = {
     collapse: true,
     comments: true,
     disable: true,
     grid: {
-        spacing: 20,
+        spacing: 40,
         length: 1,
         colour: '#888'
     },
@@ -90,7 +90,15 @@ const blocklyOptions = {
     rtl: false,
     scrollbars: true,
     sounds: true,
-    oneBasedIndex: true
+    oneBasedIndex: true,
+    readOnly: false,
+    zoom: {
+        wheel: true,
+        startScale: 0.9,
+        maxScale: 3,
+        minScale: 0.3,
+        scaleSpeed: 1.2
+    }
 }
 
 export interface BlockEditorProps {
@@ -127,6 +135,11 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         this.runCode = this.props.runCode || (() => null)
         this.onWorkspaceChange =
             this.props.onWorkspaceChange || ((w: string) => null)
+
+        blocklyOptions = {
+            ...blocklyOptions,
+            readOnly: this.props.readonly === true
+        }
     }
 
     componentDidMount() {
