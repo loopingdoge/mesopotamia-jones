@@ -84,7 +84,12 @@ const riddles: Riddle[] = [
                 'return',
                 Blockly.JavaScript.ORDER_ADDITION
             )
-            const code = `(function( ${x} ) { return ${ret} })(${args})`
+            const code = `
+                function main() {
+                    ${x} = ${args[0]};
+                    return ${ret}
+                }
+            `
             return code
         },
         solution: ([a]: number[]) => `${a}`,
@@ -160,7 +165,13 @@ const riddles: Riddle[] = [
                 'return',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            const code = `(function( ${x}, ${y} ) { return ${ret} })(${args})`
+            const code = `
+                function main() {
+                    ${x} = ${args[0]};
+                    ${y} = ${args[1]};
+                    return ${ret}
+                }
+            `
             return code
         },
         solution: ([a, b]: number[]) => padStart(`${a + b}`, 2, '0'),
@@ -271,7 +282,15 @@ const riddles: Riddle[] = [
                 'return',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            const code = `(function( ${a}, ${b} , ${c} , ${d} ) { return ${ret} })( '${args[0]}','${args[1]}','${args[2]}','${args[3]}' )`
+            const code = `
+                function main() {
+                    ${a} = '${args[0]}';
+                    ${b} = '${args[1]}';
+                    ${c} = '${args[2]}';
+                    ${d} = '${args[3]}';
+                    return ${ret}
+                }
+            `
             return code
         },
         solution: ([a, b, c, d]: string[]) => `${a + b + c + d}`,
@@ -302,6 +321,7 @@ const riddles: Riddle[] = [
                     <field name="VAR" id="O@T=,KYexe-SHMAI+Tq%" variabletype="">risultato</field>
                 </block>
             `,
+            `<block type="math_number"></block>`,
             `
                 <block type="controls_if">
                     <mutation else="1"></mutation>
@@ -405,7 +425,15 @@ const riddles: Riddle[] = [
                 'return',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            const code = `(function( ${x}, ${y}, ${z} ) { ${userCode};\n return ${ret} })(${args})`
+            const code = `
+                function main() {
+                    ${x} = ${args[0]};
+                    ${y} = ${args[1]};
+                    ${z} = ${args[2]};
+                    ${userCode};
+                    return ${ret}
+                }
+            `
             return code
         },
         solution: ([a, b, c]: number[]) =>
