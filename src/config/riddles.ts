@@ -40,7 +40,7 @@ export const userSolutionInit = (type: SolutionType, length: number) => {
 const riddles: Riddle[] = [
     {
         id: 'return',
-        question: ([a]: number[]) => `Inserisci il numero ${a}`,
+        question: ([a]: number[]) => `Inserisci il numero: ${a}`,
         defaultToolbox: [
             `<block type="numero1"></block>`,
             `<block type="math_number"></block>`

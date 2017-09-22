@@ -62,11 +62,15 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
             this.workspaceXML = this.props.gameStore.getRiddleWorkspaceXML(
                 nextProps.selectedRiddle.id
             )
+            const type =
+                nextProps.selectedRiddle.solutionType === 'number'
+                    ? 'numero'
+                    : 'lettera'
             this.riddleText = nextProps.selectedRiddle.question([
-                'a',
-                'b',
-                'c',
-                'd'
+                `${type}1`,
+                `${type}2`,
+                `${type}3`,
+                `${type}4`
             ])
             this.forceUpdate()
         }
