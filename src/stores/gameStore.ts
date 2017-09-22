@@ -1,7 +1,7 @@
 import { isEqual } from 'lodash'
 import { action, computed, observable, reaction, toJS } from 'mobx'
 
-import { UIStore } from './gameUIStore'
+import { GameUI, UIStore } from './gameUIStore'
 import { RiddleStore } from './riddleStore'
 import riddleUIStore from './riddleUIStore'
 
@@ -123,7 +123,8 @@ export class GameStore {
         return (
             this.state.phase === 'Game' &&
             !this.state.activeDialogue &&
-            !this.state.activeFoundItem
+            !this.state.activeFoundItem &&
+            this.uiStore.state.ui === GameUI.Game
         )
     }
 
