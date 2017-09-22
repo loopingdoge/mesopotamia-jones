@@ -13,11 +13,11 @@ const khosrau = {
 const styles = StyleSheet.create({
     cuneiform: {
         fontFamily: [khosrau, 'sans-serif'],
-        fontSize: 24
+        fontSize: 32
     },
     translated: {
         fontFamily: 'monospace',
-        fontSize: 28
+        fontSize: 32
     },
     cuneiformLetter: {
         color: 'rgb(165, 91, 91)'
