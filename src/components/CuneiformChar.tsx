@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     translated: {
-        fontFamily: 'sans-serif',
+        fontFamily: 'monospace',
         fontSize: 28
     },
     cuneiformLetter: {

@@ -211,7 +211,7 @@ export class RiddleStore {
         }
 
         Blockly.Xml.domToWorkspace(xml, workspace)
-        const code = Blockly.JavaScript.workspaceToCode(workspace)
+        const code = `${Blockly.JavaScript.workspaceToCode(workspace)}; main()`
 
         try {
             // tslint:disable-next-line: no-eval
