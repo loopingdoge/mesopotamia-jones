@@ -1,6 +1,7 @@
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
-import { Dialogue } from '../config/dialogues'
+import * as React from 'react'
+
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 
@@ -8,22 +9,12 @@ import Actions, {
     addActionListener,
     removeActionListener
 } from '../config/actions'
+import { Dialogue } from '../config/dialogues'
 
 import { isMobile, Maybe, onlyIf } from '../utils'
 import { arvo } from '../utils/fonts'
 
-import * as React from 'react'
-
-const translateArrowKeyframes = {
-    '0%, 100%': {
-        transform: 'scale(1)',
-        opacity: 1
-    },
-    '50%': {
-        transform: 'scale(0.97)',
-        opacity: 0.9
-    }
-}
+import PressToContinue from './PressToContinue'
 
 const styles = StyleSheet.create({
     wrapper: {
@@ -54,7 +45,6 @@ const styles = StyleSheet.create({
         fontWeight: 600
     },
     text: {
-        flex: 1,
         display: 'flex',
         flexDirection: 'row'
     },
@@ -66,15 +56,6 @@ const styles = StyleSheet.create({
         ':first-child': {
             marginTop: '0px'
         }
-    },
-    continueHint: {
-        minHeight: '100px',
-        fontSize: 24,
-        textAlign: 'center',
-        animationName: translateArrowKeyframes,
-        animationDuration: '2s',
-        animationIterationCount: 'infinite',
-        animationTimingFunction: 'linear'
     }
 })
 
@@ -203,11 +184,7 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
                         this.state.visibleCharacters.length ===
                             this.props.dialogue.lines[this.state.pageIndex].text
                                 .length,
-                        <div className={css(styles.continueHint)}>
-                            {isMobile()
-                                ? 'Tocca per continuare'
-                                : 'Premi F per continuare'}
-                        </div>
+                        <PressToContinue />
                     )}
                 </div>
             </div>

@@ -10,6 +10,8 @@ import { UIStore } from '../stores/gameUIStore'
 
 import { arvo } from '../utils/fonts'
 
+import PressToContinue from './PressToContinue'
+
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
@@ -87,6 +89,9 @@ const FoundItem = ({ item, width, height }: FoundItemProps) => {
                 </div>
                 <div>
                     {upperFirst(item.description)}
+                </div>
+                <div>
+                    <PressToContinue />
                 </div>
             </div>
         </div>

@@ -144,7 +144,8 @@ export class RiddleStore {
                 riddle.solutionType,
                 riddle.solutionLength
             ),
-            isSolved: false
+            isSolved: false,
+            codeResult: null
         }
 
         // if (!Blockly.Blocks[rootBlockID]) {
