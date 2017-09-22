@@ -55,16 +55,17 @@ const styles = StyleSheet.create({
     },
     itemImageContainer: {
         padding: 10,
-        border: '1px #000000',
-        borderStyle: 'groove',
         borderRadius: 10,
+        borderStyle: 'groove',
         transition: 'background 0.3s ease'
     },
     nonActiveItemColor: {
-        background: '#6b482f'
+        background: '#1d1c1c',
+        borderColor: '#424242'
     },
     activeItemColor: {
-        background: '#bb8300'
+        background: '#bb8300',
+        borderColor: '#deb887'
     },
     itemImage: {
         backgroundSize: 'contain',
