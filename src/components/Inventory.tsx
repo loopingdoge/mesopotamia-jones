@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         fontFamily: [arvo, 'sans-serif'],
-        color: '#FFFFFF',
-        paddingTop: '24px'
+        color: '#FFFFFF'
     },
     inventoryTab: {
         boxShadow: 'rgba(255, 255, 255, 0.28) 0px 0px 24px',
@@ -76,7 +75,8 @@ const styles = StyleSheet.create({
     },
     itemImageBigContainer: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        padding: '24px 0px'
     },
     itemImageBig: {
         marginTop: '24px',
@@ -93,7 +93,10 @@ const styles = StyleSheet.create({
     },
     itemName: {
         fontSize: 'xx-large',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center',
+        borderBottom: '2px solid white',
+        paddingBottom: '16px'
     },
     itemDescription: {
         marginTop: '24px',
@@ -111,7 +114,7 @@ const slideAnimation = (delay: number) =>
     StyleSheet.create({
         animation: {
             animationName: slideRight,
-            animationDuration: '500ms',
+            animationDuration: '400ms',
             animationDelay: `${delay}ms`,
             animationFillMode: 'both'
         }
@@ -127,6 +130,8 @@ interface InventoryState {
 }
 
 class InventoryUI extends React.Component<InventoryProps, InventoryState> {
+    resetAnimationTimeout: number
+
     constructor(props: InventoryProps) {
         super(props)
         this.state = {
@@ -137,18 +142,31 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
 
     componentDidMount() {
         addEventListener('keydown', this.onKeyDown)
-        setTimeout(() => this.setState({ triggerAnimation: false }), 600)
+        this.resetAnimation()
     }
 
     componentWillUnmount() {
         removeEventListener('keydown', this.onKeyDown)
+        this.clearTimeout()
+    }
+
+    clearTimeout = () => {
+        clearTimeout(this.resetAnimationTimeout)
     }
 
     selectItem = (index: number) => {
         if (index !== this.state.itemIndex) {
             this.setState({ itemIndex: index, triggerAnimation: true })
-            setTimeout(() => this.setState({ triggerAnimation: false }), 600)
+            this.resetAnimation()
         }
+    }
+
+    resetAnimation = () => {
+        this.clearTimeout()
+        this.resetAnimationTimeout = setTimeout(
+            () => this.setState({ triggerAnimation: false }),
+            600
+        )
     }
 
     onKeyDown = (event: KeyboardEvent) => {

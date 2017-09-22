@@ -17,9 +17,9 @@ const styles = StyleSheet.create({
     },
     gameOverlayContent: {
         flex: 1,
-        border: '1px solid #a3540b',
         display: 'flex',
-        padding: '50px'
+        padding: '50px',
+        marginTop: '24px'
     }
 })
 
