@@ -386,7 +386,7 @@ export class GameStore {
 
     getRiddleWorkspaceXML = (riddleId: string) => {
         const computer = this.getComputer()
-        return computer.workspace[riddleId]
+        return computer && computer.workspace[riddleId]
     }
 
     @action

@@ -6,6 +6,8 @@ import { Riddle } from '../config/riddles'
 
 import gameStore from '../stores/gameStore'
 
+import { onlyIf } from '../utils'
+
 const roomWidth = 90
 const roomHeight = 90
 
@@ -24,21 +26,33 @@ const styles = StyleSheet.create({
         width: roomWidth,
         height: roomHeight,
         boxSizing: 'border-box',
-        border: '1px solid white'
+        border: '1px solid #ce841a',
+        backgroundColor: '#fbd688',
+        boxShadow: 'beige 0px 0px 5px'
+    },
+    activeRoom: {
+        backgroundColor: '#ff9600'
     },
     doorBase: {
         position: 'absolute',
         width: doorWidth,
         height: doorHeight,
         backgroundColor: 'brown',
-        border: '2px solid white',
+        border: '1px solid #ce841a',
         zIndex: 1
+    },
+    clickableDoor: {
+        backgroundColor: '#009200',
+        cursor: 'pointer'
+    },
+    activeDoor: {
+        borderColor: '#1e6710'
     }
 })
 
 const doorStyle = (direction: Direction) => {
-    let top,
-        left: number = 0
+    let top = 0
+    let left = 0
     if (direction === Direction.TOP) {
         top = 0 - doorHeight / 2 - parentOffset
         left = roomWidth / 2 - doorWidth / 2 - parentOffset
@@ -53,13 +67,13 @@ const doorStyle = (direction: Direction) => {
         top = roomHeight / 2 - doorHeight / 2 - parentOffset
         left = 0 - doorWidth / 2 - parentOffset
     }
-    const doorStyle = {
+    const style = {
         doorPosition: {
             top,
             left
         }
     }
-    return StyleSheet.create(doorStyle)
+    return StyleSheet.create(style)
 }
 
 interface RoomPosition {
@@ -73,8 +87,8 @@ const roomPosition = (
 ): RoomPosition => {
     const prevTop = prevPosition.top
     const prevLeft = prevPosition.left
-    let top,
-        left: number = 0
+    let top = 0
+    let left = 0
     if (direction === Direction.TOP) {
         top = prevTop - roomHeight - margin
         left = prevLeft
@@ -98,14 +112,13 @@ const roomStyle = (
     currentRoom: Room
 ) => {
     const { top, left } = position
-    const roomStyle = {
+    const style = {
         roomPosition: {
             top,
-            left,
-            backgroundColor: gameRoom.id === currentRoom.id ? 'white' : 'black'
+            left
         }
     }
-    return StyleSheet.create(roomStyle)
+    return StyleSheet.create(style)
 }
 
 // roomStyle with fixed gameRoom
@@ -115,12 +128,28 @@ const gameRoomStyle = (position: RoomPosition, currentRoom: Room) =>
 export interface DoorProps {
     direction: Direction
     onMapDoorClick: () => void
+    riddleId: string
+    hasSolution: boolean
 }
 
-const DoorView = ({ direction, onMapDoorClick }: DoorProps) =>
+const DoorView = ({
+    direction,
+    onMapDoorClick,
+    riddleId,
+    hasSolution
+}: DoorProps) =>
     <div
-        className={css(styles.doorBase, doorStyle(direction).doorPosition)}
-        onClick={onMapDoorClick}
+        className={css(
+            styles.doorBase,
+            doorStyle(direction).doorPosition,
+            onlyIf(hasSolution, styles.clickableDoor),
+            onlyIf(
+                gameStore.uiStore.selectedRiddle &&
+                    gameStore.uiStore.selectedRiddle.id === riddleId,
+                styles.activeDoor
+            )
+        )}
+        onClick={hasSolution && onMapDoorClick}
     />
 
 export interface RoomProps {
@@ -139,6 +168,7 @@ const RoomView = ({
     <div
         className={css(
             styles.room,
+            onlyIf(gameStore.room.id === currentRoom.id, styles.activeRoom),
             gameRoomStyle(position, currentRoom).roomPosition
         )}
     >
@@ -146,7 +176,11 @@ const RoomView = ({
             <DoorView
                 key={i}
                 direction={edge.direction}
-                onMapDoorClick={() => onMapDoorClick(edge.riddle)}
+                onMapDoorClick={onMapDoorClick.bind(null, edge.riddle)}
+                riddleId={edge.riddle.id}
+                hasSolution={Boolean(
+                    gameStore.getRiddleWorkspaceXML(edge.riddle.id)
+                )}
             />
         )}
     </div>

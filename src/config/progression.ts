@@ -7,7 +7,7 @@ export interface Progression {
     roomsVisited: Room[]
 }
 
-export const defaultProgression = () => ({
+export const defaultProgression: () => Progression = () => ({
     isGameStarted: false,
     hasShownComputerTutorial: false,
     roomsVisited: [getRoomById('room1')]

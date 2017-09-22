@@ -33,10 +33,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.12)',
         border: '1px solid rgba(255, 255, 255, 0.09)'
     },
+    tabHeader: {
+        fontSize: 'xx-large',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        borderBottom: '2px solid white',
+        paddingBottom: '24px',
+        marginBottom: '24px'
+    },
     itemListSection: {
         flex: 1,
         overflowY: 'scroll',
-        padding: '20px'
+        padding: '24px'
     },
     itemList: {
         display: 'flex',
@@ -44,8 +52,8 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     itemContainer: {
-        marginRight: '20px',
-        marginBottom: '20px',
+        marginRight: '24px',
+        marginBottom: '24px',
         ':last-child': {
             marginRight: '0px'
         },
@@ -91,13 +99,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column'
     },
-    itemName: {
-        fontSize: 'xx-large',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        borderBottom: '2px solid white',
-        paddingBottom: '16px'
-    },
     itemDescription: {
         marginTop: '24px',
         fontSize: 'larger'
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        padding: '20px 20px 20px 32px'
+        padding: '24px 24px 24px 32px'
     }
 })
 
@@ -189,6 +190,7 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
                 <div
                     className={css(styles.itemListSection, styles.inventoryTab)}
                 >
+                    <div className={css(styles.tabHeader)}>Inventario</div>
                     <div className={css(styles.itemList)}>
                         {inventory.map((item, index) =>
                             <div
@@ -225,7 +227,7 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
                         ? <div className={css(styles.item)}>
                               <div
                                   className={css(
-                                      styles.itemName,
+                                      styles.tabHeader,
                                       this.state.triggerAnimation
                                           ? slideAnimation(0).animation
                                           : null
