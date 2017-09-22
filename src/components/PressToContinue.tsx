@@ -5,12 +5,12 @@ import { isMobile, onlyIf } from '../utils'
 
 const scaleAnimation = {
     '0%, 100%': {
-        transform: 'scale(1)',
-        opacity: 1
+        transform: 'translateY(0px)',
+        color: '#f0ac43'
     },
     '50%': {
-        transform: 'scale(0.97)',
-        opacity: 0.9
+        transform: 'translateY(3px)',
+        color: '#ba7916'
     }
 }
 
@@ -22,8 +22,7 @@ const styles = StyleSheet.create({
         animationName: scaleAnimation,
         animationDuration: '2s',
         animationIterationCount: 'infinite',
-        animationTimingFunction: 'linear',
-        color: '#f0ac43'
+        animationTimingFunction: 'ease'
     }
 })
 
