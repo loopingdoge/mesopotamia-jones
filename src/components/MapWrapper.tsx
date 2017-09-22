@@ -14,10 +14,14 @@ const styles = StyleSheet.create({
         display: 'flex',
         flex: 1
     },
-    gameOverlayContent: {
+    mapWrapperTab: {
         flex: 1,
-        border: '1px solid #a3540b',
         display: 'flex',
+        boxShadow: 'rgba(255, 255, 255, 0.28) 0px 0px 24px',
+        backgroundColor: 'rgba(255, 255, 255, 0.12)',
+        border: '1px solid rgba(255, 255, 255, 0.09)'
+    },
+    mapContainer: {
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -32,10 +36,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     editorContainer: {
-        display: 'flex',
-        flex: 1,
-        padding: 20,
-        border: '1px solid #a3540b'
+        padding: 20
     }
 })
 
@@ -80,10 +81,15 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
         const { onMapDoorClick } = this.props
         return (
             <div className={css(styles.wrapper)}>
-                <div className={css(styles.gameOverlayContent)}>
+                <div className={css(styles.mapWrapperTab, styles.mapContainer)}>
                     <Map onMapDoorClick={onMapDoorClick} />
                 </div>
-                <div className={css(styles.editorContainer)}>
+                <div
+                    className={css(
+                        styles.mapWrapperTab,
+                        styles.editorContainer
+                    )}
+                >
                     {this.workspaceXML
                         ? <BlocklyEditor
                               readonly={true}
