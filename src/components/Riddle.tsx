@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         opacity: 1,
         flex: '1 0',
-        textAlign: 'center'
+        textAlign: 'center',
+        userSelect: 'none'
     },
     editorSection: {
         display: 'flex',

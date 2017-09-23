@@ -12,7 +12,7 @@ export default class Hammurtossi extends Npc {
     dialogue(state: GameState): string {
         switch (state.room.id) {
             case 'room5':
-                return 'dialog4'
+                return 'dialog5'
             default:
                 return ''
         }
