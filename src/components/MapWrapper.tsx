@@ -103,15 +103,14 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
                     </div>
                 </div>
                 <div className={css(styles.mapWrapperTab)}>
-                    {this.workspaceXML
-                        ? <BlocklyEditor
-                              readonly={true}
-                              riddleText={this.riddleText}
-                              workspaceXML={this.workspaceXML}
-                          />
-                        : <div className={css(styles.placeholder)}>
-                              Seleziona una porta per vedere la tua soluzione
-                          </div>}
+                    <BlocklyEditor
+                        readonly={true}
+                        riddleText={
+                            this.riddleText ||
+                            'Seleziona una porta per vedere la tua soluzione'
+                        }
+                        workspaceXML={this.workspaceXML || ''}
+                    />
                 </div>
             </div>
         )

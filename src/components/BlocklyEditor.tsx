@@ -24,15 +24,19 @@ const styles = StyleSheet.create({
         maxWidth: '100%',
         width: '100%',
         height: 80,
+        padding: '0px 30px',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: '#FDF6E3',
+        backgroundColor: '#fbd688',
         boxShadow: 'inset 0 0 10px #90752d',
-        fontFamily: 'sans-serif',
         color: '#90752d',
-        padding: '0px 30px'
+        fontFamily: 'sans-serif'
+    },
+    placeholder: {
+        height: '100%',
+        zIndex: 100
     },
     result: {
         position: 'relative',
@@ -94,8 +98,8 @@ let blocklyOptions = {
     readOnly: false,
     zoom: {
         wheel: true,
-        startScale: 0.9,
-        maxScale: 3,
+        startScale: 0.8,
+        maxScale: 2,
         minScale: 0.3,
         scaleSpeed: 1.2
     }
@@ -229,7 +233,12 @@ class BlockEditor extends React.Component<BlockEditorProps> {
             >
                 {onlyIf(
                     this.props.readonly === true,
-                    <div className={css(styles.riddle)}>
+                    <div
+                        className={css(
+                            styles.riddle,
+                            this.props.workspaceXML === '' && styles.placeholder
+                        )}
+                    >
                         {this.props.riddleText}
                     </div>
                 )}
