@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
         height: 80,
         padding: '0px 30px',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         backgroundColor: '#fbd688',
         boxShadow: 'inset 0 0 10px #90752d',
         color: '#90752d',
@@ -239,7 +239,15 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                             this.props.workspaceXML === '' && styles.placeholder
                         )}
                     >
-                        {this.props.riddleText}
+                        {onlyIf(
+                            this.props.workspaceXML === '' &&
+                                this.props.riddleText !== undefined,
+                            <b>
+                                {'Non hai ancora risolto questo indovinello:'}
+                            </b>
+                        )}
+                        {this.props.riddleText ||
+                            'Seleziona una porta per vedere la tua soluzione'}
                     </div>
                 )}
                 <div

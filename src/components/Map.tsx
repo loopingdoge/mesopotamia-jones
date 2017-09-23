@@ -39,11 +39,11 @@ const styles = StyleSheet.create({
         height: doorHeight,
         backgroundColor: 'brown',
         border: '1px solid #ce841a',
-        zIndex: 1
+        zIndex: 1,
+        cursor: 'pointer'
     },
     clickableDoor: {
-        backgroundColor: '#009200',
-        cursor: 'pointer'
+        backgroundColor: '#009200'
     },
     activeDoor: {
         borderColor: '#1e6710'
@@ -149,7 +149,7 @@ const DoorView = ({
                 styles.activeDoor
             )
         )}
-        onClick={hasSolution && onMapDoorClick}
+        onClick={onMapDoorClick}
     />
 
 export interface RoomProps {

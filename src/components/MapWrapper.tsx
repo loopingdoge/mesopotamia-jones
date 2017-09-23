@@ -105,10 +105,7 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
                 <div className={css(styles.mapWrapperTab)}>
                     <BlocklyEditor
                         readonly={true}
-                        riddleText={
-                            this.riddleText ||
-                            'Seleziona una porta per vedere la tua soluzione'
-                        }
+                        riddleText={this.riddleText}
                         workspaceXML={this.workspaceXML || ''}
                     />
                 </div>
