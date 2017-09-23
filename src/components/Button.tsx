@@ -7,22 +7,25 @@ import { onlyIf } from '../utils'
 
 const styles = StyleSheet.create({
     button: {
-        transition: 'transform 0.3s ease',
+        transition: 'transform 0.3s ease, background-color 0.3s ease',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        cursor: 'pointer',
         border: '2px solid #90752d',
-        backgroundColor: '#fdd466',
         outline: 'none',
-        fontFamily: 'sans-serif',
+        fontFamily: 'sans-serif'
+    },
+    active: {
+        backgroundColor: '#fdd466',
+        cursor: 'pointer',
         ':hover': {
             transform: 'scale(0.95)'
         },
         ':active': {
-            transform: 'scale(0.90)'
+            transform: 'scale(0.85)'
         }
-    }
+    },
+    disabled: {}
 })
 
 export interface ButtonProps {
@@ -33,6 +36,7 @@ export interface ButtonProps {
     autofocus?: boolean
     small?: boolean
     circular?: boolean
+    disabled?: boolean
 }
 
 class Button extends React.Component<ButtonProps> {
@@ -51,16 +55,20 @@ class Button extends React.Component<ButtonProps> {
     }
 
     render() {
-        const { icon, text, onClick, small, circular } = this.props
+        const { icon, text, onClick, small, circular, disabled } = this.props
         const style = {
             padding: small ? '5px' : '10px',
             borderRadius: circular ? (small ? '15px' : '20px') : '4px'
         }
         return (
             <div
-                onClick={this.props.onClick}
+                onClick={!disabled && this.props.onClick}
                 onKeyDown={this.onKeyDown}
-                className={css(styles.button, this.props.customCSS)}
+                className={css(
+                    styles.button,
+                    this.props.customCSS,
+                    disabled ? styles.disabled : styles.active
+                )}
                 tabIndex={0}
                 ref={element => (this.containerDiv = element)}
                 style={style}
