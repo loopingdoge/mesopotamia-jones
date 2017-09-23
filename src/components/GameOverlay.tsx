@@ -38,6 +38,8 @@ class GameOverlay extends React.PureComponent<
     GameOverlayProps,
     GameOverlayState
 > {
+    hideTimeout: number
+
     constructor(props: GameOverlayProps) {
         super(props)
         this.state = {
@@ -51,9 +53,13 @@ class GameOverlay extends React.PureComponent<
                 nextProps.gameUi === GameUI.Inventory ||
                 nextProps.gameUi === GameUI.Map
             ) {
+                clearTimeout(this.hideTimeout)
                 this.setState({ visible: true })
             } else if (nextProps.gameUi === GameUI.Game) {
-                setTimeout(() => this.setState({ visible: false }), 300)
+                this.hideTimeout = setTimeout(
+                    () => this.setState({ visible: false }),
+                    300
+                )
             }
         }
     }
