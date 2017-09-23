@@ -213,6 +213,7 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                     onClick={this.onDecrement}
                     small
                     circular
+                    disabled={currentValueIndex === 0}
                 />
                 <div className={css(styles.fieldsColumn)}>
                     <Motion
@@ -235,6 +236,7 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                     onClick={this.onIncrement}
                     small
                     circular
+                    disabled={currentValueIndex === list.length - 1}
                 />
             </div>
         )
