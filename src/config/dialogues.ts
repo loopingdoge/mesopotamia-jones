@@ -54,7 +54,7 @@ export const dialogues: Dialogue[] = [
         [
             line(
                 characters[0],
-                'Accidenti, mentre esploravo sono caduto in buco di questa piramide... devo cercare di uscire da qui'
+                "Accidenti, mentre esploravo delle antiche rovine si è rotto il pavimento e sono finito in questa caverna... devo cercare di uscire da qui. Più avanti c'è una porta, vediamo cosa c'è oltre."
             )
         ],
         []
@@ -63,13 +63,33 @@ export const dialogues: Dialogue[] = [
         'dialog2',
         [
             line(
-                characters[1],
-                "Sono il fantasma della piramide, ti vorrei raccontare la mia storia e di come An-Ki Hammurtossi mi ha rinchiuso dentro questa stanza, ma ora l'autore del dialogo non ha molta voglia di scriverlo.\nQuindi prendi questa chiave e recupera il mio computer."
+                characters[0],
+                "Com'è possibile che ci sia una persona qui, queste rovine dovrebbero essere state chiuse da migliaia di anni... Chi sei tu?"
             ),
-            line(characters[0], 'Ok lol'),
             line(
                 characters[1],
-                'Torna qui con il computer, se me lo lasci aggiornare a Windows 10 ti farò un regalo'
+                'Chi osa risvegliarmi dal mio eterno sonno! Vabbè sto dormendo da 104 anni, forse era anche ora che mi svegliassi... Mi chiamo Farren Von Talin ed anche io ero un esploratore come te ma poi...'
+            ),
+            line(characters[0], '... Poi ti sei fatto male al ginocchio?'),
+            line(
+                characters[1],
+                'Cosa? E perché mai!? No, come te sono rimasto intrappolato in queste rovine, forse lo avrai già notato ma le porte in questo posto sono maledette!'
+            ),
+            line(
+                characters[1],
+                'Ogni volta che ci passi i numeri degli indovinelli cambiano e ti costringono a risolvere sempre lo stesso enigma! Per questo motivo avevo iniziato a costruire una macchina programmabile in grado di risolvere gli indovinelli automaticamente.'
+            ),
+            line(
+                characters[1],
+                "Sfortunatamente in queste caverne si aggira anche An-Ki Hammurtossi, lo spirito malvagio che ha maledetto questo posto e che mi ha trasformato in un fantasma, condannandomi a vivere qui per l'eternità."
+            ),
+            line(
+                characters[1],
+                'Per proteggerlo dalle grinfie di Hammurtossi, ho nascosto la mia macchina in una cassa nella stanza in cui sei caduto inizialmente, tieni la chiave per aprirla.'
+            ),
+            line(
+                characters[1],
+                'Una volta recuperata la macchina, torna da me e ti farò un regalo!'
             )
         ],
         [computerKey]
@@ -79,7 +99,7 @@ export const dialogues: Dialogue[] = [
         [
             line(
                 characters[1],
-                'Ora che hai il computer ti sarà più facile uscire dalla piramide, ma lascia che ti aiuti ancora...ecco fatto, ti ho installato Minecraft e Angry Birds proprio come mi avevi chiesto.'
+                'Ora che hai il computer ti sarà più facile uscire dalla caverna, ma lascia che ti aiuti ancora... ecco fatto, ti ho installato le versioni pre-alphabeto di Minecraft e Angry Birds proprio come mi avevi chiesto.'
             ),
             line(
                 characters[0],
@@ -87,14 +107,19 @@ export const dialogues: Dialogue[] = [
             ),
             line(
                 characters[1],
-                'Vabbè lo hai voluto tu, sembra che ti serva compagnia ed inoltre è pericoloso andare da solo! Prendi questo.'
+                'Vabbè come vuoi, sembra che ti serva compagnia ed inoltre è pericoloso andare da solo! Prendi questo.'
             )
         ],
         [translator]
     ),
     dialogue(
         'dialog4',
-        [line(characters[1], 'Per caso hai visto il mio cane?')],
+        [
+            line(
+                characters[1],
+                'Per caso hai visto il mio cane? Gli avevo insegnato a parlare in cuneiforme...'
+            )
+        ],
         []
     ),
     dialogue(

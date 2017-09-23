@@ -14,8 +14,8 @@ export interface Item {
 
 export class Computer implements Item {
     id: string = COMPUTER
-    name = 'computer'
-    description = 'il computer che Von Talin in passato ha cercato di costruire. Questo artefatto si collega alle porte della piramide e permette di risolvere gli enigmi automaticamente, se programmato correttamente.'
+    name = 'HAL 1337'
+    description = 'La macchina che Von Talin in passato ha costruito. Questo macchina si collega alle porte e permette di risolvere gli enigmi automaticamente, se programmato correttamente.'
     workspace: { [riddleId: string]: string } = {}
     image = ComputerImage
 }
@@ -82,7 +82,7 @@ export const computerKey = createItem(
 
 export const translator = createItem(
     TRANSLATOR,
-    'una roccia',
+    'roccia senziente',
     'questo oggetto traduce automaticamente i testi degli indovinelli. Sembra contenere il fantasma di un maestro di cuneiforme.',
     TranslatorImage
 )
@@ -121,16 +121,17 @@ export const reactourInventory = (inventory: Inventory) => {
                 {
                     selector: '#blocklyArea',
                     text:
-                        'Grazie al computer posso risolvere questi indovinelli una volta per tutte!'
+                        "Ogni volta che passo da una porta l'indovinello rimane lo stesso, ma cambiano sempre i numeri! Con il computer posso risolvere l'indovinello in modo che vada bene per qualsiasi numero, così facendo la porta di aprirà automaticamente."
                 },
                 {
                     selector: '.blocklyFlyout',
-                    text: "Posso trascinare questi elementi nell'area bianca!"
+                    text:
+                        "Per risolvere l'indovinello posso comporre assieme questi blocchi, funzionano come un puzzle! I pezzi compatibili possono essere incastrati assieme. In questa barra ci sono i blocchi che posso usare, e li posso comporre spostandoli nell'area bianca a destra."
                 },
                 {
                     selector: '#play',
                     text:
-                        'Se premo questo bottone il computer eseguirà questo codice e sposterà automaticamente gli ingranaggi'
+                        'Una volta che sono soddisfatto della mia soluzione, posso premere questo bottone per provarla. Se non ci sono errori, gli ingranaggi della porta si muoveranno automaticamente, formando la soluzione generata dai blocchi che ho composto.'
                 }
             ]
         }

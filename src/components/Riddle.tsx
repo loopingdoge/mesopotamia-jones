@@ -337,8 +337,11 @@ const Riddle = ({
                                 content: () =>
                                     <div>
                                         <span className={css(styles.tourText)}>
-                                            Cosa sono questi simboli? Dovrei
-                                            provare a tradurli...
+                                            Sulla porta sono incisi questi
+                                            simboli, sembra essere un
+                                            indovinello. Fortunatamente ho una
+                                            legenda che mi permette di tradurre
+                                            questi simboli!
                                         </span>
                                     </div>
                             },
@@ -347,7 +350,9 @@ const Riddle = ({
                                 content: () =>
                                     <div>
                                         <span className={css(styles.tourText)}>
-                                            Forse questa legenda può aiutarmi?
+                                            Questa è la mia legenda, ad ogni
+                                            simbolo cuneiforme corrisponde una
+                                            lettera.
                                         </span>
                                     </div>
                             },
