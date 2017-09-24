@@ -22,6 +22,7 @@ export interface Dialogue {
     id: string
     lines: Line[]
     loot: Item[]
+    nextDialogueId?: string
 }
 
 const character = (id: string, name: string, image: string): Character => ({
@@ -32,10 +33,16 @@ const character = (id: string, name: string, image: string): Character => ({
 
 const line = (character: Character, text: string): Line => ({ character, text })
 
-const dialogue = (id: string, lines: Line[], loot: Item[]): Dialogue => ({
+const dialogue = (
+    id: string,
+    lines: Line[],
+    loot: Item[],
+    nextDialogueId?: string
+): Dialogue => ({
     id,
     lines,
-    loot
+    loot,
+    nextDialogueId
 })
 
 export const characters: Character[] = [
@@ -110,7 +117,8 @@ export const dialogues: Dialogue[] = [
                 'Vabbè come vuoi, sembra che ti serva compagnia ed inoltre è pericoloso andare da solo! Prendi questo.'
             )
         ],
-        [translator]
+        [translator],
+        'dialog4'
     ),
     dialogue(
         'dialog4',
@@ -130,10 +138,10 @@ export const dialogues: Dialogue[] = [
         ],
         []
     ),
+    dialogue('dialog6', [line(characters[3], 'Wow...')], [], 'dialog7'),
     dialogue(
-        'dialog6',
+        'dialog7',
         [
-            line(characters[3], 'Wow...'),
             line(
                 characters[4],
                 'Traduzione: "Attento esploratore, oltra quella porta troverai solo pericolo"'

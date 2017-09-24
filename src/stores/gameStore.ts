@@ -38,6 +38,7 @@ export type GamePhase = 'Game' | 'Riddle'
 export interface GameState {
     activeDialogue: Maybe<Dialogue>
     activeFoundItem: Maybe<Item>
+    nextDialogueId: string
     firstRiddleVisited: boolean
     room: Room
     lastDoor: Door
@@ -50,6 +51,7 @@ export interface GameState {
 
 export const defaultGameStoreState: () => GameState = () => ({
     activeDialogue: null,
+    nextDialogueId: null,
     activeFoundItem: null,
     firstRiddleVisited: false,
     room: rooms[0],
@@ -153,7 +155,7 @@ export class GameStore {
             () => this.state.activeFoundItem,
             item => {
                 const hideItemScreen = () => {
-                    this.state.activeFoundItem = null
+                    this.hideFoundItem()
                     removeActionListener(Actions.CLOSE_ITEM_SCREEN)
                 }
                 setTimeout(
@@ -294,34 +296,47 @@ export class GameStore {
     }
 
     @action
-    hideFoundItem = (itemId: string) => {
+    hideFoundItem = () => {
         this.state = {
             ...this.state,
             activeFoundItem: null
         }
+        this.showNexDialogue()
     }
 
     @action
     showDialogue = (dialogId: string) => {
         if (!this.state.activeDialogue) {
+            const dialogue = getDialogById(dialogId)
             this.state = {
                 ...this.state,
-                activeDialogue: getDialogById(dialogId)
+                activeDialogue: dialogue,
+                nextDialogueId: dialogue.nextDialogueId
             }
         }
     }
 
     @action
     hideDialogue = () => {
+        // If there's a loot
         if (this.state.activeDialogue.loot.length) {
             for (const item of this.state.activeDialogue.loot) {
                 this.showFoundItem(item)
                 this.addItemToInventory(item)
             }
+        } else {
+            this.showNexDialogue()
         }
         this.state = {
             ...this.state,
             activeDialogue: null
+        }
+    }
+
+    showNexDialogue = () => {
+        if (this.state.nextDialogueId !== undefined) {
+            // TODO: indagare o chiedere ad alby perche' senza non funzia
+            setTimeout(() => this.showDialogue(this.state.nextDialogueId), 0)
         }
     }
 
