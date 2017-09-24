@@ -310,8 +310,20 @@ export class GameStore {
             const dialogue = getDialogById(dialogId)
             this.state = {
                 ...this.state,
-                activeDialogue: dialogue,
                 nextDialogueId: dialogue.nextDialogueId
+            }
+            // Shows the dialogue if the player has the required item
+            if (
+                dialogue.requiredItem === undefined ||
+                hasItem(this.state.inventory, dialogue.requiredItem)
+            ) {
+                this.state = {
+                    ...this.state,
+                    activeDialogue: dialogue
+                }
+                // Otherwise shows the possible next dialogue
+            } else {
+                this.showNexDialogue()
             }
         }
     }

@@ -3,7 +3,7 @@ import * as Hammurtossi from '../../assets/images/mummy.png'
 import * as Rock from '../../assets/images/rock.png'
 import * as VonDogen from '../../assets/images/von-dogen.png'
 import * as VonTalin from '../../assets/images/von-talin.png'
-import { computerKey, Item, translator } from './inventory'
+import { computer, computerKey, Item, translator } from './inventory'
 
 import { Riddle } from './riddles'
 
@@ -22,6 +22,7 @@ export interface Dialogue {
     id: string
     lines: Line[]
     loot: Item[]
+    requiredItem?: Item
     nextDialogueId?: string
 }
 
@@ -37,11 +38,13 @@ const dialogue = (
     id: string,
     lines: Line[],
     loot: Item[],
+    requiredItem?: Item,
     nextDialogueId?: string
 ): Dialogue => ({
     id,
     lines,
     loot,
+    requiredItem,
     nextDialogueId
 })
 
@@ -118,6 +121,7 @@ export const dialogues: Dialogue[] = [
             )
         ],
         [translator],
+        undefined,
         'dialog4'
     ),
     dialogue(
@@ -138,7 +142,13 @@ export const dialogues: Dialogue[] = [
         ],
         []
     ),
-    dialogue('dialog6', [line(characters[3], 'Wow...')], [], 'dialog7'),
+    dialogue(
+        'dialog6',
+        [line(characters[3], 'Wow...')],
+        [],
+        undefined,
+        'dialog7'
+    ),
     dialogue(
         'dialog7',
         [
@@ -147,7 +157,8 @@ export const dialogues: Dialogue[] = [
                 'Traduzione: "Attento esploratore, oltra quella porta troverai solo pericolo"'
             )
         ],
-        []
+        [],
+        computer
     ),
     dialogue(
         NEED_KEY,
