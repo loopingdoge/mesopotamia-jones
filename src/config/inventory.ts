@@ -121,7 +121,7 @@ export const reactourInventory = (inventory: Inventory) => {
                 {
                     selector: '#blocklyArea',
                     text:
-                        "Ogni volta che passo da una porta l'indovinello rimane lo stesso, ma cambiano sempre i numeri! Con il computer posso risolvere l'indovinello in modo che vada bene per qualsiasi numero, così facendo la porta di aprirà automaticamente."
+                        "Ogni volta che passo da una porta l'indovinello rimane lo stesso, ma cambiano sempre i numeri! Con il computer posso risolvere l'indovinello in modo che vada bene per qualsiasi numero, così facendo la porta si aprirà automaticamente."
                 },
                 {
                     selector: '.blocklyFlyout',
