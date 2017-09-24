@@ -75,6 +75,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         userSelect: 'none'
     },
+    riddleText: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
     editorSection: {
         display: 'flex',
         flexDirection: 'row',
@@ -119,7 +123,7 @@ export interface CuneiformSectionProps {
 
 const CuneiformSection = ({ riddle, translated }: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)} id="cuneiformRiddle">
-        <p>
+        <p className={css(styles.riddleText)}>
             {riddle
                 .split('')
                 .map((value, i) =>
