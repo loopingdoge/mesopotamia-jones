@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
     },
     riddleText: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexWrap: 'wrap'
     },
     editorSection: {
         display: 'flex',
@@ -113,27 +114,41 @@ const styles = StyleSheet.create({
     },
     tourText: {
         fontFamily: 'sans-serif'
+    },
+    charWrapper: {
+        ':hover': {
+            backgroundColor: 'rgba(253, 212, 02, 0.3)',
+            boxShadow: '0px 1px 11px -1px #90752d',
+            display: 'flex',
+            justifyContent: 'center'
+        }
     }
 })
 
 export interface CuneiformSectionProps {
     riddle: string
     translated: boolean
+    onCharOver: (char: string) => void
 }
 
-const CuneiformSection = ({ riddle, translated }: CuneiformSectionProps) =>
+const CuneiformSection = ({
+    riddle,
+    translated,
+    onCharOver
+}: CuneiformSectionProps) =>
     <div className={css(styles.cuneiformSection)} id="cuneiformRiddle">
-        <p className={css(styles.riddleText)}>
-            {riddle
-                .split('')
-                .map((value, i) =>
-                    <CuneiformChar
-                        key={i}
-                        value={value}
-                        translated={translated}
-                    />
-                )}
-        </p>
+        <div className={css(styles.riddleText)}>
+            {riddle.split('').map((value, i) =>
+                <div
+                    key={i}
+                    className={css(styles.charWrapper)}
+                    onMouseEnter={() => onCharOver(value)}
+                    onMouseLeave={() => onCharOver(null)}
+                >
+                    <CuneiformChar value={value} translated={translated} />
+                </div>
+            )}
+        </div>
     </div>
 
 export interface EditorSectionProps {
@@ -205,6 +220,7 @@ export interface RiddleProps {
     hideTutorial: () => void
     setWorkspace: (code: string) => void
     onChangeSolution: (sol: string) => void
+    onCuneiformCharOver: (char: string) => void
     checkSolution: () => boolean
     riddleSolved: () => void
     tutorialStartIndex: number
@@ -222,6 +238,7 @@ const Riddle = ({
     isNotificationVisible,
     isCuneiformExpanded,
     isLegendExpanded,
+    onCuneiformCharOver,
     goBack,
     runCode,
     clearWorkspace,
@@ -264,6 +281,7 @@ const Riddle = ({
                             <CuneiformSection
                                 riddle={riddleText}
                                 translated={hasItem(inventory, translator)}
+                                onCharOver={onCuneiformCharOver}
                             />
                             <div className={css(styles.lockRow)} data-tour={1}>
                                 <Solution
@@ -430,7 +448,8 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             showTutorial,
             hideTutorial,
             isTutorialOpen,
-            tutorialStartIndex
+            tutorialStartIndex,
+            onCuneiformCharOver
         } = this.props.riddleUIStore
 
         return (
@@ -464,6 +483,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 width={width}
                 height={height}
                 tutorialStartIndex={tutorialStartIndex}
+                onCuneiformCharOver={onCuneiformCharOver}
             />
         )
     }

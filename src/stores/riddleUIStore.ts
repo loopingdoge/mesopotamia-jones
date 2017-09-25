@@ -6,6 +6,7 @@ export class RiddleUIStore {
     @observable isNotificationVisible: boolean = false
     @observable isTutorialOpen: boolean = false
     @observable tutorialStartIndex: number = 0
+    @observable selectedCuneiformChar: string = null
 
     @action
     shrinkCuneiform = () => {
@@ -25,6 +26,11 @@ export class RiddleUIStore {
         for (let i = 100; i < 1000; i += 25) {
             setTimeout(() => window.dispatchEvent(event), i)
         }
+    }
+
+    @action
+    onCuneiformCharOver = (char: string) => {
+        this.selectedCuneiformChar = char
     }
 
     @action shrinkLegend = () => (this.isLegendExpanded = false)

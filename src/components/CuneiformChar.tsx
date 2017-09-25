@@ -11,10 +11,13 @@ const khosrau = {
 }
 
 const styles = StyleSheet.create({
+    default: {
+        cursor: 'pointer'
+    },
     cuneiform: {
         fontFamily: [khosrau, 'sans-serif'],
         fontSize: 32,
-        width: 31
+        minWidth: 31
     },
     translated: {
         fontFamily: 'monospace',
@@ -68,7 +71,7 @@ class CuneiformChar extends React.Component<CuneiformCharProps, undefined> {
 
     render() {
         return (
-            <div className={css(this.font, this.style)}>
+            <div className={css(styles.default, this.font, this.style)}>
                 {this.char}
             </div>
         )
