@@ -48,7 +48,9 @@ const CuneiformLegend = ({ selectedChar }: CuneiformLegendProps) =>
                         key={letterIndex}
                         className={css(
                             styles.legendCell,
-                            selectedChar === letter && styles.highlighted
+                            selectedChar &&
+                                selectedChar.toLowerCase() === letter &&
+                                styles.highlighted
                         )}
                     >
                         <div>

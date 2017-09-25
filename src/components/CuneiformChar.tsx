@@ -12,16 +12,15 @@ const khosrau = {
 
 const styles = StyleSheet.create({
     default: {
-        cursor: 'pointer'
+        cursor: 'pointer',
+        minWidth: 15,
+        fontSize: 32
     },
     cuneiform: {
-        fontFamily: [khosrau, 'sans-serif'],
-        fontSize: 32,
-        minWidth: 31
+        fontFamily: [khosrau, 'sans-serif']
     },
     translated: {
-        fontFamily: 'monospace',
-        fontSize: 32
+        fontFamily: 'monospace'
     },
     cuneiformLetter: {
         color: 'rgb(165, 91, 91)'
