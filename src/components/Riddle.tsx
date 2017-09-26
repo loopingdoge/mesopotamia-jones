@@ -120,7 +120,8 @@ const styles = StyleSheet.create({
             backgroundColor: 'rgba(253, 212, 02, 0.3)',
             boxShadow: '0px 1px 11px -1px #90752d',
             display: 'flex',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            cursor: 'pointer'
         }
     }
 })

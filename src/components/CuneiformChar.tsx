@@ -12,7 +12,6 @@ const khosrau = {
 
 const styles = StyleSheet.create({
     default: {
-        cursor: 'pointer',
         minWidth: 15,
         fontSize: 32
     },
