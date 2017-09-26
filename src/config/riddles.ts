@@ -306,7 +306,7 @@ const riddles: Riddle[] = [
     {
         id: 'if',
         question: ([a, b, c]: number[]) =>
-            `Se il numero magico è pari la porta si apre con la somma di ${a} e ${b}, altrimenti con il prodotto.\n Il numero magico è ${c}`,
+            `Se il numero magico è pari, la porta si apre con la somma di ${a} e ${b}, altrimenti con il prodotto.\n Il numero magico è ${c}`,
         defaultToolbox: [
             `<block type="numero1"></block>`,
             `<block type="numero2"></block>`,
