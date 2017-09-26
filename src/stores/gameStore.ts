@@ -377,7 +377,7 @@ export class GameStore {
             !this.state.activeFoundItem &&
             this.state.interaction
         ) {
-            if (event.key === 'f' || event.key === 'F') {
+            if (event.key === ' ') {
                 switch (this.state.interaction.type) {
                     case 'door':
                         const { x, y } = this.state.interaction
