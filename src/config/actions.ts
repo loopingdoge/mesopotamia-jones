@@ -10,10 +10,10 @@ type ActionCallback = (event: Event) => any
 
 const callbackMap = new Map<Actions, Maybe<[ActionCallback, boolean]>>()
 
-const callbackIfPressedF = (callback: ActionCallback) => (
+const callbackIfPressedSpace = (callback: ActionCallback) => (
     event: KeyboardEvent
 ) => {
-    if (event.key === 'f' || event.key === 'F') {
+    if (event.key === ' ') {
         callback(event)
     }
 }
@@ -27,7 +27,7 @@ export const addActionListener = (
 ) => {
     const event = eventTouchOrKeyboard()
     const newCallback =
-        event === 'keydown' ? callbackIfPressedF(callback) : callback
+        event === 'keydown' ? callbackIfPressedSpace(callback) : callback
     if (getOrElse(callbackMap.get(action), null)) {
         removeActionListener(action)
     }
