@@ -284,7 +284,6 @@ export class GameStore {
         this.riddleStore.isSolved = false
         this.riddleStore.riddleCompleted = false
 
-        console.log(this.riddleStore.state)
         if (this.riddleStore.state.isSolvedAutomatically) {
             this.uiStore.showNotification()
             setTimeout(() => this.uiStore.hideNotification(), 2000)

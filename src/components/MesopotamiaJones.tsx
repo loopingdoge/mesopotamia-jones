@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FDF6E3'
+        backgroundColor: '#FDF6E3',
+        overflow: 'hidden'
     },
     content: {
         height: 'inherit'

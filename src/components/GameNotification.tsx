@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontSize: 'xx-large',
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         transition: 'transform 0.5s, opacity 0.5s',
@@ -62,7 +61,8 @@ class GameNotification extends React.PureComponent<
                 style={{
                     opacity: visible ? 1 : 0,
                     zIndex,
-                    transform: `translateY(${visible ? -height : 0}px)`
+                    transform: `translateY(${visible ? -height : 0}px)`,
+                    display: zIndex === 1 ? 'flex' : 'none'
                 }}
             >
                 {text}
