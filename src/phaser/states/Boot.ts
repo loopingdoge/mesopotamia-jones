@@ -20,7 +20,7 @@ import * as Tiles from '../../../assets/images/sheet.png'
 import * as innerJoystick from '../../../assets/images/inner-circle.png'
 import * as outerJoystick from '../../../assets/images/outer-circle.png'
 
-import * as pressF from '../../../assets/images/pressf.png'
+import * as pressSpace from '../../../assets/images/pressspace.png'
 
 export default class Boot extends Phaser.State {
     loaderBg: Phaser.Sprite
@@ -41,7 +41,7 @@ export default class Boot extends Phaser.State {
         this.load.image('joystick', outerJoystick)
         this.load.image('innerJoystick', innerJoystick)
         this.load.image('actionButton', innerJoystick)
-        this.load.image('pressf', pressF)
+        this.load.image('pressSpace', pressSpace)
         this.load.image('chest-close', ChestClose)
         this.load.image('chest-open', ChestOpen)
     }

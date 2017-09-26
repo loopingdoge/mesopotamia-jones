@@ -7,7 +7,7 @@ export default class InteractionHint extends Sprite {
     down = false
 
     constructor(game: Game, x: number, y: number) {
-        super(game, x, y, 'pressf')
+        super(game, x, y, 'pressSpace')
         this.initialX = x
         this.initialY = y
         this.anchor.setTo(0.5, 0.5)
