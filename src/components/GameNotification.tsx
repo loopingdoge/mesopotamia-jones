@@ -30,15 +30,38 @@ export interface GameNotificationProps {
     text: string
 }
 
-class GameNotification extends React.PureComponent<GameNotificationProps> {
+export interface GameNotificationState {
+    zIndex: number
+}
+
+class GameNotification extends React.PureComponent<
+    GameNotificationProps,
+    GameNotificationState
+> {
+    constructor(props: GameNotificationProps) {
+        super(props)
+        this.state = {
+            zIndex: -1
+        }
+    }
+
+    componentWillReceiveProps(props: GameNotificationProps) {
+        if (props.visible !== this.props.visible && props.visible === true) {
+            this.setState({ zIndex: 1 })
+            setTimeout(() => this.setState({ zIndex: -1 }), 3000)
+        }
+    }
+
     render() {
         const { visible, text } = this.props
+        const { zIndex } = this.state
 
         return (
             <div
                 className={css(styles.notificationContainer)}
                 style={{
                     opacity: visible ? 1 : 0,
+                    zIndex,
                     transform: `translateY(${visible ? -height : 0}px)`
                 }}
             >
