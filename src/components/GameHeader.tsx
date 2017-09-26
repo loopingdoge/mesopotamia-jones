@@ -32,6 +32,7 @@ export interface GameHeaderProps {
 }
 
 const GameHeader = ({ gameUi, show, width }: GameHeaderProps) =>
+    // tslint:disable-next-line:jsx-no-lambda
     <div className={css(styles.inventoryHeader)} style={{ width }}>
         <Button
             customCSS={styles.item}

@@ -193,6 +193,7 @@ export class GameStore {
                     : this.uiStore.hideInteractionHint()
             }
         )
+        document.addEventListener('keypress', this.keyboardHandler)
     }
 
     @action
@@ -228,6 +229,27 @@ export class GameStore {
         }
     }
 
+    keyboardHandler = (event: KeyboardEvent) => {
+        // tslint:disable:curly
+        if (this.state.phase === 'Game') {
+            switch (event.key) {
+                case '1':
+                    this.uiStore.ui === GameUI.Map
+                        ? this.uiStore.show(GameUI.Game)
+                        : this.uiStore.show(GameUI.Map)
+                    break
+                case '2':
+                    this.uiStore.ui === GameUI.Inventory
+                        ? this.uiStore.show(GameUI.Game)
+                        : this.uiStore.show(GameUI.Inventory)
+                    break
+                case '3':
+                    this.uiStore.show(GameUI.Game)
+                    break
+            }
+        }
+        // tslint:enable:curly
+    }
     /**
      * To call when a door is touched
      * @param x: x position of the door

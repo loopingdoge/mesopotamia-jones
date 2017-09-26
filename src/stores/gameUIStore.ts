@@ -56,6 +56,11 @@ export class UIStore {
         return this.state.selectedRiddle
     }
 
+    @computed
+    get ui(): GameUI {
+        return this.state.ui
+    }
+
     @action
     show = (ui: GameUI) => {
         this.state = {
