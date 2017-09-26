@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-around'
     },
     footer: {}
 })
