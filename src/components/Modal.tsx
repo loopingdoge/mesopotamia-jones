@@ -4,6 +4,8 @@ import Icon from 'react-icons-kit'
 import { chevronRight } from 'react-icons-kit/ionicons/'
 import * as ReactModal from 'react-modal'
 
+import PressToContinue from './PressToContinue'
+
 import Button from './Button'
 
 const modalShow = {
@@ -12,6 +14,16 @@ const modalShow = {
     },
     to: {
         transform: 'scale(1)'
+    }
+}
+const scaleAnimation = {
+    '0%, 100%': {
+        transform: 'translateY(0px)',
+        color: '#f0ac43'
+    },
+    '50%': {
+        transform: 'translateY(3px)',
+        color: '#ba7916'
     }
 }
 
@@ -44,6 +56,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FDF6E3',
         outline: 'none',
         border: '2px solid black',
+        padding: '0px 20px',
+        fontFamily: 'sans-serif',
         animationName: {
             from: {
                 transform: 'scale(0.8)'
@@ -55,6 +69,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
+    },
+    continueHint: {
+        textAlign: 'center',
+        animationName: scaleAnimation,
+        animationDuration: '2s',
+        animationIterationCount: 'infinite',
+        animationTimingFunction: 'ease'
     }
 })
 
@@ -63,7 +84,12 @@ export interface SolvedRiddleModalProps {
 }
 
 export const SolvedRiddleModal = ({ onClick }: SolvedRiddleModalProps) =>
-    <div className={css(styles.modalBody)}>
+    <div
+        className={css(styles.modalBody)}
+        onKeyPress={(event: any) => {
+            if (event.key === ' ') onClick()
+        }}
+    >
         <h1>Indovinello risolto!</h1>
         <Button
             icon={chevronRight}
@@ -71,6 +97,9 @@ export const SolvedRiddleModal = ({ onClick }: SolvedRiddleModalProps) =>
             onClick={onClick}
             autofocus
         />
+        <p className={css(styles.continueHint)}>
+            Clicca il pulsante o premi spazio
+        </p>
     </div>
 
 export interface ModalProps {
