@@ -30,7 +30,9 @@ export default class PressToContinue extends React.PureComponent {
     render() {
         return (
             <div className={css(styles.continueHint)}>
-                {isMobile() ? 'Tocca per continuare' : 'Premi F per continuare'}
+                {isMobile()
+                    ? 'Tocca per continuare'
+                    : 'Premi spazio per continuare'}
             </div>
         )
     }
