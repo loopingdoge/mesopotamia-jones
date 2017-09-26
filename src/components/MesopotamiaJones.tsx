@@ -15,6 +15,7 @@ import FadedContainer from './FadedContainer'
 import FoundItem from './FoundItem'
 import Game from './Game'
 import GameHeader from './GameHeader'
+import GameNotification from './GameNotification'
 import GameOverlay from './GameOverlay'
 import Riddle from './Riddle'
 
@@ -62,6 +63,7 @@ export interface MesopotamiaJonesProps {
     pageWidth: number
     pageHeight: number
     gameUi: GameUI
+    isNotificationVisible: boolean
 }
 
 const MesopotamiaJones = ({
@@ -70,7 +72,8 @@ const MesopotamiaJones = ({
     activeFoundItem,
     pageWidth,
     pageHeight,
-    gameUi
+    gameUi,
+    isNotificationVisible
 }: MesopotamiaJonesProps) => {
     const MaybeHeader = onlyIf(gamePhase !== 'Riddle', <GameHeader />)
     // const MaybeOverlay = onlyIf(gamePhase !== 'Riddle', <GameOverlay />)
@@ -136,6 +139,12 @@ const MesopotamiaJones = ({
                 >
                     <Game width={pageWidth} height={pageHeight} />
                 </div>
+                <GameNotification
+                    visible={isNotificationVisible}
+                    text={
+                        'La porta si è aperta automaticamente grazie alla tua precedente soluzione'
+                    }
+                />
                 {MaybeRiddle}
             </div>
         </div>
@@ -159,7 +168,7 @@ class MesopotamiaJonesContainer extends React.Component<
     render() {
         const { state } = this.props.gameStore
         const { phase, activeDialogue, activeFoundItem } = state
-        const { width, height } = this.props.uiStore
+        const { width, height, isNotificationVisible } = this.props.uiStore
         return (
             <MesopotamiaJones
                 gamePhase={phase}
@@ -168,6 +177,7 @@ class MesopotamiaJonesContainer extends React.Component<
                 pageWidth={width}
                 pageHeight={height}
                 gameUi={this.props.uiStore.state.ui}
+                isNotificationVisible={isNotificationVisible}
             />
         )
     }

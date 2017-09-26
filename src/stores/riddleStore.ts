@@ -17,6 +17,7 @@ export interface IRiddleStore {
     codeResult: any
     isSolved: boolean
     riddleCompleted: boolean
+    isSolvedAutomatically: boolean
 }
 
 export class RiddleStore {
@@ -76,7 +77,8 @@ export class RiddleStore {
             workspaceXML: null,
             codeResult: null,
             isSolved: false,
-            riddleCompleted: false
+            riddleCompleted: false,
+            isSolvedAutomatically: false
         }
 
         reaction(
@@ -165,7 +167,9 @@ export class RiddleStore {
         if (workspaceXML) {
             // ex userCode
             this.runCode()
-            this.setRiddleCompleted()
+            if (this.checkSolution()) {
+                this.setRiddleCompleted(true)
+            }
         }
         riddleUIStore.tutorialStartIndex = 0
     }
@@ -184,11 +188,12 @@ export class RiddleStore {
     }
 
     @action
-    setRiddleCompleted = () => {
+    setRiddleCompleted = (automatic: boolean = false) => {
         if (this.checkSolution()) {
             this.state = {
                 ...this.state,
-                riddleCompleted: true
+                riddleCompleted: true,
+                isSolvedAutomatically: automatic
             }
         }
     }
