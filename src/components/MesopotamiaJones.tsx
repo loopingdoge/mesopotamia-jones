@@ -141,6 +141,7 @@ const MesopotamiaJones = ({
                     <Game width={pageWidth} height={pageHeight} />
                 </div>
                 <GameNotification
+                    width={pageWidth}
                     visible={isNotificationVisible}
                     text={
                         'La porta si è aperta automaticamente grazie alla tua precedente soluzione'

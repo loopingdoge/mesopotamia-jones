@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     notificationContainer: {
         position: 'absolute',
         height: `${height}px`,
-        width: '100%',
         backgroundImage:
             'linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.2))',
         color: 'white',
@@ -25,6 +24,7 @@ const styles = StyleSheet.create({
 })
 
 export interface GameNotificationProps {
+    width: number
     visible: boolean
     text: string
 }
@@ -52,13 +52,14 @@ class GameNotification extends React.PureComponent<
     }
 
     render() {
-        const { visible, text } = this.props
+        const { width, visible, text } = this.props
         const { zIndex } = this.state
 
         return (
             <div
                 className={css(styles.notificationContainer)}
                 style={{
+                    width,
                     opacity: visible ? 1 : 0,
                     zIndex,
                     transform: `translateY(${visible ? -height : 0}px)`,
