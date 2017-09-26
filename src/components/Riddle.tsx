@@ -284,7 +284,10 @@ const Riddle = ({
                                 translated={hasItem(inventory, translator)}
                                 onCharOver={onCuneiformCharOver}
                             />
-                            <div className={css(styles.lockRow)} data-tour={1}>
+                            <div
+                                className={css(styles.lockRow)}
+                                id={'lockcodes'}
+                            >
                                 <Solution
                                     length={solutionLength}
                                     type={solutionType}
@@ -364,18 +367,22 @@ const Riddle = ({
                                             simboli, sembra essere un
                                             indovinello. Fortunatamente ho una
                                             legenda che mi permette di tradurre
-                                            questi simboli!
+                                            questi simboli! Passando con il
+                                            mouse sopra a questi simboli, la
+                                            lettera corrispondente si illuminerà
+                                            nella legenda!
                                         </span>
                                     </div>
                             },
                             {
-                                selector: '#cuneiformLegend',
+                                selector: '#lockcodes',
                                 content: () =>
                                     <div>
                                         <span className={css(styles.tourText)}>
-                                            Questa è la mia legenda, ad ogni
-                                            simbolo cuneiforme corrisponde una
-                                            lettera.
+                                            Una volta tradotto l'indovinello,
+                                            devo inserire qui la soluzione, una
+                                            volta trovata quella corretta la
+                                            porta si aprirà.
                                         </span>
                                     </div>
                             },
