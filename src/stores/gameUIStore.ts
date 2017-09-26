@@ -37,6 +37,8 @@ export class UIStore {
 
     @observable isInteractionHintVisible: boolean = false
 
+    @observable isNotificationVisible: boolean = false
+
     @observable state: IGameUIStore
 
     constructor() {
@@ -80,6 +82,16 @@ export class UIStore {
     @action
     hideInteractionHint = () => {
         this.isInteractionHintVisible = false
+    }
+
+    @action
+    showNotification = () => {
+        this.isNotificationVisible = true
+    }
+
+    @action
+    hideNotification = () => {
+        this.isNotificationVisible = false
     }
 }
 

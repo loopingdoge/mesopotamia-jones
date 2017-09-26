@@ -264,7 +264,9 @@ const Riddle = ({
         <Modal
             isOpen={isSolved}
             onOpenDelay={1000}
-            content={<SolvedRiddleModal onClick={riddleSolved} />}
+            content={
+                <SolvedRiddleModal onClick={riddleSolved.bind(null, false)} />
+            }
         />
         <Toolbar goBack={goBack} openInfo={showTutorial} />
         <Motion
