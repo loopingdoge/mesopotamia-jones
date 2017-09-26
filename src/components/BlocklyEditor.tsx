@@ -98,7 +98,7 @@ let blocklyOptions = {
     readOnly: false,
     zoom: {
         wheel: true,
-        startScale: 0.8,
+        startScale: 1,
         maxScale: 2,
         minScale: 0.3,
         scaleSpeed: 1.2
