@@ -20,7 +20,7 @@ import * as Tiles from '../../../assets/images/sheet.png'
 import * as innerJoystick from '../../../assets/images/inner-circle.png'
 import * as outerJoystick from '../../../assets/images/outer-circle.png'
 
-import * as pressSpace from '../../../assets/images/pressspace.png'
+import * as pressSpace from '../../../assets/images/pressSpace.png'
 
 export default class Boot extends Phaser.State {
     loaderBg: Phaser.Sprite
