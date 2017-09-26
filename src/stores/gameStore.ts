@@ -247,6 +247,13 @@ export class GameStore {
                     this.uiStore.show(GameUI.Game)
                     break
             }
+        } else if (this.state.phase === 'Riddle') {
+            switch (event.key) {
+                case ' ':
+                    if (riddleUIStore.isTutorialOpen)
+                        riddleUIStore.isTutorialOpen = false
+                    break
+            }
         }
         // tslint:enable:curly
     }
