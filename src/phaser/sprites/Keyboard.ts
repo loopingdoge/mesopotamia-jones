@@ -21,7 +21,12 @@ export default class Keyboard extends Sprite {
         super(game, 0, 0, null)
         this.keyboardEvents = keyboardEvents
         this.anchor.setTo(0.5, 0.5)
-        this.cursors = this.game.input.keyboard.createCursorKeys()
+        this.cursors = this.game.input.keyboard.addKeys({
+            up: Phaser.KeyCode.W,
+            down: Phaser.KeyCode.S,
+            left: Phaser.KeyCode.A,
+            right: Phaser.KeyCode.D
+        })
     }
 
     update() {
