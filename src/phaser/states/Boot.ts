@@ -4,7 +4,9 @@ import gameStore from '../../stores/gameStore'
 
 import * as DogeImage from '../../../assets/images/doge.png'
 import * as DoorImage from '../../../assets/images/door.png'
-import * as DudeImage from '../../../assets/images/dude.png'
+import * as HammurtossiSprite from '../../../assets/images/hammurtossi-sprite.png'
+import * as JonesSprite from '../../../assets/images/jones-sprite.png'
+import * as VonTalinSprite from '../../../assets/images/von-talin-sprite.png'
 
 import * as ChestClose from '../../../assets/images/chest-close.png'
 import * as ChestOpen from '../../../assets/images/chest-open.png'
@@ -27,8 +29,9 @@ export default class Boot extends Phaser.State {
     loaderBar: Phaser.Sprite
 
     preload() {
-        this.load.spritesheet('player', DudeImage as any, 32, 48)
-        this.load.spritesheet('npc', DudeImage as any, 32, 48)
+        this.load.spritesheet('player', JonesSprite as any, 32, 48)
+        this.load.spritesheet('von-talin', VonTalinSprite as any, 32, 48)
+        this.load.spritesheet('hammurtossi', HammurtossiSprite as any, 32, 48)
         this.load.image('doge', DogeImage as any)
         // this.load.image('doge', DogeImage as any) doge enhance
         this.load.tilemap('room1', '', Room1, Phaser.Tilemap.TILED_JSON)

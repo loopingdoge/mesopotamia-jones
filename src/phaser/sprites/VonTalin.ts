@@ -6,9 +6,8 @@ import Npc from './Npc'
 
 export default class VonTalin extends Npc {
     constructor(game: Game, x: number, y: number) {
-        super(game, x, y, 'npc')
-        this.frame = 4
-        this.alpha = 0.6
+        super(game, x, y, 'von-talin')
+        this.alpha = 0.8
     }
 
     dialogue(state: GameState): string {

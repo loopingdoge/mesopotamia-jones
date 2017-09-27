@@ -5,8 +5,7 @@ import Npc from './Npc'
 
 export default class Hammurtossi extends Npc {
     constructor(game: Game, x: number, y: number) {
-        super(game, x, y, 'npc')
-        this.frame = 4
+        super(game, x, y, 'hammurtossi')
     }
 
     dialogue(state: GameState): string {
