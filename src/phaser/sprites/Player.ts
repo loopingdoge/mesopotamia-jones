@@ -4,11 +4,26 @@ import { linearMap } from '../../utils'
 import PlayerEvents from '../classes/PlayerEvents'
 import InteractionHint from './InteractionHint'
 
+export type Direction = 'top' | 'right' | 'bottom' | 'left'
+
+const initialFrame = (direction: Direction) => {
+    switch (direction) {
+        case 'top':
+            return 12
+        case 'right':
+            return 8
+        case 'bottom':
+            return 0
+        case 'left':
+            return 4
+    }
+}
+
 export default class Player extends Sprite {
     interactionHint: InteractionHint
     events: PlayerEvents
 
-    constructor(game: Game, x: number, y: number) {
+    constructor(game: Game, x: number, y: number, direction: Direction) {
         super(game, x, y, 'player')
         this.events = new PlayerEvents(this)
 
@@ -26,7 +41,7 @@ export default class Player extends Sprite {
         this.body.width = 30
         this.body.height = 13
 
-        this.frame = 1
+        this.frame = initialFrame(direction)
 
         this.interactionHint = game.add.existing(
             new InteractionHint(game, 25, 0)

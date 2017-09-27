@@ -10,7 +10,7 @@ import ChestSprite from '../sprites/Chest'
 import InteractionHint from '../sprites/InteractionHint'
 import Joystick from '../sprites/Joystick'
 import Keyboard from '../sprites/Keyboard'
-import Player from '../sprites/Player'
+import Player, { Direction } from '../sprites/Player'
 
 // tslint:disable-next-line:ordered-imports
 import Npc from '../sprites/Npc'
@@ -73,6 +73,7 @@ export default class Game extends Phaser.State {
     createPlayer() {
         let playerX: number = this.world.centerX
         let playerY: number = this.world.centerY
+        let playerDirection: Direction
 
         if (gameStore.lastDoor) {
             const lastDoor: GameDoor = getGameDoorById(
@@ -103,10 +104,11 @@ export default class Game extends Phaser.State {
             }
             playerX = cX || playerX
             playerY = cY || playerY
+            playerDirection = lastDoorTile.properties.direction
         }
 
         this.player = this.game.add.existing(
-            new Player(this.game, playerX, playerY)
+            new Player(this.game, playerX, playerY, playerDirection)
         )
     }
 
