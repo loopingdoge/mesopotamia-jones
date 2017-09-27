@@ -41,6 +41,7 @@ export default class Player extends Sprite {
         this.events.onMoveBottomUp.add(() => {
             this.body.velocity.y = 0
             this.animations.stop('down')
+            this.frame = 0
         })
 
         this.events.onMoveTopDown.add((velocity = 1) => {
@@ -51,6 +52,7 @@ export default class Player extends Sprite {
         this.events.onMoveTopUp.add(() => {
             this.body.velocity.y = 0
             this.animations.stop('up')
+            this.frame = 12
         })
 
         this.events.onMoveRightDown.add((velocity = 1) => {
@@ -61,6 +63,7 @@ export default class Player extends Sprite {
         this.events.onMoveRightUp.add(() => {
             this.body.velocity.x = 0
             this.animations.stop('right')
+            this.frame = 8
         })
 
         this.events.onMoveLeftDown.add((velocity = 1) => {
@@ -71,6 +74,7 @@ export default class Player extends Sprite {
         this.events.onMoveLeftUp.add((velocity: number) => {
             this.body.velocity.x = 0
             this.animations.stop('left')
+            this.frame = 4
         })
 
         this.events.onStopMoving.add(this.stopMoving)
