@@ -84,9 +84,15 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
         this.scheduleLetters(
             this.props.dialogue.lines[this.state.pageIndex].text
         )
-        setTimeout(
-            () => addActionListener(Actions.NEXT_DIALOGUE_LINE, this.nextPage),
-            100
+        this.timeouts.push(
+            setTimeout(
+                () =>
+                    addActionListener(
+                        Actions.NEXT_DIALOGUE_LINE,
+                        this.nextPage
+                    ),
+                100
+            )
         )
         addActionListener(
             Actions.SKIP_TO_DIALOGUE_END,
@@ -128,9 +134,11 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
             )
         )
 
-        setTimeout(
-            () => removeActionListener(Actions.SKIP_TO_DIALOGUE_END),
-            text.length * this.letterDelay
+        this.timeouts.push(
+            setTimeout(() => {
+                removeActionListener(Actions.SKIP_TO_DIALOGUE_END)
+                console.log('time')
+            }, text.length * this.letterDelay)
         )
     }
 
@@ -141,6 +149,7 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
         this.timeouts = []
         this.setState({ visibleCharacters: text })
         removeActionListener(Actions.SKIP_TO_DIALOGUE_END)
+        console.log('skip')
     }
 
     render() {
