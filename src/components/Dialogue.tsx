@@ -73,7 +73,7 @@ interface DialogueState {
 
 class DialogueUI extends React.Component<DialogueProps, DialogueState> {
     letterDelay = 35
-    timeouts: NodeJS.Timer[] = []
+    timeouts: any[] = []
 
     constructor(props: DialogueProps) {
         super(props)

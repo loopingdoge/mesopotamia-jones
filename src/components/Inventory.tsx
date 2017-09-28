@@ -131,7 +131,7 @@ interface InventoryState {
 }
 
 class InventoryUI extends React.Component<InventoryProps, InventoryState> {
-    resetAnimationTimeout: NodeJS.Timer
+    resetAnimationTimeout: any
 
     constructor(props: InventoryProps) {
         super(props)

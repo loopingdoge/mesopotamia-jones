@@ -32,7 +32,7 @@ export interface ButtonProps {
     customCSS?: any
     icon?: any
     text: string
-    onClick: () => void
+    onClick: (...args: any[]) => any
     autofocus?: boolean
     small?: boolean
     circular?: boolean
@@ -60,9 +60,10 @@ class Button extends React.Component<ButtonProps> {
             padding: small ? '5px' : '10px',
             borderRadius: circular ? (small ? '15px' : '20px') : '4px'
         }
+
         return (
             <div
-                onClick={!disabled && this.props.onClick}
+                onClick={onlyIf(!disabled, this.props.onClick)}
                 onKeyDown={this.onKeyDown}
                 className={css(
                     styles.button,

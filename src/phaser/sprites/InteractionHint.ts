@@ -3,7 +3,7 @@ import { Game, Point, Sprite } from 'phaser-ce'
 export default class InteractionHint extends Sprite {
     initialX: number
     initialY: number
-    intervalHandler: NodeJS.Timer
+    intervalHandler: any
     down = false
 
     constructor(game: Game, x: number, y: number) {
