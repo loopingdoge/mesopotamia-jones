@@ -55,6 +55,17 @@ export default class Solution extends React.Component<
     SolutionProps,
     SolutionState
 > {
+    /**
+     * Returns a list containing the (numbers|strings)'s index for every field
+     */
+    get indexesInList() {
+        return initListValues(
+            initList(this.props.length),
+            listFromType(this.props.type),
+            this.props.value
+        )
+    }
+
     constructor(props: SolutionProps) {
         super(props)
         this.state = { focusedIndex: 0 }
@@ -84,22 +95,32 @@ export default class Solution extends React.Component<
                         (this.state.focusedIndex + 1) % this.props.length
                 })
                 break
+            case 'ArrowUp':
+                if (this.indexesInList[this.state.focusedIndex] > 0) {
+                    this.updateField(
+                        this.indexesInList[this.state.focusedIndex],
+                        this.state.focusedIndex,
+                        prev
+                    )
+                }
+                break
+            case 'ArrowDown':
+                if (
+                    this.indexesInList[this.state.focusedIndex] <
+                    listFromType(this.props.type).length - 1
+                ) {
+                    this.updateField(
+                        this.indexesInList[this.state.focusedIndex],
+                        this.state.focusedIndex,
+                        next
+                    )
+                }
+                break
         }
     }
 
     setFocus = (i: number) => {
         this.setState({ focusedIndex: i })
-    }
-
-    /**
-     * Returns a list containing the (numbers|strings)'s index for every field
-     */
-    get indexesInList() {
-        return initListValues(
-            initList(this.props.length),
-            listFromType(this.props.type),
-            this.props.value
-        )
     }
 
     /**
@@ -113,13 +134,15 @@ export default class Solution extends React.Component<
         fieldIndex: number,
         updateFn: (list: string[], index: number) => number
     ) {
-        const newIndex = updateFn(
-            listFromType(this.props.type),
-            currentValueIndex
-        )
-        const indexesInList = this.indexesInList
-        indexesInList[fieldIndex] = newIndex
-        this.props.onChangeValue(this.fieldsToString(indexesInList))
+        if (!this.props.isCorrect) {
+            const newIndex = updateFn(
+                listFromType(this.props.type),
+                currentValueIndex
+            )
+            const indexesInList = this.indexesInList
+            indexesInList[fieldIndex] = newIndex
+            this.props.onChangeValue(this.fieldsToString(indexesInList))
+        }
     }
 
     /**
@@ -127,21 +150,28 @@ export default class Solution extends React.Component<
      */
     getFields() {
         const fields = initList(this.props.length)
-        return fields.map((_, i) =>
+        return fields.map((_, i) => (
             <LockCode
                 key={i}
                 list={listFromType(this.props.type)}
                 currentValueIndex={this.indexesInList[i]}
-                onIncrement={() =>
-                    this.updateField(this.indexesInList[i], i, next)}
-                onDecrement={() =>
-                    this.updateField(this.indexesInList[i], i, prev)}
+                onIncrement={this.updateField.bind(
+                    this,
+                    this.indexesInList[i],
+                    i,
+                    next
+                )}
+                onDecrement={this.updateField.bind(
+                    this,
+                    this.indexesInList[i],
+                    i,
+                    prev
+                )}
                 focused={this.state.focusedIndex === i}
-                setFocus={() => this.setFocus(i)}
+                setFocus={this.setFocus.bind(this, i)}
                 index={i}
-                isCorrect={this.props.isCorrect}
             />
-        )
+        ))
     }
 
     /**

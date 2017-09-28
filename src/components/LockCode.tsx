@@ -7,6 +7,8 @@ import {
 } from 'react-icons-kit/ionicons/'
 import { Motion, spring } from 'react-motion'
 
+import { onlyIf } from '../utils'
+
 import Button from './Button'
 
 const labelHeight = 42
@@ -44,6 +46,10 @@ const styles = StyleSheet.create({
         marginLeft: -2,
         border: '2px solid #90752d',
         borderRadius: 4
+    },
+    focused: {
+        boxShadow:
+            'rgba(255, 255, 54, 0.18) 0px 0px 75px inset, rgba(150, 150, 45, 0) 0px 0px 10px'
     }
 })
 
@@ -84,11 +90,11 @@ const SolutionLabel = ({
     value,
     activeIndex,
     currentIndex
-}: SolutionLabelProps) =>
+}: SolutionLabelProps) => (
     <Motion
         style={interpolatedRotation(labelRotation(currentIndex, activeIndex))}
     >
-        {({ rotation }) =>
+        {({ rotation }) => (
             <div
                 className={css(styles.solutionLabel)}
                 style={labelStyle(
@@ -96,11 +102,11 @@ const SolutionLabel = ({
                     labelColor(currentIndex, activeIndex)
                 )}
             >
-                <span>
-                    {value}
-                </span>
-            </div>}
+                <span>{value}</span>
+            </div>
+        )}
     </Motion>
+)
 
 // -------------------------------------------------------------------------------
 // ---------------------------------- Lock Code ----------------------------------
@@ -128,7 +134,6 @@ export interface LockCodeProps {
     focused: boolean
     setFocus: (...args: any[]) => any
     index: number
-    isCorrect: boolean
 }
 
 class LockCode extends React.PureComponent<LockCodeProps> {
@@ -151,21 +156,6 @@ class LockCode extends React.PureComponent<LockCodeProps> {
         }
     }
 
-    onIncrement = () => !this.props.isCorrect && this.props.onIncrement()
-
-    onDecrement = () => !this.props.isCorrect && this.props.onDecrement()
-
-    onKeyDown = (event: any) => {
-        switch (event.key) {
-            case 'ArrowUp':
-                this.onDecrement()
-                break
-            case 'ArrowDown':
-                this.onIncrement()
-                break
-        }
-    }
-
     onTouchStart = (event: any) => {
         this.lastSwipeY = event.touches[0].clientY
     }
@@ -175,9 +165,9 @@ class LockCode extends React.PureComponent<LockCodeProps> {
         if (now > this.lastSwipeTime + 500) {
             const swipeY = event.touches[0].clientY
             if (swipeY > this.lastSwipeY) {
-                this.onDecrement()
+                this.props.onDecrement()
             } else {
-                this.onIncrement()
+                this.props.onIncrement()
             }
             this.lastSwipeY = swipeY
             this.lastSwipeTime = now
@@ -187,21 +177,23 @@ class LockCode extends React.PureComponent<LockCodeProps> {
     render() {
         const { list, currentValueIndex, focused } = this.props
 
-        const labelList = list.map((item, i) =>
+        const labelList = list.map((item, i) => (
             <SolutionLabel
                 key={i}
                 value={item}
                 activeIndex={i}
                 currentIndex={currentValueIndex}
             />
-        )
+        ))
 
         return (
             <div
                 tabIndex={this.props.index}
-                className={css(styles.lockCode)}
+                className={css(
+                    styles.lockCode,
+                    onlyIf(focused, styles.focused)
+                )}
                 ref={lockCodeDiv => (this.lockCodeDiv = lockCodeDiv)}
-                onKeyDown={this.onKeyDown}
                 onTouchStart={this.onTouchStart}
                 onTouchMove={this.onTouchMove}
                 onMouseDown={this.props.setFocus}
@@ -210,7 +202,7 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                 <Button
                     icon={androidArrowDropup}
                     text={''}
-                    onClick={this.onDecrement}
+                    onClick={this.props.onDecrement}
                     small
                     circular
                     disabled={currentValueIndex === 0}
@@ -221,19 +213,20 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                             offset: spring(columnOffset(currentValueIndex))
                         }}
                     >
-                        {({ offset }) =>
+                        {({ offset }) => (
                             <div
                                 className={css(styles.innerFieldsColumn)}
                                 style={columnStyle(offset)}
                             >
                                 {labelList}
-                            </div>}
+                            </div>
+                        )}
                     </Motion>
                 </div>
                 <Button
                     icon={androidArrowDropdown}
                     text={''}
-                    onClick={this.onIncrement}
+                    onClick={this.props.onIncrement}
                     small
                     circular
                     disabled={currentValueIndex === list.length - 1}
