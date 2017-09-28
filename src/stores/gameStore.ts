@@ -216,7 +216,7 @@ export class GameStore {
     }
 
     saveGameState = () => {
-        console.log('Saving state to local storage...')
+        // console.log('Saving state to local storage...')
         localStorage.setItem('gameState', JSON.stringify(this.state))
     }
 

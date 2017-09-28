@@ -137,7 +137,6 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
         this.timeouts.push(
             setTimeout(() => {
                 removeActionListener(Actions.SKIP_TO_DIALOGUE_END)
-                console.log('time')
             }, text.length * this.letterDelay)
         )
     }
@@ -149,7 +148,6 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
         this.timeouts = []
         this.setState({ visibleCharacters: text })
         removeActionListener(Actions.SKIP_TO_DIALOGUE_END)
-        console.log('skip')
     }
 
     render() {

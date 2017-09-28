@@ -229,7 +229,7 @@ export class RiddleStore {
             // TODO: Check if codeResult is appropriate
             if (codeResult) {
                 userSolution = String(codeResult)
-                console.log(`Code result: ${userSolution}`)
+                // console.log(`Code result: ${userSolution}`)
             }
         } catch (e) {
             codeResult = (e as EvalError).message
