@@ -26,7 +26,11 @@ export interface Dialogue {
     nextDialogueId?: string
 }
 
-const character = (id: string, name: string, image: string): Character => ({
+const createCharacter = (
+    id: string,
+    name: string,
+    image: string
+): Character => ({
     id,
     name,
     image
@@ -49,14 +53,15 @@ const dialogue = (
 })
 
 export const characters: Character[] = [
-    character('mj', 'Mesopotamia Jones', MesopotamiaJonesImage as any),
-    character('fv', 'Farren Von Talin', VonTalin as any),
-    character('ab', 'An-Ki Hammurtossi', Hammurtossi as any),
-    character('do', 'Wow Von Dogen', VonDogen as any),
-    character('rs', 'Roccia Senziente', Rock as any)
+    createCharacter('mj', 'Mesopotamia Jones', MesopotamiaJonesImage as any),
+    createCharacter('fv', 'Farren Von Talin', VonTalin as any),
+    createCharacter('ab', 'An-Ki Hammurtossi', Hammurtossi as any),
+    createCharacter('do', 'Wow Von Dogen', VonDogen as any),
+    createCharacter('rs', 'Roccia Senziente', Rock as any)
 ]
 
 export const NEED_KEY = 'NEED_KEY'
+export const DOOR_ROCK_REQUIRED = 'DOOR_ROCK_REQUIRED'
 
 export const dialogues: Dialogue[] = [
     dialogue(
@@ -164,6 +169,16 @@ export const dialogues: Dialogue[] = [
         NEED_KEY,
         [line(characters[0], "E' chiuso... servirebbe una chiave")],
         []
+    ),
+    dialogue(
+        DOOR_ROCK_REQUIRED,
+        [
+            line(
+                characters[0],
+                'Questa porta non si apre... sembra ci sia una cavità per inserirci una piccola roccia.'
+            )
+        ],
+        []
     )
 ]
 
@@ -171,4 +186,4 @@ const dialogById = (dialogId: string) => (dialog: Dialogue) =>
     dialog.id === dialogId
 
 export const getDialogById = (dialogId: string) =>
-    dialogues.filter(dialogById(dialogId))[0]
+    dialogues.find(dialogById(dialogId))

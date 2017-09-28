@@ -10,7 +10,12 @@ import Actions, {
     removeActionListener
 } from '../config/actions'
 import { Chest, Chests, defaultChests } from '../config/chests'
-import { Dialogue, getDialogById, NEED_KEY } from '../config/dialogues'
+import {
+    Dialogue,
+    DOOR_ROCK_REQUIRED,
+    getDialogById,
+    NEED_KEY
+} from '../config/dialogues'
 import {
     addItem,
     computer,
@@ -217,8 +222,10 @@ export class GameStore {
 
     getComputer = () => {
         let computer = null
-        const result = this.inventory.filter(item => item.id === COMPUTER)
-        if (result) computer = result[0] as Computer
+        const result = this.inventory.find(item => item.id === COMPUTER)
+        if (result) {
+            computer = result as Computer
+        }
         return computer
     }
 
@@ -271,22 +278,30 @@ export class GameStore {
     @action
     activateRiddle = (x: number, y: number) => {
         const gameDoor = getGameDoor(this.room, x, y)
+        const itemRequired = gameDoor.door.itemRequired
+        if (itemRequired && !hasItem(this.inventory, itemRequired.item)) {
+            this.showDialogue(itemRequired.dialogueId)
+        } else {
+            const computer = this.getComputer()
+            let workspace = null
 
-        const computer = this.getComputer()
-        let workspace = null
+            if (computer) {
+                workspace = computer.workspace[gameDoor.door.riddle.id]
+            }
 
-        if (computer) workspace = computer.workspace[gameDoor.door.riddle.id]
+            this.riddleStore.activateDoor(gameDoor, workspace)
+            this.state = {
+                ...this.state,
+                lastDoor: gameDoor.door,
+                phase: 'Riddle'
+            }
 
-        this.riddleStore.activateDoor(gameDoor, workspace)
-        this.state = {
-            ...this.state,
-            lastDoor: gameDoor.door,
-            phase: 'Riddle'
-        }
-
-        if (reactourStartIndex(this.state.inventory, this.state.progression)) {
-            this.state.progression.hasShownComputerTutorial = true
-            riddleUIStore.tutorialStartIndex = 2
+            if (
+                reactourStartIndex(this.state.inventory, this.state.progression)
+            ) {
+                this.state.progression.hasShownComputerTutorial = true
+                riddleUIStore.tutorialStartIndex = 2
+            }
         }
     }
 

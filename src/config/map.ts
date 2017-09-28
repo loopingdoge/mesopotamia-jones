@@ -1,14 +1,18 @@
-import { coord2Pixel } from '../phaser/config'
-import Hammurtossi from '../phaser/sprites/Hammurtossi'
-import Npc from '../phaser/sprites/Npc'
-import VonTalin from '../phaser/sprites/VonTalin'
+import { DOOR_ROCK_REQUIRED } from './dialogues'
+import { Item, translator } from './inventory'
 import riddles, { Riddle } from './riddles'
+
+export interface ItemDialogue {
+    item: Item
+    dialogueId: string
+}
 
 export interface Door {
     id: string
     room1: Room
     room2: Room
     riddle: Riddle
+    itemRequired: ItemDialogue
 }
 
 export interface Room {
@@ -36,7 +40,7 @@ export enum Direction {
     LEFT
 }
 
-function direction({ x, y }: GameDoor): Direction {
+function directionFromCoords({ x, y }: GameDoor): Direction {
     // tslint:disable:curly
     if (x === 7 && y === 0) return Direction.TOP
     else if (x === 15 && y === 4) return Direction.RIGHT
@@ -46,14 +50,21 @@ function direction({ x, y }: GameDoor): Direction {
     // tslint:enable:curly
 }
 
-const door = (id: string, room1: Room, room2: Room, riddle: Riddle): Door => ({
+const createDoor = (
+    id: string,
+    room1: Room,
+    room2: Room,
+    riddle: Riddle,
+    itemRequired: ItemDialogue = null
+): Door => ({
     id,
     room1,
     room2,
-    riddle
+    riddle,
+    itemRequired
 })
 
-const gameDoor = (
+const createGameDoor = (
     door: Door,
     from: Room,
     to: Room,
@@ -61,39 +72,42 @@ const gameDoor = (
     y: number
 ): GameDoor => ({ door, from, to, x, y })
 
-const room = (id: string): Room => ({ id })
+const createRoom = (id: string): Room => ({ id })
 
-const edge = (direction: Direction, to: Room, riddle: Riddle) => ({
+const createEdge = (direction: Direction, to: Room, riddle: Riddle) => ({
     direction,
     to,
     riddle
 })
 
 export const rooms: Room[] = [
-    room('room1'),
-    room('room2'),
-    room('room3'),
-    room('room4'),
-    room('room5')
+    createRoom('room1'),
+    createRoom('room2'),
+    createRoom('room3'),
+    createRoom('room4'),
+    createRoom('room5')
 ]
 
 export const doors: Door[] = [
-    door('door1', rooms[0], rooms[1], riddles[0]),
-    door('door2', rooms[1], rooms[2], riddles[1]),
-    door('door3', rooms[1], rooms[3], riddles[2]),
-    door('door4', rooms[3], rooms[4], riddles[3]),
-    door('door5', rooms[4], rooms[5], riddles[4])
+    createDoor('door1', rooms[0], rooms[1], riddles[0]),
+    createDoor('door2', rooms[1], rooms[2], riddles[1]),
+    createDoor('door3', rooms[1], rooms[3], riddles[2], {
+        item: translator,
+        dialogueId: DOOR_ROCK_REQUIRED
+    }),
+    createDoor('door4', rooms[3], rooms[4], riddles[3]),
+    createDoor('door5', rooms[4], rooms[5], riddles[4])
 ]
 
 export const gameDoors: GameDoor[] = [
-    gameDoor(doors[0], rooms[0], rooms[1], 15, 4),
-    gameDoor(doors[0], rooms[1], rooms[0], 0, 4),
-    gameDoor(doors[1], rooms[1], rooms[2], 7, 0),
-    gameDoor(doors[1], rooms[2], rooms[1], 7, 8),
-    gameDoor(doors[2], rooms[1], rooms[3], 15, 4),
-    gameDoor(doors[2], rooms[3], rooms[1], 0, 4),
-    gameDoor(doors[3], rooms[3], rooms[4], 15, 4),
-    gameDoor(doors[3], rooms[4], rooms[3], 0, 4)
+    createGameDoor(doors[0], rooms[0], rooms[1], 15, 4),
+    createGameDoor(doors[0], rooms[1], rooms[0], 0, 4),
+    createGameDoor(doors[1], rooms[1], rooms[2], 7, 0),
+    createGameDoor(doors[1], rooms[2], rooms[1], 7, 8),
+    createGameDoor(doors[2], rooms[1], rooms[3], 15, 4),
+    createGameDoor(doors[2], rooms[3], rooms[1], 0, 4),
+    createGameDoor(doors[3], rooms[3], rooms[4], 15, 4),
+    createGameDoor(doors[3], rooms[4], rooms[3], 0, 4)
 ]
 
 export const getRoomById = (id: string): Room =>
@@ -123,5 +137,9 @@ export const adjacentRooms = (currentRoom: Room): Edge[] =>
     gameDoors
         .filter(gameDoor => gameDoor.from.id === currentRoom.id)
         .map(gameDoor =>
-            edge(direction(gameDoor), gameDoor.to, gameDoor.door.riddle)
+            createEdge(
+                directionFromCoords(gameDoor),
+                gameDoor.to,
+                gameDoor.door.riddle
+            )
         )
