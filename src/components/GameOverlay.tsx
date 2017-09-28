@@ -38,7 +38,7 @@ class GameOverlay extends React.PureComponent<
     GameOverlayProps,
     GameOverlayState
 > {
-    hideTimeout: number
+    hideTimeout: NodeJS.Timer
 
     constructor(props: GameOverlayProps) {
         super(props)

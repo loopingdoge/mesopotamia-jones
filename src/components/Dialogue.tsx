@@ -73,7 +73,7 @@ interface DialogueState {
 
 class DialogueUI extends React.Component<DialogueProps, DialogueState> {
     letterDelay = 35
-    timeouts: number[] = []
+    timeouts: NodeJS.Timer[] = []
 
     constructor(props: DialogueProps) {
         super(props)
@@ -170,14 +170,14 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
                             {dialogue &&
                                 this.state.visibleCharacters
                                     .split('\n')
-                                    .map((text, i) =>
+                                    .map((text, i) => (
                                         <div
                                             key={i}
                                             className={css(styles.dialogueLine)}
                                         >
                                             {text}
                                         </div>
-                                    )}
+                                    ))}
                         </div>
                     </div>
                     {onlyIf(
@@ -198,12 +198,12 @@ interface DialogContainerProps {
 }
 
 export default inject('gameStore', 'uiStore')(
-    observer(({ gameStore, uiStore }: DialogContainerProps) =>
+    observer(({ gameStore, uiStore }: DialogContainerProps) => (
         <DialogueUI
             dialogue={gameStore.state.activeDialogue}
             onDialogueEnd={gameStore.hideDialogue}
             width={uiStore.width}
             height={uiStore.height}
         />
-    )
+    ))
 )

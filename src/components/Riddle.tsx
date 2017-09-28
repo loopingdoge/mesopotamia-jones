@@ -26,7 +26,6 @@ import { onlyIf } from '../utils'
 import BlocklyEditor from './BlocklyEditor'
 import CuneiformChar from './CuneiformChar'
 import CuneiformLegend from './CuneiformLegend'
-import Editor from './Editor'
 import Separator from './Separator'
 import Solution from './Solution'
 import Toolbar from './Toolbar'
@@ -137,10 +136,10 @@ const CuneiformSection = ({
     riddle,
     translated,
     onCharOver
-}: CuneiformSectionProps) =>
+}: CuneiformSectionProps) => (
     <div className={css(styles.cuneiformSection)} id="cuneiformRiddle">
         <div className={css(styles.riddleText)}>
-            {riddle.split('').map((value, i) =>
+            {riddle.split('').map((value, i) => (
                 <div
                     key={i}
                     className={css(styles.charWrapper)}
@@ -149,9 +148,10 @@ const CuneiformSection = ({
                 >
                     <CuneiformChar value={value} translated={translated} />
                 </div>
-            )}
+            ))}
         </div>
     </div>
+)
 
 export interface EditorSectionProps {
     toolbox: string
@@ -173,7 +173,7 @@ const EditorSection = ({
     codeResult,
     runCode,
     clearWorkspace
-}: EditorSectionProps) =>
+}: EditorSectionProps) => (
     <div className={css(styles.editorSection)}>
         <BlocklyEditor
             toolboxXML={toolbox}
@@ -184,6 +184,7 @@ const EditorSection = ({
             clearWorkspace={clearWorkspace}
         />
     </div>
+)
 
 const expandedToFlex = (isExpanded: boolean) => (isExpanded ? 1 : 0)
 const flexToExpandedFromShrinked = (flex: number) =>
@@ -259,7 +260,7 @@ const Riddle = ({
     showTutorial,
     hideTutorial,
     tutorialStartIndex
-}: RiddleProps) =>
+}: RiddleProps) => (
     <div className={css(styles.wrapper)}>
         <Modal
             isOpen={isSolved}
@@ -275,7 +276,7 @@ const Riddle = ({
                 legendFlex: spring(expandedToFlex(isLegendExpanded))
             }}
         >
-            {({ columnFlex, legendFlex }) =>
+            {({ columnFlex, legendFlex }) => (
                 <div className={css(styles.riddleContainer)}>
                     <div
                         className={css(styles.riddleColumn)}
@@ -363,7 +364,7 @@ const Riddle = ({
                         steps={[
                             {
                                 selector: '#cuneiformRiddle',
-                                content: () =>
+                                content: () => (
                                     <div>
                                         <span className={css(styles.tourText)}>
                                             Sulla porta sono incisi questi
@@ -376,10 +377,11 @@ const Riddle = ({
                                             nella legenda!
                                         </span>
                                     </div>
+                                )
                             },
                             {
                                 selector: '#lockcodes',
-                                content: () =>
+                                content: () => (
                                     <div>
                                         <span className={css(styles.tourText)}>
                                             Una volta tradotto l'indovinello,
@@ -388,21 +390,25 @@ const Riddle = ({
                                             porta si aprirà.
                                         </span>
                                     </div>
+                                )
                             },
                             ...reactourInventory(inventory).map(tutorial => ({
                                 selector: tutorial.selector,
-                                content: () =>
+                                content: () => (
                                     <div>
                                         <span className={css(styles.tourText)}>
                                             {tutorial.text}
                                         </span>
                                     </div>
+                                )
                             }))
                         ]}
                     />
-                </div>}
+                </div>
+            )}
         </Motion>
     </div>
+)
 
 export interface RiddleContainerProps {
     gameStore?: GameStore
