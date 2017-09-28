@@ -50,7 +50,11 @@ export default class Player extends Sprite {
 
         this.events.onMoveBottomDown.add((velocity = 1) => {
             this.body.velocity.y = linearMap(0, 1, 0, 250, velocity)
-            this.animations.play('down')
+            if (
+                Math.abs(this.body.velocity.y) > Math.abs(this.body.velocity.x)
+            ) {
+                this.animations.play('down')
+            }
         })
 
         this.events.onMoveBottomUp.add(() => {
@@ -61,7 +65,11 @@ export default class Player extends Sprite {
 
         this.events.onMoveTopDown.add((velocity = 1) => {
             this.body.velocity.y = -linearMap(0, 1, 0, 250, velocity)
-            this.animations.play('up')
+            if (
+                Math.abs(this.body.velocity.y) > Math.abs(this.body.velocity.x)
+            ) {
+                this.animations.play('up')
+            }
         })
 
         this.events.onMoveTopUp.add(() => {
@@ -72,7 +80,11 @@ export default class Player extends Sprite {
 
         this.events.onMoveRightDown.add((velocity = 1) => {
             this.body.velocity.x = linearMap(0, 1, 0, 250, velocity)
-            this.animations.play('right')
+            if (
+                Math.abs(this.body.velocity.x) > Math.abs(this.body.velocity.y)
+            ) {
+                this.animations.play('right')
+            }
         })
 
         this.events.onMoveRightUp.add(() => {
@@ -83,7 +95,11 @@ export default class Player extends Sprite {
 
         this.events.onMoveLeftDown.add((velocity = 1) => {
             this.body.velocity.x = -linearMap(0, 1, 0, 250, velocity)
-            this.animations.play('left')
+            if (
+                Math.abs(this.body.velocity.x) > Math.abs(this.body.velocity.y)
+            ) {
+                this.animations.play('left')
+            }
         })
 
         this.events.onMoveLeftUp.add((velocity: number) => {
