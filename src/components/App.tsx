@@ -20,7 +20,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div className={css(styles.appContainer)}>
-                {/* <DevTools /> */}
+                <DevTools />
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/game" component={MesopotamiaJones} />

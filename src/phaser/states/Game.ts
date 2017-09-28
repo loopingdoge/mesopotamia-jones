@@ -3,7 +3,7 @@ import * as Phaser from 'phaser-ce'
 import { Chest } from '../../config/chests'
 import { GameDoor, getGameDoorById } from '../../config/map'
 
-import gameStore from '../../stores/gameStore'
+import gameStore, { Interaction } from '../../stores/gameStore'
 import { coord2Pixel } from '../config'
 import ActionButton from '../sprites/ActionButton'
 import ChestSprite from '../sprites/Chest'
@@ -252,7 +252,7 @@ export default class Game extends Phaser.State {
 
         if (nearTiles.length === 0 && nearNpc === null && nearItem === null) {
             this.player.hideInteractionHint()
-            gameStore.removeInteraction()
+            this.removeInteraction()
         } else {
             this.player.showInteractionHint()
         }
@@ -295,14 +295,26 @@ export default class Game extends Phaser.State {
         40
 
     activateChest(chestId: string) {
-        gameStore.readyInteraction({ type: 'object', id: chestId })
+        this.prepareInteraction({ type: 'object', id: chestId })
     }
 
     activateDialogue(dialogueId: string) {
-        gameStore.readyInteraction({ type: 'npc', id: dialogueId })
+        this.prepareInteraction({ type: 'npc', id: dialogueId })
     }
 
     activateDoor(x: number, y: number) {
-        gameStore.readyInteraction({ type: 'door', x, y })
+        this.prepareInteraction({ type: 'door', x, y })
+    }
+
+    prepareInteraction = (interaction: Interaction) => {
+        if (!gameStore.state.interaction) {
+            gameStore.readyInteraction(interaction)
+        }
+    }
+
+    removeInteraction = () => {
+        if (gameStore.state.interaction) {
+            gameStore.removeInteraction()
+        }
     }
 }
