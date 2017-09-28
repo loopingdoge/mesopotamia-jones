@@ -14,6 +14,7 @@
         "max-classes-per-file": [
             false
         ],
-        "jsx-boolean-value": false
+        "jsx-boolean-value": false,
+        "no-submodule-imports": false
     }
 }

@@ -25,13 +25,17 @@ const styles = StyleSheet.create({
             transform: 'scale(0.85)'
         }
     },
-    disabled: {}
+    disabled: {},
+    textContainer: {
+        marginLeft: '4px'
+    }
 })
 
 export interface ButtonProps {
     customCSS?: any
     icon?: any
-    text: string
+    iconSize?: number
+    text?: string
     onClick: (...args: any[]) => any
     autofocus?: boolean
     small?: boolean
@@ -55,7 +59,15 @@ class Button extends React.Component<ButtonProps> {
     }
 
     render() {
-        const { icon, text, onClick, small, circular, disabled } = this.props
+        const {
+            icon,
+            iconSize,
+            text,
+            onClick,
+            small,
+            circular,
+            disabled
+        } = this.props
         const style = {
             padding: small ? '5px' : '10px',
             borderRadius: circular ? (small ? '15px' : '20px') : '4px'
@@ -74,8 +86,11 @@ class Button extends React.Component<ButtonProps> {
                 ref={element => (this.containerDiv = element)}
                 style={style}
             >
-                {icon !== undefined ? <Icon icon={icon} /> : ''}
-                {text}
+                {icon !== undefined ? <Icon icon={icon} size={iconSize} /> : ''}
+                {onlyIf(
+                    Boolean(text),
+                    <div className={css(styles.textContainer)}>{text}</div>
+                )}
             </div>
         )
     }

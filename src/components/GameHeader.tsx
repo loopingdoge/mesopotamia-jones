@@ -1,6 +1,9 @@
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { image } from 'react-icons-kit/ionicons/image'
+import { grid } from 'react-icons-kit/ionicons/grid'
+import { close } from 'react-icons-kit/ionicons/close'
 
 import { onlyIf } from '../utils'
 import Button from './Button'
@@ -17,11 +20,14 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: 'rgba(0,0,0,0.25)'
     },
+    button: {
+        marginLeft: '12px',
+        fontWeight: 'bold'
+    },
     item: {
         width: 20,
         height: 20,
-        marginLeft: 10,
-        fontSize: 28
+        marginLeft: 10
     }
 })
 
@@ -31,39 +37,48 @@ export interface GameHeaderProps {
     show: (gameUi: GameUI) => void
 }
 
-const GameHeader = ({ gameUi, show, width }: GameHeaderProps) =>
+const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
     // tslint:disable-next-line:jsx-no-lambda
     <div className={css(styles.inventoryHeader)} style={{ width }}>
-        <Button
-            customCSS={styles.item}
-            text={'🗺'}
-            onClick={() => show(GameUI.Map)}
-        />
-        <Button
-            customCSS={styles.item}
-            text={'💡'}
-            onClick={() => show(GameUI.Inventory)}
-        />
-        {onlyIf(
-            gameUi !== GameUI.Game,
+        <div className={css(styles.button)}>
             <Button
-                customCSS={styles.item}
-                text={'X'}
-                onClick={() => show(GameUI.Game)}
+                icon={image}
+                iconSize={22}
+                text={'Mappa'}
+                onClick={show.bind(null, GameUI.Map)}
             />
-        )}
+        </div>
+        <div className={css(styles.button)}>
+            <Button
+                icon={grid}
+                iconSize={22}
+                text={'Inventario'}
+                onClick={show.bind(null, GameUI.Inventory)}
+            />
+        </div>
+        <div className={css(styles.button)}>
+            {onlyIf(
+                gameUi !== GameUI.Game,
+                <Button
+                    icon={close}
+                    iconSize={22}
+                    onClick={show.bind(null, GameUI.Game)}
+                />
+            )}
+        </div>
     </div>
+)
 
 interface GameHeaderContainerProps {
     uiStore?: UIStore
 }
 
 export default inject('uiStore')(
-    observer(({ uiStore }: GameHeaderContainerProps) =>
+    observer(({ uiStore }: GameHeaderContainerProps) => (
         <GameHeader
             gameUi={uiStore.state.ui}
             show={uiStore.show}
             width={uiStore.width}
         />
-    )
+    ))
 )
