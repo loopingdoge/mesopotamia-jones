@@ -90,16 +90,16 @@ export default class Game extends Phaser.State {
 
             switch (lastDoorTile.properties.direction) {
                 case 'top':
-                    cY -= lastDoorTile.height + 10 // TODO: distanza precisa dal muro
+                    cY -= lastDoorTile.height + 10
                     break
                 case 'left':
                     cX -= lastDoorTile.width
                     break
                 case 'bottom':
-                    cY += lastDoorTile.height
+                    cY += lastDoorTile.height - 15
                     break
                 case 'right':
-                    cX += lastDoorTile.width
+                    cX += lastDoorTile.width + 5
                     break
             }
             playerX = cX || playerX
@@ -180,24 +180,24 @@ export default class Game extends Phaser.State {
                 this.player.position.x,
                 this.player.position.y,
                 this.player.position.x,
-                this.player.position.y + 30
+                this.player.position.y + 25
             ), // down
             new Phaser.Line(
                 this.player.position.x,
                 this.player.position.y,
-                this.player.position.x + 30,
+                this.player.position.x + 15,
                 this.player.position.y
             ), // right
             new Phaser.Line(
                 this.player.position.x,
                 this.player.position.y,
                 this.player.position.x,
-                this.player.position.y - 15
+                this.player.position.y
             ), // up
             new Phaser.Line(
                 this.player.position.x,
                 this.player.position.y,
-                this.player.position.x - 30,
+                this.player.position.x - 17,
                 this.player.position.y
             ) // left
         ]
