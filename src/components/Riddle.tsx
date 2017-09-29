@@ -12,12 +12,11 @@ import {
     getToolbox,
     hasItem,
     Inventory,
-    reactourInventory,
-    translator,
-    Tutorial
+    translator
 } from '../config/inventory'
 import { reactourStartIndex } from '../config/progression'
 import { SolutionType } from '../config/riddles'
+import { tutorialSteps, Tutorial } from '../config/tutorial'
 
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
@@ -362,58 +361,26 @@ const Riddle = ({
                         onRequestClose={hideTutorial}
                         maskSpace={0}
                         startAt={tutorialStartIndex}
-                        steps={[
-                            {
-                                selector: '#cuneiformRiddle',
-                                content: () => (
-                                    <div>
-                                        <span className={css(styles.tourText)}>
-                                            Sulla porta sono incisi questi
-                                            simboli, sembra essere un
-                                            indovinello. Fortunatamente ho una
-                                            legenda che mi permette di tradurre
-                                            questi simboli! Passando con il
-                                            mouse sopra a questi simboli, la
-                                            lettera corrispondente si illuminerà
-                                            nella legenda!
-                                        </span>
-                                    </div>
-                                )
-                            },
-                            {
-                                selector: '#lockcodes',
-                                content: () => (
-                                    <div>
-                                        <span className={css(styles.tourText)}>
-                                            Una volta tradotto l'indovinello,
-                                            devo inserire qui la soluzione, una
-                                            volta trovata quella corretta la
-                                            porta si aprirà.
-                                        </span>
-                                    </div>
-                                )
-                            },
-                            ...reactourInventory(
-                                inventory
-                            ).map((tutorial: Tutorial) => ({
-                                selector: tutorial.selector,
-                                content: () => (
-                                    <div>
-                                        <span className={css(styles.tourText)}>
-                                            {tutorial.text}
-                                        </span>
-                                        {onlyIf(
-                                            Boolean(tutorial.image),
-                                            <img
-                                                src={tutorial.image}
-                                                width={'300px'}
-                                                height={'300px'}
-                                            />
-                                        )}
-                                    </div>
-                                )
-                            }))
-                        ]}
+                        steps={tutorialSteps(
+                            inventory
+                        ).map((tutorial: Tutorial) => ({
+                            selector: tutorial.selector,
+                            content: () => (
+                                <div>
+                                    <span className={css(styles.tourText)}>
+                                        {tutorial.text}
+                                    </span>
+                                    {onlyIf(
+                                        Boolean(tutorial.image),
+                                        <img
+                                            src={tutorial.image}
+                                            width={'300px'}
+                                            height={'300px'}
+                                        />
+                                    )}
+                                </div>
+                            )
+                        }))}
                     />
                 </div>
             )}

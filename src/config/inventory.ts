@@ -5,8 +5,6 @@ import * as ComputerKeyImage from '../../assets/images/key.png'
 import * as CuneiformLegendImage from '../../assets/images/legend.png'
 import * as TranslatorImage from '../../assets/images/rock.png'
 
-import * as DragGif from '../../assets/images/drag-tutorial.gif'
-
 export interface Item {
     id: string
     name: string
@@ -114,39 +112,4 @@ export const addItem = (inventory: Inventory, item: Item): Inventory => {
     } else {
         return [...inventory, item]
     }
-}
-
-export interface Tutorial {
-    selector: string
-    text: string
-    image?: string
-}
-
-export const reactourInventory = (inventory: Inventory) => {
-    const tutorials = inventory.map(item => {
-        if (item.id === COMPUTER) {
-            return [
-                {
-                    selector: '#blocklyArea',
-                    text:
-                        "Ogni volta che passo da una porta l'indovinello rimane lo stesso, ma cambiano sempre i numeri! Con il computer posso risolvere l'indovinello in modo che vada bene per qualsiasi numero, così facendo la porta si aprirà automaticamente."
-                },
-                {
-                    selector: '.blocklyFlyout',
-                    text:
-                        "Per risolvere l'indovinello posso comporre assieme questi blocchi, funzionano come un puzzle! I pezzi compatibili possono essere incastrati assieme. In questa barra ci sono i blocchi che posso usare, e li posso comporre spostandoli nell'area bianca a destra.",
-                    image: DragGif as any
-                },
-                {
-                    selector: '#play',
-                    text:
-                        'Una volta che sono soddisfatto della mia soluzione, posso premere questo bottone per provarla. Se non ci sono errori, gli ingranaggi della porta si muoveranno automaticamente, formando la soluzione generata dai blocchi che ho composto.'
-                }
-            ]
-        }
-    })
-    return tutorials.reduce(
-        (prev, curr) => (curr ? prev.concat(curr) : prev),
-        []
-    )
 }
