@@ -4,7 +4,7 @@ import * as React from 'react'
 import BlocklyEditor from './BlocklyEditor'
 import Map from './Map'
 
-import { computer, getToolbox, hasItem } from '../config/inventory'
+import { computer, getToolbox, hasItem, translator } from '../config/inventory'
 import { Riddle } from '../config/riddles'
 
 import { GameStore } from '../stores/gameStore'
@@ -81,12 +81,18 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
                 nextProps.selectedRiddle.solutionType === 'number'
                     ? 'numero'
                     : 'lettera'
-            this.riddleText = nextProps.selectedRiddle.question([
-                `${type}1`,
-                `${type}2`,
-                `${type}3`,
-                `${type}4`
-            ])
+
+            this.riddleText = !hasItem(
+                this.props.gameStore.inventory,
+                translator
+            )
+                ? '*Testo indovinello cuneiforme incomprensibile*'
+                : nextProps.selectedRiddle.question([
+                      `${type}1`,
+                      `${type}2`,
+                      `${type}3`,
+                      `${type}4`
+                  ])
             this.forceUpdate()
         }
     }

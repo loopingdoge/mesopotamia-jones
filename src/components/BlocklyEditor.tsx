@@ -242,9 +242,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                         {onlyIf(
                             this.props.workspaceXML === '' &&
                                 this.props.riddleText !== undefined,
-                            <b>
-                                {'Non hai ancora risolto questo indovinello:'}
-                            </b>
+                            <b>{'Non hai ancora risolto questo indovinello'}</b>
                         )}
                         {this.props.riddleText ||
                             'Seleziona una porta per vedere la tua soluzione'}
