@@ -4,11 +4,12 @@ import * as React from 'react'
 import BlocklyEditor from './BlocklyEditor'
 import Map from './Map'
 
-import { getToolbox } from '../config/inventory'
+import { computer, getToolbox, hasItem } from '../config/inventory'
 import { Riddle } from '../config/riddles'
 
 import { GameStore } from '../stores/gameStore'
 
+import { onlyIf } from '../utils'
 import { arvo } from '../utils/fonts'
 
 const styles = StyleSheet.create({
@@ -102,13 +103,16 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
                         </div>
                     </div>
                 </div>
-                <div className={css(styles.mapWrapperTab)}>
-                    <BlocklyEditor
-                        readonly={true}
-                        riddleText={this.riddleText}
-                        workspaceXML={this.workspaceXML || ''}
-                    />
-                </div>
+                {onlyIf(
+                    hasItem(this.props.gameStore.inventory, computer),
+                    <div className={css(styles.mapWrapperTab)}>
+                        <BlocklyEditor
+                            readonly={true}
+                            riddleText={this.riddleText}
+                            workspaceXML={this.workspaceXML || ''}
+                        />
+                    </div>
+                )}
             </div>
         )
     }
