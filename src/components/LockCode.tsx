@@ -202,10 +202,10 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                 <Button
                     icon={androidArrowDropup}
                     text={''}
-                    onClick={this.props.onDecrement}
+                    onClick={this.props.onIncrement}
                     small
                     circular
-                    disabled={currentValueIndex === 0}
+                    disabled={currentValueIndex === list.length - 1}
                 />
                 <div className={css(styles.fieldsColumn)}>
                     <Motion
@@ -226,10 +226,10 @@ class LockCode extends React.PureComponent<LockCodeProps> {
                 <Button
                     icon={androidArrowDropdown}
                     text={''}
-                    onClick={this.props.onIncrement}
+                    onClick={this.props.onDecrement}
                     small
                     circular
-                    disabled={currentValueIndex === list.length - 1}
+                    disabled={currentValueIndex === 0}
                 />
             </div>
         )

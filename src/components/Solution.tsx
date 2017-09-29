@@ -96,15 +96,6 @@ export default class Solution extends React.Component<
                 })
                 break
             case 'ArrowUp':
-                if (this.indexesInList[this.state.focusedIndex] > 0) {
-                    this.updateField(
-                        this.indexesInList[this.state.focusedIndex],
-                        this.state.focusedIndex,
-                        prev
-                    )
-                }
-                break
-            case 'ArrowDown':
                 if (
                     this.indexesInList[this.state.focusedIndex] <
                     listFromType(this.props.type).length - 1
@@ -113,6 +104,15 @@ export default class Solution extends React.Component<
                         this.indexesInList[this.state.focusedIndex],
                         this.state.focusedIndex,
                         next
+                    )
+                }
+                break
+            case 'ArrowDown':
+                if (this.indexesInList[this.state.focusedIndex] > 0) {
+                    this.updateField(
+                        this.indexesInList[this.state.focusedIndex],
+                        this.state.focusedIndex,
+                        prev
                     )
                 }
                 break
