@@ -24,11 +24,12 @@ export interface ToolbarProps {
     openInfo: () => void
 }
 
-const Toolbar = ({ goBack, openInfo }: ToolbarProps) =>
+const Toolbar = ({ goBack, openInfo }: ToolbarProps) => (
     <div className={css(styles.toolbar)}>
-        <Button icon={chevronLeft} text={'Indietro (1)'} onClick={goBack} />
+        <Button icon={chevronLeft} text={'Indietro'} onClick={goBack} />
         <div className={css(styles.spacer)} />
-        <Button icon={help} text={'Aiuto  (2)'} onClick={openInfo} />
+        <Button icon={help} text={'Aiuto'} onClick={openInfo} />
     </div>
+)
 
 export default Toolbar
