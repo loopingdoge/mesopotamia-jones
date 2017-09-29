@@ -5,6 +5,8 @@ import * as ComputerKeyImage from '../../assets/images/key.png'
 import * as CuneiformLegendImage from '../../assets/images/legend.png'
 import * as TranslatorImage from '../../assets/images/rock.png'
 
+import * as DragGif from '../../assets/images/drag-tutorial.gif'
+
 export interface Item {
     id: string
     name: string
@@ -114,6 +116,12 @@ export const addItem = (inventory: Inventory, item: Item): Inventory => {
     }
 }
 
+export interface Tutorial {
+    selector: string
+    text: string
+    image?: string
+}
+
 export const reactourInventory = (inventory: Inventory) => {
     const tutorials = inventory.map(item => {
         if (item.id === COMPUTER) {
@@ -126,7 +134,8 @@ export const reactourInventory = (inventory: Inventory) => {
                 {
                     selector: '.blocklyFlyout',
                     text:
-                        "Per risolvere l'indovinello posso comporre assieme questi blocchi, funzionano come un puzzle! I pezzi compatibili possono essere incastrati assieme. In questa barra ci sono i blocchi che posso usare, e li posso comporre spostandoli nell'area bianca a destra."
+                        "Per risolvere l'indovinello posso comporre assieme questi blocchi, funzionano come un puzzle! I pezzi compatibili possono essere incastrati assieme. In questa barra ci sono i blocchi che posso usare, e li posso comporre spostandoli nell'area bianca a destra.",
+                    image: DragGif as any
                 },
                 {
                     selector: '#play',

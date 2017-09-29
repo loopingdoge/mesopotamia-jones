@@ -13,7 +13,8 @@ import {
     hasItem,
     Inventory,
     reactourInventory,
-    translator
+    translator,
+    Tutorial
 } from '../config/inventory'
 import { reactourStartIndex } from '../config/progression'
 import { SolutionType } from '../config/riddles'
@@ -392,13 +393,23 @@ const Riddle = ({
                                     </div>
                                 )
                             },
-                            ...reactourInventory(inventory).map(tutorial => ({
+                            ...reactourInventory(
+                                inventory
+                            ).map((tutorial: Tutorial) => ({
                                 selector: tutorial.selector,
                                 content: () => (
                                     <div>
                                         <span className={css(styles.tourText)}>
                                             {tutorial.text}
                                         </span>
+                                        {onlyIf(
+                                            Boolean(tutorial.image),
+                                            <img
+                                                src={tutorial.image}
+                                                width={'300px'}
+                                                height={'300px'}
+                                            />
+                                        )}
                                     </div>
                                 )
                             }))
