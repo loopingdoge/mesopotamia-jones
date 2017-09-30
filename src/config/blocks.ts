@@ -21,6 +21,33 @@ const block = (
 
 export const blocks: Block[] = [
     block(
+        'text',
+        {
+            type: 'text',
+            message0: '" %1 "',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'TEXT',
+                    text: ''
+                }
+            ],
+            output: null,
+            colour: 160,
+            tooltip: '',
+            helpUrl: ''
+        },
+        `
+        <block type="string">
+            <field name="TEXT"></field>
+        </block>
+        `,
+        (block: any) => [
+            `'${block.getFieldValue('TEXT')}'`,
+            Blockly.JavaScript.ORDER_ATOMIC
+        ]
+    ),
+    block(
         'numero1',
         {
             type: 'numero1',
@@ -152,6 +179,26 @@ export const blocks: Block[] = [
             ),
             Blockly.JavaScript.ORDER_ATOMIC
         ]
+    ),
+    block(
+        'lettera1=',
+        {
+            type: 'block_type',
+            message0: 'numero1 = %1',
+            args0: [
+                {
+                    type: 'input_value',
+                    name: 'NAME'
+                }
+            ],
+            inputsInline: false,
+            output: null,
+            colour: 20,
+            tooltip: '',
+            helpUrl: ''
+        },
+        `<block type="lettera1="></block>`,
+        (block: any) => []
     )
 ]
 
