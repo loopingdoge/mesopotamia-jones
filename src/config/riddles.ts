@@ -76,11 +76,6 @@ const riddles: Riddle[] = [
         question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
         defaultToolbox: [
             `
-            <block type="set_number" id="numero">
-                <field name="NAME">numero</field>
-            </block>
-            `,
-            `
             <block type="get_number" id="numero1" editable="false">
                 <field name="NAME">numero1</field>
             </block>
@@ -271,86 +266,9 @@ const riddles: Riddle[] = [
         ],
         defaultWorkspace: ([a, b, c]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-            <block type="riddle_if" id="riddle_if" deletable="false"></block>
+            <block type="riddle_if" id="riddle_if" deletable="false">
+            </block>
         </xml>`,
-        rootBlock: {
-            type: 'riddle_if',
-            message0: 'Dati %1 %2 %3 %4 e %5 %6 %7 apri la porta con %8',
-            args0: [
-                {
-                    type: 'field_variable',
-                    name: 'x',
-                    variable: 'numero1'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'y',
-                    variable: 'numero2'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'z',
-                    variable: 'numero_magico'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'input_statement',
-                    name: 'usercode'
-                },
-                {
-                    type: 'input_value',
-                    name: 'return',
-                    align: 'RIGHT'
-                }
-            ],
-            colour: 60,
-            tooltip: '',
-            helpUrl: ''
-        },
-        getCodeGen: (args: any) => (block: any) => {
-            const x = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('x'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const y = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('y'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const z = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('z'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const userCode = Blockly.JavaScript.statementToCode(
-                block,
-                'usercode'
-            )
-            const ret = Blockly.JavaScript.valueToCode(
-                block,
-                'return',
-                Blockly.JavaScript.ORDER_ATOMIC
-            )
-            const code = `
-                function main() {
-                    ${x} = ${args[0]};
-                    ${y} = ${args[1]};
-                    ${z} = ${args[2]};
-                    ${userCode};
-                    return ${ret}
-                }
-            `
-            return code
-        },
         solution: ([a, b, c]: number[]) =>
             padStart(`${c % 2 === 0 ? a + b : a * b}`, 2, '0'),
         solutionLength: 2,

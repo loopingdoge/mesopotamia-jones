@@ -345,6 +345,54 @@ export const blocks: Block[] = [
         }
     ),
     block(
+        'riddle_somma',
+        {
+            type: 'riddle_sum',
+            message0: 'Dati i numeri %1 %2 apri la porta con %3',
+            args0: [
+                {
+                    type: 'input_dummy',
+                    align: 'CENTRE'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'RIDDLE_PARAMS'
+                },
+                {
+                    type: 'input_value',
+                    name: 'return',
+                    check: 'Number',
+                    align: 'RIGHT'
+                }
+            ],
+            inputsInline: false,
+            colour: 45,
+            tooltip: 'apri la porta con',
+            helpUrl: ''
+        },
+        null,
+        (block: any) => {
+            const params = Blockly.JavaScript.statementToCode(
+                block,
+                'RIDDLE_PARAMS'
+            )
+            const ret = Blockly.JavaScript.valueToCode(
+                block,
+                'return',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const code = `
+                var numero1, numero2;
+                function main() {
+                    ${params}
+                    return ${ret}
+                }
+            `
+            console.log(code)
+            return code
+        }
+    ),
+    block(
         'riddle_word',
         {
             type: 'riddle_word',
@@ -385,6 +433,88 @@ export const blocks: Block[] = [
                 function main() {
                     ${params};
                     return ${ret};
+                }
+            `
+            return code
+        }
+    ),
+    block(
+        'riddle_if',
+        {
+            type: 'riddle_if',
+            message0: 'Dati %1 %2 %3 %4 e %5 %6 %7 apri la porta con %8',
+            args0: [
+                {
+                    type: 'field_variable',
+                    name: 'x',
+                    variable: 'numero1'
+                },
+                {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
+                    type: 'field_variable',
+                    name: 'y',
+                    variable: 'numero2'
+                },
+                {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
+                    type: 'field_variable',
+                    name: 'z',
+                    variable: 'numero_magico'
+                },
+                {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'usercode'
+                },
+                {
+                    type: 'input_value',
+                    name: 'return',
+                    align: 'RIGHT'
+                }
+            ],
+            colour: 60,
+            tooltip: '',
+            helpUrl: ''
+        },
+        null,
+        (block: any) => {
+            const x = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('x'),
+                Blockly.Variables.NAME_TYPE
+            )
+            const y = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('y'),
+                Blockly.Variables.NAME_TYPE
+            )
+            const z = Blockly.JavaScript.variableDB_.getName(
+                block.getFieldValue('z'),
+                Blockly.Variables.NAME_TYPE
+            )
+            const userCode = Blockly.JavaScript.statementToCode(
+                block,
+                'usercode'
+            )
+            const ret = Blockly.JavaScript.valueToCode(
+                block,
+                'return',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const code = `
+                function main() {
+                    ${x} = ${args[0]};
+                    ${y} = ${args[1]};
+                    ${z} = ${args[2]};
+                    ${userCode};
+                    return ${ret}
                 }
             `
             return code
