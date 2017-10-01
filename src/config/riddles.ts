@@ -49,11 +49,12 @@ const riddles: Riddle[] = [
             `<block type="math_number"></block>`
         ],
         defaultWorkspace: `
-        <xml xmlns="http://www.w3.org/1999/xhtml">
-            <block type="riddle_return" id="riddle_return" deletable="false">
-                <statement name="RIDDLE_PARAMS" editable="false"></statement>
-            </block>
-        </xml>`,
+            <xml xmlns="http://www.w3.org/1999/xhtml">
+                <block type="riddle_return" id="riddle_return" deletable="false">
+                    <statement name="RIDDLE_PARAMS"></statement>
+                </block>
+            </xml>
+        `,
         paramsXML: ([a]) => `
             <block type="set_last_number" id="numero" deletable="false" editable="false" movable="false">
                 <field name="NAME">numero</field>
@@ -84,8 +85,8 @@ const riddles: Riddle[] = [
             </block>
             `,
             `<block type="math_number"></block>`,
-            `<block type="math_arithmetic">
-                <field name="OP">ADD</field>
+            `<block type="math_arithmetic" editable="false">
+                <field name="OP" editable="false">ADD</field>
                 <value name="A">
                 </value>
                 <value name="B">
@@ -128,10 +129,26 @@ const riddles: Riddle[] = [
         question: ([a, b, c, d]: string[]) =>
             `Se la porta aprire vorrai, in ordine queste lettere inserire dovrai: ${a}, ${b}, ${c}, ${d}`,
         defaultToolbox: [
-            `<block type="lettera1"></block>`,
-            `<block type="lettera2"></block>`,
-            `<block type="lettera3"></block>`,
-            `<block type="lettera4"></block>`,
+            `
+            <block type="get_letter" id="lettera1" editable="false">
+                <field name="NAME">lettera1</field>
+            </block>
+            `,
+            `
+            <block type="get_letter" id="lettera2" editable="false">
+                <field name="NAME">lettera2</field>
+            </block>
+            `,
+            `
+            <block type="get_letter" id="lettera3" editable="false">
+                <field name="NAME">lettera3</field>
+            </block>
+            `,
+            `
+            <block type="get_letter" id="lettera4" editable="false">
+                <field name="NAME">lettera4</field>
+            </block>
+            `,
             `
             <block type="text">
                 <field name="TEXT"></field>
@@ -150,7 +167,7 @@ const riddles: Riddle[] = [
             </block>
         </xml>`,
         paramsXML: ([a, b, c, d]) => `
-            <block type="set_lettera" id="lettera1" deletable="false" editable="false" movable="false">
+            <block type="set_letter" id="lettera1" deletable="false" editable="false" movable="false">
                 <field name="NAME">lettera1</field>
                 <value name="VALUE">
                     <block type="text" id="lettera1_text" deletable="false" editable="false" movable="false">
@@ -158,7 +175,7 @@ const riddles: Riddle[] = [
                     </block>
                 </value>
                 <next>
-                    <block type="set_lettera" id="lettera2" deletable="false" editable="false" movable="false">
+                    <block type="set_letter" id="lettera2" deletable="false" editable="false" movable="false">
                         <field name="NAME">lettera2</field>
                         <value name="VALUE">
                             <block type="text" id="lettera2_text" deletable="false" editable="false" movable="false">
@@ -166,7 +183,7 @@ const riddles: Riddle[] = [
                             </block>
                         </value>
                         <next>
-                            <block type="set_lettera" id="lettera3" deletable="false" editable="false" movable="false">
+                            <block type="set_letter" id="lettera3" deletable="false" editable="false" movable="false">
                                 <field name="NAME">lettera3</field>
                                 <value name="VALUE">
                                     <block type="text" id="lettera3_text" deletable="false" editable="false" movable="false">
@@ -174,7 +191,7 @@ const riddles: Riddle[] = [
                                     </block>
                                 </value>
                                 <next>
-                                    <block type="set_last_lettera" id="lettera4" deletable="false" editable="false" movable="false">
+                                    <block type="set_last_letter" id="lettera4" deletable="false" editable="false" movable="false">
                                         <field name="NAME">lettera4</field>
                                         <value name="VALUE">
                                             <block type="text" id="lettera4_text" deletable="false" editable="false" movable="false">
