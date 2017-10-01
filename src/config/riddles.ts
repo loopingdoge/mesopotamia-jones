@@ -6,12 +6,13 @@ export interface Riddle {
     id: string
     question: (variables: any[]) => string
     defaultToolbox: string[]
-    defaultWorkspace: (variables: any[]) => string
+    defaultWorkspace: (variables?: any[]) => string
+    paramsXML?: (variables: any[]) => string
     solution: (variables: any[]) => string
     solutionLength: number
     solutionType: SolutionType
-    rootBlock: any
-    getCodeGen: (args: any) => (block: any) => string
+    rootBlock?: any
+    getCodeGen?: (args: any) => (block: any) => string
     argsGenerator: () => any[]
 }
 
@@ -45,53 +46,22 @@ const riddles: Riddle[] = [
             `<block type="numero1"></block>`,
             `<block type="math_number"></block>`
         ],
-        defaultWorkspace: ([a]) => `
+        defaultWorkspace: () => `
         <xml xmlns="http://www.w3.org/1999/xhtml">
-            <block type="riddle_return" id="riddle_return" deletable="false"></block>
+            <block type="riddle_return" id="riddle_return" deletable="false" editable="false">
+                <statement name="RIDDLE_PARAMS"></statement>
+            </block>
         </xml>`,
-        rootBlock: {
-            type: 'riddle_return',
-            message0: 'dato %1 %2 apri la porta con: %3',
-            args0: [
-                {
-                    type: 'field_variable',
-                    name: 'x',
-                    variable: 'numero1'
-                },
-                {
-                    type: 'input_dummy'
-                },
-                {
-                    type: 'input_value',
-                    name: 'return',
-                    check: 'Number',
-                    align: 'RIGHT'
-                }
-            ],
-            inputsInline: false,
-            colour: 45,
-            tooltip:
-                'I dati sono numeri, quindi il risultato deve essere un numero',
-            helpUrl: ''
-        }, // TODO block: any <- impostare type
-        getCodeGen: (args: any) => (block: any) => {
-            const x = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('x'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const ret = Blockly.JavaScript.valueToCode(
-                block,
-                'return',
-                Blockly.JavaScript.ORDER_ADDITION
-            )
-            const code = `
-                function main() {
-                    ${x} = ${args[0]};
-                    return ${ret}
-                }
-            `
-            return code
-        },
+        paramsXML: ([a]) => `
+            <block type="set_number" id="numero" deletable="false" editable="false" movable="false">
+                <field name="NAME">numero</field>
+                <value name="VALUE">
+                    <block type="math_number" id="numero_value" deletable="false" editable="false" movable="false">
+                        <field name="NUM">${a}</field>
+                    </block>
+                </value>
+            </block>
+        `,
         solution: ([a]: number[]) => `${a}`,
         solutionLength: 1,
         solutionType: 'number',
@@ -199,91 +169,52 @@ const riddles: Riddle[] = [
             </block>
             `
         ],
-        defaultWorkspace: ([a, b, c, d]) => `
+        defaultWorkspace: () => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
             <block type="riddle_word" id="riddle_word" deletable="false">
-                <statement name="PARAMS">
-                    <block type="set_lettera" id="lettera1" deletable="false" editable="false" movable="false">
-                        <field name="NAME">lettera1</field>
+                <statement name="RIDDLE_PARAMS"></statement>
+            </block>
+        </xml>`,
+        paramsXML: ([a, b, c, d]) => `
+            <block type="set_lettera" id="lettera1" deletable="false" editable="false" movable="false">
+                <field name="NAME">lettera1</field>
+                <value name="VALUE">
+                    <block type="text" id="lettera1_text" deletable="false" editable="false" movable="false">
+                        <field name="TEXT">${a}</field>
+                    </block>
+                </value>
+                <next>
+                    <block type="set_lettera" id="lettera2" deletable="false" editable="false" movable="false">
+                        <field name="NAME">lettera2</field>
                         <value name="VALUE">
-                            <block type="text" id="lettera1_text" deletable="false" editable="false" movable="false">
-                                <field name="TEXT">${a}</field>
+                            <block type="text" id="lettera2_text" deletable="false" editable="false" movable="false">
+                                <field name="TEXT">${b}</field>
                             </block>
                         </value>
                         <next>
-                            <block type="set_lettera" id="lettera2" deletable="false" editable="false" movable="false">
-                                <field name="NAME">lettera2</field>
+                            <block type="set_lettera" id="lettera3" deletable="false" editable="false" movable="false">
+                                <field name="NAME">lettera3</field>
                                 <value name="VALUE">
-                                    <block type="text" id="lettera2_text" deletable="false" editable="false" movable="false">
-                                        <field name="TEXT">${b}</field>
+                                    <block type="text" id="lettera3_text" deletable="false" editable="false" movable="false">
+                                        <field name="TEXT">${c}</field>
                                     </block>
                                 </value>
                                 <next>
-                                    <block type="set_lettera" id="lettera3" deletable="false" editable="false" movable="false">
-                                        <field name="NAME">lettera3</field>
+                                    <block type="set_last_lettera" id="lettera4" deletable="false" editable="false" movable="false">
+                                        <field name="NAME">lettera4</field>
                                         <value name="VALUE">
-                                            <block type="text" id="lettera3_text" deletable="false" editable="false" movable="false">
-                                                <field name="TEXT">${c}</field>
+                                            <block type="text" id="lettera4_text" deletable="false" editable="false" movable="false">
+                                                <field name="TEXT">${d}</field>
                                             </block>
                                         </value>
-                                        <next>
-                                            <block type="set_last_lettera" id="lettera4" deletable="false" editable="false" movable="false">
-                                                <field name="NAME">lettera4</field>
-                                                <value name="VALUE">
-                                                    <block type="text" id="lettera4_text" deletable="false" editable="false" movable="false">
-                                                        <field name="TEXT">${d}</field>
-                                                    </block>
-                                                </value>
-                                            </block>
-                                        </next>
                                     </block>
                                 </next>
                             </block>
                         </next>
                     </block>
-                </statement>
+                </next>
             </block>
-        </xml>`,
-        rootBlock: {
-            type: 'riddle_word',
-            message0: 'Data le lettere %1 %2 apri la porta con %3',
-            args0: [
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'input_statement',
-                    name: 'PARAMS'
-                },
-                {
-                    type: 'input_value',
-                    name: 'return',
-                    check: 'String',
-                    align: 'RIGHT'
-                }
-            ],
-            colour: 60,
-            tooltip: '',
-            helpUrl: ''
-        },
-        getCodeGen: (args: any) => (block: any) => {
-            const params = Blockly.JavaScript.statementToCode(block, 'PARAMS')
-            const ret = Blockly.JavaScript.valueToCode(
-                block,
-                'return',
-                Blockly.JavaScript.ORDER_ATOMIC
-            )
-            const code = `
-                var lettera1, lettera2, lettera3, lettera4
-                function main() {
-                    ${params}
-                    return ${ret}
-                }
-            `
-            console.log(code)
-            return code
-        },
+        `,
         solution: ([a, b, c, d]: string[]) => `${a + b + c + d}`,
         solutionLength: 4,
         solutionType: 'string',
