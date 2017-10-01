@@ -119,9 +119,20 @@ export class RiddleStore {
 
     @action
     setWorkspaceXML = (workspaceXML: string) => {
+        //TODO togliere il facoltativo
+        const paramsXML = this.currentRiddle.paramsXML(this.generatedArgs)
+        console.log(
+            workspaceXML.replace(
+                /<statement name="RIDDLE_PARAMS">[\s\S]*<\/statement>/,
+                `<statement name="RIDDLE_PARAMS">${paramsXML}</statement>`
+            )
+        )
         this.state = {
             ...this.state,
-            workspaceXML
+            workspaceXML: workspaceXML.replace(
+                /<statement name="RIDDLE_PARAMS">[\s\S]*<\/statement>/,
+                `<statement name="RIDDLE_PARAMS">${paramsXML}</statement>`
+            )
         }
     }
 
@@ -150,20 +161,10 @@ export class RiddleStore {
             codeResult: null
         }
 
-        // if (!Blockly.Blocks[rootBlockID]) {
-        //     Blockly.Blocks[rootBlockID] = {
-        //         init() {
-        //             this.jsonInit(riddle.rootBlock)
-        //         }
-        //     }
-        // }
-        // TODO parametrizzare questa cosa
-        Blockly.JavaScript[rootBlockID] = riddle.getCodeGen(this.generatedArgs)
-
         this.setWorkspaceXML(
-            workspaceXML ||
-                this.currentRiddle.defaultWorkspace(this.generatedArgs)
+            workspaceXML || this.currentRiddle.defaultWorkspace()
         )
+
         if (workspaceXML) {
             // ex userCode
             this.runCode()
@@ -243,11 +244,9 @@ export class RiddleStore {
 
     @action
     clearWorkspace = () => {
+        this.setWorkspaceXML(this.currentRiddle.defaultWorkspace())
         this.state = {
             ...this.state,
-            workspaceXML: this.currentRiddle.defaultWorkspace([
-                ...this.generatedArgs
-            ]),
             codeResult: null
         }
     }
