@@ -55,6 +55,65 @@ export const blocks: Block[] = [
         ]
     ),
     block(
+        'text_join',
+        {
+            type: 'text_join',
+            message0: 'unisci %1 %2 %3 %4',
+            args0: [
+                {
+                    type: 'input_value',
+                    name: 'TEXT1'
+                },
+                {
+                    type: 'input_value',
+                    name: 'TEXT2'
+                },
+                {
+                    type: 'input_value',
+                    name: 'TEXT3'
+                },
+                {
+                    type: 'input_value',
+                    name: 'TEXT4'
+                }
+            ],
+            output: 'String',
+            colour: colors.text,
+            tooltip: '',
+            helpUrl: ''
+        },
+        '<block type="text_join"></block>',
+        (block: any) => {
+            const TEXT1 =
+                Blockly.JavaScript.valueToCode(
+                    block,
+                    'TEXT1',
+                    Blockly.JavaScript.ORDER_ATOMIC
+                ) || ''
+            const TEXT2 =
+                Blockly.JavaScript.valueToCode(
+                    block,
+                    'TEXT2',
+                    Blockly.JavaScript.ORDER_ATOMIC
+                ) || ''
+            const TEXT3 =
+                Blockly.JavaScript.valueToCode(
+                    block,
+                    'TEXT3',
+                    Blockly.JavaScript.ORDER_ATOMIC
+                ) || ''
+            const TEXT4 =
+                Blockly.JavaScript.valueToCode(
+                    block,
+                    'TEXT4',
+                    Blockly.JavaScript.ORDER_ATOMIC
+                ) || ''
+
+            const code = `''.concat(${TEXT1}, ${TEXT2}, ${TEXT3}, ${TEXT4})`
+            return [code, Blockly.JavaScript.ORDER_NONE]
+        }
+    ),
+    block(
         'set_letter',
         {
             type: 'set_letter',
@@ -293,7 +352,6 @@ export const blocks: Block[] = [
                     return ${ret}
                 }
             `
-            console.log(code)
             return code
         }
     ),
@@ -384,8 +442,8 @@ export const blocks: Block[] = [
             const code = `
                 var lettera1, lettera2, lettera3, lettera4
                 function main() {
-                    ${params};
-                    return ${ret};
+                    ${params}
+                    return ${ret}
                 }
             `
             return code
