@@ -19,7 +19,12 @@ const block = (
     generator
 })
 
-// TODO color costants
+const colors = {
+    text: 20,
+    number: 160,
+    root: 60,
+    green: 160
+}
 
 export const blocks: Block[] = [
     block(
@@ -34,8 +39,8 @@ export const blocks: Block[] = [
                     text: ''
                 }
             ],
-            output: null,
-            colour: 160,
+            output: 'String',
+            colour: colors.green,
             tooltip: '',
             helpUrl: ''
         },
@@ -50,15 +55,15 @@ export const blocks: Block[] = [
         ]
     ),
     block(
-        'set_lettera',
+        'set_letter',
         {
-            type: 'set_lettera',
+            type: 'set_letter',
             message0: '%1 = %2',
             args0: [
                 {
                     type: 'field_input',
                     name: 'NAME',
-                    text: 'set_lettera'
+                    text: 'set_letter'
                 },
                 {
                     type: 'input_value',
@@ -69,13 +74,13 @@ export const blocks: Block[] = [
             inputsInline: true,
             previousStatement: null,
             nextStatement: null,
-            colour: 20,
+            colour: colors.text,
             tooltip: '',
             helpUrl: ''
         },
         `
-        <block type="set_lettera">
-            <field name="NAME">set_lettera</field>
+        <block type="set_letter">
+            <field name="NAME">set_letter</field>
         </block>
         `,
         (block: any) => {
@@ -89,9 +94,9 @@ export const blocks: Block[] = [
         }
     ),
     block(
-        'set_last_lettera',
+        'set_last_letter',
         {
-            type: 'set_last_lettera',
+            type: 'set_last_letter',
             message0: '%1 = %2',
             args0: [
                 {
@@ -107,13 +112,13 @@ export const blocks: Block[] = [
             ],
             inputsInline: true,
             previousStatement: null,
-            colour: 20,
+            colour: colors.text,
             tooltip: '',
             helpUrl: ''
         },
         `
-        <block type="set_last_lettera">
-            <field name="NAME">set_last_lettera</field>
+        <block type="set_last_letter">
+            <field name="NAME">set_last_letter</field>
         </block>
         `,
         (block: any) => {
@@ -125,6 +130,30 @@ export const blocks: Block[] = [
             )
             return `${varname} = ${value}; \n`
         }
+    ),
+    block(
+        'get_letter',
+        {
+            type: 'get_letter',
+            message0: '%1',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'NAME',
+                    text: 'default'
+                }
+            ],
+            inputsInline: false,
+            output: 'String',
+            colour: colors.text,
+            tooltip: '',
+            helpUrl: ''
+        },
+        `<block type="get_letter"></block>`,
+        (block: any) => [
+            block.getFieldValue('NAME'),
+            Blockly.JavaScript.ORDER_ATOMIC
+        ]
     ),
     block(
         'set_number',
@@ -180,7 +209,7 @@ export const blocks: Block[] = [
             ],
             inputsInline: true,
             previousStatement: null,
-            colour: 160,
+            colour: colors.number,
             tooltip: '',
             helpUrl: ''
         },
@@ -208,90 +237,14 @@ export const blocks: Block[] = [
                 }
             ],
             inputsInline: false,
-            output: null,
-            colour: 160,
+            output: 'Number',
+            colour: colors.number,
             tooltip: '',
             helpUrl: ''
         },
         `<block type="get_number"></block>`,
         (block: any) => [
             block.getFieldValue('NAME'),
-            Blockly.JavaScript.ORDER_ATOMIC
-        ]
-    ),
-    block(
-        'lettera1',
-        {
-            type: 'lettera1',
-            message0: 'lettera1',
-            output: 'String',
-            colour: 15,
-            tooltip: '',
-            helpUrl: ''
-        },
-        `<block type="lettera1"></block>`,
-        (block: any) => [
-            Blockly.JavaScript.variableDB_.getName(
-                'lettera1',
-                Blockly.Variables.NAME_TYPE
-            ),
-            Blockly.JavaScript.ORDER_ATOMIC
-        ]
-    ),
-    block(
-        'lettera2',
-        {
-            type: 'lettera2',
-            message0: 'lettera2',
-            output: 'String',
-            colour: 15,
-            tooltip: '',
-            helpUrl: ''
-        },
-        `<block type="lettera2"></block>`,
-        (block: any) => [
-            Blockly.JavaScript.variableDB_.getName(
-                'lettera2',
-                Blockly.Variables.NAME_TYPE
-            ),
-            Blockly.JavaScript.ORDER_ATOMIC
-        ]
-    ),
-    block(
-        'lettera3',
-        {
-            type: 'lettera3',
-            message0: 'lettera3',
-            output: 'String',
-            colour: 15,
-            tooltip: '',
-            helpUrl: ''
-        },
-        `<block type="lettera3"></block>`,
-        (block: any) => [
-            Blockly.JavaScript.variableDB_.getName(
-                'lettera3',
-                Blockly.Variables.NAME_TYPE
-            ),
-            Blockly.JavaScript.ORDER_ATOMIC
-        ]
-    ),
-    block(
-        'lettera4',
-        {
-            type: 'lettera4',
-            message0: 'lettera4',
-            output: 'String',
-            colour: 15,
-            tooltip: '',
-            helpUrl: ''
-        },
-        `<block type="lettera4"></block>`,
-        (block: any) => [
-            Blockly.JavaScript.variableDB_.getName(
-                'lettera4',
-                Blockly.Variables.NAME_TYPE
-            ),
             Blockly.JavaScript.ORDER_ATOMIC
         ]
     ),
@@ -317,7 +270,7 @@ export const blocks: Block[] = [
                 }
             ],
             inputsInline: false,
-            colour: 45,
+            colour: colors.root,
             tooltip:
                 'I dati sono numeri, quindi il risultato deve essere un numero',
             helpUrl: ''
@@ -360,13 +313,13 @@ export const blocks: Block[] = [
                 },
                 {
                     type: 'input_value',
-                    name: 'return',
+                    name: 'RETURN',
                     check: 'Number',
                     align: 'RIGHT'
                 }
             ],
             inputsInline: false,
-            colour: 45,
+            colour: colors.root,
             tooltip: 'apri la porta con',
             helpUrl: ''
         },
@@ -378,7 +331,7 @@ export const blocks: Block[] = [
             )
             const ret = Blockly.JavaScript.valueToCode(
                 block,
-                'return',
+                'RETURN',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
@@ -408,12 +361,12 @@ export const blocks: Block[] = [
                 },
                 {
                     type: 'input_value',
-                    name: 'return',
+                    name: 'RETURN',
                     check: 'String',
                     align: 'RIGHT'
                 }
             ],
-            colour: 60,
+            colour: colors.root,
             tooltip: '',
             helpUrl: ''
         },
@@ -425,7 +378,7 @@ export const blocks: Block[] = [
             )
             const ret = Blockly.JavaScript.valueToCode(
                 block,
-                'return',
+                'RETURN',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
@@ -463,7 +416,7 @@ export const blocks: Block[] = [
                     align: 'RIGHT'
                 }
             ],
-            colour: 60,
+            colour: colors.root,
             tooltip: '',
             helpUrl: ''
         },
