@@ -3,19 +3,12 @@ import * as Blockly from 'node-blockly/browser'
 export interface Block {
     id: string
     json: any
-    toolboxEntry: string // TODO fare facoltativa
     generator: (block: any) => string
 }
 
-const block = (
-    id: string,
-    json: any,
-    toolboxEntry: string,
-    generator: (block: any) => any
-) => ({
+const block = (id: string, json: any, generator: (block: any) => any) => ({
     id,
     json,
-    toolboxEntry,
     generator
 })
 
@@ -45,11 +38,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        `
-        <block type="string">
-            <field name="TEXT"></field>
-        </block>
-        `,
         (block: any) => [
             Blockly.JavaScript.quote_(block.getFieldValue('TEXT')),
             Blockly.JavaScript.ORDER_ATOMIC
@@ -83,7 +71,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        '<block type="text_join"></block>',
         (block: any) => {
             const text1 =
                 Blockly.JavaScript.valueToCode(
@@ -145,11 +132,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        `
-        <block type="operation">
-            <field name="OPERATOR">+</field>
-        </block>
-        `,
         (block: any) => {
             const op = block.getFieldValue('OPERATOR')
             const operand1 =
@@ -168,6 +150,35 @@ export const blocks: Block[] = [
             return [code, Blockly.JavaScript.ORDER_NONE]
         }
     ),
+    // block(
+    //     'if',
+    //     {
+    //         "type": "if",
+    //         "message0": "se %1 allora %2 altrimenti %3",
+    //         "args0": [
+    //             {
+    //             "type": "input_value",
+    //             "name": "CONDITION",
+    //             "check": "Boolean",
+    //             "align": "RIGHT"
+    //             },
+    //             {
+    //             "type": "input_statement",
+    //             "name": "THEN",
+    //             "align": "RIGHT"
+    //             },
+    //             {
+    //             "type": "input_statement",
+    //             "name": "ELSE",
+    //             "align": "RIGHT"
+    //             }
+    //         ],
+    //         "colour": 230,
+    //         "tooltip": "",
+    //         "helpUrl": ""
+    //     },
+
+    // ),
     block(
         'set_letter',
         {
@@ -192,11 +203,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        `
-        <block type="set_letter">
-            <field name="NAME">set_last_letter</field>
-        </block>
-        `,
         (block: any) => {
             const varname = block.getFieldValue('NAME')
             const value = Blockly.JavaScript.valueToCode(
@@ -230,11 +236,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        `
-        <block type="set_last_letter">
-            <field name="NAME">set_last_letter</field>
-        </block>
-        `,
         (block: any) => {
             const varname = block.getFieldValue('NAME')
             const value = Blockly.JavaScript.valueToCode(
@@ -263,7 +264,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        `<block type="get_letter"></block>`,
         (block: any) => [
             block.getFieldValue('NAME'),
             Blockly.JavaScript.ORDER_ATOMIC
@@ -293,7 +293,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        null,
         (block: any) => {
             const varname = block.getFieldValue('NAME')
             const value = Blockly.JavaScript.valueToCode(
@@ -327,7 +326,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        null,
         (block: any) => {
             const varname = block.getFieldValue('NAME')
             const value = Blockly.JavaScript.valueToCode(
@@ -356,7 +354,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        `<block type="get_number"></block>`,
         (block: any) => [
             block.getFieldValue('NAME'),
             Blockly.JavaScript.ORDER_ATOMIC
@@ -389,7 +386,6 @@ export const blocks: Block[] = [
                 'I dati sono numeri, quindi il risultato deve essere un numero',
             helpUrl: ''
         },
-        null,
         (block: any) => {
             const params = Blockly.JavaScript.statementToCode(
                 block,
@@ -436,7 +432,6 @@ export const blocks: Block[] = [
             tooltip: 'apri la porta con',
             helpUrl: ''
         },
-        null,
         (block: any) => {
             const params = Blockly.JavaScript.statementToCode(
                 block,
@@ -483,7 +478,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        null,
         (block: any) => {
             const params = Blockly.JavaScript.statementToCode(
                 block,
@@ -533,7 +527,6 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        null,
         (block: any) => {
             const params = Blockly.JavaScript.statementToCode(
                 block,

@@ -234,38 +234,41 @@ const riddles: Riddle[] = [
                 </block>
             `,
             `
-                <block type="variables_get">
-                    <field name="VAR" id="O@T=,KYexe-SHMAI+Tq%" variabletype="">risultato</field>
+                <block type="set_number" editable="false">
+                    <field name="NAME">risultato</field>
                 </block>
             `,
             `
-                <block type="variables_set">
-                    <field name="VAR" id="O@T=,KYexe-SHMAI+Tq%" variabletype="">risultato</field>
-                </block>
+                <block type="math_number"></block>
             `,
-            `<block type="math_number"></block>`,
             `
                 <block type="controls_if">
                     <mutation else="1"></mutation>
                 </block>
             `,
             `
-            <block type="math_operation" editable="false">
-                <field name="OPERATOR">+</field>
-            </block>
+                <block type="math_operation" editable="false">
+                    <field name="OPERATOR">+</field>
+                </block>
             `,
             `
-            <block type="math_operation" editable="false">
-                <field name="OPERATOR">x</field>
-            </block>
+                <block type="math_operation" editable="false">
+                    <field name="OPERATOR">x</field>
+                </block>
             `
         ],
         defaultWorkspace: `
-        <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-            <block type="riddle_if" id="riddle_if" deletable="false">
-                <statement name="RIDDLE_PARAMS"></statement>
-            </block>
-        </xml>`,
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+                <block type="riddle_if" id="riddle_if" deletable="false" editable="false">
+                    <statement name="RIDDLE_PARAMS"></statement>
+                    <value name="RETURN">
+                        <block type="get_number" id="numero1" editable="false" movable="false" deletable="false">
+                            <field name="NAME">risultato</field>
+                        </block>
+                    </value>
+                </block>
+            </xml>
+        `,
         paramsXML: ([a, b, c]) => `
             <block type="set_number" id="numero1" deletable="false" editable="false" movable="false">
                 <field name="NAME">numero1</field>
