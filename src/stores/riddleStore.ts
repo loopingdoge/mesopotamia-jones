@@ -95,15 +95,6 @@ export class RiddleStore {
 
         reaction(() => this.userSolution, () => this.checkSolution())
 
-        for (const riddle of riddles) {
-            // Visual properties
-            Blockly.Blocks[`riddle_${riddle.id}`] = {
-                init() {
-                    this.jsonInit(riddle.rootBlock)
-                }
-            }
-        }
-
         // Init custom blocks
         for (const block of blocks) {
             // Visual properties
@@ -119,14 +110,7 @@ export class RiddleStore {
 
     @action
     setWorkspaceXML = (workspaceXML: string) => {
-        //TODO togliere il facoltativo
         const paramsXML = this.currentRiddle.paramsXML(this.generatedArgs)
-        console.log(
-            workspaceXML.replace(
-                /<statement name="RIDDLE_PARAMS">[\s\S]*<\/statement>/,
-                `<statement name="RIDDLE_PARAMS">${paramsXML}</statement>`
-            )
-        )
         this.state = {
             ...this.state,
             workspaceXML: workspaceXML.replace(
@@ -162,7 +146,7 @@ export class RiddleStore {
         }
 
         this.setWorkspaceXML(
-            workspaceXML || this.currentRiddle.defaultWorkspace()
+            workspaceXML || this.currentRiddle.defaultWorkspace
         )
 
         if (workspaceXML) {
@@ -244,7 +228,7 @@ export class RiddleStore {
 
     @action
     clearWorkspace = () => {
-        this.setWorkspaceXML(this.currentRiddle.defaultWorkspace())
+        this.setWorkspaceXML(this.currentRiddle.defaultWorkspace)
         this.state = {
             ...this.state,
             codeResult: null
