@@ -3,10 +3,6 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Motion, spring } from 'react-motion'
 
-import Tour from 'reactour'
-
-import Modal, { SolvedRiddleModal } from './Modal'
-
 import {
     computer,
     getToolbox,
@@ -16,19 +12,22 @@ import {
 } from '../config/inventory'
 import { reactourStartIndex } from '../config/progression'
 import { SolutionType } from '../config/riddles'
-import { tutorialSteps, Tutorial } from '../config/tutorial'
 
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
 import { RiddleStore } from '../stores/riddleStore'
 import { RiddleUIStore } from '../stores/riddleUIStore'
+
 import { onlyIf } from '../utils'
+
 import BlocklyEditor from './BlocklyEditor'
 import CuneiformChar from './CuneiformChar'
 import CuneiformLegend from './CuneiformLegend'
+import Modal, { SolvedRiddleModal } from './Modal'
 import Separator from './Separator'
 import Solution from './Solution'
 import Toolbar from './Toolbar'
+import Tutorial from './Tutorial'
 
 const styles = StyleSheet.create({
     riddleContent: {
@@ -100,20 +99,6 @@ const styles = StyleSheet.create({
     },
     solutionInput: {
         flex: 1
-    },
-    tour: {
-        borderRadius: 4,
-        border: '2px solid #90752d',
-        backgroundColor: '#FDF6E3',
-        boxShadow: '0px 1px 11px -1px #90752d',
-        ':after': {
-            color: 'black',
-            backgroundColor: '#fdd466',
-            border: '2px solid #90752d'
-        }
-    },
-    tourText: {
-        fontFamily: 'sans-serif'
     },
     charWrapper: {
         ':hover': {
@@ -355,32 +340,11 @@ const Riddle = ({
                             </div>
                         </div>
                     )}
-                    <Tour
-                        className={css(styles.tour)}
+                    <Tutorial
+                        inventory={inventory}
                         isOpen={isTutorialOpen}
-                        onRequestClose={hideTutorial}
-                        maskSpace={0}
+                        onClose={hideTutorial}
                         startAt={tutorialStartIndex}
-                        steps={tutorialSteps(
-                            inventory
-                        ).map((tutorial: Tutorial) => ({
-                            selector: tutorial.selector,
-                            content: () => (
-                                <div>
-                                    <span className={css(styles.tourText)}>
-                                        {tutorial.text}
-                                    </span>
-                                    {onlyIf(
-                                        Boolean(tutorial.image),
-                                        <img
-                                            src={tutorial.image}
-                                            width={'300px'}
-                                            height={'300px'}
-                                        />
-                                    )}
-                                </div>
-                            )
-                        }))}
                     />
                 </div>
             )}
