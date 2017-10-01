@@ -114,7 +114,7 @@ export class RiddleStore {
         this.state = {
             ...this.state,
             workspaceXML: workspaceXML.replace(
-                /<statement name="RIDDLE_PARAMS">[\s\S]*<\/statement>/,
+                /<statement name="RIDDLE_PARAMS">[\s\S]*?<\/statement>/,
                 `<statement name="RIDDLE_PARAMS">${paramsXML}</statement>`
             )
         }
@@ -196,6 +196,7 @@ export class RiddleStore {
         let xml
         try {
             xml = Blockly.Xml.textToDom(this.workspaceXML)
+            console.log(this.workspaceXML)
         } catch (e) {
             console.error(e)
         }
