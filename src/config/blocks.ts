@@ -258,6 +258,55 @@ export const blocks: Block[] = [
         ]
     ),
     block(
+        'riddle_return',
+        {
+            type: 'riddle_return',
+            message0: 'Dato il numero %1 %2 apri la porta con %3',
+            args0: [
+                {
+                    type: 'input_dummy',
+                    align: 'CENTRE'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'RIDDLE_PARAMS'
+                },
+                {
+                    type: 'input_value',
+                    name: 'RETURN',
+                    check: 'Number',
+                    align: 'RIGHT'
+                }
+            ],
+            inputsInline: false,
+            colour: 45,
+            tooltip:
+                'I dati sono numeri, quindi il risultato deve essere un numero',
+            helpUrl: ''
+        },
+        null,
+        (block: any) => {
+            const params = Blockly.JavaScript.statementToCode(
+                block,
+                'RIDDLE_PARAMS'
+            )
+            const ret = Blockly.JavaScript.valueToCode(
+                block,
+                'RETURN',
+                Blockly.JavaScript.ORDER_ADDITION
+            )
+            const code = `
+                var numero
+                function main() {
+                    ${params}
+                    return ${ret}
+                }
+            `
+            console.log(code)
+            return code
+        }
+    ),
+    block(
         'riddle_word',
         {
             type: 'riddle_word',
