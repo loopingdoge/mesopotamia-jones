@@ -264,11 +264,42 @@ const riddles: Riddle[] = [
                 </block>
             `
         ],
-        defaultWorkspace: ([a, b, c]) => `
+        defaultWorkspace: () => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
             <block type="riddle_if" id="riddle_if" deletable="false">
+                <statement name="RIDDLE_PARAMS"></statement>
             </block>
         </xml>`,
+        paramsXML: ([a, b, c]) => `
+            <block type="set_number" id="numero1" deletable="false" editable="false" movable="false">
+                <field name="NAME">numero1</field>
+                <value name="VALUE">
+                    <block type="math_number" id="numero1_value" deletable="false" editable="false" movable="false">
+                        <field name="NUM">${a}</field>
+                    </block>
+                </value>
+                <next>
+                    <block type="set_number" id="numero2" deletable="false" editable="false" movable="false">
+                        <field name="NAME">numero2</field>
+                        <value name="VALUE">
+                            <block type="math_number" id="numero2_value" deletable="false" editable="false" movable="false">
+                                <field name="NUM">${b}</field>
+                            </block>
+                        </value>
+                        <next>
+                            <block type="set_last_number" id="numero_magico" deletable="false" editable="false" movable="false">
+                                <field name="NAME">numero_magico</field>
+                                <value name="VALUE">
+                                    <block type="math_number" id="numero_magico_value" deletable="false" editable="false" movable="false">
+                                        <field name="NUM">${c}</field>
+                                    </block>
+                                </value>
+                            </block>
+                        </next>
+                    </block>
+                </next>
+            </block>
+        `,
         solution: ([a, b, c]: number[]) =>
             padStart(`${c % 2 === 0 ? a + b : a * b}`, 2, '0'),
         solutionLength: 2,

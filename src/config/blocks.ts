@@ -442,42 +442,24 @@ export const blocks: Block[] = [
         'riddle_if',
         {
             type: 'riddle_if',
-            message0: 'Dati %1 %2 %3 %4 e %5 %6 %7 apri la porta con %8',
+            message0: 'Dati i numeri %1 %2 %3 apri la porta con %4',
             args0: [
                 {
-                    type: 'field_variable',
-                    name: 'x',
-                    variable: 'numero1'
-                },
-                {
                     type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'y',
-                    variable: 'numero2'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'z',
-                    variable: 'numero_magico'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
+                    align: 'CENTRE'
                 },
                 {
                     type: 'input_statement',
-                    name: 'usercode'
+                    name: 'RIDDLE_PARAMS'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'USERCODE'
                 },
                 {
                     type: 'input_value',
-                    name: 'return',
+                    name: 'RETURN',
+                    check: 'Number',
                     align: 'RIGHT'
                 }
             ],
@@ -487,32 +469,23 @@ export const blocks: Block[] = [
         },
         null,
         (block: any) => {
-            const x = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('x'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const y = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('y'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const z = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('z'),
-                Blockly.Variables.NAME_TYPE
+            const params = Blockly.JavaScript.statementToCode(
+                block,
+                'RIDDLE_PARAMS'
             )
             const userCode = Blockly.JavaScript.statementToCode(
                 block,
-                'usercode'
+                'USERCODE'
             )
             const ret = Blockly.JavaScript.valueToCode(
                 block,
-                'return',
+                'RETURN',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
+                var numero1, numero2, numero_magico;
                 function main() {
-                    ${x} = ${args[0]};
-                    ${y} = ${args[1]};
-                    ${z} = ${args[2]};
+                    ${params}
                     ${userCode};
                     return ${ret}
                 }
