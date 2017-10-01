@@ -43,7 +43,11 @@ const riddles: Riddle[] = [
         id: 'return',
         question: ([a]: number[]) => `Inserisci il numero: ${a}`,
         defaultToolbox: [
-            `<block type="numero1"></block>`,
+            `
+            <block type="get_number" id="numero" editable="false">
+                <field name="NAME">numero</field>
+            </block>
+            `,
             `<block type="math_number"></block>`
         ],
         defaultWorkspace: () => `
@@ -71,8 +75,16 @@ const riddles: Riddle[] = [
         id: 'somma',
         question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
         defaultToolbox: [
-            `<block type="numero1"></block>`,
-            `<block type="numero2"></block>`,
+            `
+            <block type="get_number" id="numero1" editable="false">
+                <field name="NAME">numero1</field>
+            </block>
+            `,
+            `
+            <block type="get_number" id="numero2" editable="false">
+                <field name="NAME">numero2</field>
+            </block>
+            `,
             `<block type="math_number"></block>`,
             `<block type="math_arithmetic">
                 <field name="OP">ADD</field>
@@ -230,9 +242,21 @@ const riddles: Riddle[] = [
         question: ([a, b, c]: number[]) =>
             `Se il numero magico è pari, la porta si apre con la somma di ${a} e ${b}, altrimenti con il prodotto.\n Il numero magico è ${c}`,
         defaultToolbox: [
-            `<block type="numero1"></block>`,
-            `<block type="numero2"></block>`,
-            `<block type="numero_magico"></block>`,
+            `
+            <block type="get_number" id="numero1" editable="false">
+                <field name="NAME">numero1</field>
+            </block>
+            `,
+            `
+            <block type="get_number" id="numero2" editable="false">
+                <field name="NAME">numero2</field>
+            </block>
+            `,
+            `
+            <block type="get_number" id="numero_magico" editable="false">
+                <field name="NAME">numero_magico</field>
+            </block>
+            `,
             `
                 <block type="variables_get">
                     <field name="VAR" id="O@T=,KYexe-SHMAI+Tq%" variabletype="">risultato</field>
