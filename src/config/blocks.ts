@@ -43,9 +43,86 @@ export const blocks: Block[] = [
         </block>
         `,
         (block: any) => [
-            `'${block.getFieldValue('TEXT')}'`,
+            Blockly.JavaScript.quote_(block.getFieldValue('TEXT')),
             Blockly.JavaScript.ORDER_ATOMIC
         ]
+    ),
+    block(
+        'set_lettera',
+        {
+            type: 'set_lettera',
+            message0: '%1 = %2',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'NAME',
+                    text: 'set_lettera'
+                },
+                {
+                    type: 'input_value',
+                    name: 'VALUE',
+                    align: 'RIGHT'
+                }
+            ],
+            inputsInline: true,
+            previousStatement: null,
+            nextStatement: null,
+            colour: 20,
+            tooltip: '',
+            helpUrl: ''
+        },
+        `
+        <block type="set_lettera">
+            <field name="NAME">set_lettera</field>
+        </block>
+        `,
+        (block: any) => {
+            const varname = block.getFieldValue('NAME')
+            const value = Blockly.JavaScript.valueToCode(
+                block,
+                'VALUE',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            return `${varname} = ${value}; \n`
+        }
+    ),
+    block(
+        'set_last_lettera',
+        {
+            type: 'set_last_lettera',
+            message0: '%1 = %2',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'NAME',
+                    text: 'lettera1'
+                },
+                {
+                    type: 'input_value',
+                    name: 'VALUE',
+                    align: 'RIGHT'
+                }
+            ],
+            inputsInline: true,
+            previousStatement: null,
+            colour: 20,
+            tooltip: '',
+            helpUrl: ''
+        },
+        `
+        <block type="set_last_lettera">
+            <field name="NAME">set_last_lettera</field>
+        </block>
+        `,
+        (block: any) => {
+            const varname = block.getFieldValue('NAME')
+            const value = Blockly.JavaScript.valueToCode(
+                block,
+                'VALUE',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            return `${varname} = ${value}; \n`
+        }
     ),
     block(
         'numero1',
