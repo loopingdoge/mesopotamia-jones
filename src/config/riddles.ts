@@ -57,7 +57,7 @@ const riddles: Riddle[] = [
             </block>
         </xml>`,
         paramsXML: ([a]) => `
-            <block type="set_number" id="numero" deletable="false" editable="false" movable="false">
+            <block type="set_last_number" id="numero" deletable="false" editable="false" movable="false">
                 <field name="NAME">numero</field>
                 <value name="VALUE">
                     <block type="math_number" id="numero_value" deletable="false" editable="false" movable="false">

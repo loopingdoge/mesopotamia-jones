@@ -162,6 +162,40 @@ export const blocks: Block[] = [
         }
     ),
     block(
+        'set_last_number',
+        {
+            type: 'set_last_number',
+            message0: '%1 = %2',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'NAME',
+                    text: 'numero'
+                },
+                {
+                    type: 'input_value',
+                    name: 'VALUE',
+                    check: 'Number'
+                }
+            ],
+            inputsInline: true,
+            previousStatement: null,
+            colour: 160,
+            tooltip: '',
+            helpUrl: ''
+        },
+        null,
+        (block: any) => {
+            const varname = block.getFieldValue('NAME')
+            const value = Blockly.JavaScript.valueToCode(
+                block,
+                'VALUE',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            return `${varname} = ${value}; \n`
+        }
+    ),
+    block(
         'get_number',
         {
             type: 'get_number',
