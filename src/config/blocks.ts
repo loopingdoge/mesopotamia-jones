@@ -19,6 +19,8 @@ const block = (
     generator
 })
 
+// TODO color costants
+
 export const blocks: Block[] = [
     block(
         'text',
@@ -114,6 +116,41 @@ export const blocks: Block[] = [
             <field name="NAME">set_last_lettera</field>
         </block>
         `,
+        (block: any) => {
+            const varname = block.getFieldValue('NAME')
+            const value = Blockly.JavaScript.valueToCode(
+                block,
+                'VALUE',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            return `${varname} = ${value}; \n`
+        }
+    ),
+    block(
+        'set_number',
+        {
+            type: 'set_number',
+            message0: '%1 = %2',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'NAME',
+                    text: 'numero'
+                },
+                {
+                    type: 'input_value',
+                    name: 'VALUE',
+                    check: 'Number'
+                }
+            ],
+            inputsInline: true,
+            previousStatement: null,
+            nextStatement: null,
+            colour: 160,
+            tooltip: '',
+            helpUrl: ''
+        },
+        null,
         (block: any) => {
             const varname = block.getFieldValue('NAME')
             const value = Blockly.JavaScript.valueToCode(
