@@ -85,20 +85,19 @@ const riddles: Riddle[] = [
             </block>
             `,
             `<block type="math_number"></block>`,
-            `<block type="math_arithmetic" editable="false">
-                <field name="OP" editable="false">ADD</field>
-                <value name="A">
-                </value>
-                <value name="B">
-                </value>
-            </block>`
+            `
+            <block type="math_operation" editable="false">
+                <field name="OPERATOR">+</field>
+            </block>
+            `
         ],
         defaultWorkspace: `
-        <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-            <block type="riddle_somma" id="riddle_somma" deletable="false">
-                <statement name="RIDDLE_PARAMS"></statement>
-            </block>
-        </xml>`,
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+                <block type="riddle_somma" id="riddle_somma" deletable="false">
+                    <statement name="RIDDLE_PARAMS"></statement>
+                </block>
+            </xml>
+        `,
         paramsXML: ([a, b]) => `
             <block type="set_number" id="numero1" deletable="false" editable="false" movable="false">
                 <field name="NAME">numero1</field>
@@ -155,9 +154,7 @@ const riddles: Riddle[] = [
             </block>
             `,
             `
-            <block type="text_join">
-                <mutation items="4"></mutation>
-            </block>
+            <block type="text_join"></block>
             `
         ],
         defaultWorkspace: `
@@ -222,19 +219,19 @@ const riddles: Riddle[] = [
             `Se il numero magico è pari, la porta si apre con la somma di ${a} e ${b}, altrimenti con il prodotto.\n Il numero magico è ${c}`,
         defaultToolbox: [
             `
-            <block type="get_number" id="numero1" editable="false">
-                <field name="NAME">numero1</field>
-            </block>
+                <block type="get_number" id="numero1" editable="false">
+                    <field name="NAME">numero1</field>
+                </block>
             `,
             `
-            <block type="get_number" id="numero2" editable="false">
-                <field name="NAME">numero2</field>
-            </block>
+                <block type="get_number" id="numero2" editable="false">
+                    <field name="NAME">numero2</field>
+                </block>
             `,
             `
-            <block type="get_number" id="numero_magico" editable="false">
-                <field name="NAME">numero_magico</field>
-            </block>
+                <block type="get_number" id="numero_magico" editable="false">
+                    <field name="NAME">numero_magico</field>
+                </block>
             `,
             `
                 <block type="variables_get">
@@ -253,30 +250,14 @@ const riddles: Riddle[] = [
                 </block>
             `,
             `
-                <block type="math_arithmetic">
-                    <field name="OP">ADD</field>
-                    <value name="A">
-                    <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow>
-                    </value>
-                    <value name="B">
-                    <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow>
-                    </value>
-                </block>
+            <block type="math_operation" editable="false">
+                <field name="OPERATOR">+</field>
+            </block>
             `,
             `
-                <block type="math_number_property">
-                    <mutation divisor_input="false"></mutation>
-                    <field name="PROPERTY">EVEN</field>
-                    <value name="NUMBER_TO_CHECK">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                    </value>
-                </block>
+            <block type="math_operation" editable="false">
+                <field name="OPERATOR">x</field>
+            </block>
             `
         ],
         defaultWorkspace: `

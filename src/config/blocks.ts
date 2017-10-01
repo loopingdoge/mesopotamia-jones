@@ -20,10 +20,11 @@ const block = (
 })
 
 const colors = {
-    text: 20,
+    text: 160,
     number: 160,
     root: 60,
-    green: 160
+    text_var: 20,
+    number_var: 160
 }
 
 export const blocks: Block[] = [
@@ -40,7 +41,7 @@ export const blocks: Block[] = [
                 }
             ],
             output: 'String',
-            colour: colors.green,
+            colour: colors.text,
             tooltip: '',
             helpUrl: ''
         },
@@ -84,32 +85,86 @@ export const blocks: Block[] = [
         },
         '<block type="text_join"></block>',
         (block: any) => {
-            const TEXT1 =
+            const text1 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT1',
                     Blockly.JavaScript.ORDER_ATOMIC
                 ) || ''
-            const TEXT2 =
+            const text2 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT2',
                     Blockly.JavaScript.ORDER_ATOMIC
                 ) || ''
-            const TEXT3 =
+            const text3 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT3',
                     Blockly.JavaScript.ORDER_ATOMIC
                 ) || ''
-            const TEXT4 =
+            const text4 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT4',
                     Blockly.JavaScript.ORDER_ATOMIC
                 ) || ''
 
-            const code = `''.concat(${TEXT1}, ${TEXT2}, ${TEXT3}, ${TEXT4})`
+            const code = `''.concat(${text1}, ${text2}, ${text3}, ${text4})`
+            return [code, Blockly.JavaScript.ORDER_NONE]
+        }
+    ),
+    block(
+        'math_operation',
+        {
+            type: 'math_operation',
+            message0: '%1 %2 %3 %4',
+            args0: [
+                {
+                    type: 'input_value',
+                    name: 'OPERAND1',
+                    check: 'Number'
+                },
+                {
+                    type: 'field_input',
+                    name: 'OPERATOR',
+                    text: ''
+                },
+                {
+                    type: 'input_dummy'
+                },
+                {
+                    type: 'input_value',
+                    name: 'OPERAND2',
+                    check: 'Number'
+                }
+            ],
+            inputsInline: true,
+            colour: 210,
+            output: null,
+            tooltip: '',
+            helpUrl: ''
+        },
+        `
+        <block type="operation">
+            <field name="OPERATOR">+</field>
+        </block>
+        `,
+        (block: any) => {
+            const op = block.getFieldValue('OPERATOR')
+            const operand1 =
+                Blockly.JavaScript.valueToCode(
+                    block,
+                    'OPERAND1',
+                    Blockly.JavaScript.ORDER_ATOMIC
+                ) || ''
+            const operand2 =
+                Blockly.JavaScript.valueToCode(
+                    block,
+                    'OPERAND2',
+                    Blockly.JavaScript.ORDER_ATOMIC
+                ) || ''
+            const code = `${operand1} ${op} ${operand2}`
             return [code, Blockly.JavaScript.ORDER_NONE]
         }
     ),
@@ -133,13 +188,13 @@ export const blocks: Block[] = [
             inputsInline: true,
             previousStatement: null,
             nextStatement: null,
-            colour: colors.text,
+            colour: colors.text_var,
             tooltip: '',
             helpUrl: ''
         },
         `
         <block type="set_letter">
-            <field name="NAME">set_letter</field>
+            <field name="NAME">set_last_letter</field>
         </block>
         `,
         (block: any) => {
@@ -171,7 +226,7 @@ export const blocks: Block[] = [
             ],
             inputsInline: true,
             previousStatement: null,
-            colour: colors.text,
+            colour: colors.text_var,
             tooltip: '',
             helpUrl: ''
         },
@@ -204,7 +259,7 @@ export const blocks: Block[] = [
             ],
             inputsInline: false,
             output: 'String',
-            colour: colors.text,
+            colour: colors.text_var,
             tooltip: '',
             helpUrl: ''
         },
@@ -234,7 +289,7 @@ export const blocks: Block[] = [
             inputsInline: true,
             previousStatement: null,
             nextStatement: null,
-            colour: 160,
+            colour: colors.number_var,
             tooltip: '',
             helpUrl: ''
         },
@@ -268,7 +323,7 @@ export const blocks: Block[] = [
             ],
             inputsInline: true,
             previousStatement: null,
-            colour: colors.number,
+            colour: colors.number_var,
             tooltip: '',
             helpUrl: ''
         },
@@ -297,7 +352,7 @@ export const blocks: Block[] = [
             ],
             inputsInline: false,
             output: 'Number',
-            colour: colors.number,
+            colour: colors.number_var,
             tooltip: '',
             helpUrl: ''
         },
