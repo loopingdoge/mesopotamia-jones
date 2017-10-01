@@ -162,6 +162,30 @@ export const blocks: Block[] = [
         }
     ),
     block(
+        'get_number',
+        {
+            type: 'get_number',
+            message0: '%1',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'NAME',
+                    text: 'default'
+                }
+            ],
+            inputsInline: false,
+            output: null,
+            colour: 160,
+            tooltip: '',
+            helpUrl: ''
+        },
+        `<block type="get_number"></block>`,
+        (block: any) => [
+            block.getFieldValue('NAME'),
+            Blockly.JavaScript.ORDER_ATOMIC
+        ]
+    ),
+    block(
         'numero1',
         {
             type: 'numero1',
