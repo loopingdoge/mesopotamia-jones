@@ -52,8 +52,8 @@ const riddles: Riddle[] = [
         ],
         defaultWorkspace: () => `
         <xml xmlns="http://www.w3.org/1999/xhtml">
-            <block type="riddle_return" id="riddle_return" deletable="false" editable="false">
-                <statement name="RIDDLE_PARAMS"></statement>
+            <block type="riddle_return" id="riddle_return" deletable="false">
+                <statement name="RIDDLE_PARAMS" editable="false"></statement>
             </block>
         </xml>`,
         paramsXML: ([a]) => `
@@ -76,6 +76,11 @@ const riddles: Riddle[] = [
         question: ([a, b]: number[]) => `Quanto fa la somma di ${a} e ${b}?`,
         defaultToolbox: [
             `
+            <block type="set_number" id="numero">
+                <field name="NAME">numero</field>
+            </block>
+            `,
+            `
             <block type="get_number" id="numero1" editable="false">
                 <field name="NAME">numero1</field>
             </block>
@@ -94,68 +99,32 @@ const riddles: Riddle[] = [
                 </value>
             </block>`
         ],
-        defaultWorkspace: ([a, b]) => `
+        defaultWorkspace: () => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-            <block type="riddle_somma" id="riddle_somma" deletable="false"></block>
+            <block type="riddle_somma" id="riddle_somma" deletable="false">
+                <statement name="RIDDLE_PARAMS"></statement>
+            </block>
         </xml>`,
-        rootBlock: {
-            type: 'riddle_somma',
-            message0: 'dati %1 %2 e %3 %4 apri la porta con: %5',
-            args0: [
-                {
-                    type: 'field_variable',
-                    name: 'x',
-                    variable: 'numero1'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'y',
-                    variable: 'numero2'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'input_value',
-                    name: 'return',
-                    check: 'Number',
-                    align: 'RIGHT'
-                }
-            ],
-            inputsInline: false,
-            colour: 45,
-            tooltip:
-                'I dati sono numeri, quindi il risultato deve essere un numero',
-            helpUrl: ''
-        },
-        getCodeGen: (args: any) => (block: any) => {
-            const x = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('x'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const y = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('y'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const ret = Blockly.JavaScript.valueToCode(
-                block,
-                'return',
-                Blockly.JavaScript.ORDER_ATOMIC
-            )
-            const code = `
-                function main() {
-                    ${x} = ${args[0]};
-                    ${y} = ${args[1]};
-                    return ${ret}
-                }
-            `
-            return code
-        },
+        paramsXML: ([a, b]) => `
+            <block type="set_number" id="numero1" deletable="false" editable="false" movable="false">
+                <field name="NAME">numero1</field>
+                <value name="VALUE">
+                    <block type="math_number" id="numero1_value" deletable="false" editable="false" movable="false">
+                        <field name="NUM">${a}</field>
+                    </block>
+                </value>
+                <next>
+                    <block type="set_last_number" id="numero2" deletable="false" editable="false" movable="false">
+                        <field name="NAME">numero2</field>
+                        <value name="VALUE">
+                            <block type="math_number" id="numero2_value" deletable="false" editable="false" movable="false">
+                                <field name="NUM">${b}</field>
+                            </block>
+                        </value>
+                    </block>
+                </next>
+            </block>
+        `,
         solution: ([a, b]: number[]) => padStart(`${a + b}`, 2, '0'),
         solutionLength: 2,
         solutionType: 'number',
