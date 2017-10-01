@@ -201,51 +201,60 @@ const riddles: Riddle[] = [
         ],
         defaultWorkspace: ([a, b, c, d]) => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-            <block type="riddle_word" id="riddle_word" deletable="false"></block>
+            <block type="riddle_word" id="riddle_word" deletable="false">
+                <statement name="PARAMS">
+                    <block type="set_lettera" id="lettera1" deletable="false" editable="false" movable="false">
+                        <field name="NAME">lettera1</field>
+                        <value name="VALUE">
+                            <block type="text" id="lettera1_text" deletable="false" editable="false" movable="false">
+                                <field name="TEXT">${a}</field>
+                            </block>
+                        </value>
+                        <next>
+                            <block type="set_lettera" id="lettera2" deletable="false" editable="false" movable="false">
+                                <field name="NAME">lettera2</field>
+                                <value name="VALUE">
+                                    <block type="text" id="lettera2_text" deletable="false" editable="false" movable="false">
+                                        <field name="TEXT">${b}</field>
+                                    </block>
+                                </value>
+                                <next>
+                                    <block type="set_lettera" id="lettera3" deletable="false" editable="false" movable="false">
+                                        <field name="NAME">lettera3</field>
+                                        <value name="VALUE">
+                                            <block type="text" id="lettera3_text" deletable="false" editable="false" movable="false">
+                                                <field name="TEXT">${c}</field>
+                                            </block>
+                                        </value>
+                                        <next>
+                                            <block type="set_last_lettera" id="lettera4" deletable="false" editable="false" movable="false">
+                                                <field name="NAME">lettera4</field>
+                                                <value name="VALUE">
+                                                    <block type="text" id="lettera4_text" deletable="false" editable="false" movable="false">
+                                                        <field name="TEXT">${d}</field>
+                                                    </block>
+                                                </value>
+                                            </block>
+                                        </next>
+                                    </block>
+                                </next>
+                            </block>
+                        </next>
+                    </block>
+                </statement>
+            </block>
         </xml>`,
         rootBlock: {
             type: 'riddle_word',
-            message0:
-                'date le lettere: %1 %2 %3 %4 %5 %6 %7 %8 %9 il risultato è: %10',
+            message0: 'Data le lettere %1 %2 apri la porta con %3',
             args0: [
                 {
-                    type: 'input_dummy'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'a',
-                    variable: 'lettera1'
-                },
-                {
                     type: 'input_dummy',
                     align: 'RIGHT'
                 },
                 {
-                    type: 'field_variable',
-                    name: 'b',
-                    variable: 'lettera2'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'c',
-                    variable: 'lettera3'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
-                },
-                {
-                    type: 'field_variable',
-                    name: 'd',
-                    variable: 'lettera4'
-                },
-                {
-                    type: 'input_dummy',
-                    align: 'RIGHT'
+                    type: 'input_statement',
+                    name: 'PARAMS'
                 },
                 {
                     type: 'input_value',
@@ -254,43 +263,25 @@ const riddles: Riddle[] = [
                     align: 'RIGHT'
                 }
             ],
-            inputsInline: false,
-            colour: 45,
-            tooltip:
-                'I dati sono numeri, quindi il risultato deve essere un numero',
+            colour: 60,
+            tooltip: '',
             helpUrl: ''
         },
         getCodeGen: (args: any) => (block: any) => {
-            const a = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('a'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const b = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('b'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const c = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('c'),
-                Blockly.Variables.NAME_TYPE
-            )
-            const d = Blockly.JavaScript.variableDB_.getName(
-                block.getFieldValue('d'),
-                Blockly.Variables.NAME_TYPE
-            )
+            const params = Blockly.JavaScript.statementToCode(block, 'PARAMS')
             const ret = Blockly.JavaScript.valueToCode(
                 block,
                 'return',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
+                var lettera1, lettera2, lettera3, lettera4
                 function main() {
-                    ${a} = '${args[0]}';
-                    ${b} = '${args[1]}';
-                    ${c} = '${args[2]}';
-                    ${d} = '${args[3]}';
+                    ${params}
                     return ${ret}
                 }
             `
+            console.log(code)
             return code
         },
         solution: ([a, b, c, d]: string[]) => `${a + b + c + d}`,
