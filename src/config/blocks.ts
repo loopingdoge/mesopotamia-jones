@@ -3,7 +3,7 @@ import * as Blockly from 'node-blockly/browser'
 export interface Block {
     id: string
     json: any
-    toolboxEntry: string
+    toolboxEntry: string // TODO fare facoltativa
     generator: (block: any) => string
 }
 
@@ -258,24 +258,50 @@ export const blocks: Block[] = [
         ]
     ),
     block(
-        'lettera1=',
+        'riddle_word',
         {
-            type: 'block_type',
-            message0: 'numero1 = %1',
+            type: 'riddle_word',
+            message0: 'Data le lettere %1 %2 apri la porta con %3',
             args0: [
                 {
+                    type: 'input_dummy',
+                    align: 'RIGHT'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'RIDDLE_PARAMS'
+                },
+                {
                     type: 'input_value',
-                    name: 'NAME'
+                    name: 'return',
+                    check: 'String',
+                    align: 'RIGHT'
                 }
             ],
-            inputsInline: false,
-            output: null,
-            colour: 20,
+            colour: 60,
             tooltip: '',
             helpUrl: ''
         },
-        `<block type="lettera1="></block>`,
-        (block: any) => []
+        null,
+        (block: any) => {
+            const params = Blockly.JavaScript.statementToCode(
+                block,
+                'RIDDLE_PARAMS'
+            )
+            const ret = Blockly.JavaScript.valueToCode(
+                block,
+                'return',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const code = `
+                var lettera1, lettera2, lettera3, lettera4
+                function main() {
+                    ${params};
+                    return ${ret};
+                }
+            `
+            return code
+        }
     )
 ]
 
