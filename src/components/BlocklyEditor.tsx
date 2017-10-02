@@ -1,4 +1,5 @@
 import { css, StyleSheet } from 'aphrodite'
+import { trim } from 'lodash'
 import * as Blockly from 'node-blockly/browser'
 import * as React from 'react'
 import Icon from 'react-icons-kit'
@@ -182,8 +183,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
 
     componentWillReceiveProps(nextProps: BlockEditorProps) {
         if (
-            (this.props.readonly ||
-                nextProps.workspaceXML === this.deafultWorkspace) &&
+            this.props.readonly &&
             nextProps.workspaceXML !== this.props.workspaceXML
         ) {
             this.injectWorkspaceXML(nextProps.workspaceXML)
@@ -225,6 +225,11 @@ class BlockEditor extends React.Component<BlockEditorProps> {
             this.workspaceDiv.offsetHeight - 40 - 80 + 'px' // 50 = height sezione risultato
         // tslint:disable-next-line:curly
         if (this.workspace) Blockly.svgResize(this.workspace)
+    }
+
+    onClear = () => {
+        this.props.clearWorkspace()
+        this.injectWorkspaceXML(this.deafultWorkspace)
     }
 
     render() {
@@ -279,7 +284,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                             <Button
                                 icon={ic_replay}
                                 circular
-                                onClick={this.props.clearWorkspace}
+                                onClick={this.onClear}
                                 iconSize={28}
                                 customCSS={styles.resetButton}
                             />

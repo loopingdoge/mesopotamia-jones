@@ -232,10 +232,6 @@ export class RiddleStore {
     @action
     clearWorkspace = () => {
         this.setWorkspaceXML(this.currentRiddle.defaultWorkspace)
-        this.state = {
-            ...this.state,
-            codeResult: null
-        }
     }
 }
 
