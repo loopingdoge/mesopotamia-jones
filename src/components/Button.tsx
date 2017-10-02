@@ -70,7 +70,7 @@ class Button extends React.Component<ButtonProps> {
         } = this.props
         const style = {
             padding: small ? '5px' : '10px',
-            borderRadius: circular ? (small ? '15px' : '20px') : '4px'
+            borderRadius: circular ? (small ? '15px' : '30px') : '4px'
         }
 
         return (
@@ -79,8 +79,8 @@ class Button extends React.Component<ButtonProps> {
                 onKeyDown={this.onKeyDown}
                 className={css(
                     styles.button,
-                    this.props.customCSS,
-                    disabled ? styles.disabled : styles.active
+                    disabled ? styles.disabled : styles.active,
+                    this.props.customCSS
                 )}
                 tabIndex={0}
                 ref={element => (this.containerDiv = element)}

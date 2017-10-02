@@ -2,7 +2,10 @@ import { css, StyleSheet } from 'aphrodite'
 import * as Blockly from 'node-blockly/browser'
 import * as React from 'react'
 import Icon from 'react-icons-kit'
-import { androidDelete, play } from 'react-icons-kit/ionicons/'
+import { play } from 'react-icons-kit/ionicons/'
+import { ic_replay } from 'react-icons-kit/md/ic_replay'
+
+import Button from './Button'
 
 import { onlyIf } from '../utils'
 
@@ -64,15 +67,15 @@ const styles = StyleSheet.create({
         fontFamily: 'monospace',
         fontSize: '24px'
     },
-    computerButton: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 50,
-        height: 50,
-        zIndex: 100,
-        borderRadius: 50,
-        outline: 'none'
+    playButton: {
+        backgroundColor: '#8ed85e',
+        borderColor: '#333333',
+        color: '#333333'
+    },
+    resetButton: {
+        backgroundColor: '#ff7575',
+        borderColor: '#333333',
+        color: '#333333'
     }
 })
 
@@ -209,7 +212,9 @@ class BlockEditor extends React.Component<BlockEditorProps> {
         x += element.offsetLeft
         y += element.offsetTop
 
-        if (this.props.readonly) y += 80 // spazio per il testo riddle
+        if (this.props.readonly) {
+            y += 80 // spazio per il testo riddle
+        }
 
         // Position blocklyDiv over blocklyArea.
         this.resizableDiv.style.left = x + 'px'
@@ -258,33 +263,27 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                 {onlyIf(
                     this.props.readonly === undefined,
                     <div id="resultDiv" className={css(styles.result)}>
-                        <button
-                            id="play"
-                            onClick={this.runCode}
-                            className={css(styles.computerButton)}
-                            style={{ backgroundColor: 'green' }}
-                        >
-                            <Icon
+                        <div id="play">
+                            <Button
                                 icon={play}
-                                size={32}
-                                style={{ color: 'white' }}
+                                circular
+                                onClick={this.runCode}
+                                iconSize={28}
+                                customCSS={styles.playButton}
                             />
-                        </button>
-                        <div className={css(styles.output)}>
-                            {`Risultato: ${this.props.codeResult}`}
                         </div>
-                        <button
-                            id="clear"
-                            onClick={this.props.clearWorkspace}
-                            className={css(styles.computerButton)}
-                            style={{ backgroundColor: 'red' }}
-                        >
-                            <Icon
-                                icon={androidDelete}
-                                size={32}
-                                style={{ color: 'white' }}
+                        <div className={css(styles.output)}>
+                            {`Risultato: ${this.props.codeResult || ''}`}
+                        </div>
+                        <div id="clear">
+                            <Button
+                                icon={ic_replay}
+                                circular
+                                onClick={this.props.clearWorkspace}
+                                iconSize={28}
+                                customCSS={styles.resetButton}
                             />
-                        </button>
+                        </div>
                     </div>
                 )}
             </div>
