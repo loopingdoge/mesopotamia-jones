@@ -6,7 +6,7 @@ export enum GameUI {
     Game,
     Map,
     Inventory,
-    Help // TODO da fare
+    Help
 }
 
 const getGameScale = (pageWidth: number, pageHeight: number) => {

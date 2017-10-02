@@ -47,13 +47,21 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
         <Button
             icon={image}
             text={'Mappa'}
-            onClick={show.bind(null, GameUI.Map)}
+            onClick={
+                gameUi === GameUI.Map
+                    ? show.bind(null, GameUI.Game)
+                    : show.bind(null, GameUI.Map)
+            }
             customCSS={styles.button}
         />
         <Button
             icon={grid}
             text={'Inventario'}
-            onClick={show.bind(null, GameUI.Inventory)}
+            onClick={
+                gameUi === GameUI.Inventory
+                    ? show.bind(null, GameUI.Game)
+                    : show.bind(null, GameUI.Inventory)
+            }
             customCSS={styles.button}
         />
         {onlyIf(
@@ -67,7 +75,11 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
         <Button
             icon={help}
             text={'Aiuto'}
-            onClick={show.bind(null, GameUI.Help)}
+            onClick={
+                gameUi === GameUI.Help
+                    ? show.bind(null, GameUI.Game)
+                    : show.bind(null, GameUI.Help)
+            }
             customCSS={styles.buttonRight}
         />
     </div>
