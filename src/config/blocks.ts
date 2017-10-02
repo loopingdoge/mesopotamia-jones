@@ -14,7 +14,7 @@ const block = (id: string, json: any, generator: (block: any) => any) => ({
 
 const colors = {
     text: 160,
-    number: 160,
+    number: 210,
     root: 60,
     text_var: 20,
     number_var: 160
@@ -102,6 +102,28 @@ export const blocks: Block[] = [
         }
     ),
     block(
+        'math_number',
+        {
+            type: 'math_number',
+            message0: '%1',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'NUM',
+                    text: '0'
+                }
+            ],
+            output: 'Number',
+            colour: colors.number,
+            tooltip: '',
+            helpUrl: ''
+        },
+        (block: any) => [
+            block.getFieldValue('NUM'),
+            Blockly.JavaScript.ORDER_ATOMIC
+        ]
+    ),
+    block(
         'math_operation',
         {
             type: 'math_operation',
@@ -127,7 +149,7 @@ export const blocks: Block[] = [
                 }
             ],
             inputsInline: true,
-            colour: 210,
+            colour: colors.number,
             output: null,
             tooltip: '',
             helpUrl: ''
