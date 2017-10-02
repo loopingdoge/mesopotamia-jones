@@ -51,7 +51,8 @@ class GameOverlay extends React.PureComponent<
         if (nextProps.gameUi !== this.props.gameUi) {
             if (
                 nextProps.gameUi === GameUI.Inventory ||
-                nextProps.gameUi === GameUI.Map
+                nextProps.gameUi === GameUI.Map ||
+                nextProps.gameUi === GameUI.Help
             ) {
                 clearTimeout(this.hideTimeout)
                 this.setState({ visible: true })

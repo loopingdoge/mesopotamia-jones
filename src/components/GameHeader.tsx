@@ -1,9 +1,7 @@
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import { image } from 'react-icons-kit/ionicons/image'
-import { grid } from 'react-icons-kit/ionicons/grid'
-import { close } from 'react-icons-kit/ionicons/close'
+import { close, grid, help, image } from 'react-icons-kit/ionicons/'
 
 import { onlyIf } from '../utils'
 import Button from './Button'
@@ -24,6 +22,12 @@ const styles = StyleSheet.create({
         marginLeft: '12px',
         fontWeight: 'bold'
     },
+    buttonRight: {
+        position: 'absolute',
+        right: 0,
+        marginRight: '12px',
+        fontWeight: 'bold'
+    },
     item: {
         width: 20,
         height: 20,
@@ -40,32 +44,32 @@ export interface GameHeaderProps {
 const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
     // tslint:disable-next-line:jsx-no-lambda
     <div className={css(styles.inventoryHeader)} style={{ width }}>
-        <div className={css(styles.button)}>
+        <Button
+            icon={image}
+            text={'Mappa'}
+            onClick={show.bind(null, GameUI.Map)}
+            customCSS={styles.button}
+        />
+        <Button
+            icon={grid}
+            text={'Inventario'}
+            onClick={show.bind(null, GameUI.Inventory)}
+            customCSS={styles.button}
+        />
+        {onlyIf(
+            gameUi !== GameUI.Game,
             <Button
-                icon={image}
-                iconSize={22}
-                text={'Mappa'}
-                onClick={show.bind(null, GameUI.Map)}
+                icon={close}
+                onClick={show.bind(null, GameUI.Game)}
+                customCSS={styles.button}
             />
-        </div>
-        <div className={css(styles.button)}>
-            <Button
-                icon={grid}
-                iconSize={22}
-                text={'Inventario'}
-                onClick={show.bind(null, GameUI.Inventory)}
-            />
-        </div>
-        <div className={css(styles.button)}>
-            {onlyIf(
-                gameUi !== GameUI.Game,
-                <Button
-                    icon={close}
-                    iconSize={22}
-                    onClick={show.bind(null, GameUI.Game)}
-                />
-            )}
-        </div>
+        )}
+        <Button
+            icon={help}
+            text={'Aiuto'}
+            onClick={show.bind(null, GameUI.Help)}
+            customCSS={styles.buttonRight}
+        />
     </div>
 )
 
