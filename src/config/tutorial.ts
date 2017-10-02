@@ -16,37 +16,43 @@ export interface Tutorial {
 export const tutorialSteps = (inventory: Inventory) => {
     const baseTutorial: Tutorial[] = [
         {
-            title: 'Tradurre i simboli',
+            title: "L'indovinello...",
             selector: '#cuneiformRiddle',
             text:
-                'Sulla porta sono incisi questi simboli, sembra essere un indovinello. Fortunatamente ho una legenda che mi permette di tradurre questi simboli! Passando con il mouse sopra a questi simboli, la lettera corrispondente si illuminerà nella legenda!'
+                'Per aprire la porta devi risolvere questo indovinello.\n ATTENTO! I dati cambiano sempre'
         },
         {
-            title: 'Aprire la porta',
+            title: "Tradurre l'indovinello...",
+            selector: '#cuneiformRiddle',
+            text:
+                'Selezionando una lettera puoi scoprire a quale simbolo corrisponda nella legenda'
+        },
+        {
+            title: 'Aprire la porta...',
             selector: '#lockcodes',
             text:
-                "Una volta tradotto l'indovinello, devo inserire qui la soluzione, una volta trovata quella corretta la porta si aprirà."
+                "Per aprire la porta devi inserire qui la soluzione dell'indovinello"
         }
     ]
     const computerTutorial: Tutorial[] = [
         {
-            title: 'Computer',
+            title: 'Il Computer...',
             selector: '#blocklyArea',
             text:
-                "Ogni volta che passo da una porta l'indovinello rimane lo stesso, ma cambiano sempre i numeri! Con il computer posso risolvere l'indovinello in modo che vada bene per qualsiasi numero, così facendo la porta si aprirà automaticamente."
+                'Il computer cerca di aprire la porta con la soluzioni che hai inventato'
         },
         {
-            title: 'Blocchi',
+            title: 'I blocchi...',
             selector: '.blocklyFlyout',
             text:
-                "Per risolvere l'indovinello posso comporre assieme questi blocchi, funzionano come un puzzle! I pezzi compatibili possono essere incastrati assieme. In questa barra ci sono i blocchi che posso usare, e li posso comporre spostandoli nell'area bianca a destra.",
+                "Per creare una soluzione devi trascinare questi blocchi nell'area bianca ed unirli come i pezzi di un puzzle",
             image: DragGif as any
         },
         {
-            title: 'Eseguire il programma',
+            title: 'Provare la soluzione...',
             selector: '#play',
             text:
-                'Una volta che sono soddisfatto della mia soluzione, posso premere questo bottone per provarla. Se non ci sono errori, gli ingranaggi della porta si muoveranno automaticamente, formando la soluzione generata dai blocchi che ho composto.'
+                'Questo pulsante eseguire la tua soluzione. Con un risultato corretto si apre la porta'
         }
     ]
 
