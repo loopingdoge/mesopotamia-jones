@@ -5,7 +5,8 @@ import { Riddle } from '../config/riddles'
 export enum GameUI {
     Game,
     Map,
-    Inventory
+    Inventory,
+    Help // TODO da fare
 }
 
 const getGameScale = (pageWidth: number, pageHeight: number) => {

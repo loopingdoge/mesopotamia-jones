@@ -22,6 +22,7 @@ import Riddle from './Riddle'
 import Inventory from '../containers/Inventory'
 import MapWrapper from '../containers/MapWrapper'
 import defaultWidthHeight from '../containers/widthHeightProvider'
+import GameControls from './GameControls'
 
 const PropsedFadedContainer = defaultWidthHeight(FadedContainer)
 
@@ -110,6 +111,9 @@ const MesopotamiaJones = ({
             break
         case GameUI.Map:
             overlayContent = <MapWrapper />
+            break
+        case GameUI.Help:
+            overlayContent = <GameControls />
             break
     }
 
