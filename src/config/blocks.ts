@@ -133,7 +133,9 @@ export const blocks: Block[] = [
             helpUrl: ''
         },
         (block: any) => {
-            const op = block.getFieldValue('OPERATOR')
+            let op = block.getFieldValue('OPERATOR')
+            // tslint:disable-next-line:curly
+            if (op === 'x') op = '*'
             const operand1 =
                 Blockly.JavaScript.valueToCode(
                     block,
@@ -150,35 +152,82 @@ export const blocks: Block[] = [
             return [code, Blockly.JavaScript.ORDER_NONE]
         }
     ),
-    // block(
-    //     'if',
-    //     {
-    //         "type": "if",
-    //         "message0": "se %1 allora %2 altrimenti %3",
-    //         "args0": [
-    //             {
-    //             "type": "input_value",
-    //             "name": "CONDITION",
-    //             "check": "Boolean",
-    //             "align": "RIGHT"
-    //             },
-    //             {
-    //             "type": "input_statement",
-    //             "name": "THEN",
-    //             "align": "RIGHT"
-    //             },
-    //             {
-    //             "type": "input_statement",
-    //             "name": "ELSE",
-    //             "align": "RIGHT"
-    //             }
-    //         ],
-    //         "colour": 230,
-    //         "tooltip": "",
-    //         "helpUrl": ""
-    //     },
-
-    // ),
+    block(
+        'if',
+        {
+            type: 'if',
+            message0: 'se %1 allora %2 altrimenti %3',
+            args0: [
+                {
+                    type: 'input_value',
+                    name: 'CONDITION',
+                    check: 'Boolean',
+                    align: 'LEFT'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'THEN',
+                    align: 'LEFT'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'ELSE',
+                    align: 'LEFT'
+                }
+            ],
+            previousStatement: null,
+            nextStatement: null,
+            colour: 230,
+            tooltip: '',
+            helpUrl: ''
+        },
+        (block: any) => {
+            console.log('wewe')
+            const condition =
+                Blockly.JavaScript.valueToCode(
+                    block,
+                    'CONDITION',
+                    Blockly.JavaScript.ORDER_NONE
+                ) || false
+            const thenBranch = Blockly.JavaScript.statementToCode(block, 'THEN')
+            const elseBranch = Blockly.JavaScript.statementToCode(block, 'ELSE')
+            const code = `
+                if(${condition} === true) {
+                    ${thenBranch}
+                } else {
+                    ${elseBranch}
+                }
+            `
+            return code
+        }
+    ),
+    block(
+        'is_even',
+        {
+            type: 'block_type',
+            message0: '%1 è pari',
+            args0: [
+                {
+                    type: 'input_value',
+                    name: 'VALUE'
+                }
+            ],
+            inputsInline: true,
+            output: 'Boolean',
+            colour: 230,
+            tooltip: '',
+            helpUrl: ''
+        },
+        (block: any) => {
+            const value = Blockly.JavaScript.valueToCode(
+                block,
+                'VALUE',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const code = `(${value} % 2 === 0)`
+            return [code, Blockly.JavaScript.ORDER_EQUALITY]
+        }
+    ),
     block(
         'set_letter',
         {
@@ -542,13 +591,14 @@ export const blocks: Block[] = [
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
-                var numero1, numero2, numero_magico;
+                var numero1, numero2, numero_magico, risultato;
                 function main() {
                     ${params}
                     ${userCode};
                     return ${ret}
                 }
             `
+            console.log(code)
             return code
         }
     )

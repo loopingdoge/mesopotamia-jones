@@ -242,9 +242,10 @@ const riddles: Riddle[] = [
                 <block type="math_number"></block>
             `,
             `
-                <block type="controls_if">
-                    <mutation else="1"></mutation>
-                </block>
+                <block type="is_even"></block>
+            `,
+            `
+                <block type="if"></block>
             `,
             `
                 <block type="math_operation" editable="false">
@@ -259,8 +260,9 @@ const riddles: Riddle[] = [
         ],
         defaultWorkspace: `
             <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
-                <block type="riddle_if" id="riddle_if" deletable="false" editable="false">
+                <block type="riddle_if" id="riddle_if" deletable="false">
                     <statement name="RIDDLE_PARAMS"></statement>
+                    <statement name="USERCODE"></statement>
                     <value name="RETURN">
                         <block type="get_number" id="numero1" editable="false" movable="false" deletable="false">
                             <field name="NAME">risultato</field>

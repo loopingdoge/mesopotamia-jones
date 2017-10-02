@@ -196,7 +196,6 @@ export class RiddleStore {
         let xml
         try {
             xml = Blockly.Xml.textToDom(this.workspaceXML)
-            console.log(this.workspaceXML)
         } catch (e) {
             console.error(e)
         }
