@@ -204,7 +204,6 @@ export const blocks: Block[] = [
             helpUrl: ''
         },
         (block: any) => {
-            console.log('wewe')
             const condition =
                 Blockly.JavaScript.valueToCode(
                     block,
@@ -520,7 +519,6 @@ export const blocks: Block[] = [
                     return ${ret}
                 }
             `
-            console.log(code)
             return code
         }
     ),
@@ -620,7 +618,6 @@ export const blocks: Block[] = [
                     return ${ret}
                 }
             `
-            console.log(code)
             return code
         }
     )

@@ -19,14 +19,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.25)'
     },
     button: {
-        marginLeft: '12px',
-        fontWeight: 'bold'
+        marginLeft: '12px'
     },
     buttonRight: {
         position: 'absolute',
         right: 0,
-        marginRight: '12px',
-        fontWeight: 'bold'
+        marginRight: '12px'
     },
     item: {
         width: 20,
@@ -47,13 +45,21 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
         <Button
             icon={image}
             text={'Mappa'}
-            onClick={show.bind(null, GameUI.Map)}
+            onClick={
+                gameUi === GameUI.Map
+                    ? show.bind(null, GameUI.Game)
+                    : show.bind(null, GameUI.Map)
+            }
             customCSS={styles.button}
         />
         <Button
             icon={grid}
             text={'Inventario'}
-            onClick={show.bind(null, GameUI.Inventory)}
+            onClick={
+                gameUi === GameUI.Inventory
+                    ? show.bind(null, GameUI.Game)
+                    : show.bind(null, GameUI.Inventory)
+            }
             customCSS={styles.button}
         />
         {onlyIf(
@@ -67,7 +73,11 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
         <Button
             icon={help}
             text={'Aiuto'}
-            onClick={show.bind(null, GameUI.Help)}
+            onClick={
+                gameUi === GameUI.Help
+                    ? show.bind(null, GameUI.Game)
+                    : show.bind(null, GameUI.Help)
+            }
             customCSS={styles.buttonRight}
         />
     </div>
