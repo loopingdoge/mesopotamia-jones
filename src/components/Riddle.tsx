@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         flex: 1,
-        paddingLeft: 20
+        padding: '10px 0px 10px 20px'
     },
     row: {
         display: 'flex',

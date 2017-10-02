@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
     },
     alphabet: {
         height: '100%',
-        padding: 8,
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -39,11 +38,11 @@ export interface CuneiformLegendProps {
     selectedChar?: string
 }
 
-const CuneiformLegend = ({ selectedChar }: CuneiformLegendProps) =>
+const CuneiformLegend = ({ selectedChar }: CuneiformLegendProps) => (
     <div className={css(styles.legend)} id="cuneiformLegend">
         <div className={css(styles.alphabet)}>
             {alphabetRows.map((row, rowIndex) =>
-                row.split('').map((letter, letterIndex) =>
+                row.split('').map((letter, letterIndex) => (
                     <div
                         key={letterIndex}
                         className={css(
@@ -56,14 +55,13 @@ const CuneiformLegend = ({ selectedChar }: CuneiformLegendProps) =>
                         <div>
                             <CuneiformChar value={letter} />
                         </div>
-                        <div>
-                            {letter}
-                        </div>
+                        <div>{letter}</div>
                     </div>
-                )
+                ))
             )}
         </div>
     </div>
+)
 
 export interface CuneiformLegendContainerProps {
     riddleUIStore?: RiddleUIStore
