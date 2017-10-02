@@ -96,7 +96,7 @@ export const dialogues: Dialogue[] = [
             ),
             line(
                 characters[1],
-                "Sfortunatamente in queste caverne si aggira anche An-Ki Hammurtossi, lo spirito malvagio che ha maledetto questo posto e che mi ha trasformato in un fantasma, condannandomi a vivere qui per l'eternità."
+                "Sfortunatamente in queste caverne si aggira anche An-Ki Hammurtossi, la mummia malvagia che ha maledetto questo posto e che mi ha trasformato in un fantasma, condannandomi a vivere qui per l'eternità."
             ),
             line(
                 characters[1],

@@ -19,14 +19,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.25)'
     },
     button: {
-        marginLeft: '12px',
-        fontWeight: 'bold'
+        marginLeft: '12px'
     },
     buttonRight: {
         position: 'absolute',
         right: 0,
-        marginRight: '12px',
-        fontWeight: 'bold'
+        marginRight: '12px'
     },
     item: {
         width: 20,
