@@ -142,7 +142,10 @@ export class RiddleStore {
                 riddle.solutionLength
             ),
             isSolved: false,
-            codeResult: null
+            codeResult: userSolutionInit(
+                riddle.solutionType,
+                riddle.solutionLength
+            )
         }
 
         this.setWorkspaceXML(

@@ -271,9 +271,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                             />
                         </button>
                         <div className={css(styles.output)}>
-                            {this.props.codeResult !== null
-                                ? this.props.codeResult
-                                : 'Premi ▶ per eseguire'}
+                            {`Risultato: ${this.props.codeResult}`}
                         </div>
                         <button
                             id="clear"
