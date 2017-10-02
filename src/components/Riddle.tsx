@@ -371,6 +371,9 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             if (this.props.riddleUIStore.tutorialStartIndex) {
                 this.props.riddleUIStore.showTutorial()
             }
+            if (hasItem(this.props.gameStore.inventory, translator)) {
+                this.props.riddleUIStore.shrinkLegend()
+            }
         }, 200)
     }
 
