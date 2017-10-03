@@ -197,8 +197,8 @@ export const blocks: Block[] = [
                     align: 'LEFT'
                 }
             ],
-            previousStatement: null,
-            nextStatement: null,
+            previousStatement: 'Usercode',
+            nextStatement: 'Usercode',
             colour: 230,
             tooltip: '',
             helpUrl: ''
@@ -267,8 +267,8 @@ export const blocks: Block[] = [
                 }
             ],
             inputsInline: true,
-            previousStatement: null,
-            nextStatement: null,
+            previousStatement: 'Param',
+            nextStatement: 'Param',
             colour: colors.text_var,
             tooltip: '',
             helpUrl: ''
@@ -301,7 +301,7 @@ export const blocks: Block[] = [
                 }
             ],
             inputsInline: true,
-            previousStatement: null,
+            previousStatement: 'Param',
             colour: colors.text_var,
             tooltip: '',
             helpUrl: ''
@@ -357,8 +357,42 @@ export const blocks: Block[] = [
                 }
             ],
             inputsInline: true,
-            previousStatement: null,
-            nextStatement: null,
+            previousStatement: 'Param',
+            nextStatement: 'Param',
+            colour: colors.number_var,
+            tooltip: '',
+            helpUrl: ''
+        },
+        (block: any) => {
+            const varname = block.getFieldValue('NAME')
+            const value = Blockly.JavaScript.valueToCode(
+                block,
+                'VALUE',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            return `${varname} = ${value}; \n`
+        }
+    ),
+    block(
+        'set_var_number',
+        {
+            type: 'set_var_number',
+            message0: '%1 = %2',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'NAME',
+                    text: 'numero'
+                },
+                {
+                    type: 'input_value',
+                    name: 'VALUE',
+                    check: 'Number'
+                }
+            ],
+            inputsInline: true,
+            previousStatement: 'Usercode',
+            nextStatement: 'Usercode',
             colour: colors.number_var,
             tooltip: '',
             helpUrl: ''
@@ -391,7 +425,7 @@ export const blocks: Block[] = [
                 }
             ],
             inputsInline: true,
-            previousStatement: null,
+            previousStatement: 'Param',
             colour: colors.number_var,
             tooltip: '',
             helpUrl: ''
@@ -441,7 +475,8 @@ export const blocks: Block[] = [
                 },
                 {
                     type: 'input_statement',
-                    name: 'RIDDLE_PARAMS'
+                    name: 'RIDDLE_PARAMS',
+                    check: 'Param'
                 },
                 {
                     type: 'input_value',
@@ -488,7 +523,8 @@ export const blocks: Block[] = [
                 },
                 {
                     type: 'input_statement',
-                    name: 'RIDDLE_PARAMS'
+                    name: 'RIDDLE_PARAMS',
+                    check: 'Param'
                 },
                 {
                     type: 'input_value',
@@ -534,7 +570,8 @@ export const blocks: Block[] = [
                 },
                 {
                     type: 'input_statement',
-                    name: 'RIDDLE_PARAMS'
+                    name: 'RIDDLE_PARAMS',
+                    check: 'Param'
                 },
                 {
                     type: 'input_value',
@@ -579,7 +616,8 @@ export const blocks: Block[] = [
                 },
                 {
                     type: 'input_statement',
-                    name: 'RIDDLE_PARAMS'
+                    name: 'RIDDLE_PARAMS',
+                    check: 'Param'
                 },
                 {
                     type: 'input_statement',

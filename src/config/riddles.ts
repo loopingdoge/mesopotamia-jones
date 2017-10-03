@@ -234,7 +234,7 @@ const riddles: Riddle[] = [
                 </block>
             `,
             `
-                <block type="set_number" editable="false">
+                <block type="set_var_number" editable="false">
                     <field name="NAME">risultato</field>
                 </block>
             `,
