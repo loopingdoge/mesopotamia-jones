@@ -562,7 +562,7 @@ export const blocks: Block[] = [
         'riddle_word',
         {
             type: 'riddle_word',
-            message0: 'Data le lettere %1 %2 apri la porta con %3',
+            message0: 'Date le lettere %1 %2 apri la porta con %3',
             args0: [
                 {
                     type: 'input_dummy',
