@@ -5,6 +5,7 @@ import * as React from 'react'
 import Icon from 'react-icons-kit'
 import { play } from 'react-icons-kit/ionicons/'
 import { ic_replay } from 'react-icons-kit/md/ic_replay'
+import * as ReactTooltip from 'react-tooltip'
 
 import Button from './Button'
 
@@ -268,7 +269,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                 {onlyIf(
                     this.props.readonly === undefined,
                     <div id="resultDiv" className={css(styles.result)}>
-                        <div id="play">
+                        <div id="play" data-tip data-for={'play'}>
                             <Button
                                 icon={play}
                                 circular
@@ -277,18 +278,33 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                                 customCSS={styles.playButton}
                             />
                         </div>
+                        <ReactTooltip
+                            id={'play'}
+                            place={'top'}
+                            effect={'solid'}
+                        >
+                            <span>Esegui</span>
+                        </ReactTooltip>
                         <div className={css(styles.output)}>
                             {`Risultato: ${this.props.codeResult || ''}`}
                         </div>
-                        <div id="clear">
+                        <div id="clear" data-tip data-for={'clear'}>
                             <Button
                                 icon={ic_replay}
                                 circular
                                 onClick={this.onClear}
                                 iconSize={28}
                                 customCSS={styles.resetButton}
+                                tooltip={'Ripristina'}
                             />
                         </div>
+                        <ReactTooltip
+                            id={'clear'}
+                            place={'top'}
+                            effect={'solid'}
+                        >
+                            <span>Ripristina</span>
+                        </ReactTooltip>
                     </div>
                 )}
             </div>
