@@ -98,7 +98,7 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
     }
 
     render() {
-        const { onMapDoorClick } = this.props
+        const { onMapDoorClick, selectedRiddle } = this.props
         return (
             <div className={css(styles.wrapper)}>
                 <div className={css(styles.mapWrapperTab)}>
@@ -113,6 +113,7 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
                     hasItem(this.props.gameStore.inventory, computer),
                     <div className={css(styles.mapWrapperTab)}>
                         <BlocklyEditor
+                            riddle={selectedRiddle}
                             readonly={true}
                             riddleText={this.riddleText}
                             workspaceXML={this.workspaceXML || ''}

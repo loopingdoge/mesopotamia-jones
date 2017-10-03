@@ -7,6 +7,8 @@ import { play } from 'react-icons-kit/ionicons/'
 import { ic_replay } from 'react-icons-kit/md/ic_replay'
 import * as ReactTooltip from 'react-tooltip'
 
+import { Riddle } from '../config/riddles'
+
 import Button from './Button'
 
 import { onlyIf } from '../utils'
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         flexGrow: 0.7,
-        border: '1px solid #BBBBBB',
+        border: '2px solid #333333',
         borderRadius: '9px',
         backgroundColor: 'white',
         width: '20px',
@@ -78,6 +80,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#ff7575',
         borderColor: '#333333',
         color: '#333333'
+    },
+    error: {
+        color: '#ff5050'
     }
 })
 
@@ -111,6 +116,7 @@ let blocklyOptions = {
 }
 
 export interface BlockEditorProps {
+    riddle: Riddle
     readonly?: boolean
     riddleText?: string
     toolboxXML?: string
@@ -119,6 +125,7 @@ export interface BlockEditorProps {
     codeResult?: string
     runCode?: () => void
     clearWorkspace?: () => void
+    error?: boolean
 }
 
 class BlockEditor extends React.Component<BlockEditorProps> {
@@ -234,6 +241,8 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     }
 
     render() {
+        const { codeResult, error, riddle, riddleText } = this.props
+
         return (
             <div
                 id="blocklyArea"
@@ -285,9 +294,27 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                         >
                             <span>Esegui</span>
                         </ReactTooltip>
-                        <div className={css(styles.output)}>
-                            {`Risultato: ${this.props.codeResult || ''}`}
+                        <div
+                            className={css(
+                                styles.output,
+                                onlyIf(error, styles.error)
+                            )}
+                            data-tip
+                            data-for={'output'}
+                        >
+                            {error
+                                ? 'Errore'
+                                : riddle.solutionType === 'string'
+                                  ? `"${codeResult || ''}"`
+                                  : codeResult}
                         </div>
+                        <ReactTooltip
+                            id={'output'}
+                            place={'top'}
+                            effect={'solid'}
+                        >
+                            <span>Risultato</span>
+                        </ReactTooltip>
                         <div id="clear" data-tip data-for={'clear'}>
                             <Button
                                 icon={ic_replay}

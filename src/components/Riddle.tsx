@@ -11,7 +11,7 @@ import {
     translator
 } from '../config/inventory'
 import { reactourStartIndex } from '../config/progression'
-import { SolutionType } from '../config/riddles'
+import { Riddle, SolutionType } from '../config/riddles'
 
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
@@ -139,6 +139,7 @@ const CuneiformSection = ({
 )
 
 export interface EditorSectionProps {
+    riddle: Riddle
     toolbox: string
     workspace: string
     width: string
@@ -147,9 +148,11 @@ export interface EditorSectionProps {
     codeResult: string
     runCode: () => void
     clearWorkspace: () => void
+    blocklyError: boolean
 }
 
 const EditorSection = ({
+    riddle,
     toolbox,
     workspace,
     setWorkspace,
@@ -157,16 +160,19 @@ const EditorSection = ({
     height,
     codeResult,
     runCode,
-    clearWorkspace
+    clearWorkspace,
+    blocklyError
 }: EditorSectionProps) => (
     <div className={css(styles.editorSection)}>
         <BlocklyEditor
+            riddle={riddle}
             toolboxXML={toolbox}
             workspaceXML={workspace}
             onWorkspaceChange={setWorkspace}
             runCode={runCode}
             codeResult={codeResult}
             clearWorkspace={clearWorkspace}
+            error={blocklyError}
         />
     </div>
 )
@@ -182,10 +188,8 @@ const flexToExpanded = (isExpanded: boolean, flex: number) =>
         : flexToExpandedFromExpanded(flex)
 
 export interface RiddleProps {
+    riddle: Riddle
     riddleText: string
-    solutionLength: number
-    solutionType: SolutionType
-    riddleToolbox: any[]
     workspace: string
     userSolution: string
     codeResult: string
@@ -212,14 +216,13 @@ export interface RiddleProps {
     checkSolution: () => boolean
     riddleSolved: () => void
     tutorialStartIndex: number
+    blocklyError: boolean
 }
 
 const Riddle = ({
-    isSolved,
+    riddle,
     riddleText,
-    solutionLength,
-    solutionType,
-    riddleToolbox,
+    isSolved,
     workspace,
     userSolution,
     codeResult,
@@ -244,7 +247,8 @@ const Riddle = ({
     isTutorialOpen,
     showTutorial,
     hideTutorial,
-    tutorialStartIndex
+    tutorialStartIndex,
+    blocklyError
 }: RiddleProps) => (
     <div className={css(styles.wrapper)}>
         <Modal
@@ -275,8 +279,8 @@ const Riddle = ({
                             />
                             <div className={css(styles.lockRow)}>
                                 <Solution
-                                    length={solutionLength}
-                                    type={solutionType}
+                                    length={riddle.solutionLength}
+                                    type={riddle.solutionType}
                                     onChangeValue={onChangeSolution}
                                     value={userSolution}
                                     isCorrect={isSolved}
@@ -324,7 +328,10 @@ const Riddle = ({
                                 />
                                 <div className={css(styles.editorSection)}>
                                     <EditorSection
-                                        toolbox={getToolbox(riddleToolbox)}
+                                        riddle={riddle}
+                                        toolbox={getToolbox(
+                                            riddle.defaultToolbox
+                                        )}
                                         workspace={workspace}
                                         setWorkspace={setWorkspace}
                                         height={`${height}px`}
@@ -332,6 +339,7 @@ const Riddle = ({
                                         codeResult={codeResult}
                                         runCode={runCode}
                                         clearWorkspace={clearWorkspace}
+                                        blocklyError={blocklyError}
                                     />
                                 </div>
                             </div>
@@ -391,7 +399,8 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
             setUserSolution,
             workspaceXML,
             userSolution,
-            question
+            question,
+            blocklyError
         } = this.props.riddleStore
 
         const goBack = this.props.gameStore.deactivateRiddle
@@ -413,11 +422,9 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
 
         return (
             <Riddle
-                goBack={goBack}
+                riddle={currentRiddle}
                 riddleText={question}
-                solutionLength={currentRiddle.solutionLength}
-                solutionType={currentRiddle.solutionType}
-                riddleToolbox={currentRiddle.defaultToolbox}
+                goBack={goBack}
                 workspace={workspaceXML}
                 userSolution={userSolution}
                 codeResult={codeResult}
@@ -443,6 +450,7 @@ class RiddleContainer extends React.Component<RiddleContainerProps, undefined> {
                 height={height}
                 tutorialStartIndex={tutorialStartIndex}
                 onCuneiformCharOver={onCuneiformCharOver}
+                blocklyError={blocklyError}
             />
         )
     }

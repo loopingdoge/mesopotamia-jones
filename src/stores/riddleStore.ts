@@ -3,8 +3,7 @@ import * as Blockly from 'node-blockly/browser'
 
 import { blocks } from '../config/blocks'
 import { GameDoor } from '../config/map'
-import riddles from '../config/riddles'
-import { Riddle, userSolutionInit } from '../config/riddles'
+import riddles, { Riddle, userSolutionInit } from '../config/riddles'
 import riddleUIStore from './riddleUIStore'
 
 import { padStart } from 'lodash'
@@ -18,6 +17,7 @@ export interface IRiddleStore {
     isSolved: boolean
     riddleCompleted: boolean
     isSolvedAutomatically: boolean
+    error: boolean
 }
 
 export class RiddleStore {
@@ -69,6 +69,11 @@ export class RiddleStore {
         return this.currentRiddle.question(this.generatedArgs)
     }
 
+    @computed
+    get blocklyError(): boolean {
+        return this.state.error
+    }
+
     constructor() {
         this.state = {
             currentGameDoor: null,
@@ -78,7 +83,8 @@ export class RiddleStore {
             codeResult: null,
             isSolved: false,
             riddleCompleted: false,
-            isSolvedAutomatically: false
+            isSolvedAutomatically: false,
+            error: false
         }
 
         reaction(
@@ -190,6 +196,7 @@ export class RiddleStore {
     runCode = () => {
         let codeResult
         let userSolution = this.state.userSolution
+        let error = false
         const {
             solutionType,
             solutionLength
@@ -220,12 +227,13 @@ export class RiddleStore {
                 // console.log(`Code result: ${userSolution}`)
             }
         } catch (e) {
-            codeResult = (e as EvalError).message
+            error = true
         }
         this.state = {
             ...this.state,
             codeResult,
-            userSolution
+            userSolution,
+            error
         }
     }
 
