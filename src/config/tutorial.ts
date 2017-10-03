@@ -28,7 +28,7 @@ export const tutorialSteps = (inventory: Inventory) => {
             title: "Tradurre l'indovinello...",
             selector: '#cuneiformRiddle',
             text:
-                'Selezionando una lettera puoi scoprire a quale simbolo corrisponda nella legenda',
+                'Selezionando una lettera puoi scoprire a quale simbolo corrisponde nella legenda',
             video: TranslateSrc as any
         },
         {
@@ -44,7 +44,7 @@ export const tutorialSteps = (inventory: Inventory) => {
             title: 'Il Computer...',
             selector: '#blocklyArea',
             text:
-                'Il computer cerca di aprire la porta con la soluzioni che hai inventato',
+                'Il computer cerca di aprire la porta con la soluzione che hai inventato',
             video: ComputerSrc as any
         },
         {
@@ -58,7 +58,7 @@ export const tutorialSteps = (inventory: Inventory) => {
             title: 'Provare la soluzione...',
             selector: '#play',
             text:
-                'Questo pulsante eseguire la tua soluzione. Con un risultato corretto si apre la porta'
+                'Questo pulsante esegue la tua soluzione. Con un risultato corretto si apre la porta'
         }
     ]
 
