@@ -4,7 +4,7 @@ import gameStore from '../../stores/gameStore'
 
 import * as DogeImage from '../../../assets/images/doge-sprite.png'
 import * as DoorImage from '../../../assets/images/door.png'
-import * as HammurtossiSprite from '../../../assets/images/hammurtossi-sprite.png'
+import * as HammurtoshSprite from '../../../assets/images/hammurtosh-sprite.png'
 import * as JonesSprite from '../../../assets/images/jones-sprite.png'
 import * as VonTalinSprite from '../../../assets/images/von-talin-sprite.png'
 
@@ -31,7 +31,7 @@ export default class Boot extends Phaser.State {
     preload() {
         this.load.spritesheet('player', JonesSprite as any, 32, 48)
         this.load.spritesheet('von-talin', VonTalinSprite as any, 32, 48)
-        this.load.spritesheet('hammurtossi', HammurtossiSprite as any, 32, 48)
+        this.load.spritesheet('hammurtosh', HammurtoshSprite as any, 32, 48)
         this.load.spritesheet('doge', DogeImage as any, 32, 32)
         // this.load.image('doge', DogeImage as any) doge enhance
         this.load.tilemap('room1', '', Room1, Phaser.Tilemap.TILED_JSON)
