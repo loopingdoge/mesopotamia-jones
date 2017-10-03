@@ -295,7 +295,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                                 onClick={this.onClear}
                                 iconSize={28}
                                 customCSS={styles.resetButton}
-                                tooltip={'Ripristina'}
                             />
                         </div>
                         <ReactTooltip
