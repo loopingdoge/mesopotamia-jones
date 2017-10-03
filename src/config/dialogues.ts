@@ -1,5 +1,5 @@
 import * as MesopotamiaJonesImage from '../../assets/images/mesopotamia-jones.png'
-import * as Hammurtossi from '../../assets/images/mummy.png'
+import * as Hammurtosh from '../../assets/images/mummy.png'
 import * as Rock from '../../assets/images/rock.png'
 import * as VonDogen from '../../assets/images/von-dogen.png'
 import * as VonTalin from '../../assets/images/von-talin.png'
@@ -55,7 +55,7 @@ const dialogue = (
 export const characters: Character[] = [
     createCharacter('mj', 'Mesopotamia Jones', MesopotamiaJonesImage as any),
     createCharacter('fv', 'Farren Von Talin', VonTalin as any),
-    createCharacter('ab', 'An-Ki Hammurtossi', Hammurtossi as any),
+    createCharacter('ab', 'An-Ki Hammurtosh', Hammurtosh as any),
     createCharacter('do', 'Wow Von Dogen', VonDogen as any),
     createCharacter('rs', 'Roccia Senziente', Rock as any)
 ]
@@ -96,11 +96,11 @@ export const dialogues: Dialogue[] = [
             ),
             line(
                 characters[1],
-                "Sfortunatamente in queste caverne si aggira anche An-Ki Hammurtossi, la mummia malvagia che ha maledetto questo posto e che mi ha trasformato in un fantasma, condannandomi a vivere qui per l'eternità."
+                "Sfortunatamente in queste caverne si aggira anche An-Ki Hammurtosh, la mummia malvagia che ha maledetto questo posto e che mi ha trasformato in un fantasma, condannandomi a vivere qui per l'eternità."
             ),
             line(
                 characters[1],
-                'Per proteggerlo dalle grinfie di Hammurtossi, ho nascosto la mia macchina in una cassa nella stanza in cui sei caduto inizialmente, tieni la chiave per aprirla.'
+                'Per proteggerlo dalle grinfie di Hammurtosh, ho nascosto la mia macchina in una cassa nella stanza in cui sei caduto inizialmente, tieni la chiave per aprirla.'
             ),
             line(
                 characters[1],

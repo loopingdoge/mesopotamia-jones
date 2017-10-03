@@ -14,7 +14,7 @@ import Player, { Direction } from '../sprites/Player'
 
 // tslint:disable-next-line:ordered-imports
 import Npc from '../sprites/Npc'
-import Hammurtossi from '../sprites/Hammurtossi'
+import Hammurtosh from '../sprites/Hammurtosh'
 import VonDogen from '../sprites/VonDogen'
 import VonTalin from '../sprites/VonTalin'
 
@@ -143,7 +143,7 @@ export default class Game extends Phaser.State {
         }
         if (gameStore.room.id === 'room5') {
             this.npcs = [
-                new Hammurtossi(this.game, coord2Pixel(7.5), coord2Pixel(1))
+                new Hammurtosh(this.game, coord2Pixel(7.5), coord2Pixel(1))
             ]
             this.game.add.existing(this.npcs[0])
         }
