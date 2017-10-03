@@ -24,7 +24,13 @@ const styles = StyleSheet.create({
         fontSize: 'larger',
         marginBottom: '8px'
     },
-    tourText: {}
+    tourText: {},
+    video: {
+        margin: '16px auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 })
 
 export interface TutorialProps {
@@ -54,14 +60,19 @@ export default class TutorialUI extends React.PureComponent<TutorialProps> {
                             <span className={css(styles.tourText)}>
                                 {tutorial.text}
                             </span>
-                            {onlyIf(
-                                Boolean(tutorial.image),
-                                <img
-                                    src={tutorial.image}
-                                    width={'300px'}
-                                    height={'300px'}
-                                />
-                            )}
+                            <div className={css(styles.video)}>
+                                {onlyIf(
+                                    Boolean(tutorial.video),
+                                    <video
+                                        src={tutorial.video}
+                                        autoPlay
+                                        loop
+                                        playsInline
+                                        muted
+                                        width={'330px'}
+                                    />
+                                )}
+                            </div>
                         </div>
                     )
                 }))}
