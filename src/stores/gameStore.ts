@@ -260,12 +260,6 @@ export class GameStore {
                     if (riddleUIStore.isTutorialOpen)
                         riddleUIStore.isTutorialOpen = false
                     break
-                // case 'Q':
-                //     this.deactivateRiddle()
-                //     break
-                // case 'E':
-                //     riddleUIStore.showTutorial()
-                //     break
             }
         }
         // tslint:enable:curly

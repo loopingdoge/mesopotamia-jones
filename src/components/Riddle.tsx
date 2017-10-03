@@ -10,7 +10,6 @@ import {
     Inventory,
     translator
 } from '../config/inventory'
-import { reactourStartIndex } from '../config/progression'
 import { Riddle, SolutionType } from '../config/riddles'
 
 import { GameStore } from '../stores/gameStore'

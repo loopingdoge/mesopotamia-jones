@@ -84,7 +84,6 @@ const riddles: Riddle[] = [
                 <field name="NAME">numero2</field>
             </block>
             `,
-            `<block type="math_number"></block>`,
             `
             <block type="math_operation" editable="false">
                 <field name="OPERATOR">+</field>
@@ -237,9 +236,6 @@ const riddles: Riddle[] = [
                 <block type="set_var_number" editable="false">
                     <field name="NAME">risultato</field>
                 </block>
-            `,
-            `
-                <block type="math_number"></block>
             `,
             `
                 <block type="is_even"></block>
