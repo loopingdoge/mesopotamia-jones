@@ -1,6 +1,9 @@
 import { compact, flatten } from 'lodash'
 
-import * as DragGif from '../../assets/images/drag-tutorial.gif'
+import * as BlocksSrc from '../../assets/tutorials/blocks.webm'
+import * as ComputerSrc from '../../assets/tutorials/computer-big.webm'
+import * as LockCodeSrc from '../../assets/tutorials/lockcode.webm'
+import * as TranslateSrc from '../../assets/tutorials/translate.webm'
 
 import { computer, hasItem, Inventory } from './inventory'
 
@@ -10,7 +13,7 @@ export interface Tutorial {
     title: string
     selector: string
     text: string
-    image?: string
+    video?: string
 }
 
 export const tutorialSteps = (inventory: Inventory) => {
@@ -25,13 +28,15 @@ export const tutorialSteps = (inventory: Inventory) => {
             title: "Tradurre l'indovinello...",
             selector: '#cuneiformRiddle',
             text:
-                'Selezionando una lettera puoi scoprire a quale simbolo corrisponda nella legenda'
+                'Selezionando una lettera puoi scoprire a quale simbolo corrisponda nella legenda',
+            video: TranslateSrc as any
         },
         {
             title: 'Aprire la porta...',
-            selector: '#lockcodes',
+            selector: '#lockcode',
             text:
-                "Per aprire la porta devi inserire qui la soluzione dell'indovinello"
+                "Per aprire la porta devi inserire qui la soluzione dell'indovinello",
+            video: LockCodeSrc as any
         }
     ]
     const computerTutorial: Tutorial[] = [
@@ -39,14 +44,15 @@ export const tutorialSteps = (inventory: Inventory) => {
             title: 'Il Computer...',
             selector: '#blocklyArea',
             text:
-                'Il computer cerca di aprire la porta con la soluzioni che hai inventato'
+                'Il computer cerca di aprire la porta con la soluzioni che hai inventato',
+            video: ComputerSrc as any
         },
         {
             title: 'I blocchi...',
             selector: '.blocklyFlyout',
             text:
                 "Per creare una soluzione devi trascinare questi blocchi nell'area bianca ed unirli come i pezzi di un puzzle",
-            image: DragGif as any
+            video: BlocksSrc
         },
         {
             title: 'Provare la soluzione...',

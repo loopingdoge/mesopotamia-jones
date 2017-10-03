@@ -43,6 +43,7 @@
     "@types/react-dom": "^15.5.1",
     "@types/react-motion": "^0.0.23",
     "@types/react-router": "^4.0.14",
+    "@types/react-tooltip": "^3.3.0",
     "@types/sinon": "^2.3.3",
     "@types/webfontloader": "^1.6.28",
     "awesome-typescript-loader": "^3.2.2",
@@ -90,6 +91,7 @@
     "react-modal": "^2.3.2",
     "react-motion": "^0.5.1",
     "react-router": "^4.1.2",
+    "react-tooltip": "^3.3.0",
     "reactour": "^1.6.1",
     "webfontloader": "^1.6.27"
   }

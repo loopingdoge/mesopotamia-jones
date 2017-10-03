@@ -18,7 +18,7 @@ export const reactourStartIndex = (
     progression: Progression
 ) => {
     if (hasItem(inventory, computer) && !progression.hasShownComputerTutorial) {
-        return 2
+        return 3
     } else {
         return 0
     }

@@ -300,7 +300,7 @@ export class GameStore {
                 reactourStartIndex(this.state.inventory, this.state.progression)
             ) {
                 this.state.progression.hasShownComputerTutorial = true
-                riddleUIStore.tutorialStartIndex = 2
+                riddleUIStore.tutorialStartIndex = 3
             }
         }
     }

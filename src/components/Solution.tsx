@@ -186,6 +186,7 @@ export default class Solution extends React.Component<
     render() {
         return (
             <div
+                id={'lockcode'}
                 className={css(
                     styles.solution,
                     this.props.isCorrect && styles.correctSolution

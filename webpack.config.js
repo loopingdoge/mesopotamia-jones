@@ -86,7 +86,7 @@ module.exports = {
                 use: ['expose-loader?p2']
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(png|svg|jpg|gif|webm)$/,
                 use: ['file-loader']
             },
             {

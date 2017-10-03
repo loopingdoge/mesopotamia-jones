@@ -273,10 +273,7 @@ const Riddle = ({
                                 translated={hasItem(inventory, translator)}
                                 onCharOver={onCuneiformCharOver}
                             />
-                            <div
-                                className={css(styles.lockRow)}
-                                id={'lockcodes'}
-                            >
+                            <div className={css(styles.lockRow)}>
                                 <Solution
                                     length={solutionLength}
                                     type={solutionType}
