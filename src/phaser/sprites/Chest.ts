@@ -25,7 +25,13 @@ export default class ChestSprite extends Sprite {
         } else {
             when(
                 () => gameStore.state.chests[this.chestId].open,
-                () => this.loadTexture('chest-open')
+                () => {
+                    try {
+                        this.loadTexture('chest-open')
+                    } catch (e) {
+                        console.error(e)
+                    }
+                }
             )
         }
     }

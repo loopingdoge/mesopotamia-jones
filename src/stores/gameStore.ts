@@ -356,7 +356,7 @@ export class GameStore {
             ...this.state,
             activeFoundItem: null
         }
-        this.showNexDialogue()
+        this.showNextDialogue()
     }
 
     @action
@@ -378,7 +378,7 @@ export class GameStore {
                 }
                 // Otherwise shows the possible next dialogue
             } else {
-                this.showNexDialogue()
+                this.showNextDialogue()
             }
         }
     }
@@ -392,7 +392,7 @@ export class GameStore {
                 this.addItemToInventory(item)
             }
         } else {
-            this.showNexDialogue()
+            this.showNextDialogue()
         }
         this.state = {
             ...this.state,
@@ -400,8 +400,9 @@ export class GameStore {
         }
     }
 
-    showNexDialogue = () => {
-        if (this.state.nextDialogueId !== undefined) {
+    @action
+    showNextDialogue = () => {
+        if (this.state.nextDialogueId) {
             // TODO: indagare o chiedere ad alby perche' senza non funzia
             setTimeout(() => this.showDialogue(this.state.nextDialogueId), 0)
         }
