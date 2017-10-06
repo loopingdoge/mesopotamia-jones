@@ -8,7 +8,7 @@ export default class VonDogen extends Npc {
         super(game, x, y, 'doge')
         this.frame = 4
 
-        this.animations.add('idle', [18, 19], 1, true)
+        this.animations.add('idle', [24, 25], 7, true)
         this.animations.play('idle')
     }
 
