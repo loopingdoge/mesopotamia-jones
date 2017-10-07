@@ -22,13 +22,13 @@ export const tutorialSteps = (inventory: Inventory) => {
             title: "L'indovinello",
             selector: '#cuneiformRiddle',
             text:
-                'Per aprire la porta devi risolvere questo indovinello.\n ATTENTO! I dati cambiano sempre'
+                'Per aprire la porta devi risolvere questo indovinello. Fai attenzione, i dati cambiano ogni volta'
         },
         {
             title: "Tradurre l'indovinello",
             selector: '#cuneiformRiddle',
             text:
-                'Selezionando una lettera puoi scoprire a quale simbolo corrisponde nella legenda',
+                'Selezionando una lettera puoi scoprire a quale simbolo corrisponde nella legenda in basso',
             video: TranslateSrc as any
         },
         {
@@ -44,7 +44,7 @@ export const tutorialSteps = (inventory: Inventory) => {
             title: 'Il Computer',
             selector: '#blocklyArea',
             text:
-                'Il computer cerca di aprire la porta con la soluzione che hai inventato',
+                'Il computer si collega alla porta e cerca di aprirla con la soluzione che hai inventato',
             video: ComputerSrc as any
         },
         {
