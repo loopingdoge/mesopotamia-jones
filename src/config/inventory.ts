@@ -3,6 +3,7 @@ import * as React from 'react'
 import * as ComputerImage from '../../assets/images/computer.png'
 import * as ComputerKeyImage from '../../assets/images/key.png'
 import * as CuneiformLegendImage from '../../assets/images/legend.png'
+import * as MapImage from '../../assets/images/map.png'
 import * as TranslatorImage from '../../assets/images/rock.png'
 
 export interface Item {
@@ -26,6 +27,7 @@ export const COMPUTER = 'COMPUTER'
 export const COMPUTER_KEY = 'COMPUTER_KEY'
 export const TRANSLATOR = 'CUNEIFORM_TRANSLATOR'
 export const LEGEND = 'LEGEND'
+export const MAP = 'MAP'
 
 export const toolboxEntries: any = [
     // {
@@ -94,6 +96,13 @@ export const legend = createItem(
     CuneiformLegendImage
 )
 
+export const map = createItem(
+    MAP,
+    'mappa della piramide',
+    'una mappa che mostra le stanze visitate della piramide.',
+    MapImage
+)
+
 const items: Item[] = [computer]
 
 export type Inventory = Item[]
@@ -101,7 +110,7 @@ export type Inventory = Item[]
 export const getItemById = (id: string) =>
     items.filter((item: Item) => item.id === id)[0]
 
-export const defaultInventory = (): Inventory => [legend]
+export const defaultInventory = (): Inventory => [legend, map]
 
 export const hasItem = (inventory: Inventory, item: Item): boolean =>
     inventory.filter(i => i.id === item.id).length > 0
