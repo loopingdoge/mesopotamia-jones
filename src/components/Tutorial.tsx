@@ -21,10 +21,21 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif'
     },
     tourTitle: {
-        fontSize: 'larger',
-        marginBottom: '8px'
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 18,
+        textAlign: 'center'
     },
     tourText: {},
+    badge: {
+        backgroundColor: 'rgb(253, 212, 02)',
+        color: 'black',
+        border: '1px solid #90752d',
+        borderRadius: 20,
+        width: '100%',
+        marginLeft: '-50%',
+        position: 'absolute'
+    },
     video: {
         margin: '16px auto',
         display: 'flex',
@@ -48,8 +59,15 @@ export default class TutorialUI extends React.PureComponent<TutorialProps> {
                 className={css(styles.tour)}
                 isOpen={isOpen}
                 onRequestClose={onClose}
+                closeWithMask={false}
+                disableInteraction={true}
+                showButtons={false}
+                showNavigation={false}
                 maskSpace={0}
                 startAt={startAt || 0}
+                badgeContent={(current: any, total: any) => {
+                    return <div className={css(styles.badge)}>{current}</div>
+                }}
                 steps={tutorialSteps(inventory).map((tutorial: Tutorial) => ({
                     selector: tutorial.selector,
                     content: () => (
@@ -57,9 +75,9 @@ export default class TutorialUI extends React.PureComponent<TutorialProps> {
                             <div className={css(styles.tourTitle)}>
                                 {tutorial.title}
                             </div>
-                            <span className={css(styles.tourText)}>
+                            <div className={css(styles.tourText)}>
                                 {tutorial.text}
-                            </span>
+                            </div>
                             <div className={css(styles.video)}>
                                 {onlyIf(
                                     Boolean(tutorial.video),
