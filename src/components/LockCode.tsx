@@ -13,6 +13,15 @@ import Button from './Button'
 
 const labelHeight = 42
 
+const pulse = {
+    '0%': {
+        backgroundColor: 'rgba(253, 212, 02, 0.05)'
+    },
+    '100%': {
+        backgroundColor: 'rgba(253, 212, 02, 0.4)'
+    }
+}
+
 const styles = StyleSheet.create({
     lockCode: {
         padding: '8px',
@@ -48,8 +57,10 @@ const styles = StyleSheet.create({
         borderRadius: 4
     },
     focused: {
-        boxShadow:
-            'rgba(255, 255, 54, 0.18) 0px 0px 75px inset, rgba(150, 150, 45, 0) 0px 0px 10px'
+        animationName: [pulse],
+        animationDuration: '1s',
+        animationIterationCount: 'infinite',
+        animationDirection: 'alternate'
     }
 })
 
