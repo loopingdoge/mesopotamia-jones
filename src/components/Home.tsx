@@ -8,6 +8,8 @@ import { defaultGameStoreState, GameStore } from '../stores/gameStore'
 import Button from './Button'
 import Section from './Section'
 
+import { sffedora } from '../utils/fonts'
+
 const styles = StyleSheet.create({
     homeContainer: {
         display: 'flex',
@@ -30,7 +32,18 @@ const styles = StyleSheet.create({
     title: {
         padding: '24px',
         textAlign: 'center',
-        fontSize: 'xx-large'
+        fontSize: 'xx-large',
+        fontFamily: [sffedora, 'sans-serif']
+    },
+    titleText: {
+        lineHeight: '129%',
+        fontSize: '2em',
+        backgroundImage: 'linear-gradient(#ff5c33, #ffcc00, #ffff99)',
+        color: 'transparent',
+        WebkitBackgroundClip: 'text',
+        backgroundClip: 'text',
+        textOverflow: 'visible'
+        // textShadow: '2px 2px #ff0000',
     },
     buttonsContainer: {
         display: 'flex',
@@ -56,7 +69,7 @@ const Home = ({
     <div className={css(styles.homeContainer)}>
         <div className={css(styles.home)}>
             <div className={css(styles.title)}>
-                <h1>Mesopotamia Jones</h1>
+                <div className={css(styles.titleText)}>Mesopotamia Jones</div>
             </div>
             <div className={css(styles.buttonsContainer)}>
                 <Button onClick={newGame} text={'Nuova partita'} />
