@@ -125,7 +125,7 @@ const riddles: Riddle[] = [
     {
         id: 'word',
         question: ([a, b, c, d]: string[]) =>
-            `Se la porta aprire vorrai, in ordine queste lettere inserire dovrai: ${a}, ${b}, ${c}, ${d}`,
+            `Se la porta aprire vorrai, queste lettere inserire dovrai: ${a}, ${b}, ${c}, ${d}`,
         defaultToolbox: [
             `
             <block type="get_letter" id="lettera1" editable="false">
