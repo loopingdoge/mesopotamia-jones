@@ -159,7 +159,7 @@ export const dialogues: Dialogue[] = [
         [
             line(
                 characters[4],
-                'Traduzione: "Attento esploratore, oltra quella porta troverai solo pericolo"'
+                'Traduzione: "Attento esploratore, oltre quella porta troverai solo pericolo"'
             )
         ],
         [],
