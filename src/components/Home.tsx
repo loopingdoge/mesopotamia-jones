@@ -4,6 +4,8 @@ import { RouterStore } from 'mobx-react-router'
 import * as React from 'react'
 
 import { defaultGameStoreState, GameStore } from '../stores/gameStore'
+
+import Button from './Button'
 import Section from './Section'
 
 const styles = StyleSheet.create({
@@ -45,21 +47,25 @@ export interface HomeProps {
     saveFileExists: boolean
 }
 
-const Home = ({ startGame, newGame, showCredits, saveFileExists }: HomeProps) =>
+const Home = ({
+    startGame,
+    newGame,
+    showCredits,
+    saveFileExists
+}: HomeProps) => (
     <div className={css(styles.homeContainer)}>
         <div className={css(styles.home)}>
             <div className={css(styles.title)}>
                 <h1>Mesopotamia Jones</h1>
             </div>
             <div className={css(styles.buttonsContainer)}>
-                <button onClick={newGame}>New Game</button>
-                <button onClick={startGame} disabled={!saveFileExists}>
-                    Continue
-                </button>
-                <button onClick={showCredits}>Credits</button>
+                <Button onClick={newGame} text={'Nuova partita'} />
+                <Button onClick={startGame} text={'Continua'} />
+                <Button onClick={showCredits} text={'Crediti'} />
             </div>
         </div>
     </div>
+)
 
 export interface HomeContainerProps {
     gameStore?: GameStore
