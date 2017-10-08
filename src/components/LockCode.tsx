@@ -15,10 +15,12 @@ const labelHeight = 42
 
 const pulse = {
     '0%': {
-        backgroundColor: 'rgba(253, 212, 02, 0.05)'
+        boxShadow:
+            'rgba(253, 212, 02, 0.4) 0px 0px 0px, rgba(253, 212, 02, 0.05) 0px 0px 0px inset'
     },
     '100%': {
-        backgroundColor: 'rgba(253, 212, 02, 0.4)'
+        boxShadow:
+            'rgba(253, 212, 02, 0.4) 0px 0px 5px, rgba(253, 212, 02, 0.4) 0px 0px 100px inset'
     }
 }
 
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     },
     focused: {
         animationName: [pulse],
-        animationDuration: '1s',
+        animationDuration: '2s',
         animationIterationCount: 'infinite',
         animationDirection: 'alternate'
     }
