@@ -5,7 +5,11 @@ import Tour from 'reactour'
 import { Inventory } from '../config/inventory'
 import { Tutorial, tutorialSteps } from '../config/tutorial'
 
-import { chevronLeft, chevronRight } from 'react-icons-kit/ionicons/'
+import {
+    androidClose,
+    chevronLeft,
+    chevronRight
+} from 'react-icons-kit/ionicons/'
 import Button from './Button'
 
 import { onlyIf } from '../utils'
@@ -44,6 +48,31 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    navigation: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    navIcons: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    navIcon: {
+        width: 8,
+        height: 8,
+        border: '1px solid #90752d',
+        borderRadius: '100%',
+        padding: 0,
+        display: 'block',
+        margin: 4,
+        outline: 0,
+        backgroundColor: 'transparent'
+    },
+    currNavIcon: {
+        backgroundColor: '#fdd466',
+        transform: 'scale(1.25)'
     }
 })
 
@@ -55,17 +84,6 @@ export interface TutorialProps {
 }
 
 export default class TutorialUI extends React.PureComponent<TutorialProps> {
-    currentIndex: string
-
-    constructor() {
-        super()
-        this.currentIndex = '1'
-    }
-
-    onStepChange(index: string) {
-        this.currentIndex = index
-    }
-
     render() {
         const { isOpen, onClose, startAt, inventory } = this.props
         return (
@@ -75,24 +93,23 @@ export default class TutorialUI extends React.PureComponent<TutorialProps> {
                 onRequestClose={onClose}
                 closeWithMask={false}
                 disableInteraction={true}
-                showButtons={true}
-                showNavigation={true}
-                showNavigationNumber={false}
+                showButtons={false}
+                showNavigation={false}
                 maskSpace={0}
                 startAt={startAt || 0}
-                // tslint:disable-next-line:jsx-no-lambda
-                badgeContent={(current: string) => {
-                    this.onStepChange(current)
-                    return <div className={css(styles.badge)}>{current}</div>
-                }}
-                prevButton={<Button icon={chevronLeft} onClick={() => {}} />}
-                nextButton={<Button icon={chevronRight} onClick={() => {}} />}
+                badgeContent={(current: string) => (
+                    <div className={css(styles.badge)}>{current}</div>
+                )}
                 steps={tutorialSteps(
                     inventory
                 ).map(
-                    (tutorial: Tutorial, index: number, array: Tutorial[]) => ({
+                    (
+                        tutorial: Tutorial,
+                        stepIndex: number,
+                        tutorials: Tutorial[]
+                    ) => ({
                         selector: tutorial.selector,
-                        content: () => (
+                        content: ({ goTo }: any) => (
                             <div>
                                 <div className={css(styles.tourTitle)}>
                                     {tutorial.title}
@@ -110,6 +127,37 @@ export default class TutorialUI extends React.PureComponent<TutorialProps> {
                                             playsInline
                                             muted
                                             width={'330px'}
+                                        />
+                                    )}
+                                </div>
+                                <div className={css(styles.navigation)}>
+                                    <Button
+                                        icon={chevronLeft}
+                                        onClick={() => goTo(stepIndex - 1)}
+                                        disabled={stepIndex === 0}
+                                    />
+                                    <nav className={css(styles.navIcons)}>
+                                        {tutorials.map(
+                                            (t: Tutorial, index: number) => (
+                                                <button
+                                                    className={css(
+                                                        styles.navIcon,
+                                                        stepIndex === index &&
+                                                            styles.currNavIcon
+                                                    )}
+                                                />
+                                            )
+                                        )}
+                                    </nav>
+                                    {stepIndex === tutorials.length - 1 ? (
+                                        <Button
+                                            icon={androidClose}
+                                            onClick={() => goTo(stepIndex + 1)}
+                                        />
+                                    ) : (
+                                        <Button
+                                            icon={chevronRight}
+                                            onClick={() => goTo(stepIndex + 1)}
                                         />
                                     )}
                                 </div>
