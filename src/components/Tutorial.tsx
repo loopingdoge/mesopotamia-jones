@@ -152,7 +152,7 @@ export default class TutorialUI extends React.PureComponent<TutorialProps> {
                                     {stepIndex === tutorials.length - 1 ? (
                                         <Button
                                             icon={androidClose}
-                                            onClick={() => goTo(stepIndex + 1)}
+                                            onClick={onClose}
                                         />
                                     ) : (
                                         <Button
