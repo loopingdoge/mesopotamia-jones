@@ -1,6 +1,6 @@
 import * as Blockly from 'node-blockly/browser'
 
-import strings from './strings'
+import l10n from '../l10n'
 
 export interface Block {
     id: string
@@ -53,7 +53,7 @@ export const blocks: Block[] = [
         'text_join',
         {
             type: 'text_join',
-            message0: `${strings.block_join} %1 %2 %3 %4`,
+            message0: `${l10n.block_join} %1 %2 %3 %4`,
             args0: [
                 {
                     type: 'input_value',
@@ -184,7 +184,7 @@ export const blocks: Block[] = [
         'if',
         {
             type: 'if',
-            message0: `${strings.block_if} %1 ${strings.block_then} %2 ${strings.block_else} %3`,
+            message0: `${l10n.block_if} %1 ${l10n.block_then} %2 ${l10n.block_else} %3`,
             args0: [
                 {
                     type: 'input_value',
@@ -232,7 +232,7 @@ export const blocks: Block[] = [
         'is_even',
         {
             type: 'block_type',
-            message0: `%1 ${strings.block_is_even}`,
+            message0: `%1 ${l10n.block_is_even}`,
             args0: [
                 {
                     type: 'input_value',
@@ -473,7 +473,7 @@ export const blocks: Block[] = [
         'riddle_return',
         {
             type: 'riddle_return',
-            message0: `${strings.block_riddle_return_given_numbers} %1 %2 ${strings.block_riddle_return_open_with} %3`,
+            message0: `${l10n.block_riddle_return_given_numbers} %1 %2 ${l10n.block_riddle_return_open_with} %3`,
             args0: [
                 {
                     type: 'input_dummy',
@@ -493,7 +493,7 @@ export const blocks: Block[] = [
             ],
             inputsInline: false,
             colour: colors.root,
-            tooltip: strings.block_riddle_return_numbers_tooltip,
+            tooltip: l10n.block_riddle_return_numbers_tooltip,
             helpUrl: ''
         },
         (block: any) => {
@@ -507,7 +507,7 @@ export const blocks: Block[] = [
                 Blockly.JavaScript.ORDER_ADDITION
             )
             const code = `
-                var ${strings.block_number}
+                var ${l10n.block_number}
                 function main() {
                     ${params}
                     return ${ret}
@@ -520,7 +520,7 @@ export const blocks: Block[] = [
         'riddle_somma',
         {
             type: 'riddle_sum',
-            message0: `${strings.block_riddle_return_given_numbers} %1 %2 ${strings.block_riddle_return_open_with} %3`,
+            message0: `${l10n.block_riddle_return_given_numbers} %1 %2 ${l10n.block_riddle_return_open_with} %3`,
             args0: [
                 {
                     type: 'input_dummy',
@@ -540,7 +540,7 @@ export const blocks: Block[] = [
             ],
             inputsInline: false,
             colour: colors.root,
-            tooltip: strings.block_riddle_return_open_with,
+            tooltip: l10n.block_riddle_return_open_with,
             helpUrl: ''
         },
         (block: any) => {
@@ -554,7 +554,7 @@ export const blocks: Block[] = [
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
-                var ${strings.block_number}1, ${strings.block_number}2;
+                var ${l10n.block_number}1, ${l10n.block_number}2;
                 function main() {
                     ${params}
                     return ${ret}
@@ -567,7 +567,7 @@ export const blocks: Block[] = [
         'riddle_word',
         {
             type: 'riddle_word',
-            message0: `${strings.block_riddle_return_given_letters} %1 %2 ${strings.block_riddle_return_open_with} %3`,
+            message0: `${l10n.block_riddle_return_given_letters} %1 %2 ${l10n.block_riddle_return_open_with} %3`,
             args0: [
                 {
                     type: 'input_dummy',
@@ -600,7 +600,7 @@ export const blocks: Block[] = [
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
-                var ${strings.block_letter}1, ${strings.block_letter}2, ${strings.block_letter}3, ${strings.block_letter}4
+                var ${l10n.block_letter}1, ${l10n.block_letter}2, ${l10n.block_letter}3, ${l10n.block_letter}4
                 function main() {
                     ${params}
                     return ${ret}
@@ -613,7 +613,7 @@ export const blocks: Block[] = [
         'riddle_if',
         {
             type: 'riddle_if',
-            message0: `${strings.block_riddle_return_given_numbers} %1 %2 %3 ${strings.block_riddle_return_open_with} %4`,
+            message0: `${l10n.block_riddle_return_given_numbers} %1 %2 %3 ${l10n.block_riddle_return_open_with} %4`,
             args0: [
                 {
                     type: 'input_dummy',
@@ -654,7 +654,7 @@ export const blocks: Block[] = [
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
-                var ${strings.block_number}1, ${strings.block_number}2, ${strings.block_magic_number}, ${strings.block_result};
+                var ${l10n.block_number}1, ${l10n.block_number}2, ${l10n.block_magic_number}, ${l10n.block_result};
                 function main() {
                     ${params}
                     ${userCode};

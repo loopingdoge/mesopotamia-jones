@@ -3,7 +3,7 @@ import { upperFirst } from 'lodash'
 import * as React from 'react'
 
 import { Inventory, Item } from '../config/inventory'
-import strings from '../config/strings'
+import l10n from '../l10n'
 
 import { mod } from '../utils'
 import { arvo } from '../utils/fonts'
@@ -192,7 +192,7 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
                     className={css(styles.itemListSection, styles.inventoryTab)}
                 >
                     <div className={css(styles.tabHeader)}>
-                        {strings.inventory}
+                        {l10n.inventory}
                     </div>
                     <div className={css(styles.itemList)}>
                         {inventory.map((item, index) => (

@@ -5,7 +5,7 @@ import { close, grid, help, image } from 'react-icons-kit/ionicons/'
 
 import { GameUI, UIStore } from '../stores/gameUIStore'
 
-import strings from '../config/strings'
+import l10n from '../l10n'
 
 import { onlyIf } from '../utils'
 
@@ -47,7 +47,7 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
     <div className={css(styles.inventoryHeader)} style={{ width }}>
         <Button
             icon={image}
-            text={strings.map}
+            text={l10n.map}
             onClick={
                 gameUi === GameUI.Map
                     ? show.bind(null, GameUI.Game)
@@ -57,7 +57,7 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
         />
         <Button
             icon={grid}
-            text={strings.inventory}
+            text={l10n.inventory}
             onClick={
                 gameUi === GameUI.Inventory
                     ? show.bind(null, GameUI.Game)
@@ -75,7 +75,7 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
         )}
         <Button
             icon={help}
-            text={strings.help}
+            text={l10n.help}
             onClick={
                 gameUi === GameUI.Help
                     ? show.bind(null, GameUI.Game)

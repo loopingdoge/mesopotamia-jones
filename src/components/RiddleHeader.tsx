@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Icon } from 'react-icons-kit'
 import { androidRefresh, chevronLeft, help } from 'react-icons-kit/ionicons/'
 
-import strings from '../config/strings'
+import l10n from '../l10n'
 
 import Button from './Button'
 
@@ -28,9 +28,9 @@ export interface RiddleHeaderProps {
 
 const RiddleHeader = ({ goBack, openInfo }: RiddleHeaderProps) => (
     <div className={css(styles.riddleHeader)}>
-        <Button icon={chevronLeft} text={strings.back} onClick={goBack} />
+        <Button icon={chevronLeft} text={l10n.back} onClick={goBack} />
         <div className={css(styles.spacer)} />
-        <Button icon={help} text={strings.help} onClick={openInfo} />
+        <Button icon={help} text={l10n.help} onClick={openInfo} />
     </div>
 )
 

@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 import { RouterStore } from 'mobx-react-router'
 import * as React from 'react'
 
-import strings from '../config/strings'
+import l10n from '../l10n'
 
 import { defaultGameStoreState, GameStore } from '../stores/gameStore'
 
@@ -74,9 +74,9 @@ const Home = ({
                 <div className={css(styles.titleText)}>Mesopotamia Jones</div>
             </div>
             <div className={css(styles.buttonsContainer)}>
-                <Button onClick={newGame} text={strings.new_game} />
-                <Button onClick={startGame} text={strings.continue_game} />
-                <Button onClick={showCredits} text={strings.credits} />
+                <Button onClick={newGame} text={l10n.new_game} />
+                <Button onClick={startGame} text={l10n.continue_game} />
+                <Button onClick={showCredits} text={l10n.credits} />
             </div>
         </div>
     </div>

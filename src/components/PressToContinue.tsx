@@ -1,7 +1,7 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 
-import strings from '../config/strings'
+import l10n from '../l10n'
 
 import { isMobile, onlyIf } from '../utils'
 
@@ -33,8 +33,8 @@ export default class PressToContinue extends React.PureComponent {
         return (
             <div className={css(styles.continueHint)}>
                 {isMobile()
-                    ? strings.continue_hint_mobile
-                    : strings.continue_hint_keyboard}
+                    ? l10n.continue_hint_mobile
+                    : l10n.continue_hint_keyboard}
             </div>
         )
     }

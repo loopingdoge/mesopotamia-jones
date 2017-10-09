@@ -1,7 +1,7 @@
 import { padStart } from 'lodash'
 import * as Blockly from 'node-blockly/browser'
 
-import strings from './strings'
+import l10n from '../l10n'
 
 export interface Riddle {
     id: string
@@ -40,11 +40,11 @@ export const userSolutionInit = (type: SolutionType, length: number) => {
 const riddles: Riddle[] = [
     {
         id: 'return',
-        question: strings.riddle_return_question,
+        question: l10n.riddle_return_question,
         defaultToolbox: [
             `
             <block type="get_number" id="numero" editable="false">
-                <field name="NAME">${strings.block_number}</field>
+                <field name="NAME">${l10n.block_number}</field>
             </block>
             `,
             `<block type="math_number"></block>`
@@ -58,7 +58,7 @@ const riddles: Riddle[] = [
         `,
         paramsXML: ([a]) => `
             <block type="set_last_number" id="numero" deletable="false" editable="false" movable="false">
-                <field name="NAME">${strings.block_number}</field>
+                <field name="NAME">${l10n.block_number}</field>
                 <value name="VALUE">
                     <block type="math_number" id="numero_value" deletable="false" editable="false" movable="false">
                         <field name="NUM">${a}</field>
@@ -73,16 +73,16 @@ const riddles: Riddle[] = [
     },
     {
         id: 'somma',
-        question: strings.riddle_sum_question,
+        question: l10n.riddle_sum_question,
         defaultToolbox: [
             `
             <block type="get_number" id="numero1" editable="false">
-                <field name="NAME">${strings.block_number}1</field>
+                <field name="NAME">${l10n.block_number}1</field>
             </block>
             `,
             `
             <block type="get_number" id="numero2" editable="false">
-                <field name="NAME">${strings.block_number}2</field>
+                <field name="NAME">${l10n.block_number}2</field>
             </block>
             `,
             `
@@ -100,7 +100,7 @@ const riddles: Riddle[] = [
         `,
         paramsXML: ([a, b]) => `
             <block type="set_number" id="numero1" deletable="false" editable="false" movable="false">
-                <field name="NAME">${strings.block_number}1</field>
+                <field name="NAME">${l10n.block_number}1</field>
                 <value name="VALUE">
                     <block type="math_number" id="numero1_value" deletable="false" editable="false" movable="false">
                         <field name="NUM">${a}</field>
@@ -108,7 +108,7 @@ const riddles: Riddle[] = [
                 </value>
                 <next>
                     <block type="set_last_number" id="numero2" deletable="false" editable="false" movable="false">
-                        <field name="NAME">${strings.block_number}2</field>
+                        <field name="NAME">${l10n.block_number}2</field>
                         <value name="VALUE">
                             <block type="math_number" id="numero2_value" deletable="false" editable="false" movable="false">
                                 <field name="NUM">${b}</field>
@@ -125,26 +125,26 @@ const riddles: Riddle[] = [
     },
     {
         id: 'word',
-        question: strings.riddle_word_question,
+        question: l10n.riddle_word_question,
         defaultToolbox: [
             `
             <block type="get_letter" id="lettera1" editable="false">
-                <field name="NAME">${strings.block_letter}1</field>
+                <field name="NAME">${l10n.block_letter}1</field>
             </block>
             `,
             `
             <block type="get_letter" id="lettera2" editable="false">
-                <field name="NAME">${strings.block_letter}2</field>
+                <field name="NAME">${l10n.block_letter}2</field>
             </block>
             `,
             `
             <block type="get_letter" id="lettera3" editable="false">
-                <field name="NAME">${strings.block_letter}3</field>
+                <field name="NAME">${l10n.block_letter}3</field>
             </block>
             `,
             `
             <block type="get_letter" id="lettera4" editable="false">
-                <field name="NAME">${strings.block_letter}4</field>
+                <field name="NAME">${l10n.block_letter}4</field>
             </block>
             `,
             `
@@ -164,7 +164,7 @@ const riddles: Riddle[] = [
         </xml>`,
         paramsXML: ([a, b, c, d]) => `
             <block type="set_letter" id="lettera1" deletable="false" editable="false" movable="false">
-                <field name="NAME">${strings.block_letter}1</field>
+                <field name="NAME">${l10n.block_letter}1</field>
                 <value name="VALUE">
                     <block type="text" id="lettera1_text" deletable="false" editable="false" movable="false">
                         <field name="TEXT">${a}</field>
@@ -172,7 +172,7 @@ const riddles: Riddle[] = [
                 </value>
                 <next>
                     <block type="set_letter" id="lettera2" deletable="false" editable="false" movable="false">
-                        <field name="NAME">${strings.block_letter}2</field>
+                        <field name="NAME">${l10n.block_letter}2</field>
                         <value name="VALUE">
                             <block type="text" id="lettera2_text" deletable="false" editable="false" movable="false">
                                 <field name="TEXT">${b}</field>
@@ -180,7 +180,7 @@ const riddles: Riddle[] = [
                         </value>
                         <next>
                             <block type="set_letter" id="lettera3" deletable="false" editable="false" movable="false">
-                                <field name="NAME">${strings.block_letter}3</field>
+                                <field name="NAME">${l10n.block_letter}3</field>
                                 <value name="VALUE">
                                     <block type="text" id="lettera3_text" deletable="false" editable="false" movable="false">
                                         <field name="TEXT">${c}</field>
@@ -188,7 +188,7 @@ const riddles: Riddle[] = [
                                 </value>
                                 <next>
                                     <block type="set_last_letter" id="lettera4" deletable="false" editable="false" movable="false">
-                                        <field name="NAME">${strings.block_letter}4</field>
+                                        <field name="NAME">${l10n.block_letter}4</field>
                                         <value name="VALUE">
                                             <block type="text" id="lettera4_text" deletable="false" editable="false" movable="false">
                                                 <field name="TEXT">${d}</field>
@@ -214,26 +214,26 @@ const riddles: Riddle[] = [
     },
     {
         id: 'if',
-        question: strings.riddle_if_question,
+        question: l10n.riddle_if_question,
         defaultToolbox: [
             `
                 <block type="get_number" id="numero1" editable="false">
-                    <field name="NAME">${strings.block_number}1</field>
+                    <field name="NAME">${l10n.block_number}1</field>
                 </block>
             `,
             `
                 <block type="get_number" id="numero2" editable="false">
-                    <field name="NAME">${strings.block_number}2</field>
+                    <field name="NAME">${l10n.block_number}2</field>
                 </block>
             `,
             `
                 <block type="get_number" id="numero_magico" editable="false">
-                    <field name="NAME">${strings.block_magic_number}</field>
+                    <field name="NAME">${l10n.block_magic_number}</field>
                 </block>
             `,
             `
                 <block type="set_var_number" editable="false">
-                    <field name="NAME">${strings.block_result}</field>
+                    <field name="NAME">${l10n.block_result}</field>
                 </block>
             `,
             `
@@ -260,7 +260,7 @@ const riddles: Riddle[] = [
                     <statement name="USERCODE"></statement>
                     <value name="RETURN">
                         <block type="get_number" id="numero1" editable="false" movable="false" deletable="false">
-                            <field name="NAME">${strings.block_result}</field>
+                            <field name="NAME">${l10n.block_result}</field>
                         </block>
                     </value>
                 </block>
@@ -268,7 +268,7 @@ const riddles: Riddle[] = [
         `,
         paramsXML: ([a, b, c]) => `
             <block type="set_number" id="numero1" deletable="false" editable="false" movable="false">
-                <field name="NAME">${strings.block_number}1</field>
+                <field name="NAME">${l10n.block_number}1</field>
                 <value name="VALUE">
                     <block type="math_number" id="numero1_value" deletable="false" editable="false" movable="false">
                         <field name="NUM">${a}</field>
@@ -276,7 +276,7 @@ const riddles: Riddle[] = [
                 </value>
                 <next>
                     <block type="set_number" id="numero2" deletable="false" editable="false" movable="false">
-                        <field name="NAME">${strings.block_number}2</field>
+                        <field name="NAME">${l10n.block_number}2</field>
                         <value name="VALUE">
                             <block type="math_number" id="numero2_value" deletable="false" editable="false" movable="false">
                                 <field name="NUM">${b}</field>
@@ -284,7 +284,7 @@ const riddles: Riddle[] = [
                         </value>
                         <next>
                             <block type="set_last_number" id="numero_magico" deletable="false" editable="false" movable="false">
-                                <field name="NAME">${strings.block_magic_number}</field>
+                                <field name="NAME">${l10n.block_magic_number}</field>
                                 <value name="VALUE">
                                     <block type="math_number" id="numero_magico_value" deletable="false" editable="false" movable="false">
                                         <field name="NUM">${c}</field>

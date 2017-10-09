@@ -7,7 +7,7 @@ import * as VonTalin from '../../assets/images/von-talin.png'
 import { computer, computerKey, Item, translator } from './inventory'
 import { Riddle } from './riddles'
 
-import strings from '../config/strings'
+import l10n from '../l10n'
 
 export interface Character {
     id: string
@@ -59,65 +59,60 @@ export const characters: Character[] = [
     createCharacter('fv', 'Farren Von Talin', VonTalin as any),
     createCharacter('ab', 'An-Ki Hammurtosh', Hammurtosh as any),
     createCharacter('do', 'Wow Von Dogen', VonDogen as any),
-    createCharacter('rs', strings.conscious_rock, Rock as any)
+    createCharacter('rs', l10n.conscious_rock, Rock as any)
 ]
 
 export const NEED_KEY = 'NEED_KEY'
 export const DOOR_ROCK_REQUIRED = 'DOOR_ROCK_REQUIRED'
 
 export const dialogues: Dialogue[] = [
-    dialogue('dialog1', [line(characters[0], strings.dialogue_1_0)], []),
+    dialogue('dialog1', [line(characters[0], l10n.dialogue_1_0)], []),
     dialogue(
         'dialog2',
         [
-            line(characters[0], strings.dialogue_2_0),
-            line(characters[1], strings.dialogue_2_1),
-            line(characters[0], strings.dialogue_2_2),
-            line(characters[1], strings.dialogue_2_3),
-            line(characters[1], strings.dialogue_2_4),
-            line(characters[1], strings.dialogue_2_5),
-            line(characters[1], strings.dialogue_2_6),
-            line(characters[1], strings.dialogue_2_7)
+            line(characters[0], l10n.dialogue_2_0),
+            line(characters[1], l10n.dialogue_2_1),
+            line(characters[0], l10n.dialogue_2_2),
+            line(characters[1], l10n.dialogue_2_3),
+            line(characters[1], l10n.dialogue_2_4),
+            line(characters[1], l10n.dialogue_2_5),
+            line(characters[1], l10n.dialogue_2_6),
+            line(characters[1], l10n.dialogue_2_7)
         ],
         [computerKey]
     ),
     dialogue(
         'dialog3',
         [
-            line(characters[1], strings.dialogue_3_0),
-            line(characters[0], strings.dialogue_3_1),
-            line(characters[1], strings.dialogue_3_2)
+            line(characters[1], l10n.dialogue_3_0),
+            line(characters[0], l10n.dialogue_3_1),
+            line(characters[1], l10n.dialogue_3_2)
         ],
         [translator],
         undefined,
         'dialog4'
     ),
-    dialogue('dialog4', [line(characters[1], strings.dialogue_4_0)], []),
+    dialogue('dialog4', [line(characters[1], l10n.dialogue_4_0)], []),
     dialogue(
         'dialog5',
         [
-            line(characters[2], strings.dialogue_5_0),
-            line(characters[0], strings.dialogue_5_1)
+            line(characters[2], l10n.dialogue_5_0),
+            line(characters[0], l10n.dialogue_5_1)
         ],
         []
     ),
     dialogue(
         'dialog6',
-        [line(characters[3], strings.dialogue_6_0)],
+        [line(characters[3], l10n.dialogue_6_0)],
         [],
         undefined,
         'dialog7'
     ),
-    dialogue(
-        'dialog7',
-        [line(characters[4], strings.dialogue_7_0)],
-        [],
-        computer
-    ),
-    dialogue(NEED_KEY, [line(characters[0], strings.dialogue_need_key)], []),
+    dialogue('dialog7', [line(characters[4], l10n.dialogue_7_0)], [], computer),
+    dialogue(NEED_KEY, [line(characters[0], l10n.dialogue_need_key)], []),
     dialogue(
         DOOR_ROCK_REQUIRED,
-        [line(characters[0], strings.dialogue_need_rock)],
+        [line(characters[0], l10n.dialogue_need_rock)],
         []
     )
 ]

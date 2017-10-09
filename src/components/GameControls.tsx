@@ -10,7 +10,7 @@ import {
 
 import { arvo } from '../utils/fonts'
 
-import strings from '../config/strings'
+import l10n from '../l10n'
 
 const styles = StyleSheet.create({
     container: {
@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
 const GameControls = () => (
     <div className={css(styles.container)}>
         <div className={css(styles.header, styles.tabHeader)}>
-            {strings.controls_game_controls}
+            {l10n.controls_game_controls}
         </div>
         <div className={css(styles.controlsWrapper)}>
             <div className={css(styles.controlsColumn)}>
                 <div className={css(styles.header, styles.tabSubheader)}>
-                    {strings.controls_move}
+                    {l10n.controls_move}
                 </div>
                 <ul className={css(styles.keyWrapper)}>
                     <li className={css(styles.key, styles.directionKey)}>
@@ -147,17 +147,17 @@ const GameControls = () => (
             </div>
             <div className={css(styles.controlsColumn)}>
                 <div className={css(styles.header, styles.tabSubheader)}>
-                    {strings.controls_interact}
+                    {l10n.controls_interact}
                 </div>
                 <ul className={css(styles.keyWrapper)}>
                     <li className={css(styles.key, styles.spaceBar)}>
-                        <b>{strings.controls_space}</b>
+                        <b>{l10n.controls_space}</b>
                     </li>
                 </ul>
             </div>
             <div className={css(styles.controlsColumn)}>
                 <div className={css(styles.header, styles.tabSubheader)}>
-                    {strings.controls_shortcuts}
+                    {l10n.controls_shortcuts}
                 </div>
                 <ul className={css(styles.keyWrapper)}>
                     <li className={css(styles.key, styles.gameHeaderKey)}>

@@ -6,7 +6,7 @@ import * as CuneiformLegendImage from '../../assets/images/legend.png'
 import * as MapImage from '../../assets/images/map.png'
 import * as TranslatorImage from '../../assets/images/rock.png'
 
-import strings from './strings'
+import l10n from '../l10n'
 
 export interface Item {
     id: string
@@ -17,8 +17,8 @@ export interface Item {
 
 export class Computer implements Item {
     id: string = COMPUTER
-    name = strings.computer_name
-    description = strings.computer_description
+    name = l10n.computer_name
+    description = l10n.computer_description
     workspace: { [riddleId: string]: string } = {}
     image = ComputerImage
 }
@@ -79,29 +79,29 @@ export const computer = new Computer()
 // export const rockSmasher = createItem(ROCK_SMASHER, 'rock smasher', '')
 export const computerKey = createItem(
     COMPUTER_KEY,
-    strings.old_key_name,
-    strings.old_key_description,
+    l10n.old_key_name,
+    l10n.old_key_description,
     ComputerKeyImage
 )
 
 export const translator = createItem(
     TRANSLATOR,
-    strings.conscious_rock_name,
-    strings.conscious_rock_description,
+    l10n.conscious_rock_name,
+    l10n.conscious_rock_description,
     TranslatorImage
 )
 
 export const legend = createItem(
     LEGEND,
-    strings.cuneiform_legend_name,
-    strings.cuneiform_legend_description,
+    l10n.cuneiform_legend_name,
+    l10n.cuneiform_legend_description,
     CuneiformLegendImage
 )
 
 export const map = createItem(
     MAP,
-    strings.map_name,
-    strings.map_description,
+    l10n.map_name,
+    l10n.map_description,
     MapImage
 )
 

@@ -4,7 +4,7 @@ import Icon from 'react-icons-kit'
 import { chevronRight } from 'react-icons-kit/ionicons/'
 import * as ReactModal from 'react-modal'
 
-import strings from '../config/strings'
+import l10n from '../l10n'
 
 import Button from './Button'
 import PressToContinue from './PressToContinue'
@@ -93,14 +93,14 @@ export const SolvedRiddleModal = ({ onClick }: SolvedRiddleModalProps) => (
             }
         }}
     >
-        <h1>{strings.riddle_solved}</h1>
+        <h1>{l10n.riddle_solved}</h1>
         <Button
             icon={chevronRight}
-            text={strings.riddle_open_door}
+            text={l10n.riddle_open_door}
             onClick={onClick}
             autofocus
         />
-        <p className={css(styles.continueHint)}>{strings.riddle_solved_hint}</p>
+        <p className={css(styles.continueHint)}>{l10n.riddle_solved_hint}</p>
     </div>
 )
 

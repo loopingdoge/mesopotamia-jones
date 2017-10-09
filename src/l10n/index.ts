@@ -1,0 +1,128 @@
+import * as getLocale from 'browser-locale'
+
+import english from './en'
+import italian from './it'
+
+export interface LocalizedStrings {
+    // Home
+    new_game: string
+    continue_game: string
+    credits: string
+
+    // Game
+    map: string
+    inventory: string
+    help: string
+    continue_hint_keyboard: string
+    continue_hint_mobile: string
+    controls_game_controls: string
+    controls_move: string
+    controls_interact: string
+    controls_space: string
+    controls_shortcuts: string
+    notification_automatic_door_message: string
+
+    // Riddle
+    back: string
+    riddle_solved: string
+    riddle_open_door: string
+    riddle_solved_hint: string
+
+    // Riddle questions
+    riddle_return_question: (...args: any[]) => string
+    riddle_sum_question: (...args: any[]) => string
+    riddle_word_question: (...args: any[]) => string
+    riddle_if_question: (...args: any[]) => string
+
+    // Blocks
+    block_number: string
+    block_letter: string
+    block_magic_number: string
+    block_result: string
+    block_join: string
+    block_if: string
+    block_then: string
+    block_else: string
+    block_is_even: string
+    block_riddle_return_given_numbers: string
+    block_riddle_return_given_letters: string
+    block_riddle_return_open_with: string
+    block_riddle_return_numbers_tooltip: string
+
+    // Characters
+    conscious_rock: string
+
+    // Items
+    computer_name: string
+    computer_description: string
+    old_key_name: string
+    old_key_description: string
+    conscious_rock_name: string
+    conscious_rock_description: string
+    cuneiform_legend_name: string
+    cuneiform_legend_description: string
+    map_name: string
+    map_description: string
+
+    // Tutorials
+    tut_riddle_title: string
+    tut_riddle_text: string
+
+    tut_translate_riddle_title: string
+    tut_translate_riddle_text: string
+
+    tut_open_door_title: string
+    tut_open_door_text: string
+
+    tut_computer_title: string
+    tut_computer_text: string
+
+    tut_blocks_title: string
+    tut_blocks_text: string
+
+    tut_solution_title: string
+    tut_solution_text: string
+
+    // Dialogues
+    dialogue_1_0: string
+
+    dialogue_2_0: string
+    dialogue_2_1: string
+    dialogue_2_2: string
+    dialogue_2_3: string
+    dialogue_2_4: string
+    dialogue_2_5: string
+    dialogue_2_6: string
+    dialogue_2_7: string
+
+    dialogue_3_0: string
+    dialogue_3_1: string
+    dialogue_3_2: string
+
+    dialogue_4_0: string
+
+    dialogue_5_0: string
+    dialogue_5_1: string
+
+    dialogue_6_0: string
+
+    dialogue_7_0: string
+
+    dialogue_need_key: string
+
+    dialogue_need_rock: string
+}
+
+export const getL10NDictionary: () => LocalizedStrings = () => {
+    const locale = getLocale()
+    switch (locale) {
+        case 'it-IT':
+            return italian
+        default:
+            return english
+    }
+}
+
+export const l10n = getL10NDictionary()
+
+export default l10n
