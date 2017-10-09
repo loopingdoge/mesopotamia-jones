@@ -3,6 +3,7 @@ import { upperFirst } from 'lodash'
 import * as React from 'react'
 
 import { Inventory, Item } from '../config/inventory'
+import strings from '../config/strings'
 
 import { mod } from '../utils'
 import { arvo } from '../utils/fonts'
@@ -190,7 +191,9 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
                 <div
                     className={css(styles.itemListSection, styles.inventoryTab)}
                 >
-                    <div className={css(styles.tabHeader)}>Inventario</div>
+                    <div className={css(styles.tabHeader)}>
+                        {strings.inventory}
+                    </div>
                     <div className={css(styles.itemList)}>
                         {inventory.map((item, index) => (
                             <div
@@ -223,49 +226,44 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
                         styles.inventoryTab
                     )}
                 >
-                    {inventory[itemIndex] ? (
-                        <div className={css(styles.item)}>
-                            <div
-                                className={css(
-                                    styles.tabHeader,
-                                    this.state.triggerAnimation
-                                        ? slideAnimation(0).animation
-                                        : null
-                                )}
-                            >
-                                {upperFirst(inventory[itemIndex].name)}
-                            </div>
-                            <div
-                                className={css(
-                                    styles.itemImageBigContainer,
-                                    this.state.triggerAnimation
-                                        ? slideAnimation(100).animation
-                                        : null
-                                )}
-                            >
-                                <div
-                                    className={css(styles.itemImageBig)}
-                                    style={{
-                                        backgroundImage: `url(${inventory[
-                                            itemIndex
-                                        ].image})`
-                                    }}
-                                />
-                            </div>
-                            <div
-                                className={css(
-                                    styles.itemDescription,
-                                    this.state.triggerAnimation
-                                        ? slideAnimation(200).animation
-                                        : null
-                                )}
-                            >
-                                {upperFirst(inventory[itemIndex].description)}
-                            </div>
+                    <div className={css(styles.item)}>
+                        <div
+                            className={css(
+                                styles.tabHeader,
+                                this.state.triggerAnimation
+                                    ? slideAnimation(0).animation
+                                    : null
+                            )}
+                        >
+                            {upperFirst(inventory[itemIndex].name)}
                         </div>
-                    ) : (
-                        <div>Seleziona un oggetto</div>
-                    )}
+                        <div
+                            className={css(
+                                styles.itemImageBigContainer,
+                                this.state.triggerAnimation
+                                    ? slideAnimation(100).animation
+                                    : null
+                            )}
+                        >
+                            <div
+                                className={css(styles.itemImageBig)}
+                                style={{
+                                    backgroundImage: `url(${inventory[itemIndex]
+                                        .image})`
+                                }}
+                            />
+                        </div>
+                        <div
+                            className={css(
+                                styles.itemDescription,
+                                this.state.triggerAnimation
+                                    ? slideAnimation(200).animation
+                                    : null
+                            )}
+                        >
+                            {upperFirst(inventory[itemIndex].description)}
+                        </div>
+                    </div>
                 </div>
             </div>
         )

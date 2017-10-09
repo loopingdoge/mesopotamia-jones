@@ -3,10 +3,13 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { close, grid, help, image } from 'react-icons-kit/ionicons/'
 
-import { onlyIf } from '../utils'
-import Button from './Button'
-
 import { GameUI, UIStore } from '../stores/gameUIStore'
+
+import strings from '../config/strings'
+
+import { onlyIf } from '../utils'
+
+import Button from './Button'
 
 const styles = StyleSheet.create({
     inventoryHeader: {
@@ -44,7 +47,7 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
     <div className={css(styles.inventoryHeader)} style={{ width }}>
         <Button
             icon={image}
-            text={'Mappa'}
+            text={strings.map}
             onClick={
                 gameUi === GameUI.Map
                     ? show.bind(null, GameUI.Game)
@@ -54,7 +57,7 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
         />
         <Button
             icon={grid}
-            text={'Inventario'}
+            text={strings.inventory}
             onClick={
                 gameUi === GameUI.Inventory
                     ? show.bind(null, GameUI.Game)
@@ -72,7 +75,7 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
         )}
         <Button
             icon={help}
-            text={'Aiuto'}
+            text={strings.help}
             onClick={
                 gameUi === GameUI.Help
                     ? show.bind(null, GameUI.Game)

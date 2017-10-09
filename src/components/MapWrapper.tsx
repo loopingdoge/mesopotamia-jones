@@ -6,6 +6,7 @@ import Map from './Map'
 
 import { computer, getToolbox, hasItem, translator } from '../config/inventory'
 import { Riddle } from '../config/riddles'
+import strings from '../config/strings'
 
 import { GameStore } from '../stores/gameStore'
 
@@ -102,7 +103,7 @@ export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
         return (
             <div className={css(styles.wrapper)}>
                 <div className={css(styles.mapWrapperTab)}>
-                    <div className={css(styles.tabHeader)}>Mappa</div>
+                    <div className={css(styles.tabHeader)}>{strings.map}</div>
                     <div className={css(styles.mapContainer)}>
                         <div>
                             <Map onMapDoorClick={onMapDoorClick} />

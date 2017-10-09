@@ -3,14 +3,16 @@ import * as Hammurtosh from '../../assets/images/mummy.png'
 import * as Rock from '../../assets/images/rock.png'
 import * as VonDogen from '../../assets/images/von-dogen.png'
 import * as VonTalin from '../../assets/images/von-talin.png'
-import { computer, computerKey, Item, translator } from './inventory'
 
+import { computer, computerKey, Item, translator } from './inventory'
 import { Riddle } from './riddles'
+
+import strings from '../config/strings'
 
 export interface Character {
     id: string
     name: string
-    image: string // TODO provvisorio
+    image: string
 }
 
 export interface Line {
@@ -57,127 +59,65 @@ export const characters: Character[] = [
     createCharacter('fv', 'Farren Von Talin', VonTalin as any),
     createCharacter('ab', 'An-Ki Hammurtosh', Hammurtosh as any),
     createCharacter('do', 'Wow Von Dogen', VonDogen as any),
-    createCharacter('rs', 'Roccia Senziente', Rock as any)
+    createCharacter('rs', strings.conscious_rock, Rock as any)
 ]
 
 export const NEED_KEY = 'NEED_KEY'
 export const DOOR_ROCK_REQUIRED = 'DOOR_ROCK_REQUIRED'
 
 export const dialogues: Dialogue[] = [
-    dialogue(
-        'dialog1',
-        [
-            line(
-                characters[0],
-                "Accidenti, mentre esploravo delle antiche rovine si è rotto il pavimento e sono finito in questa caverna... devo cercare di uscire da qui. Più avanti c'è una porta, vediamo cosa c'è oltre."
-            )
-        ],
-        []
-    ),
+    dialogue('dialog1', [line(characters[0], strings.dialogue_1_0)], []),
     dialogue(
         'dialog2',
         [
-            line(
-                characters[0],
-                "Com'è possibile che ci sia una persona qui, queste rovine dovrebbero essere state chiuse da migliaia di anni... Chi sei tu?"
-            ),
-            line(
-                characters[1],
-                'Chi osa risvegliarmi dal mio eterno sonno! Vabbè sto dormendo da 104 anni, forse era anche ora che mi svegliassi... Mi chiamo Farren Von Talin ed anche io ero un esploratore come te ma poi...'
-            ),
-            line(characters[0], '... Poi ti sei fatto male al ginocchio?'),
-            line(
-                characters[1],
-                'Cosa? E perché mai!? No, come te sono rimasto intrappolato in queste rovine, forse lo avrai già notato ma le porte in questo posto sono maledette!'
-            ),
-            line(
-                characters[1],
-                'Ogni volta che ci passi i numeri degli indovinelli cambiano e ti costringono a risolvere sempre lo stesso enigma! Per questo motivo avevo iniziato a costruire una macchina programmabile in grado di risolvere gli indovinelli automaticamente.'
-            ),
-            line(
-                characters[1],
-                "Sfortunatamente in queste caverne si aggira anche An-Ki Hammurtosh, la mummia malvagia che ha maledetto questo posto e che mi ha trasformato in un fantasma, condannandomi a vivere qui per l'eternità."
-            ),
-            line(
-                characters[1],
-                'Per proteggerlo dalle grinfie di Hammurtosh, ho nascosto la mia macchina in una cassa nella stanza in cui sei caduto inizialmente, tieni la chiave per aprirla.'
-            ),
-            line(
-                characters[1],
-                'Una volta recuperata la macchina, torna da me e ti farò un regalo!'
-            )
+            line(characters[0], strings.dialogue_2_0),
+            line(characters[1], strings.dialogue_2_1),
+            line(characters[0], strings.dialogue_2_2),
+            line(characters[1], strings.dialogue_2_3),
+            line(characters[1], strings.dialogue_2_4),
+            line(characters[1], strings.dialogue_2_5),
+            line(characters[1], strings.dialogue_2_6),
+            line(characters[1], strings.dialogue_2_7)
         ],
         [computerKey]
     ),
     dialogue(
         'dialog3',
         [
-            line(
-                characters[1],
-                'Ora che hai il computer ti sarà più facile uscire dalla caverna, ma lascia che ti aiuti ancora... ecco fatto, ti ho installato le versioni pre-alphabeto di Minecraft e Angry Birds proprio come mi avevi chiesto.'
-            ),
-            line(
-                characters[0],
-                'Veramente non ricordo di avertelo chiesto, inoltre non credo che mi saranno di aiuto. Non hai qualcosa di più utile?'
-            ),
-            line(
-                characters[1],
-                'Vabbè come vuoi, sembra che ti serva compagnia ed inoltre è pericoloso andare da solo! Prendi questo.'
-            )
+            line(characters[1], strings.dialogue_3_0),
+            line(characters[0], strings.dialogue_3_1),
+            line(characters[1], strings.dialogue_3_2)
         ],
         [translator],
         undefined,
         'dialog4'
     ),
-    dialogue(
-        'dialog4',
-        [
-            line(
-                characters[1],
-                'Per caso hai visto il mio cane? Gli avevo insegnato a parlare in cuneiforme...'
-            )
-        ],
-        []
-    ),
+    dialogue('dialog4', [line(characters[1], strings.dialogue_4_0)], []),
     dialogue(
         'dialog5',
         [
-            line(characters[2], "Benvenuthi all'inferno"),
-            line(characters[0], 'Sei proprio diaboliho')
+            line(characters[2], strings.dialogue_5_0),
+            line(characters[0], strings.dialogue_5_1)
         ],
         []
     ),
     dialogue(
         'dialog6',
-        [line(characters[3], 'Wow...')],
+        [line(characters[3], strings.dialogue_6_0)],
         [],
         undefined,
         'dialog7'
     ),
     dialogue(
         'dialog7',
-        [
-            line(
-                characters[4],
-                'Traduzione: "Attento esploratore, oltre quella porta troverai solo pericolo"'
-            )
-        ],
+        [line(characters[4], strings.dialogue_7_0)],
         [],
         computer
     ),
-    dialogue(
-        NEED_KEY,
-        [line(characters[0], "E' chiuso... servirebbe una chiave")],
-        []
-    ),
+    dialogue(NEED_KEY, [line(characters[0], strings.dialogue_need_key)], []),
     dialogue(
         DOOR_ROCK_REQUIRED,
-        [
-            line(
-                characters[0],
-                'Questa porta non si apre... sembra ci sia una cavità per inserirci una piccola roccia.'
-            )
-        ],
+        [line(characters[0], strings.dialogue_need_rock)],
         []
     )
 ]
