@@ -7,6 +7,8 @@ import * as TranslateSrc from '../../assets/tutorials/translate.webm'
 
 import { computer, hasItem, Inventory } from './inventory'
 
+import strings from '../config/strings'
+
 import { onlyIf } from '../utils'
 
 export interface Tutorial {
@@ -19,46 +21,40 @@ export interface Tutorial {
 export const tutorialSteps = (inventory: Inventory) => {
     const baseTutorial: Tutorial[] = [
         {
-            title: "L'indovinello",
+            title: strings.tut_riddle_title,
             selector: '#cuneiformRiddle',
-            text:
-                'Per aprire la porta devi risolvere questo indovinello. Fai attenzione, i dati cambiano ogni volta'
+            text: strings.tut_riddle_text
         },
         {
-            title: "Tradurre l'indovinello",
+            title: strings.tut_translate_riddle_title,
             selector: '#cuneiformRiddle',
-            text:
-                'Selezionando una lettera puoi scoprire a quale simbolo corrisponde nella legenda in basso',
+            text: strings.tut_translate_riddle_text,
             video: TranslateSrc as any
         },
         {
-            title: 'Aprire la porta',
+            title: strings.tut_open_door_title,
             selector: '#lockcode',
-            text:
-                "Per aprire la porta devi inserire qui la soluzione dell'indovinello",
+            text: strings.tut_open_door_text,
             video: LockCodeSrc as any
         }
     ]
     const computerTutorial: Tutorial[] = [
         {
-            title: 'Il Computer',
+            title: strings.tut_computer_title,
             selector: '#blocklyArea',
-            text:
-                'Il computer si collega alla porta e cerca di aprirla con la soluzione che hai inventato',
+            text: strings.tut_computer_text,
             video: ComputerSrc as any
         },
         {
-            title: 'I blocchi',
+            title: strings.tut_blocks_title,
             selector: '.blocklyFlyout',
-            text:
-                "Per creare una soluzione devi trascinare questi blocchi nell'area bianca ed unirli come i pezzi di un puzzle",
+            text: strings.tut_blocks_text,
             video: BlocksSrc
         },
         {
-            title: 'Provare la soluzione',
+            title: strings.tut_solution_title,
             selector: '#play',
-            text:
-                'Questo pulsante esegue la tua soluzione. Con un risultato corretto si apre la porta'
+            text: strings.tut_solution_text
         }
     ]
 

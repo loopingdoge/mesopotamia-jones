@@ -9,6 +9,7 @@ import { GameUI, UIStore } from '../stores/gameUIStore'
 
 import { Dialogue } from '../config/dialogues'
 import { Item } from '../config/inventory'
+import strings from '../config/strings'
 
 import DialogueUI from './Dialogue'
 import FadedContainer from './FadedContainer'
@@ -147,9 +148,7 @@ const MesopotamiaJones = ({
                 <GameNotification
                     width={pageWidth}
                     visible={isNotificationVisible}
-                    text={
-                        'La porta si è aperta automaticamente grazie alla tua precedente soluzione'
-                    }
+                    text={strings.notification_automatic_door_message}
                 />
                 {MaybeRiddle}
             </div>

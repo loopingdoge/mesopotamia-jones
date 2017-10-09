@@ -4,10 +4,12 @@ import * as React from 'react'
 import { Icon } from 'react-icons-kit'
 import { androidRefresh, chevronLeft, help } from 'react-icons-kit/ionicons/'
 
+import strings from '../config/strings'
+
 import Button from './Button'
 
 const styles = StyleSheet.create({
-    toolbar: {
+    riddleHeader: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -19,17 +21,17 @@ const styles = StyleSheet.create({
     }
 })
 
-export interface ToolbarProps {
+export interface RiddleHeaderProps {
     goBack: () => void
     openInfo: () => void
 }
 
-const Toolbar = ({ goBack, openInfo }: ToolbarProps) => (
-    <div className={css(styles.toolbar)}>
-        <Button icon={chevronLeft} text={'Indietro'} onClick={goBack} />
+const RiddleHeader = ({ goBack, openInfo }: RiddleHeaderProps) => (
+    <div className={css(styles.riddleHeader)}>
+        <Button icon={chevronLeft} text={strings.back} onClick={goBack} />
         <div className={css(styles.spacer)} />
-        <Button icon={help} text={'Aiuto'} onClick={openInfo} />
+        <Button icon={help} text={strings.help} onClick={openInfo} />
     </div>
 )
 
-export default Toolbar
+export default RiddleHeader

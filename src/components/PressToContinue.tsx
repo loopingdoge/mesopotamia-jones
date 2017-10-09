@@ -1,6 +1,8 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 
+import strings from '../config/strings'
+
 import { isMobile, onlyIf } from '../utils'
 
 const scaleAnimation = {
@@ -31,8 +33,8 @@ export default class PressToContinue extends React.PureComponent {
         return (
             <div className={css(styles.continueHint)}>
                 {isMobile()
-                    ? 'Tocca per continuare'
-                    : 'Premi spazio per continuare'}
+                    ? strings.continue_hint_mobile
+                    : strings.continue_hint_keyboard}
             </div>
         )
     }

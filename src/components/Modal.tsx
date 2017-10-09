@@ -4,9 +4,10 @@ import Icon from 'react-icons-kit'
 import { chevronRight } from 'react-icons-kit/ionicons/'
 import * as ReactModal from 'react-modal'
 
-import PressToContinue from './PressToContinue'
+import strings from '../config/strings'
 
 import Button from './Button'
+import PressToContinue from './PressToContinue'
 
 const modalShow = {
     from: {
@@ -83,24 +84,25 @@ export interface SolvedRiddleModalProps {
     onClick: () => void
 }
 
-export const SolvedRiddleModal = ({ onClick }: SolvedRiddleModalProps) =>
+export const SolvedRiddleModal = ({ onClick }: SolvedRiddleModalProps) => (
     <div
         className={css(styles.modalBody)}
         onKeyPress={(event: any) => {
-            if (event.key === ' ') onClick()
+            if (event.key === ' ') {
+                onClick()
+            }
         }}
     >
-        <h1>Indovinello risolto!</h1>
+        <h1>{strings.riddle_solved}</h1>
         <Button
             icon={chevronRight}
-            text={'Apri la porta'}
+            text={strings.riddle_open_door}
             onClick={onClick}
             autofocus
         />
-        <p className={css(styles.continueHint)}>
-            Clicca il pulsante o premi spazio
-        </p>
+        <p className={css(styles.continueHint)}>{strings.riddle_solved_hint}</p>
     </div>
+)
 
 export interface ModalProps {
     isOpen: boolean
@@ -118,8 +120,6 @@ class Modal extends React.Component<ModalProps> {
         this.isCanceled = false
         this.isOpened = props.isOpen || false
         this.openDelay = props.onOpenDelay || 0
-
-        this.closeModal = this.closeModal.bind(this)
     }
 
     componentWillReceiveProps(nextProps: ModalProps) {
@@ -131,7 +131,7 @@ class Modal extends React.Component<ModalProps> {
         }
     }
 
-    closeModal() {
+    closeModal = () => {
         this.isCanceled = true
         this.forceUpdate()
     }

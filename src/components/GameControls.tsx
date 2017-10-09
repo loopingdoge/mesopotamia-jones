@@ -1,6 +1,5 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
-
 import { Icon } from 'react-icons-kit'
 import {
     androidArrowDropdown,
@@ -10,6 +9,8 @@ import {
 } from 'react-icons-kit/ionicons/'
 
 import { arvo } from '../utils/fonts'
+
+import strings from '../config/strings'
 
 const styles = StyleSheet.create({
     container: {
@@ -108,12 +109,12 @@ const styles = StyleSheet.create({
 const GameControls = () => (
     <div className={css(styles.container)}>
         <div className={css(styles.header, styles.tabHeader)}>
-            Controlli di gioco
+            {strings.controls_game_controls}
         </div>
         <div className={css(styles.controlsWrapper)}>
             <div className={css(styles.controlsColumn)}>
                 <div className={css(styles.header, styles.tabSubheader)}>
-                    Muovi
+                    {strings.controls_move}
                 </div>
                 <ul className={css(styles.keyWrapper)}>
                     <li className={css(styles.key, styles.directionKey)}>
@@ -146,17 +147,17 @@ const GameControls = () => (
             </div>
             <div className={css(styles.controlsColumn)}>
                 <div className={css(styles.header, styles.tabSubheader)}>
-                    Interagisci
+                    {strings.controls_interact}
                 </div>
                 <ul className={css(styles.keyWrapper)}>
                     <li className={css(styles.key, styles.spaceBar)}>
-                        <b>{'\u2423 (spazio)'}</b>
+                        <b>{strings.controls_space}</b>
                     </li>
                 </ul>
             </div>
             <div className={css(styles.controlsColumn)}>
                 <div className={css(styles.header, styles.tabSubheader)}>
-                    Shortcuts
+                    {strings.controls_shortcuts}
                 </div>
                 <ul className={css(styles.keyWrapper)}>
                     <li className={css(styles.key, styles.gameHeaderKey)}>

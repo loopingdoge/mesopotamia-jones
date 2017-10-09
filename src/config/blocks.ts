@@ -1,12 +1,18 @@
 import * as Blockly from 'node-blockly/browser'
 
+import strings from './strings'
+
 export interface Block {
     id: string
     json: any
     generator: (block: any) => string
 }
 
-const block = (id: string, json: any, generator: (block: any) => any) => ({
+const createBlock = (
+    id: string,
+    json: any,
+    generator: (block: any) => any
+) => ({
     id,
     json,
     generator
@@ -21,7 +27,7 @@ const colors = {
 }
 
 export const blocks: Block[] = [
-    block(
+    createBlock(
         'text',
         {
             type: 'text',
@@ -43,11 +49,11 @@ export const blocks: Block[] = [
             Blockly.JavaScript.ORDER_ATOMIC
         ]
     ),
-    block(
+    createBlock(
         'text_join',
         {
             type: 'text_join',
-            message0: 'unisci %1 %2 %3 %4',
+            message0: `${strings.block_join} %1 %2 %3 %4`,
             args0: [
                 {
                     type: 'input_value',
@@ -101,7 +107,7 @@ export const blocks: Block[] = [
             return [code, Blockly.JavaScript.ORDER_NONE]
         }
     ),
-    block(
+    createBlock(
         'math_number',
         {
             type: 'math_number',
@@ -123,7 +129,7 @@ export const blocks: Block[] = [
             Blockly.JavaScript.ORDER_ATOMIC
         ]
     ),
-    block(
+    createBlock(
         'math_operation',
         {
             type: 'math_operation',
@@ -174,11 +180,11 @@ export const blocks: Block[] = [
             return [code, Blockly.JavaScript.ORDER_NONE]
         }
     ),
-    block(
+    createBlock(
         'if',
         {
             type: 'if',
-            message0: 'se %1 allora %2 altrimenti %3',
+            message0: `${strings.block_if} %1 ${strings.block_then} %2 ${strings.block_else} %3`,
             args0: [
                 {
                     type: 'input_value',
@@ -222,11 +228,11 @@ export const blocks: Block[] = [
             return code
         }
     ),
-    block(
+    createBlock(
         'is_even',
         {
             type: 'block_type',
-            message0: '%1 è pari',
+            message0: `%1 ${strings.block_is_even}`,
             args0: [
                 {
                     type: 'input_value',
@@ -249,7 +255,7 @@ export const blocks: Block[] = [
             return [code, Blockly.JavaScript.ORDER_EQUALITY]
         }
     ),
-    block(
+    createBlock(
         'set_letter',
         {
             type: 'set_letter',
@@ -283,7 +289,7 @@ export const blocks: Block[] = [
             return `${varname} = ${value}; \n`
         }
     ),
-    block(
+    createBlock(
         'set_last_letter',
         {
             type: 'set_last_letter',
@@ -316,7 +322,7 @@ export const blocks: Block[] = [
             return `${varname} = ${value}; \n`
         }
     ),
-    block(
+    createBlock(
         'get_letter',
         {
             type: 'get_letter',
@@ -339,7 +345,7 @@ export const blocks: Block[] = [
             Blockly.JavaScript.ORDER_ATOMIC
         ]
     ),
-    block(
+    createBlock(
         'set_number',
         {
             type: 'set_number',
@@ -373,7 +379,7 @@ export const blocks: Block[] = [
             return `${varname} = ${value}; \n`
         }
     ),
-    block(
+    createBlock(
         'set_var_number',
         {
             type: 'set_var_number',
@@ -407,7 +413,7 @@ export const blocks: Block[] = [
             return `${varname} = ${value}; \n`
         }
     ),
-    block(
+    createBlock(
         'set_last_number',
         {
             type: 'set_last_number',
@@ -440,7 +446,7 @@ export const blocks: Block[] = [
             return `${varname} = ${value}; \n`
         }
     ),
-    block(
+    createBlock(
         'get_number',
         {
             type: 'get_number',
@@ -463,11 +469,11 @@ export const blocks: Block[] = [
             Blockly.JavaScript.ORDER_ATOMIC
         ]
     ),
-    block(
+    createBlock(
         'riddle_return',
         {
             type: 'riddle_return',
-            message0: 'Dato il numero %1 %2 apri la porta con %3',
+            message0: `${strings.block_riddle_return_given_numbers} %1 %2 ${strings.block_riddle_return_open_with} %3`,
             args0: [
                 {
                     type: 'input_dummy',
@@ -487,8 +493,7 @@ export const blocks: Block[] = [
             ],
             inputsInline: false,
             colour: colors.root,
-            tooltip:
-                'I dati sono numeri, quindi il risultato deve essere un numero',
+            tooltip: strings.block_riddle_return_numbers_tooltip,
             helpUrl: ''
         },
         (block: any) => {
@@ -502,7 +507,7 @@ export const blocks: Block[] = [
                 Blockly.JavaScript.ORDER_ADDITION
             )
             const code = `
-                var numero
+                var ${strings.block_number}
                 function main() {
                     ${params}
                     return ${ret}
@@ -511,11 +516,11 @@ export const blocks: Block[] = [
             return code
         }
     ),
-    block(
+    createBlock(
         'riddle_somma',
         {
             type: 'riddle_sum',
-            message0: 'Dati i numeri %1 %2 apri la porta con %3',
+            message0: `${strings.block_riddle_return_given_numbers} %1 %2 ${strings.block_riddle_return_open_with} %3`,
             args0: [
                 {
                     type: 'input_dummy',
@@ -535,7 +540,7 @@ export const blocks: Block[] = [
             ],
             inputsInline: false,
             colour: colors.root,
-            tooltip: 'apri la porta con',
+            tooltip: strings.block_riddle_return_open_with,
             helpUrl: ''
         },
         (block: any) => {
@@ -549,7 +554,7 @@ export const blocks: Block[] = [
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
-                var numero1, numero2;
+                var ${strings.block_number}1, ${strings.block_number}2;
                 function main() {
                     ${params}
                     return ${ret}
@@ -558,11 +563,11 @@ export const blocks: Block[] = [
             return code
         }
     ),
-    block(
+    createBlock(
         'riddle_word',
         {
             type: 'riddle_word',
-            message0: 'Date le lettere %1 %2 apri la porta con %3',
+            message0: `${strings.block_riddle_return_given_letters} %1 %2 ${strings.block_riddle_return_open_with} %3`,
             args0: [
                 {
                     type: 'input_dummy',
@@ -595,7 +600,7 @@ export const blocks: Block[] = [
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
-                var lettera1, lettera2, lettera3, lettera4
+                var ${strings.block_letter}1, ${strings.block_letter}2, ${strings.block_letter}3, ${strings.block_letter}4
                 function main() {
                     ${params}
                     return ${ret}
@@ -604,11 +609,11 @@ export const blocks: Block[] = [
             return code
         }
     ),
-    block(
+    createBlock(
         'riddle_if',
         {
             type: 'riddle_if',
-            message0: 'Dati i numeri %1 %2 %3 apri la porta con %4',
+            message0: `${strings.block_riddle_return_given_numbers} %1 %2 %3 ${strings.block_riddle_return_open_with} %4`,
             args0: [
                 {
                     type: 'input_dummy',
@@ -649,7 +654,7 @@ export const blocks: Block[] = [
                 Blockly.JavaScript.ORDER_ATOMIC
             )
             const code = `
-                var numero1, numero2, numero_magico, risultato;
+                var ${strings.block_number}1, ${strings.block_number}2, ${strings.block_magic_number}, ${strings.block_result};
                 function main() {
                     ${params}
                     ${userCode};

@@ -6,6 +6,8 @@ import * as CuneiformLegendImage from '../../assets/images/legend.png'
 import * as MapImage from '../../assets/images/map.png'
 import * as TranslatorImage from '../../assets/images/rock.png'
 
+import strings from './strings'
+
 export interface Item {
     id: string
     name: string
@@ -15,8 +17,8 @@ export interface Item {
 
 export class Computer implements Item {
     id: string = COMPUTER
-    name = 'HAL 1337'
-    description = 'La macchina che Von Talin in passato ha costruito. Questo macchina si collega alle porte e permette di risolvere gli enigmi automaticamente, se programmato correttamente.'
+    name = strings.computer_name
+    description = strings.computer_description
     workspace: { [riddleId: string]: string } = {}
     image = ComputerImage
 }
@@ -77,29 +79,29 @@ export const computer = new Computer()
 // export const rockSmasher = createItem(ROCK_SMASHER, 'rock smasher', '')
 export const computerKey = createItem(
     COMPUTER_KEY,
-    'vecchia chiave',
-    'questa chiave serve ad aprire una cassa contenente il computer di Von Talin.',
+    strings.old_key_name,
+    strings.old_key_description,
     ComputerKeyImage
 )
 
 export const translator = createItem(
     TRANSLATOR,
-    'roccia senziente',
-    'questo oggetto traduce automaticamente i testi degli indovinelli. Sembra contenere il fantasma di un maestro di cuneiforme.',
+    strings.conscious_rock_name,
+    strings.conscious_rock_description,
     TranslatorImage
 )
 
 export const legend = createItem(
     LEGEND,
-    'legenda di cuneiforme',
-    "una legenda che permette di tradurre l'alfabeto cuneiforme nel nostro alfabeto.",
+    strings.cuneiform_legend_name,
+    strings.cuneiform_legend_description,
     CuneiformLegendImage
 )
 
 export const map = createItem(
     MAP,
-    'mappa della piramide',
-    'una mappa che mostra le stanze visitate della piramide.',
+    strings.map_name,
+    strings.map_description,
     MapImage
 )
 

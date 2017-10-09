@@ -23,9 +23,9 @@ import BlocklyEditor from './BlocklyEditor'
 import CuneiformChar from './CuneiformChar'
 import CuneiformLegend from './CuneiformLegend'
 import Modal, { SolvedRiddleModal } from './Modal'
+import RiddleHeader from './RiddleHeader'
 import Separator from './Separator'
 import Solution from './Solution'
-import Toolbar from './Toolbar'
 import Tutorial from './Tutorial'
 
 const styles = StyleSheet.create({
@@ -257,7 +257,7 @@ const Riddle = ({
                 <SolvedRiddleModal onClick={riddleSolved.bind(null, false)} />
             }
         />
-        <Toolbar goBack={goBack} openInfo={showTutorial} />
+        <RiddleHeader goBack={goBack} openInfo={showTutorial} />
         <Motion
             style={{
                 columnFlex: spring(expandedToFlex(isCuneiformExpanded)),
