@@ -61,7 +61,7 @@ interface MapWrapperProps {
     gameStore?: GameStore
 }
 
-export default class MapWrapper extends React.PureComponent<MapWrapperProps> {
+export default class MapWrapper extends React.Component<MapWrapperProps> {
     workspaceXML: string
     riddleText: string
 

@@ -33,7 +33,7 @@ export interface GameNotificationState {
     zIndex: number
 }
 
-class GameNotification extends React.PureComponent<
+class GameNotification extends React.Component<
     GameNotificationProps,
     GameNotificationState
 > {

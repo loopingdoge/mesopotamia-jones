@@ -34,10 +34,7 @@ interface GameOverlayState {
     visible: boolean
 }
 
-class GameOverlay extends React.PureComponent<
-    GameOverlayProps,
-    GameOverlayState
-> {
+class GameOverlay extends React.Component<GameOverlayProps, GameOverlayState> {
     hideTimeout: any
 
     constructor(props: GameOverlayProps) {

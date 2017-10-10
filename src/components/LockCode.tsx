@@ -149,7 +149,7 @@ export interface LockCodeProps {
     index: number
 }
 
-class LockCode extends React.PureComponent<LockCodeProps> {
+class LockCode extends React.Component<LockCodeProps> {
     lastSwipeTime: number = Date.now()
     lastSwipeY: number = 0
     lockCodeDiv: HTMLElement

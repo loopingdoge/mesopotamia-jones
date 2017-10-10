@@ -83,7 +83,7 @@ export interface TutorialProps {
     inventory: Inventory
 }
 
-export default class TutorialUI extends React.PureComponent<TutorialProps> {
+export default class TutorialUI extends React.Component<TutorialProps> {
     render() {
         const { isOpen, onClose, startAt, inventory } = this.props
         return (

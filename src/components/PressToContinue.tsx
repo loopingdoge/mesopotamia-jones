@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export default class PressToContinue extends React.PureComponent {
+export default class PressToContinue extends React.Component {
     render() {
         return (
             <div className={css(styles.continueHint)}>
