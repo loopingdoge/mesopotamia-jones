@@ -66,7 +66,8 @@ class Button extends React.Component<ButtonProps> {
             onClick,
             small,
             circular,
-            disabled
+            disabled,
+            customCSS
         } = this.props
         const style = {
             padding: small ? '5px' : '10px',
@@ -80,7 +81,7 @@ class Button extends React.Component<ButtonProps> {
                 className={css(
                     styles.button,
                     disabled ? styles.disabled : styles.active,
-                    this.props.customCSS
+                    customCSS
                 )}
                 tabIndex={0}
                 ref={element => (this.containerDiv = element)}

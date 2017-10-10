@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     },
     title: {
         padding: '24px',
+        marginBottom: '48px',
         textAlign: 'center',
         fontSize: 'xx-large',
         fontFamily: [sffedora, 'sans-serif']
@@ -52,7 +53,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
-    footer: {}
+    button: {
+        width: '102px'
+    }
 })
 
 export interface HomeProps {
@@ -74,9 +77,21 @@ const Home = ({
                 <div className={css(styles.titleText)}>Mesopotamia Jones</div>
             </div>
             <div className={css(styles.buttonsContainer)}>
-                <Button onClick={newGame} text={l10n.new_game} />
-                <Button onClick={startGame} text={l10n.continue_game} />
-                <Button onClick={showCredits} text={l10n.credits} />
+                <Button
+                    onClick={newGame}
+                    text={l10n.new_game}
+                    customCSS={styles.button}
+                />
+                <Button
+                    onClick={startGame}
+                    text={l10n.continue_game}
+                    customCSS={styles.button}
+                />
+                <Button
+                    onClick={showCredits}
+                    text={l10n.credits}
+                    customCSS={styles.button}
+                />
             </div>
         </div>
     </div>
