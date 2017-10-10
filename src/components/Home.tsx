@@ -16,20 +16,23 @@ const styles = StyleSheet.create({
     homeContainer: {
         display: 'flex',
         flex: 1,
-        backgroundColor: '#FDF6E3',
+        backgroundColor: '#9F4E3B',
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    home: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column'
     },
     body: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1
+    },
+    home: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     title: {
         width: '100%',
@@ -61,7 +64,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     button: {
-        width: '102px'
+        width: '102px',
+        margin: '0px 20px'
     }
 })
 
