@@ -140,6 +140,7 @@ export default class TutorialUI extends React.Component<TutorialProps> {
                                         {tutorials.map(
                                             (t: Tutorial, index: number) => (
                                                 <button
+                                                    key={index}
                                                     className={css(
                                                         styles.navIcon,
                                                         stepIndex === index &&
