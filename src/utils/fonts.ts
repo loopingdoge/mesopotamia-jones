@@ -16,7 +16,7 @@ export const khosrau = {
     src: `url(${Khosrau}) format('opentype')`
 }
 
-import * as SFFEdora from '../../assets/fonts/SFFEdora/SF FEdora.ttf'
+import * as SFFEdora from '../../assets/fonts/SFFEdora/SF_FEdora.ttf'
 
 export const sffedora = {
     fontFamily: 'SFFedora',
