@@ -48,18 +48,22 @@ const english: LocalizedStrings = {
 
     conscious_rock: 'Conscious Rock',
 
-    computer_name: 'string',
-    computer_description: 'string',
-    old_key_name: 'string',
-    old_key_description: 'string',
-    conscious_rock_name: 'string',
-    conscious_rock_description: 'string',
-    cuneiform_legend_name: 'string',
-    cuneiform_legend_description: 'string',
-    map_name: 'string',
-    map_description: 'string',
+    computer_name: 'HAL 1337',
+    computer_description:
+        'The machine that Von Talin developed in the past. This machine connects to the doors and allows to automatically solve riddles, if properly programmed.',
+    old_key_name: 'old key',
+    old_key_description:
+        "a key that opens the chest containing Von Talin's machine",
+    conscious_rock_name: 'conscious rock',
+    conscious_rock_description:
+        'a rock that automatically translates the riddles on the doors. Seems like it contains the ghost of a cuneiform teacher',
+    cuneiform_legend_name: 'cuneiform legend',
+    cuneiform_legend_description:
+        'this legend allows translating letters from cuneiform to our alphabet.',
+    map_name: 'map of the pyramid',
+    map_description: "a map showing all the explored pyramid's rooms",
 
-    tut_riddle_title: 'string',
+    tut_riddle_title: 'The riddle',
     tut_riddle_text: 'string',
 
     tut_translate_riddle_title: 'string',
@@ -101,9 +105,10 @@ const english: LocalizedStrings = {
 
     dialogue_7_0: 'string',
 
-    dialogue_need_key: 'string',
+    dialogue_need_key: "It's closed, I need a key",
 
-    dialogue_need_rock: 'string'
+    dialogue_need_rock:
+        'This door is closed... seems like I need to insert a small rock in this hole '
 }
 
 export default english
