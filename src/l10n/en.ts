@@ -81,34 +81,47 @@ const english: LocalizedStrings = {
     tut_solution_title: 'string',
     tut_solution_text: 'string',
 
-    dialogue_1_0: 'string',
+    dialogue_1_0:
+        "Oh darn, I must find an exit. There's a door over there, let's see what's beyond it",
 
-    dialogue_2_0: 'string',
-    dialogue_2_1: 'string',
-    dialogue_2_2: 'string',
-    dialogue_2_3: 'string',
-    dialogue_2_4: 'string',
-    dialogue_2_5: 'string',
-    dialogue_2_6: 'string',
-    dialogue_2_7: 'string',
+    dialogue_2_0:
+        "There's a person here, how is it possible? These ruins should have been buried for thousands of years.",
+    dialogue_2_1:
+        "Who dares to draw me out of my eternal sleep!? Well, I've been asleep for 104 years it's time to wake up... I'm Farren Von Talin and I used to be an explorer like you then...",
+    dialogue_2_2: '... Then you got hurt to the knee?',
+    dialogue_2_3:
+        'What? No, like you I got trapped in these ruins! Perhaps you already noticed it, but the doors in this place are cursed!',
+    dialogue_2_4:
+        'Everytime you pass through them, the numbers in the riddles do change and force you to solve again the same riddle! For this reason I started building a machine able to automatically solve them automatically.',
+    dialogue_2_5:
+        'Unfortunately An-Ki Hammurtosh prowls in this cave, he is an evil mummy who cursed this place and turned me into a ghost, condemning to live here forever.',
+    dialogue_2_6:
+        "To protect it from the clutches of Hammurtosh, I hid the machine in a chest in the room where you have landed, here's the key to open it.",
+    dialogue_2_7:
+        "Once you have recovered it, come back to me and I'll give you a present!",
 
-    dialogue_3_0: 'string',
-    dialogue_3_1: 'string',
-    dialogue_3_2: 'string',
+    dialogue_3_0:
+        'Now that you have the computer it will be easier to escape this cave, but let me help you one more time... there you go, I installed the pre-alphabet versions of Minecraft and Angry Birds like you asked me to.',
+    dialogue_3_1:
+        "Actually I don't recall asking you that, also I don't think they will help me. Don't you have something more useful?",
+    dialogue_3_2:
+        "Alright, as you wish, it looks like you need some company and also, it's dangerous to go alone! Take this.",
 
-    dialogue_4_0: 'string',
+    dialogue_4_0:
+        'Did you see my dog by any chance? I taught him to bark in cuneiform...',
 
-    dialogue_5_0: 'string',
-    dialogue_5_1: 'string',
+    dialogue_5_0: 'Wellhome to hell.',
+    dialogue_5_1: "You're so diabolihal.",
 
-    dialogue_6_0: 'string',
+    dialogue_6_0: 'Wow.',
 
-    dialogue_7_0: 'string',
+    dialogue_7_0:
+        'Translation: be careful explorer, you will find only danger beyond that door.',
 
-    dialogue_need_key: "It's closed, I need a key",
+    dialogue_need_key: "It's closed, I need a key.",
 
     dialogue_need_rock:
-        'This door is closed... seems like I need to insert a small rock in this hole '
+        'This door is closed... seems like I need to insert a small rock in this hole.'
 }
 
 export default english

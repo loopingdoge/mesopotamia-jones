@@ -98,7 +98,7 @@ const italian: LocalizedStrings = {
     dialogue_2_3:
         'Cosa? E perché mai!? No, come te sono rimasto intrappolato in queste rovine, forse lo avrai già notato ma le porte in questo posto sono maledette!',
     dialogue_2_4:
-        'Ogni volta che ci passi i numeri degli indovinelli cambiano e ti costringono a risolvere sempre lo stesso enigma! Per questo motivo avevo iniziato a costruire una macchina programmabile in grado di risolvere gli indovinelli automaticamente.',
+        'Ogni volta che ci passi i numeri degli indovinelli cambiano e ti costringono a risolvere sempre lo stesso enigma! Per questo motivo avevo iniziato a costruire una macchina in grado di risolvere gli indovinelli automaticamente.',
     dialogue_2_5:
         "Sfortunatamente in queste caverne si aggira anche An-Ki Hammurtosh, la mummia malvagia che ha maledetto questo posto e che mi ha trasformato in un fantasma, condannandomi a vivere qui per l'eternità.",
     dialogue_2_6:
@@ -114,20 +114,20 @@ const italian: LocalizedStrings = {
         'Vabbè come vuoi, sembra che ti serva compagnia ed inoltre è pericoloso andare da solo! Prendi questo.',
 
     dialogue_4_0:
-        'Per caso hai visto il mio cane? Gli avevo insegnato a parlare in cuneiforme...',
+        'Per caso hai visto il mio cane? Gli avevo insegnato ad abbaiare in cuneiforme...',
 
-    dialogue_5_0: "Benvenuthi all'inferno",
-    dialogue_5_1: 'Sei proprio diaboliho',
+    dialogue_5_0: "Benvenuthi all'inferno.",
+    dialogue_5_1: 'Sei proprio diaboliho.',
 
-    dialogue_6_0: 'Wow...',
+    dialogue_6_0: 'Wow.',
 
     dialogue_7_0:
-        'Traduzione: "Attento esploratore, oltre quella porta troverai solo pericolo"',
+        'Traduzione: "Attento esploratore, oltre quella porta troverai solo pericolo".',
 
-    dialogue_need_key: "E' chiuso... servirebbe una chiave",
+    dialogue_need_key: "E' chiuso... servirebbe una chiave.",
 
     dialogue_need_rock:
-        'Questa porta non si apre... sembra ci sia una cavità per inserirci una piccola roccia.'
+        "Questa porta non si apre... c'è un'incisione che dice di ."
 }
 
 export default italian
