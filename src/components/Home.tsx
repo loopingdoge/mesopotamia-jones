@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     home: {
-        width: '600px',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column'
     },
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     title: {
+        width: '100%',
         padding: '24px',
         marginBottom: '48px',
         textAlign: 'center',
@@ -39,6 +40,8 @@ const styles = StyleSheet.create({
         fontFamily: [sffedora, 'sans-serif']
     },
     titleText: {
+        width: '100%',
+        position: 'absolute',
         lineHeight: '129%',
         fontSize: '2em',
         backgroundImage: 'linear-gradient(#ff5c33, #ffcc00, #ffff99)',
@@ -46,7 +49,11 @@ const styles = StyleSheet.create({
         WebkitBackgroundClip: 'text',
         backgroundClip: 'text',
         textOverflow: 'visible'
-        // textShadow: '2px 2px #ff0000',
+    },
+    titleShadow: {
+        color: 'black',
+        marginLeft: '-5px',
+        marginTop: '3px'
     },
     buttonsContainer: {
         display: 'flex',
@@ -74,6 +81,9 @@ const Home = ({
     <div className={css(styles.homeContainer)}>
         <div className={css(styles.home)}>
             <div className={css(styles.title)}>
+                <div className={css(styles.titleText, styles.titleShadow)}>
+                    Mesopotamia Jones
+                </div>
                 <div className={css(styles.titleText)}>Mesopotamia Jones</div>
             </div>
             <div className={css(styles.buttonsContainer)}>
