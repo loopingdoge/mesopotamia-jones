@@ -16,11 +16,11 @@ const labelHeight = 42
 const pulse = {
     '0%': {
         boxShadow:
-            'rgba(253, 212, 02, 0.4) 0px 0px 0px, rgba(253, 212, 02, 0.05) 0px 0px 0px inset'
+            'rgba(253, 212, 02, 0.4) 0px 0px 8px, rgba(253, 212, 02, 0.4) 0px 0px 100px inset'
     },
     '100%': {
         boxShadow:
-            'rgba(253, 212, 02, 0.4) 0px 0px 5px, rgba(253, 212, 02, 0.4) 0px 0px 100px inset'
+            'rgba(253, 212, 02, 0.4) 0px 0px 8px, rgba(253, 212, 02, 0.7) 0px 0px 100px inset'
     }
 }
 
