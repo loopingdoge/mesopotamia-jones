@@ -3,9 +3,11 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 
-import CuneiformChar from './CuneiformChar'
-
 import { RiddleUIStore } from '../stores/riddleUIStore'
+
+import { onlyIf } from '../utils'
+
+import CuneiformChar from './CuneiformChar'
 
 const styles = StyleSheet.create({
     legend: {
@@ -24,12 +26,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
-    },
-    highlighted: {
-        backgroundColor: 'rgba(253, 212, 02, 0.3)',
-        boxShadow: '0px 1px 11px -1px #90752d'
     }
 })
+
+const highlighted = {
+    backgroundColor: 'rgba(253, 212, 02, 0.3)',
+    boxShadow: '0px 1px 11px -1px #90752d'
+}
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz 0123456789 !?'
 const alphabetRows = alphabet.split(' ')
@@ -45,11 +48,11 @@ const CuneiformLegend = ({ selectedChar }: CuneiformLegendProps) => (
                 row.split('').map((letter, letterIndex) => (
                     <div
                         key={letterIndex}
-                        className={css(
-                            styles.legendCell,
+                        className={css(styles.legendCell)}
+                        style={onlyIf(
                             selectedChar &&
-                                selectedChar.toLowerCase() === letter &&
-                                styles.highlighted
+                                selectedChar.toLowerCase() === letter,
+                            highlighted
                         )}
                     >
                         <div>
@@ -70,8 +73,7 @@ export interface CuneiformLegendContainerProps {
 @inject('riddleUIStore')
 @observer
 class CuneiformLegendContainer extends React.Component<
-    CuneiformLegendContainerProps,
-    undefined
+    CuneiformLegendContainerProps
 > {
     render() {
         const riddleUIStore = this.props.riddleUIStore
