@@ -243,6 +243,8 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     render() {
         const { codeResult, error, riddle, riddleText } = this.props
 
+        console.log(riddle)
+        console.log(this.props.readonly)
         return (
             <div
                 id="blocklyArea"
@@ -302,11 +304,13 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                             data-tip
                             data-for={'output'}
                         >
-                            {error
-                                ? 'Errore'
-                                : riddle.solutionType === 'string'
-                                  ? `"${codeResult || ''}"`
-                                  : codeResult}
+                            {this.props.readonly !== true
+                                ? error
+                                  ? 'Errore'
+                                  : riddle.solutionType === 'string'
+                                    ? `"${codeResult || ''}"`
+                                    : codeResult
+                                : null}
                         </div>
                         <ReactTooltip
                             id={'output'}
