@@ -252,6 +252,7 @@ export const blocks: Block[] = [
                 'VALUE',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
+            const code = value !== '' ? `(${value} % 2 === 0)` : ''
             return [code, Blockly.JavaScript.ORDER_EQUALITY]
         }
     ),
