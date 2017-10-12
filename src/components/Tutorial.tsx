@@ -97,7 +97,6 @@ export default class TutorialUI extends React.Component<TutorialProps> {
     }
 
     keyboardHandler = (e: KeyboardEvent) => {
-        console.log('wewew', e)
         if (e.charCode === 32) {
             if (
                 this.currentStep === tutorialSteps(this.props.inventory).length
