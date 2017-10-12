@@ -243,8 +243,6 @@ class BlockEditor extends React.Component<BlockEditorProps> {
     render() {
         const { codeResult, error, riddle, riddleText } = this.props
 
-        console.log(riddle)
-        console.log(this.props.readonly)
         return (
             <div
                 id="blocklyArea"
