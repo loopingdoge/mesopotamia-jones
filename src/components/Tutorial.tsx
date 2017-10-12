@@ -84,6 +84,38 @@ export interface TutorialProps {
 }
 
 export default class TutorialUI extends React.Component<TutorialProps> {
+    goTo: (index?: number) => any
+    currentStep: number
+
+    constructor() {
+        super()
+        this.goTo = () => null
+    }
+
+    setGoTo = (goTo: (index?: number) => any) => {
+        this.goTo = goTo
+    }
+
+    keyboardHandler = (e: KeyboardEvent) => {
+        if (e.charCode === 32) {
+            if (
+                this.currentStep === tutorialSteps(this.props.inventory).length
+            ) {
+                this.props.onClose()
+            } else {
+                this.goTo(this.currentStep)
+            }
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('keypress', this.keyboardHandler, false)
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keypress', this.keyboardHandler, false)
+    }
+
     render() {
         const { isOpen, onClose, startAt, inventory } = this.props
         return (
@@ -97,9 +129,10 @@ export default class TutorialUI extends React.Component<TutorialProps> {
                 showNavigation={false}
                 maskSpace={0}
                 startAt={startAt || 0}
-                badgeContent={(current: string) => (
-                    <div className={css(styles.badge)}>{current}</div>
-                )}
+                badgeContent={(current: string) => {
+                    this.currentStep = parseInt(current)
+                    return <div className={css(styles.badge)}>{current}</div>
+                }}
                 steps={tutorialSteps(
                     inventory
                 ).map(
@@ -111,6 +144,7 @@ export default class TutorialUI extends React.Component<TutorialProps> {
                         selector: tutorial.selector,
                         content: ({ goTo }: any) => (
                             <div>
+                                {this.setGoTo(goTo)}
                                 <div className={css(styles.tourTitle)}>
                                     {tutorial.title}
                                 </div>

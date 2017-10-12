@@ -83,25 +83,25 @@ export const blocks: Block[] = [
                     block,
                     'TEXT1',
                     Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
+                ) || '""'
             const text2 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT2',
                     Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
+                ) || '""'
             const text3 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT3',
                     Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
+                ) || '""'
             const text4 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT4',
                     Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
+                ) || '""'
 
             const code = `''.concat(${text1}, ${text2}, ${text3}, ${text4})`
             return [code, Blockly.JavaScript.ORDER_NONE]
@@ -164,20 +164,21 @@ export const blocks: Block[] = [
             let op = block.getFieldValue('OPERATOR')
             // tslint:disable-next-line:curly
             if (op === 'x') op = '*'
-            const operand1 =
-                Blockly.JavaScript.valueToCode(
-                    block,
-                    'OPERAND1',
-                    Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
-            const operand2 =
-                Blockly.JavaScript.valueToCode(
-                    block,
-                    'OPERAND2',
-                    Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
-            const code = `${operand1} ${op} ${operand2}`
-            return [code, Blockly.JavaScript.ORDER_NONE]
+            const operand1 = Blockly.JavaScript.valueToCode(
+                block,
+                'OPERAND1',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const operand2 = Blockly.JavaScript.valueToCode(
+                block,
+                'OPERAND2',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const code =
+                operand1 !== '' && operand2 !== ''
+                    ? `( ${operand1} ${op} ${operand2} )`
+                    : ''
+            return [code, Blockly.JavaScript.ORDER_ATOMIC]
         }
     ),
     createBlock(
@@ -251,7 +252,7 @@ export const blocks: Block[] = [
                 'VALUE',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            const code = `(${value} % 2 === 0)`
+            const code = value !== '' ? `(${value} % 2 === 0)` : ''
             return [code, Blockly.JavaScript.ORDER_EQUALITY]
         }
     ),
@@ -410,7 +411,8 @@ export const blocks: Block[] = [
                 'VALUE',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            return `${varname} = ${value}; \n`
+            const code = value !== '' ? `${varname} = ${value}; \n` : ''
+            return code
         }
     ),
     createBlock(

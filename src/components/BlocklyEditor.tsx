@@ -302,11 +302,13 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                             data-tip
                             data-for={'output'}
                         >
-                            {error
-                                ? 'Errore'
-                                : riddle.solutionType === 'string'
-                                  ? `"${codeResult || ''}"`
-                                  : codeResult}
+                            {this.props.readonly !== true
+                                ? error
+                                  ? 'Errore'
+                                  : riddle.solutionType === 'string'
+                                    ? `"${codeResult || ''}"`
+                                    : codeResult
+                                : null}
                         </div>
                         <ReactTooltip
                             id={'output'}
