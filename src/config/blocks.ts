@@ -83,25 +83,25 @@ export const blocks: Block[] = [
                     block,
                     'TEXT1',
                     Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
+                ) || '""'
             const text2 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT2',
                     Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
+                ) || '""'
             const text3 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT3',
                     Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
+                ) || '""'
             const text4 =
                 Blockly.JavaScript.valueToCode(
                     block,
                     'TEXT4',
                     Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
+                ) || '""'
 
             const code = `''.concat(${text1}, ${text2}, ${text3}, ${text4})`
             return [code, Blockly.JavaScript.ORDER_NONE]
@@ -411,7 +411,8 @@ export const blocks: Block[] = [
                 'VALUE',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            return `${varname} = ${value}; \n`
+            const code = value !== '' ? `${varname} = ${value}; \n` : ''
+            return code
         }
     ),
     createBlock(
