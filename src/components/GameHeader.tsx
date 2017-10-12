@@ -66,7 +66,7 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
             customCSS={styles.button}
         />
         {onlyIf(
-            gameUi !== GameUI.Game,
+            gameUi !== GameUI.Game && gameUi !== GameUI.Help,
             <Button
                 icon={close}
                 onClick={show.bind(null, GameUI.Game)}

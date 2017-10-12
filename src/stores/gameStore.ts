@@ -1,5 +1,5 @@
 import { isEqual } from 'lodash'
-import { action, computed, observable, reaction, toJS } from 'mobx'
+import { action, computed, observable, reaction, toJS, when } from 'mobx'
 
 import { GameUI, UIStore } from './gameUIStore'
 import { RiddleStore } from './riddleStore'
@@ -212,6 +212,12 @@ export class GameStore {
         localStorage.setItem('gameState', null)
         this.state = defaultGameStoreState()
         this.showDialogue('dialog1')
+        when(
+            () => !this.state.activeDialogue,
+            () => {
+                this.uiStore.show(GameUI.Help)
+            }
+        )
         this.state.progression.isGameStarted = true
     }
 

@@ -8,9 +8,16 @@ import {
     androidArrowDropup
 } from 'react-icons-kit/ionicons/'
 
+import {
+    Actions,
+    addActionListener,
+    removeActionListener
+} from '../config/actions'
 import { arvo } from '../utils/fonts'
 
 import l10n from '../l10n'
+
+import PressToContinue from './PressToContinue'
 
 const styles = StyleSheet.create({
     container: {
@@ -20,7 +27,8 @@ const styles = StyleSheet.create({
         boxShadow: 'rgba(255, 255, 255, 0.28) 0px 0px 24px',
         backgroundColor: 'rgba(255, 255, 255, 0.12)',
         border: '1px solid rgba(255, 255, 255, 0.09)',
-        padding: 24
+        padding: 24,
+        marginTop: 64
     },
     controlsWrapper: {
         flex: 1,
@@ -106,73 +114,127 @@ const styles = StyleSheet.create({
     }
 })
 
-const GameControls = () => (
-    <div className={css(styles.container)}>
-        <div className={css(styles.header, styles.tabHeader)}>
-            {l10n.controls_game_controls}
-        </div>
-        <div className={css(styles.controlsWrapper)}>
-            <div className={css(styles.controlsColumn)}>
-                <div className={css(styles.header, styles.tabSubheader)}>
-                    {l10n.controls_move}
+export interface GameControlsProps {
+    onClose: (...args: any[]) => any
+}
+
+class GameControls extends React.Component<GameControlsProps> {
+    componentDidMount() {
+        addActionListener(Actions.CLOSE_CONTROLS_SCREEN, this.props.onClose)
+    }
+
+    componentWillUnmount() {
+        removeActionListener(Actions.CLOSE_CONTROLS_SCREEN)
+    }
+
+    render() {
+        return (
+            <div className={css(styles.container)}>
+                <div className={css(styles.header, styles.tabHeader)}>
+                    {l10n.controls_game_controls}
                 </div>
-                <ul className={css(styles.keyWrapper)}>
-                    <li className={css(styles.key, styles.directionKey)}>
-                        <Icon icon={androidArrowDropup} size={20} />
-                    </li>
-                    <li className={css(styles.key, styles.directionKey)}>
-                        <Icon icon={androidArrowDropleft} size={20} />
-                    </li>
-                    <li className={css(styles.key, styles.directionKey)}>
-                        <Icon icon={androidArrowDropdown} size={20} />
-                    </li>
-                    <li className={css(styles.key, styles.directionKey)}>
-                        <Icon icon={androidArrowDropright} size={20} />
-                    </li>
-                </ul>
-                <ul className={css(styles.keyWrapper)}>
-                    <li className={css(styles.key, styles.directionKey)}>
-                        <b>W</b>
-                    </li>
-                    <li className={css(styles.key, styles.directionKey)}>
-                        <b>A</b>
-                    </li>
-                    <li className={css(styles.key, styles.directionKey)}>
-                        <b>S</b>
-                    </li>
-                    <li className={css(styles.key, styles.directionKey)}>
-                        <b>D</b>
-                    </li>
-                </ul>
-            </div>
-            <div className={css(styles.controlsColumn)}>
-                <div className={css(styles.header, styles.tabSubheader)}>
-                    {l10n.controls_interact}
+                <div className={css(styles.controlsWrapper)}>
+                    <div className={css(styles.controlsColumn)}>
+                        <div
+                            className={css(styles.header, styles.tabSubheader)}
+                        >
+                            {l10n.controls_move}
+                        </div>
+                        <ul className={css(styles.keyWrapper)}>
+                            <li
+                                className={css(styles.key, styles.directionKey)}
+                            >
+                                <Icon icon={androidArrowDropup} size={20} />
+                            </li>
+                            <li
+                                className={css(styles.key, styles.directionKey)}
+                            >
+                                <Icon icon={androidArrowDropleft} size={20} />
+                            </li>
+                            <li
+                                className={css(styles.key, styles.directionKey)}
+                            >
+                                <Icon icon={androidArrowDropdown} size={20} />
+                            </li>
+                            <li
+                                className={css(styles.key, styles.directionKey)}
+                            >
+                                <Icon icon={androidArrowDropright} size={20} />
+                            </li>
+                        </ul>
+                        <ul className={css(styles.keyWrapper)}>
+                            <li
+                                className={css(styles.key, styles.directionKey)}
+                            >
+                                <b>W</b>
+                            </li>
+                            <li
+                                className={css(styles.key, styles.directionKey)}
+                            >
+                                <b>A</b>
+                            </li>
+                            <li
+                                className={css(styles.key, styles.directionKey)}
+                            >
+                                <b>S</b>
+                            </li>
+                            <li
+                                className={css(styles.key, styles.directionKey)}
+                            >
+                                <b>D</b>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className={css(styles.controlsColumn)}>
+                        <div
+                            className={css(styles.header, styles.tabSubheader)}
+                        >
+                            {l10n.controls_interact}
+                        </div>
+                        <ul className={css(styles.keyWrapper)}>
+                            <li className={css(styles.key, styles.spaceBar)}>
+                                <b>{l10n.controls_space}</b>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className={css(styles.controlsColumn)}>
+                        <div
+                            className={css(styles.header, styles.tabSubheader)}
+                        >
+                            {l10n.controls_shortcuts}
+                        </div>
+                        <ul className={css(styles.keyWrapper)}>
+                            <li
+                                className={css(
+                                    styles.key,
+                                    styles.gameHeaderKey
+                                )}
+                            >
+                                <b>1</b>
+                            </li>
+                            <li
+                                className={css(
+                                    styles.key,
+                                    styles.gameHeaderKey
+                                )}
+                            >
+                                <b>2</b>
+                            </li>
+                            <li
+                                className={css(
+                                    styles.key,
+                                    styles.gameHeaderKey
+                                )}
+                            >
+                                <b>3</b>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <ul className={css(styles.keyWrapper)}>
-                    <li className={css(styles.key, styles.spaceBar)}>
-                        <b>{l10n.controls_space}</b>
-                    </li>
-                </ul>
+                <PressToContinue />
             </div>
-            <div className={css(styles.controlsColumn)}>
-                <div className={css(styles.header, styles.tabSubheader)}>
-                    {l10n.controls_shortcuts}
-                </div>
-                <ul className={css(styles.keyWrapper)}>
-                    <li className={css(styles.key, styles.gameHeaderKey)}>
-                        <b>1</b>
-                    </li>
-                    <li className={css(styles.key, styles.gameHeaderKey)}>
-                        <b>2</b>
-                    </li>
-                    <li className={css(styles.key, styles.gameHeaderKey)}>
-                        <b>3</b>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-)
+        )
+    }
+}
 
 export default GameControls

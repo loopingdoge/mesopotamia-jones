@@ -73,6 +73,14 @@ export class UIStore {
     }
 
     @action
+    hideOverlay = () => {
+        this.state = {
+            ...this.state,
+            ui: GameUI.Game
+        }
+    }
+
+    @action
     onMapDoorClick = (selectedRiddle: Riddle) => {
         this.state = {
             ...this.state,

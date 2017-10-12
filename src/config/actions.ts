@@ -1,9 +1,10 @@
 import { getOrElse, isMobile, Maybe } from '../utils'
 
-enum Actions {
+export enum Actions {
     SKIP_TO_DIALOGUE_END = 'SKIP_TO_DIALOGUE_END',
     NEXT_DIALOGUE_LINE = 'NEXT_DIALOGUE_LINE',
-    CLOSE_ITEM_SCREEN = 'CLOSE_ITEM_SCREEN'
+    CLOSE_ITEM_SCREEN = 'CLOSE_ITEM_SCREEN',
+    CLOSE_CONTROLS_SCREEN = 'CLOSE_CONTROLS_SCREEN'
 }
 
 type ActionCallback = (event: Event) => any

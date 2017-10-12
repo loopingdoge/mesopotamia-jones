@@ -67,6 +67,7 @@ export interface MesopotamiaJonesProps {
     pageHeight: number
     gameUi: GameUI
     isNotificationVisible: boolean
+    hideControls: (...args: any[]) => any
 }
 
 const MesopotamiaJones = ({
@@ -76,7 +77,8 @@ const MesopotamiaJones = ({
     pageWidth,
     pageHeight,
     gameUi,
-    isNotificationVisible
+    isNotificationVisible,
+    hideControls
 }: MesopotamiaJonesProps) => {
     const MaybeHeader = onlyIf(gamePhase !== 'Riddle', <GameHeader />)
     // const MaybeOverlay = onlyIf(gamePhase !== 'Riddle', <GameOverlay />)
@@ -101,6 +103,12 @@ const MesopotamiaJones = ({
             <FoundItem item={activeFoundItem} />
         </PropsedFadedContainer>
     )
+    const MaybeControls = onlyIf(
+        gameUi === GameUI.Help,
+        <PropsedFadedContainer>
+            <GameControls onClose={hideControls} />
+        </PropsedFadedContainer>
+    )
 
     let overlayContent
     switch (gameUi) {
@@ -112,9 +120,6 @@ const MesopotamiaJones = ({
             break
         case GameUI.Map:
             overlayContent = <MapWrapper />
-            break
-        case GameUI.Help:
-            overlayContent = <GameControls />
             break
     }
 
@@ -131,6 +136,7 @@ const MesopotamiaJones = ({
                 {MaybeDialogue}
                 {MaybeFoundItem}
                 {MaybeHeader}
+                {MaybeControls}
                 <GameOverlay
                     width={pageWidth}
                     height={pageHeight}
@@ -173,7 +179,12 @@ class MesopotamiaJonesContainer extends React.Component<
     render() {
         const { state } = this.props.gameStore
         const { phase, activeDialogue, activeFoundItem } = state
-        const { width, height, isNotificationVisible } = this.props.uiStore
+        const {
+            width,
+            height,
+            isNotificationVisible,
+            hideOverlay
+        } = this.props.uiStore
         return (
             <MesopotamiaJones
                 gamePhase={phase}
@@ -183,6 +194,7 @@ class MesopotamiaJonesContainer extends React.Component<
                 pageHeight={height}
                 gameUi={this.props.uiStore.state.ui}
                 isNotificationVisible={isNotificationVisible}
+                hideControls={hideOverlay}
             />
         )
     }
