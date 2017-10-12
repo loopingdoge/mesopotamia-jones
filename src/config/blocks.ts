@@ -164,20 +164,21 @@ export const blocks: Block[] = [
             let op = block.getFieldValue('OPERATOR')
             // tslint:disable-next-line:curly
             if (op === 'x') op = '*'
-            const operand1 =
-                Blockly.JavaScript.valueToCode(
-                    block,
-                    'OPERAND1',
-                    Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
-            const operand2 =
-                Blockly.JavaScript.valueToCode(
-                    block,
-                    'OPERAND2',
-                    Blockly.JavaScript.ORDER_ATOMIC
-                ) || ''
-            const code = `${operand1} ${op} ${operand2}`
-            return [code, Blockly.JavaScript.ORDER_NONE]
+            const operand1 = Blockly.JavaScript.valueToCode(
+                block,
+                'OPERAND1',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const operand2 = Blockly.JavaScript.valueToCode(
+                block,
+                'OPERAND2',
+                Blockly.JavaScript.ORDER_ATOMIC
+            )
+            const code =
+                operand1 !== '' && operand2 !== ''
+                    ? `( ${operand1} ${op} ${operand2} )`
+                    : ''
+            return [code, Blockly.JavaScript.ORDER_ATOMIC]
         }
     ),
     createBlock(
@@ -251,7 +252,6 @@ export const blocks: Block[] = [
                 'VALUE',
                 Blockly.JavaScript.ORDER_ATOMIC
             )
-            const code = `(${value} % 2 === 0)`
             return [code, Blockly.JavaScript.ORDER_EQUALITY]
         }
     ),
