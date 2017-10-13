@@ -2,6 +2,7 @@ import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 
 import l10n from '../l10n'
+import { arvo } from '../utils/fonts'
 
 import { isMobile, onlyIf } from '../utils'
 
@@ -19,8 +20,9 @@ const scaleAnimation = {
 const styles = StyleSheet.create({
     continueHint: {
         marginTop: '36px',
-        fontSize: 24,
         textAlign: 'center',
+        fontFamily: [arvo, 'sans-serif'],
+        fontSize: 24,
         animationName: scaleAnimation,
         animationDuration: '2s',
         animationIterationCount: 'infinite',
