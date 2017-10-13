@@ -1,6 +1,7 @@
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { Route } from 'react-router-dom'
 
 import { GameUI, UIStore } from '../stores/gameUIStore'
 
@@ -73,10 +74,14 @@ class GameMenu extends React.Component<GameMenuProps> {
                             onClick={show.bind(null, GameUI.Help)}
                             customCSS={styles.button}
                         />
-                        <Button
-                            text={l10n.close_game}
-                            onClick={() => null}
-                            customCSS={styles.button}
+                        <Route
+                            render={({ history }: any) => (
+                                <Button
+                                    text={l10n.close_game}
+                                    onClick={() => history.push('/')}
+                                    customCSS={styles.button}
+                                />
+                            )}
                         />
                     </div>
                 </div>
