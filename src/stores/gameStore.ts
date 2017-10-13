@@ -420,7 +420,7 @@ export class GameStore {
             !this.state.activeFoundItem &&
             this.state.interaction
         ) {
-            if (event.key === ' ') {
+            if (event.key === ' ' && this.uiStore.state.ui === GameUI.Game) {
                 switch (this.state.interaction.type) {
                     case 'door':
                         const { x, y } = this.state.interaction
