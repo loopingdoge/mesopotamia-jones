@@ -6,6 +6,7 @@ export enum GameUI {
     Game,
     Map,
     Inventory,
+    Menu,
     Help
 }
 

@@ -8,15 +8,17 @@ const english: LocalizedStrings = {
     map: 'Map',
     inventory: 'Inventory',
     help: 'Help',
+    menu: 'Menu',
     continue_hint_keyboard: 'Press space to continue',
     continue_hint_mobile: 'Touch to continue',
-    controls_game_controls: 'Controls',
+    controls_game_controls: 'Game Controls',
     controls_move: 'Move',
     controls_interact: 'Interact',
     controls_space: '\u2423 (space)',
     controls_shortcuts: 'Shortcuts',
     notification_automatic_door_message:
         'The computer has automatically opened the door using your previous solution',
+    close_game: 'Exit game',
 
     back: 'Back',
     riddle_solved: 'Riddle solved!',

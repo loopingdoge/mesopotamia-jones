@@ -24,6 +24,7 @@ import Inventory from '../containers/Inventory'
 import MapWrapper from '../containers/MapWrapper'
 import defaultWidthHeight from '../containers/widthHeightProvider'
 import GameControls from './GameControls'
+import GameMenu from './GameMenu'
 
 const PropsedFadedContainer = defaultWidthHeight(FadedContainer)
 
@@ -109,7 +110,12 @@ const MesopotamiaJones = ({
             <GameControls onClose={hideControls} />
         </PropsedFadedContainer>
     )
-
+    const MaybeMenu = onlyIf(
+        gameUi === GameUI.Menu,
+        <PropsedFadedContainer>
+            <GameMenu />
+        </PropsedFadedContainer>
+    )
     let overlayContent
     switch (gameUi) {
         case GameUI.Game:
@@ -137,6 +143,7 @@ const MesopotamiaJones = ({
                 {MaybeFoundItem}
                 {MaybeHeader}
                 {MaybeControls}
+                {MaybeMenu}
                 <GameOverlay
                     width={pageWidth}
                     height={pageHeight}

@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
         boxShadow: 'rgba(255, 255, 255, 0.28) 0px 0px 24px',
         backgroundColor: 'rgba(255, 255, 255, 0.12)',
         border: '1px solid rgba(255, 255, 255, 0.09)',
-        padding: 24,
-        marginTop: 64
+        margin: '64px 24px 24px 24px'
     },
     controlsWrapper: {
         flex: 1,

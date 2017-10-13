@@ -8,6 +8,7 @@ const italian: LocalizedStrings = {
     map: 'Mappa',
     inventory: 'Inventario',
     help: 'Aiuto',
+    menu: 'Menu',
     continue_hint_keyboard: 'Premi spazio per continuare',
     continue_hint_mobile: 'Tocca per continuare',
     controls_game_controls: 'Controlli di gioco',
@@ -17,6 +18,7 @@ const italian: LocalizedStrings = {
     controls_shortcuts: 'Shortcuts',
     notification_automatic_door_message:
         'Il computer ha automaticamente aperto la porta usando la tua precedente soluzione',
+    close_game: 'Esci dal gioco',
 
     back: 'Indietro',
     riddle_solved: 'Indovinello risolto!',

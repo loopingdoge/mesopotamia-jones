@@ -13,6 +13,7 @@ export interface LocalizedStrings {
     map: string
     inventory: string
     help: string
+    menu: string
     continue_hint_keyboard: string
     continue_hint_mobile: string
     controls_game_controls: string
@@ -21,6 +22,7 @@ export interface LocalizedStrings {
     controls_space: string
     controls_shortcuts: string
     notification_automatic_door_message: string
+    close_game: string
 
     // Riddle
     back: string
