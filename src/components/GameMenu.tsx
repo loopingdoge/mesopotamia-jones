@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     button: {
         margin: '10px 20px'
     },
-    buttonRight: {
+    closeButton: {
         position: 'absolute',
         right: 0,
         top: 5,
@@ -63,14 +63,14 @@ class GameMenu extends React.Component<GameMenuProps> {
                 <Button
                     icon={close}
                     onClick={show.bind(null, GameUI.Game)}
-                    customCSS={styles.buttonRight}
+                    customCSS={styles.closeButton}
                 />
                 <div className={css(styles.content)}>
                     <div className={css(styles.title)}>{l10n.menu}</div>
                     <div className={css(styles.menuContainer)}>
                         <Button
                             text={l10n.controls_game_controls}
-                            onClick={() => null}
+                            onClick={show.bind(null, GameUI.Help)}
                             customCSS={styles.button}
                         />
                         <Button
