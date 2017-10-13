@@ -1,7 +1,7 @@
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
-import { close, grid, help, image } from 'react-icons-kit/ionicons/'
+import { androidMenu, close, grid, image } from 'react-icons-kit/ionicons/'
 
 import { GameUI, UIStore } from '../stores/gameUIStore'
 
@@ -65,21 +65,12 @@ const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
             }
             customCSS={styles.button}
         />
-        {onlyIf(
-            gameUi !== GameUI.Game && gameUi !== GameUI.Help,
-            <Button
-                icon={close}
-                onClick={show.bind(null, GameUI.Game)}
-                customCSS={styles.button}
-            />
-        )}
         <Button
-            icon={help}
-            text={l10n.help}
+            icon={gameUi === GameUI.Game ? androidMenu : close}
             onClick={
-                gameUi === GameUI.Help
-                    ? show.bind(null, GameUI.Game)
-                    : show.bind(null, GameUI.Help)
+                gameUi === GameUI.Game
+                    ? show.bind(null, GameUI.Menu)
+                    : show.bind(null, GameUI.Game)
             }
             customCSS={styles.buttonRight}
         />
