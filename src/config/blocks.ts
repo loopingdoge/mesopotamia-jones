@@ -472,6 +472,72 @@ export const blocks: Block[] = [
         ]
     ),
     createBlock(
+        'function_call',
+        {
+            type: 'function_call',
+            message0: '%1',
+            args0: [
+                {
+                    type: 'field_input',
+                    name: 'FUNCALL',
+                    text: 'bussa()'
+                }
+            ],
+            inputsInline: true,
+            previousStatement: 'Usercode',
+            nextStatement: 'Usercode',
+            colour: 120,
+            tooltip: '',
+            helpUrl: ''
+        },
+        (block: any) => `${block.getFieldValue('FUNCALL')};`
+    ),
+    createBlock(
+        'for_times',
+        {
+            type: 'for_times',
+            message0: 'ripeti %1 volte %2 %3',
+            args0: [
+                {
+                    type: 'input_value',
+                    name: 'TIMES',
+                    check: 'Number'
+                },
+                {
+                    type: 'input_dummy'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'USERCODE'
+                }
+            ],
+            previousStatement: 'Usercode',
+            nextStatement: 'Usercode',
+            inputsInline: true,
+            colour: 230,
+            tooltip: '',
+            helpUrl: ''
+        },
+        (block: any) => {
+            const times = Blockly.JavaScript.valueToCode(
+                block,
+                'TIMES',
+                Blockly.JavaScript.ORDER_NONE
+            )
+            const usercode = Blockly.JavaScript.statementToCode(
+                block,
+                'USERCODE'
+            )
+
+            const code = `
+                for(var n = 0; n < ${times}; n++) {
+                    ${usercode};
+                }
+            `
+            return code
+        }
+    ),
+    createBlock(
         'riddle_return',
         {
             type: 'riddle_return',
@@ -700,13 +766,17 @@ export const blocks: Block[] = [
                 'USERCODE'
             )
             const code = `
-                var knockCounter = 0;
+                var numero1, knockCounter = 0;
+                function bussa() {
+                    knockCounter += 1;
+                }
                 function main() {
                     ${params}
                     ${userCode};
                     return knockCounter;
                 }
             `
+            console.log(code)
             return code
         }
     )
