@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import { SolutionType } from '../config/riddles'
 import { initList, mod, next, prev } from '../utils'
+import Button from './Button'
 import LockCode from './LockCode'
 
 const numbers: string[] = '0123456789'.split('')
@@ -10,7 +11,7 @@ const strings: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
 /**
  * Returns the numbers or strings list depending on the given type
- * @param type number | string
+ * @param type number | string | knocks
  */
 const listFromType = (type: SolutionType) =>
     type === 'number' ? numbers : strings
@@ -184,7 +185,10 @@ export default class Solution extends React.Component<
     }
 
     render() {
-        return (
+        const { type } = this.props
+        return type === 'knocks' ? (
+            <Button text={'Bussa'} onClick={() => {}} />
+        ) : (
             <div
                 id={'lockcode'}
                 className={css(

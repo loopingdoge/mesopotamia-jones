@@ -15,7 +15,7 @@ export interface Riddle {
     argsGenerator: () => any[]
 }
 
-export type SolutionType = 'string' | 'number'
+export type SolutionType = 'string' | 'number' | 'knocks'
 
 const randomNum = (min: number, max: number) => {
     min = Math.ceil(min)
@@ -314,6 +314,14 @@ const riddles: Riddle[] = [
                 <block type="get_number" id="numero1" editable="false">
                     <field name="NAME">${l10n.block_number}1</field>
                 </block>
+            `,
+            `
+                <block type="function_call" id="bussa" editable="false">
+                    <field name="FUNCALL">bussa()</field>
+                </block>
+            `,
+            `
+                <block type="for_times"></block>
             `
         ],
         defaultWorkspace: `
@@ -336,7 +344,7 @@ const riddles: Riddle[] = [
         `,
         solution: ([a]: number[]) => `${a}`,
         solutionLength: 4,
-        solutionType: 'number',
+        solutionType: 'knocks',
         argsGenerator: () => [randomNum(1000, 3000)]
     }
 ]
