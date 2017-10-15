@@ -16,4 +16,9 @@ export default class Hammurtosh extends Npc {
                 return ''
         }
     }
+
+    moveTo(x: number, y: number) {
+        this.position.x = Math.floor(x)
+        this.position.y = Math.floor(y)
+    }
 }

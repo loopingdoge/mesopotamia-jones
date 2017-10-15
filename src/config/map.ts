@@ -85,7 +85,8 @@ export const rooms: Room[] = [
     createRoom('room2'),
     createRoom('room3'),
     createRoom('room4'),
-    createRoom('room5')
+    createRoom('room5'),
+    createRoom('room6')
 ]
 
 export const doors: Door[] = [
@@ -96,7 +97,8 @@ export const doors: Door[] = [
         dialogueId: DOOR_ROCK_REQUIRED
     }),
     createDoor('door4', rooms[3], rooms[4], riddles[3]),
-    createDoor('door5', rooms[4], rooms[5], riddles[4])
+    createDoor('door5', rooms[4], rooms[5], riddles[4]),
+    createDoor('door6', rooms[5], rooms[6], riddles[5])
 ]
 
 export const gameDoors: GameDoor[] = [
@@ -107,7 +109,9 @@ export const gameDoors: GameDoor[] = [
     createGameDoor(doors[2], rooms[1], rooms[3], 15, 4),
     createGameDoor(doors[2], rooms[3], rooms[1], 0, 4),
     createGameDoor(doors[3], rooms[3], rooms[4], 15, 4),
-    createGameDoor(doors[3], rooms[4], rooms[3], 0, 4)
+    createGameDoor(doors[3], rooms[4], rooms[3], 0, 4),
+    createGameDoor(doors[4], rooms[4], rooms[5], 7, 0),
+    createGameDoor(doors[4], rooms[5], rooms[4], 7, 8)
 ]
 
 export const getRoomById = (id: string): Room =>
