@@ -305,6 +305,39 @@ const riddles: Riddle[] = [
             randomNum(1, 9),
             randomNum(1, 10)
         ]
+    },
+    {
+        id: 'loop',
+        question: l10n.riddle_loop_question,
+        defaultToolbox: [
+            `
+                <block type="get_number" id="numero1" editable="false">
+                    <field name="NAME">${l10n.block_number}1</field>
+                </block>
+            `
+        ],
+        defaultWorkspace: `
+            <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
+                <block type="riddle_loop" id="riddle_loop" deletable="false">
+                    <statement name="RIDDLE_PARAMS"></statement>
+                    <statement name="USERCODE"></statement>
+                </block>
+            </xml>
+        `,
+        paramsXML: ([a]) => `
+            <block type="set_number" id="numero1" deletable="false" editable="false" movable="false">
+                <field name="NAME">${l10n.block_number}1</field>
+                <value name="VALUE">
+                    <block type="math_number" id="numero1_value" deletable="false" editable="false" movable="false">
+                        <field name="NUM">${a}</field>
+                    </block>
+                </value>
+            </block>
+        `,
+        solution: ([a]: number[]) => `${a}`,
+        solutionLength: 4,
+        solutionType: 'number',
+        argsGenerator: () => [randomNum(1000, 3000)]
     }
 ]
 

@@ -475,7 +475,7 @@ export const blocks: Block[] = [
         'riddle_return',
         {
             type: 'riddle_return',
-            message0: `${l10n.block_riddle_return_given_numbers} %1 %2 ${l10n.block_riddle_return_open_with} %3`,
+            message0: `${l10n.block_riddle_return_given_number} %1 %2 ${l10n.block_riddle_return_open_with} %3`,
             args0: [
                 {
                     type: 'input_dummy',
@@ -661,6 +661,50 @@ export const blocks: Block[] = [
                     ${params}
                     ${userCode};
                     return ${ret}
+                }
+            `
+            return code
+        }
+    ),
+    createBlock(
+        'riddle_loop',
+        {
+            type: 'riddle_loop',
+            message0: `${l10n.block_riddle_return_given_number}  %1 %2 %3`,
+            args0: [
+                {
+                    type: 'input_dummy',
+                    align: 'CENTRE'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'RIDDLE_PARAMS',
+                    check: 'Param'
+                },
+                {
+                    type: 'input_statement',
+                    name: 'USERCODE'
+                }
+            ],
+            colour: colors.root,
+            tooltip: '',
+            helpUrl: ''
+        },
+        (block: any) => {
+            const params = Blockly.JavaScript.statementToCode(
+                block,
+                'RIDDLE_PARAMS'
+            )
+            const userCode = Blockly.JavaScript.statementToCode(
+                block,
+                'USERCODE'
+            )
+            const code = `
+                var knockCounter = 0;
+                function main() {
+                    ${params}
+                    ${userCode};
+                    return knockCounter;
                 }
             `
             return code
