@@ -36,7 +36,10 @@ import {
 } from '../config/progression'
 
 import PhaserGame from '../phaser'
+import { coord2Pixel } from '../phaser/config'
 import { Maybe } from '../utils'
+
+import Hammurtosh from '../phaser/sprites/Hammurtosh'
 
 export type GamePhase = 'Game' | 'Riddle'
 
@@ -50,6 +53,7 @@ export interface GameState {
     phase: GamePhase
     inventory: Inventory
     interaction: Interaction
+    interactionTarget: any
     chests: Chests
     progression: Progression
 }
@@ -64,6 +68,7 @@ export const defaultGameStoreState: () => GameState = () => ({
     phase: 'Game',
     inventory: defaultInventory(),
     interaction: null,
+    interactionTarget: null,
     chests: defaultChests,
     progression: defaultProgression()
 })
@@ -349,7 +354,7 @@ export class GameStore {
             ...this.state,
             activeFoundItem: null
         }
-        this.showNextDialogue()
+        this.afterDialogue()
     }
 
     @action
@@ -371,7 +376,7 @@ export class GameStore {
                 }
                 // Otherwise shows the possible next dialogue
             } else {
-                this.showNextDialogue()
+                this.afterDialogue()
             }
         }
     }
@@ -385,7 +390,7 @@ export class GameStore {
                 this.addItemToInventory(item)
             }
         } else {
-            this.showNextDialogue()
+            this.afterDialogue(this.state.activeDialogue)
         }
         this.state = {
             ...this.state,
@@ -394,10 +399,14 @@ export class GameStore {
     }
 
     @action
-    showNextDialogue = () => {
+    afterDialogue = (lastDialog?: Dialogue) => {
         if (this.state.nextDialogueId) {
             // TODO: indagare o chiedere ad alby perche' senza non funzia
             setTimeout(() => this.showDialogue(this.state.nextDialogueId), 0)
+        }
+        if (lastDialog.id === 'dialog5') {
+            const hammurtosh = this.state.interactionTarget as Hammurtosh
+            hammurtosh.moveTo(coord2Pixel(9), coord2Pixel(2))
         }
     }
 
@@ -439,12 +448,13 @@ export class GameStore {
     }
 
     @action
-    readyInteraction = (interaction: Interaction) => {
+    readyInteraction = (interaction: Interaction, interactionTarget?: any) => {
         if (!this.state.interaction) {
             document.addEventListener('keydown', this.interactionListener)
             this.state = {
                 ...this.state,
-                interaction
+                interaction,
+                interactionTarget
             }
         }
     }

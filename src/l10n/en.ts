@@ -32,6 +32,8 @@ const english: LocalizedStrings = {
         `If this door you want to open, to insert these letters you need ${a}, ${b}, ${c}, ${d}`,
     riddle_if_question: ([a, b, c]: number[]) =>
         `If the magic number is even, the door will open with the sum of ${a} and ${b}, otherwise with the product of them.\n The magic number is ${c}`,
+    riddle_loop_question: ([a]: number[]) =>
+        `If you want to exit from this pyramid, ${a} times you have to knock on this door`,
 
     block_number: 'number',
     block_letter: 'letter',
@@ -42,6 +44,7 @@ const english: LocalizedStrings = {
     block_then: 'then',
     block_else: 'else',
     block_is_even: 'is even',
+    block_riddle_return_given_number: 'Given the number',
     block_riddle_return_given_numbers: 'Given the numbers',
     block_riddle_return_given_letters: 'Given the letters',
     block_riddle_return_open_with: 'open the door with',
@@ -114,6 +117,8 @@ const english: LocalizedStrings = {
 
     dialogue_5_0: 'Wellhome to hell.',
     dialogue_5_1: "You're so diabolihal.",
+    dialogue_5_2: 'TODO',
+    dialogue_5_3: 'TODO',
 
     dialogue_6_0: 'Wow.',
 

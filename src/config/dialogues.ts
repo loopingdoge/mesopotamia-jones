@@ -97,7 +97,9 @@ export const dialogues: Dialogue[] = [
         'dialog5',
         [
             line(characters[2], l10n.dialogue_5_0),
-            line(characters[0], l10n.dialogue_5_1)
+            line(characters[2], l10n.dialogue_5_1),
+            line(characters[0], l10n.dialogue_5_2),
+            line(characters[2], l10n.dialogue_5_3)
         ],
         []
     ),

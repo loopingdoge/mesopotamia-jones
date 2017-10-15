@@ -35,6 +35,7 @@ export interface LocalizedStrings {
     riddle_sum_question: (...args: any[]) => string
     riddle_word_question: (...args: any[]) => string
     riddle_if_question: (...args: any[]) => string
+    riddle_loop_question: (...args: any[]) => string
 
     // Blocks
     block_number: string
@@ -46,6 +47,7 @@ export interface LocalizedStrings {
     block_then: string
     block_else: string
     block_is_even: string
+    block_riddle_return_given_number: string
     block_riddle_return_given_numbers: string
     block_riddle_return_given_letters: string
     block_riddle_return_open_with: string
@@ -105,6 +107,8 @@ export interface LocalizedStrings {
 
     dialogue_5_0: string
     dialogue_5_1: string
+    dialogue_5_2: string
+    dialogue_5_3: string
 
     dialogue_6_0: string
 
@@ -121,7 +125,7 @@ export const getL10NDictionary: () => LocalizedStrings = () => {
         case 'it-IT':
             return italian
         default:
-            return english
+            return italian
     }
 }
 

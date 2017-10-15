@@ -32,6 +32,8 @@ const italian: LocalizedStrings = {
         `Se la porta aprire vorrai, queste lettere inserire dovrai: ${a}, ${b}, ${c}, ${d}`,
     riddle_if_question: ([a, b, c]: number[]) =>
         `Se il numero magico è pari, la porta si apre con la somma di ${a} e ${b}, altrimenti con il prodotto.\n Il numero magico è ${c}`,
+    riddle_loop_question: ([a]: number[]) =>
+        `Se dalla piramide uscire vorrai, ${a} volte bussare sulla porta dovrai`,
 
     block_number: 'numero',
     block_letter: 'lettera',
@@ -42,6 +44,7 @@ const italian: LocalizedStrings = {
     block_then: 'allora',
     block_else: 'altrimenti',
     block_is_even: 'è pari',
+    block_riddle_return_given_number: 'Dato il numero',
     block_riddle_return_given_numbers: 'Dati i numeri',
     block_riddle_return_given_letters: 'Date le lettere',
     block_riddle_return_open_with: 'apri la porta con',
@@ -118,8 +121,12 @@ const italian: LocalizedStrings = {
     dialogue_4_0:
         'Per caso hai visto il mio cane? Gli avevo insegnato ad abbaiare in cuneiforme...',
 
-    dialogue_5_0: "Benvenuthi all'inferno.",
-    dialogue_5_1: 'Sei proprio diaboliho.',
+    dialogue_5_0:
+        'Guarda guarda un nuovo eploratore, complimenti per essere arrivato fin qui! Sei libero di uscire...',
+    dialogue_5_1:
+        "...basta solo che risolvi l'indovinello sull'ultima porta. È un peccato che non ci sia mai riuscito nessuno...",
+    dialogue_5_2: 'Sei proprio diaboliho.',
+    dialogue_5_3: "Benvenuto all'infernoh muhauhau.",
 
     dialogue_6_0: 'Wow.',
 

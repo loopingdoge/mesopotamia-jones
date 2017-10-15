@@ -143,7 +143,7 @@ export default class Game extends Phaser.State {
         }
         if (gameStore.room.id === 'room5') {
             this.npcs = [
-                new Hammurtosh(this.game, coord2Pixel(7.5), coord2Pixel(1))
+                new Hammurtosh(this.game, coord2Pixel(7.5), coord2Pixel(2))
             ]
             this.game.add.existing(this.npcs[0])
         }
@@ -282,7 +282,7 @@ export default class Game extends Phaser.State {
     onNearNpc(npc: Npc) {
         if (gameStore.controlsEnabled) {
             const dialogueId = npc.dialogue(gameStore.state)
-            this.activateDialogue(dialogueId)
+            this.activateDialogue(dialogueId, npc)
         }
     }
 
@@ -298,17 +298,17 @@ export default class Game extends Phaser.State {
         this.prepareInteraction({ type: 'object', id: chestId })
     }
 
-    activateDialogue(dialogueId: string) {
-        this.prepareInteraction({ type: 'npc', id: dialogueId })
+    activateDialogue(dialogueId: string, target: any) {
+        this.prepareInteraction({ type: 'npc', id: dialogueId }, target)
     }
 
     activateDoor(x: number, y: number) {
         this.prepareInteraction({ type: 'door', x, y })
     }
 
-    prepareInteraction = (interaction: Interaction) => {
+    prepareInteraction = (interaction: Interaction, target?: any) => {
         if (!gameStore.state.interaction) {
-            gameStore.readyInteraction(interaction)
+            gameStore.readyInteraction(interaction, target)
         }
     }
 
