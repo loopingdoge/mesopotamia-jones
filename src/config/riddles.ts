@@ -317,7 +317,7 @@ const riddles: Riddle[] = [
             `,
             `
                 <block type="function_call" id="bussa" editable="false">
-                    <field name="FUNCALL">bussa()</field>
+                    <field name="FUNCALL">${l10n.block_knock_door}()</field>
                 </block>
             `,
             `

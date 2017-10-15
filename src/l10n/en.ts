@@ -39,6 +39,7 @@ const english: LocalizedStrings = {
     block_letter: 'letter',
     block_magic_number: 'magic_number',
     block_result: 'result',
+    block_knock_door: 'knockTheDoor',
     block_join: 'join',
     block_if: 'if',
     block_then: 'then',

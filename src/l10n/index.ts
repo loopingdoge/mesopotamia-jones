@@ -42,6 +42,7 @@ export interface LocalizedStrings {
     block_letter: string
     block_magic_number: string
     block_result: string
+    block_knock_door: string
     block_join: string
     block_if: string
     block_then: string
