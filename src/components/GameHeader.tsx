@@ -5,10 +5,11 @@ import { androidMenu, close, grid, image } from 'react-icons-kit/ionicons/'
 
 import { GameUI, UIStore } from '../stores/gameUIStore'
 
-import l10n from '../l10n'
+import { L10N } from '../l10n'
 
 import { onlyIf } from '../utils'
 
+import localized from '../containers/localized'
 import Button from './Button'
 
 const styles = StyleSheet.create({
@@ -40,41 +41,44 @@ export interface GameHeaderProps {
     gameUi: GameUI
     width: number
     show: (gameUi: GameUI) => void
+    l10n: L10N
 }
 
-const GameHeader = ({ gameUi, show, width }: GameHeaderProps) => (
-    // tslint:disable-next-line:jsx-no-lambda
-    <div className={css(styles.inventoryHeader)} style={{ width }}>
-        <Button
-            icon={image}
-            text={l10n.map}
-            onClick={
-                gameUi === GameUI.Map
-                    ? show.bind(null, GameUI.Game)
-                    : show.bind(null, GameUI.Map)
-            }
-            customCSS={styles.button}
-        />
-        <Button
-            icon={grid}
-            text={l10n.inventory}
-            onClick={
-                gameUi === GameUI.Inventory
-                    ? show.bind(null, GameUI.Game)
-                    : show.bind(null, GameUI.Inventory)
-            }
-            customCSS={styles.button}
-        />
-        <Button
-            icon={gameUi === GameUI.Game ? androidMenu : close}
-            onClick={
-                gameUi === GameUI.Game
-                    ? show.bind(null, GameUI.Menu)
-                    : show.bind(null, GameUI.Game)
-            }
-            customCSS={styles.buttonRight}
-        />
-    </div>
+const GameHeader = localized(
+    ({ l10n, gameUi, show, width }: GameHeaderProps) => (
+        // tslint:disable-next-line:jsx-no-lambda
+        <div className={css(styles.inventoryHeader)} style={{ width }}>
+            <Button
+                icon={image}
+                text={l10n.map}
+                onClick={
+                    gameUi === GameUI.Map
+                        ? show.bind(null, GameUI.Game)
+                        : show.bind(null, GameUI.Map)
+                }
+                customCSS={styles.button}
+            />
+            <Button
+                icon={grid}
+                text={l10n.inventory}
+                onClick={
+                    gameUi === GameUI.Inventory
+                        ? show.bind(null, GameUI.Game)
+                        : show.bind(null, GameUI.Inventory)
+                }
+                customCSS={styles.button}
+            />
+            <Button
+                icon={gameUi === GameUI.Game ? androidMenu : close}
+                onClick={
+                    gameUi === GameUI.Game
+                        ? show.bind(null, GameUI.Menu)
+                        : show.bind(null, GameUI.Game)
+                }
+                customCSS={styles.buttonRight}
+            />
+        </div>
+    )
 )
 
 interface GameHeaderContainerProps {

@@ -1,6 +1,6 @@
-import { LocalizedStrings } from '.'
+import { L10N } from '.'
 
-const italian: LocalizedStrings = {
+const italian: L10N = {
     new_game: 'Nuova Partita',
     continue_game: 'Continua',
     credits: 'Crediti',

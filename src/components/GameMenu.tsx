@@ -1,17 +1,19 @@
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
 import * as React from 'react'
+import { close } from 'react-icons-kit/ionicons/'
 import { Route } from 'react-router-dom'
 
-import { GameUI, UIStore } from '../stores/gameUIStore'
-
-import Button from './Button'
-import PressToContinue from './PressToContinue'
-
-import l10n from '../l10n'
 import { arvo } from '../utils/fonts'
 
-import { close } from 'react-icons-kit/ionicons/'
+import { GameUI, UIStore } from '../stores/gameUIStore'
+import { L10NStore } from '../stores/l10nStore'
+
+import { L10N, Language } from '../l10n'
+
+import localized from '../containers/localized'
+import Button from './Button'
+import PressToContinue from './PressToContinue'
 
 const styles = StyleSheet.create({
     container: {
@@ -59,12 +61,14 @@ const styles = StyleSheet.create({
 })
 
 export interface GameMenuProps {
+    l10n: L10N
     show: (gameUi: GameUI) => void
+    changeLanguage: (language: Language) => void
 }
 
 class GameMenu extends React.Component<GameMenuProps> {
     render() {
-        const { show } = this.props
+        const { changeLanguage, l10n, show } = this.props
         return (
             <div className={css(styles.container)}>
                 <Button
@@ -94,12 +98,12 @@ class GameMenu extends React.Component<GameMenuProps> {
                         >
                             <Button
                                 text={'Italiano'}
-                                onClick={() => {}}
+                                onClick={() => changeLanguage('it')}
                                 customCSS={styles.button}
                             />
                             <Button
                                 text={'Inglese'}
-                                onClick={() => {}}
+                                onClick={() => changeLanguage('en')}
                                 customCSS={styles.button}
                             />
                         </div>
@@ -112,10 +116,17 @@ class GameMenu extends React.Component<GameMenuProps> {
 
 interface GameMenuContainerProps {
     uiStore?: UIStore
+    l10nStore?: L10NStore
 }
 
-export default inject('uiStore')(
-    observer(({ uiStore }: GameMenuContainerProps) => (
-        <GameMenu show={uiStore.show} />
-    ))
+export default inject('uiStore', 'l10nStore')(
+    observer(({ uiStore, l10nStore }: GameMenuContainerProps) => {
+        const LocalizedMenu = localized(GameMenu)
+        return (
+            <LocalizedMenu
+                show={uiStore.show}
+                changeLanguage={l10nStore.changeLanguage}
+            />
+        )
+    })
 )

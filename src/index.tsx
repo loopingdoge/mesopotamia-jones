@@ -8,6 +8,7 @@ import { Route, Router } from 'react-router-dom'
 import App from './components/App'
 import gameStore from './stores/gameStore'
 import uiStore from './stores/gameUIStore'
+import l10nStore from './stores/l10nStore'
 import riddleStore from './stores/riddleStore'
 import riddleUIStore from './stores/riddleUIStore'
 import registerServiceWorker from './utils/registerServiceWorker'
@@ -16,7 +17,14 @@ const routingStore = new RouterStore()
 
 gameStore.init(riddleStore, uiStore)
 
-const stores = { gameStore, routingStore, riddleStore, riddleUIStore, uiStore }
+const stores = {
+    gameStore,
+    routingStore,
+    riddleStore,
+    riddleUIStore,
+    uiStore,
+    l10nStore
+}
 
 const hashHistory = createHashHistory()
 const history = syncHistoryWithStore(hashHistory, routingStore)

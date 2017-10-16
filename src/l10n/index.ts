@@ -3,7 +3,9 @@ import * as getLocale from 'browser-locale'
 import english from './en'
 import italian from './it'
 
-export interface LocalizedStrings {
+export type Language = 'it' | 'en'
+
+export interface L10N {
     // Home
     new_game: string
     continue_game: string
@@ -128,13 +130,22 @@ export interface LocalizedStrings {
     dialogue_need_rock: string
 }
 
-export const getL10NDictionary: () => LocalizedStrings = () => {
-    const locale = getLocale()
-    switch (locale) {
-        case 'it-IT':
-            return italian
-        default:
-            return english
+export const getL10NDictionary = (language?: Language) => {
+    if (language) {
+        switch (language) {
+            case 'it':
+                return italian
+            case 'en':
+                return english
+        }
+    } else {
+        const locale = getLocale()
+        switch (locale) {
+            case 'it-IT':
+                return italian
+            default:
+                return english
+        }
     }
 }
 
