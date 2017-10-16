@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         boxShadow: 'rgba(255, 255, 255, 0.28) 0px 0px 24px',
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
         border: '1px solid rgba(255, 255, 255, 0.09)',
+        padding: '40px 0px',
         animationName: [fadeIn],
         animationDuration: '0.5s'
     },
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
         boxShadow:
             '0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12)'
     },
-    goBack: { marginBottom: '36px' },
+    goBack: {},
     button: {
         minWidth: '25%'
     },
