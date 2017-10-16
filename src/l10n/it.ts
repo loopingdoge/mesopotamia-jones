@@ -137,10 +137,11 @@ const italian: LocalizedStrings = {
     dialogue_7_0:
         'Traduzione: "Attento esploratore, oltre quella porta troverai solo pericolo".',
 
-    dialogue_8_0: 'Grazie per averci liberati!',
+    dialogue_8_0: 'Grazie per averci liberati! Il mio cane vuole parlarti',
 
     dialogue_9_0: 'WOW! AH-ROO',
-    dialogue_9_1: 'Traduzione: Much Grato. Wow.',
+    dialogue_9_1:
+        'Traduzione: Much Grato. Such Developer. Gioco finito. Titoli di coda... wow!',
 
     dialogue_need_key: "E' chiuso... servirebbe una chiave.",
 

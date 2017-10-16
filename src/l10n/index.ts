@@ -134,7 +134,7 @@ export const getL10NDictionary: () => LocalizedStrings = () => {
         case 'it-IT':
             return italian
         default:
-            return italian
+            return english
     }
 }
 
