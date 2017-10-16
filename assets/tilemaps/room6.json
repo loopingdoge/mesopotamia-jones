@@ -1,65 +1,70 @@
-{
-    "height": 9,
-    "infinite": false,
-    "layers": [{
-            "data": [91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 79, 0, 99, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 79, 0, 0, 85, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 79, 0, 99, 91, 0, 0, 0, 0, 0, 0, 79, 0, 0, 0, 0, 0, 0, 0, 85, 105, 77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 99, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 77, 99, 125, 76, 45, 43, 43, 76, 57, 58, 59, 43, 76, 43, 45, 43, 60, 126],
-            "height": 9,
-            "name": "blocking",
-            "opacity": 1,
-            "type": "tilelayer",
-            "visible": true,
-            "width": 16,
-            "x": 0,
-            "y": 0
-        },
+{ "height":9,
+ "infinite":false,
+ "layers":[
         {
-            "draworder": "topdown",
-            "name": "items",
-            "objects": [],
-            "opacity": 1,
-            "type": "objectgroup",
-            "visible": true,
-            "x": 0,
-            "y": 0
-        }
-    ],
-    "nextobjectid": 1,
-    "orientation": "orthogonal",
-    "renderorder": "right-down",
-    "templategroups": [],
-    "tiledversion": "v1.0.3-241-g07b6c72",
-    "tileheight": 32,
-    "tilesets": [{
-        "columns": 14,
-        "firstgid": 1,
-        "image": "..\/images\/sheet.png",
-        "imageheight": 320,
-        "imagewidth": 448,
-        "margin": 0,
-        "name": "sheet",
-        "spacing": 0,
-        "terrains": [{
-            "name": "Nuovo terreno",
-            "tile": -1
+         "data":[91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 79, 0, 99, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 79, 0, 0, 85, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 79, 0, 99, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 105, 77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 99, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 85, 105, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 77, 99, 125, 76, 45, 43, 43, 76, 57, 58, 59, 43, 76, 43, 45, 43, 60, 126],
+         "height":9,
+         "name":"blocking",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":16,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "name":"items",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
-        "tilecount": 140,
-        "tileheight": 32,
-        "tileproperties": {
-            "57": {
-                "direction": "top",
-                "isDoor": true
-            }
-        },
-        "tilepropertytypes": {
-            "57": {
-                "direction": "string",
-                "isDoor": "bool"
-            }
-        },
-        "tilewidth": 32
-    }],
-    "tilewidth": 32,
-    "type": "map",
-    "version": 1,
-    "width": 16
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "templategroups":[],
+ "tiledversion":"v1.0.3-241-g07b6c72",
+ "tileheight":32,
+ "tilesets":[
+        {
+         "columns":14,
+         "firstgid":1,
+         "image":"..\/images\/sheet.png",
+         "imageheight":320,
+         "imagewidth":448,
+         "margin":0,
+         "name":"sheet",
+         "spacing":0,
+         "terrains":[
+                {
+                 "name":"Nuovo terreno",
+                 "tile":-1
+                }],
+         "tilecount":140,
+         "tileheight":32,
+         "tileproperties":
+            {
+             "57":
+                {
+                 "direction":"top",
+                 "isDoor":true
+                }
+            },
+         "tilepropertytypes":
+            {
+             "57":
+                {
+                 "direction":"string",
+                 "isDoor":"bool"
+                }
+            },
+         "tilewidth":32
+        }],
+ "tilewidth":32,
+ "type":"map",
+ "version":1,
+ "width":16
 }

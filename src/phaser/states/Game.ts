@@ -135,23 +135,36 @@ export default class Game extends Phaser.State {
     createNpcs() {
         this.npcs = []
         // TODO switch?
-        if (gameStore.room.id === 'room3') {
-            this.npcs = [
-                new VonTalin(this.game, coord2Pixel(7.5), coord2Pixel(2))
-            ]
-            this.game.add.existing(this.npcs[0])
-        }
-        if (gameStore.room.id === 'room5') {
-            this.npcs = [
-                new Hammurtosh(this.game, coord2Pixel(7.5), coord2Pixel(2))
-            ]
-            this.game.add.existing(this.npcs[0])
-        }
-        if (gameStore.room.id === 'room4') {
-            this.npcs = [
-                new VonDogen(this.game, coord2Pixel(7.5), coord2Pixel(1))
-            ]
-            this.game.add.existing(this.npcs[0])
+        switch (gameStore.room.id) {
+            case 'room3':
+                this.npcs = [
+                    new VonTalin(this.game, coord2Pixel(7.5), coord2Pixel(2))
+                ]
+                this.game.add.existing(this.npcs[0])
+                break
+
+            case 'room4':
+                this.npcs = [
+                    new VonDogen(this.game, coord2Pixel(7.5), coord2Pixel(1))
+                ]
+                this.game.add.existing(this.npcs[0])
+                break
+
+            case 'room5':
+                this.npcs = [
+                    new Hammurtosh(this.game, coord2Pixel(7.5), coord2Pixel(2))
+                ]
+                this.game.add.existing(this.npcs[0])
+                break
+
+            case 'room6':
+                this.npcs = [
+                    new VonTalin(this.game, coord2Pixel(7.5), coord2Pixel(2.5)),
+                    new VonDogen(this.game, coord2Pixel(7.5), coord2Pixel(1.5))
+                ]
+                this.game.add.existing(this.npcs[0])
+                this.game.add.existing(this.npcs[1])
+                break
         }
         this.createObjects()
 
