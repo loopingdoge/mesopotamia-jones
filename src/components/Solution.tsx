@@ -2,9 +2,11 @@ import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 
 import { SolutionType } from '../config/riddles'
-import { initList, mod, next, prev } from '../utils'
+import { initList, mod, next, onlyIf, prev } from '../utils'
 import Button from './Button'
 import LockCode from './LockCode'
+
+import l10n from '../l10n'
 
 const numbers: string[] = '0123456789'.split('')
 const strings: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
@@ -56,6 +58,9 @@ export default class Solution extends React.Component<
     SolutionProps,
     SolutionState
 > {
+
+    clickCounter: number
+
     /**
      * Returns a list containing the (numbers|strings)'s index for every field
      */
@@ -70,6 +75,7 @@ export default class Solution extends React.Component<
     constructor(props: SolutionProps) {
         super(props)
         this.state = { focusedIndex: 0 }
+        this.clickCounter = 0
     }
 
     componentDidMount() {
@@ -185,10 +191,7 @@ export default class Solution extends React.Component<
     }
 
     render() {
-        const { type } = this.props
-        return type === 'knocks' ? (
-            <Button text={'Bussa'} onClick={() => {}} />
-        ) : (
+        return onlyIf(this.props.type !== 'knocks',
             <div
                 id={'lockcode'}
                 className={css(
@@ -199,5 +202,22 @@ export default class Solution extends React.Component<
                 {this.getFields()}
             </div>
         )
+        
+        // type === 'knocks' ? (
+        //     <div>
+        //         <Button text={l10n.knock} onClick={this.incrementCounter} />
+        //         {clickcounter}
+        //     </div>
+        // ) : (
+        //     <div
+        //         id={'lockcode'}
+        //         className={css(
+        //             styles.solution,
+        //             this.props.isCorrect && styles.correctSolution
+        //         )}
+        //     >
+        //         {this.getFields()}
+        //     </div>
+        // )
     }
 }

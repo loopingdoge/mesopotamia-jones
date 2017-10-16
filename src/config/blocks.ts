@@ -493,10 +493,10 @@ export const blocks: Block[] = [
         (block: any) => `${block.getFieldValue('FUNCALL')};`
     ),
     createBlock(
-        'for_times',
+        'loop_times',
         {
-            type: 'for_times',
-            message0: 'ripeti %1 volte %2 %3',
+            type: 'loop_times',
+            message0: `${l10n.block_loop} %1 ${l10n.block_times} %2 %3`,
             args0: [
                 {
                     type: 'input_value',

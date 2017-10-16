@@ -21,6 +21,7 @@ const italian: LocalizedStrings = {
     close_game: 'Esci dal gioco',
 
     back: 'Indietro',
+    knock: 'Bussa alla porta',
     riddle_solved: 'Indovinello risolto!',
     riddle_open_door: 'Apri la porta',
     riddle_solved_hint: 'Clicca il pulsante o premi spazio',
@@ -44,6 +45,8 @@ const italian: LocalizedStrings = {
     block_if: 'se',
     block_then: 'allora',
     block_else: 'altrimenti',
+    block_loop: 'ripeti',
+    block_times: 'volte',
     block_is_even: 'è pari',
     block_riddle_return_given_number: 'Dato il numero',
     block_riddle_return_given_numbers: 'Dati i numeri',

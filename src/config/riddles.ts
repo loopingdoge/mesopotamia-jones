@@ -321,7 +321,7 @@ const riddles: Riddle[] = [
                 </block>
             `,
             `
-                <block type="for_times"></block>
+                <block type="loop_times"></block>
             `
         ],
         defaultWorkspace: `

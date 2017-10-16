@@ -26,6 +26,7 @@ export interface LocalizedStrings {
 
     // Riddle
     back: string
+    knock: string
     riddle_solved: string
     riddle_open_door: string
     riddle_solved_hint: string
@@ -47,6 +48,8 @@ export interface LocalizedStrings {
     block_if: string
     block_then: string
     block_else: string
+    block_loop: string
+    block_times: string
     block_is_even: string
     block_riddle_return_given_number: string
     block_riddle_return_given_numbers: string
