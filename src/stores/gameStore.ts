@@ -411,6 +411,7 @@ export class GameStore {
                     const hammurtosh = this.state
                         .interactionTarget as Hammurtosh
                     hammurtosh.moveTo(coord2Pixel(9), coord2Pixel(2))
+                    this.state.progression.hammurtoshMoved = true
                     break
                 case 'dialog9':
                     this.state.progression.isGameEnded = true

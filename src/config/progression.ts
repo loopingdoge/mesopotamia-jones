@@ -4,6 +4,7 @@ import { getRoomById, Room } from './map'
 export interface Progression {
     isGameStarted: boolean
     isGameEnded: boolean
+    hammurtoshMoved: boolean
     hasShownComputerTutorial: boolean
     roomsVisited: Room[]
 }
@@ -11,6 +12,7 @@ export interface Progression {
 export const defaultProgression: () => Progression = () => ({
     isGameStarted: false,
     isGameEnded: false,
+    hammurtoshMoved: false,
     hasShownComputerTutorial: false,
     roomsVisited: [getRoomById('room1')]
 })

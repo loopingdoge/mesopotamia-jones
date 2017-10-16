@@ -134,7 +134,7 @@ export default class Game extends Phaser.State {
 
     createNpcs() {
         this.npcs = []
-        // TODO switch?
+
         switch (gameStore.room.id) {
             case 'room3':
                 this.npcs = [
@@ -151,9 +151,12 @@ export default class Game extends Phaser.State {
                 break
 
             case 'room5':
-                this.npcs = [
-                    new Hammurtosh(this.game, coord2Pixel(7.5), coord2Pixel(2))
-                ]
+                const x = !gameStore.state.progression.hammurtoshMoved
+                    ? coord2Pixel(7.5)
+                    : coord2Pixel(9)
+                const y = coord2Pixel(2)
+
+                this.npcs = [new Hammurtosh(this.game, x, y)]
                 this.game.add.existing(this.npcs[0])
                 break
 
