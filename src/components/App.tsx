@@ -5,6 +5,7 @@ import DevTools from 'mobx-react-devtools'
 import * as React from 'react'
 import { Route, Switch } from 'react-router'
 
+import Credits from './Credits'
 import Home from './Home'
 import MesopotamiaJones from './MesopotamiaJones'
 
@@ -24,6 +25,7 @@ export default class App extends React.Component {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/game" component={MesopotamiaJones} />
+                    <Route path="/credits" component={Credits} />
                 </Switch>
             </div>
         )

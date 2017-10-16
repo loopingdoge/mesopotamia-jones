@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         fontSize: 'xx-large'
     },
     menuContainer: {},
-    button: {
+    menuItem: {
         margin: '10px 20px'
     },
     closeButton: {
@@ -49,6 +49,12 @@ const styles = StyleSheet.create({
         right: 0,
         top: 5,
         marginRight: 12
+    },
+    langWrapper: {
+        display: 'flex'
+    },
+    button: {
+        flex: 1
     }
 })
 
@@ -72,17 +78,31 @@ class GameMenu extends React.Component<GameMenuProps> {
                         <Button
                             text={l10n.controls_game_controls}
                             onClick={show.bind(null, GameUI.Help)}
-                            customCSS={styles.button}
+                            customCSS={styles.menuItem}
                         />
                         <Route
                             render={({ history }: any) => (
                                 <Button
                                     text={l10n.close_game}
                                     onClick={() => history.push('/')}
-                                    customCSS={styles.button}
+                                    customCSS={styles.menuItem}
                                 />
                             )}
                         />
+                        <div
+                            className={css(styles.langWrapper, styles.menuItem)}
+                        >
+                            <Button
+                                text={'Italiano'}
+                                onClick={() => {}}
+                                customCSS={styles.button}
+                            />
+                            <Button
+                                text={'Inglese'}
+                                onClick={() => {}}
+                                customCSS={styles.button}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

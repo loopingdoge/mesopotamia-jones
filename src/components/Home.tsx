@@ -129,7 +129,7 @@ class HomeContainer extends React.Component<HomeContainerProps, undefined> {
     }
 
     showCredits = () => {
-        console.log('TODO credits')
+        this.props.routingStore.push('/credits')
     }
 
     render() {
