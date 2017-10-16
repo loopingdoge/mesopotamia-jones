@@ -131,7 +131,7 @@ const english: LocalizedStrings = {
     dialogue_7_0:
         'Translation: be careful explorer, you will find only danger beyond that door.',
 
-    dialogue_8_0: 'Thanks for freing us! My dog wants to talk with you',
+    dialogue_8_0: 'Thanks for freeing us! My dog wants to talk with you',
 
     dialogue_9_0: 'WOW! AH-ROO.',
     dialogue_9_1:
