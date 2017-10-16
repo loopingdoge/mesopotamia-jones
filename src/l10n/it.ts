@@ -126,9 +126,9 @@ const italian: LocalizedStrings = {
         'Per caso hai visto il mio cane? Gli avevo insegnato ad abbaiare in cuneiforme...',
 
     dialogue_5_0:
-        'Guarda guarda un nuovo eploratore, complimenti per essere arrivato fin qui! Sei libero di uscire...',
+        'Guarda guarda un esploratore sconosciuto, complimenti per essere arrivato fin qui! Sei libero di uscire...',
     dialogue_5_1:
-        "...basta solo che risolvi l'indovinello sull'ultima porta. È un peccato che non ci sia mai riuscito nessuno...",
+        "...basta solo che risolvi l'indovinello sull'ultima porta. È una sfortuna non ci sia mai riuscito nessuno...",
     dialogue_5_2: 'Sei proprio diaboliho.',
     dialogue_5_3: "Benvenuto all'infernoh muhauhau.",
 
@@ -136,6 +136,11 @@ const italian: LocalizedStrings = {
 
     dialogue_7_0:
         'Traduzione: "Attento esploratore, oltre quella porta troverai solo pericolo".',
+
+    dialogue_8_0: 'Grazie per averci liberati!',
+
+    dialogue_9_0: 'WOW! AH-ROO',
+    dialogue_9_1: 'Traduzione: Much Grato. Wow.',
 
     dialogue_need_key: "E' chiuso... servirebbe una chiave.",
 

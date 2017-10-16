@@ -18,6 +18,8 @@ export default class VonTalin extends Npc {
                 if (!hasItem(state.inventory, translator)) return 'dialog3'
                 else return 'dialog4'
             // tslint:enable:curly
+            case 'room6':
+                return 'dialog8'
             default:
                 return ''
         }

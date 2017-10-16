@@ -16,6 +16,8 @@ export default class VonDogen extends Npc {
         switch (state.room.id) {
             case 'room4':
                 return 'dialog6'
+            case 'room6':
+                return 'dialog9'
             default:
                 return ''
         }

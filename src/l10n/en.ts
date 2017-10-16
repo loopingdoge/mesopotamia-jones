@@ -119,15 +119,22 @@ const english: LocalizedStrings = {
     dialogue_4_0:
         'Did you see my dog by any chance? I taught him to bark in cuneiform...',
 
-    dialogue_5_0: 'Wellhome to hell.',
-    dialogue_5_1: "You're so diabolihal.",
-    dialogue_5_2: 'TODO',
-    dialogue_5_3: 'TODO',
+    dialogue_5_0:
+        'Look this stranger explorer, congratulation for gettin this far! You are free to leave...',
+    dialogue_5_1:
+        "...you just have to solve the riddle on the last door. It's unfortunate that none has succeded...",
+    dialogue_5_2: "You're so diabolihal.",
+    dialogue_5_3: 'Wellhome to hell muhauhau.',
 
     dialogue_6_0: 'Wow.',
 
     dialogue_7_0:
         'Translation: be careful explorer, you will find only danger beyond that door.',
+
+    dialogue_8_0: 'Thanks for freing us!',
+
+    dialogue_9_0: 'WOW! AH-ROO.',
+    dialogue_9_1: 'Translation: Much Grateful. Wow.',
 
     dialogue_need_key: "It's closed, I need a key.",
 

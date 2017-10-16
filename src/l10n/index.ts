@@ -118,6 +118,11 @@ export interface LocalizedStrings {
 
     dialogue_7_0: string
 
+    dialogue_8_0: string
+
+    dialogue_9_0: string
+    dialogue_9_1: string
+
     dialogue_need_key: string
 
     dialogue_need_rock: string

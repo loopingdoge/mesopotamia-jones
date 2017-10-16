@@ -110,7 +110,16 @@ export const dialogues: Dialogue[] = [
         undefined,
         'dialog7'
     ),
-    dialogue('dialog7', [line(characters[4], l10n.dialogue_7_0)], [], computer),
+    dialogue('dialog7', [line(characters[4], l10n.dialogue_7_0)], []),
+    dialogue('dialog8', [line(characters[1], l10n.dialogue_8_0)], []),
+    dialogue(
+        'dialog9',
+        [
+            line(characters[3], l10n.dialogue_9_0),
+            line(characters[4], l10n.dialogue_9_1)
+        ],
+        []
+    ),
     dialogue(NEED_KEY, [line(characters[0], l10n.dialogue_need_key)], []),
     dialogue(
         DOOR_ROCK_REQUIRED,
