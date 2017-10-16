@@ -3,12 +3,14 @@ import { getRoomById, Room } from './map'
 
 export interface Progression {
     isGameStarted: boolean
+    isGameEnded: boolean
     hasShownComputerTutorial: boolean
     roomsVisited: Room[]
 }
 
 export const defaultProgression: () => Progression = () => ({
     isGameStarted: false,
+    isGameEnded: false,
     hasShownComputerTutorial: false,
     roomsVisited: [getRoomById('room1')]
 })

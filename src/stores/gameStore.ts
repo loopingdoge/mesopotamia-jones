@@ -404,9 +404,18 @@ export class GameStore {
             // TODO: indagare o chiedere ad alby perche' senza non funzia
             setTimeout(() => this.showDialogue(this.state.nextDialogueId), 0)
         }
-        if (lastDialog && lastDialog.id === 'dialog5') {
-            const hammurtosh = this.state.interactionTarget as Hammurtosh
-            hammurtosh.moveTo(coord2Pixel(9), coord2Pixel(2))
+        if (lastDialog) {
+            switch (lastDialog.id) {
+                case 'dialog5':
+                    const hammurtosh = this.state
+                        .interactionTarget as Hammurtosh
+                    hammurtosh.moveTo(coord2Pixel(9), coord2Pixel(2))
+                    break
+                case 'dialog9':
+                    this.state.progression.isGameEnded = true
+                    this.uiStore.show(GameUI.Endscreen)
+                    break
+            }
         }
     }
 

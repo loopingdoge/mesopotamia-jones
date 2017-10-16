@@ -7,7 +7,8 @@ export enum GameUI {
     Map,
     Inventory,
     Menu,
-    Help
+    Help,
+    Endscreen
 }
 
 const getGameScale = (pageWidth: number, pageHeight: number) => {
@@ -107,6 +108,11 @@ export class UIStore {
     @action
     hideNotification = () => {
         this.isNotificationVisible = false
+    }
+
+    @action
+    hideEndscreen = () => {
+        this.show(GameUI.Map) //TODO Credits
     }
 }
 

@@ -23,6 +23,7 @@ import Riddle from './Riddle'
 import Inventory from '../containers/Inventory'
 import MapWrapper from '../containers/MapWrapper'
 import defaultWidthHeight from '../containers/widthHeightProvider'
+import Endscreen from './Endscreen'
 import GameControls from './GameControls'
 import GameMenu from './GameMenu'
 
@@ -69,6 +70,7 @@ export interface MesopotamiaJonesProps {
     gameUi: GameUI
     isNotificationVisible: boolean
     hideControls: (...args: any[]) => any
+    hideEndscreen: () => any
 }
 
 const MesopotamiaJones = ({
@@ -79,7 +81,8 @@ const MesopotamiaJones = ({
     pageHeight,
     gameUi,
     isNotificationVisible,
-    hideControls
+    hideControls,
+    hideEndscreen
 }: MesopotamiaJonesProps) => {
     const MaybeHeader = onlyIf(gamePhase !== 'Riddle', <GameHeader />)
     // const MaybeOverlay = onlyIf(gamePhase !== 'Riddle', <GameOverlay />)
@@ -116,6 +119,13 @@ const MesopotamiaJones = ({
             <GameMenu />
         </PropsedFadedContainer>
     )
+    const MaybeEndscreen = onlyIf(
+        gameUi === GameUI.Endscreen,
+        <PropsedFadedContainer>
+            <Endscreen onClose={hideEndscreen} />
+        </PropsedFadedContainer>
+    )
+
     let overlayContent
     switch (gameUi) {
         case GameUI.Game:
@@ -144,6 +154,7 @@ const MesopotamiaJones = ({
                 {MaybeHeader}
                 {MaybeControls}
                 {MaybeMenu}
+                {MaybeEndscreen}
                 <GameOverlay
                     width={pageWidth}
                     height={pageHeight}
@@ -190,7 +201,8 @@ class MesopotamiaJonesContainer extends React.Component<
             width,
             height,
             isNotificationVisible,
-            hideOverlay
+            hideOverlay,
+            hideEndscreen
         } = this.props.uiStore
         return (
             <MesopotamiaJones
@@ -202,6 +214,7 @@ class MesopotamiaJonesContainer extends React.Component<
                 gameUi={this.props.uiStore.state.ui}
                 isNotificationVisible={isNotificationVisible}
                 hideControls={hideOverlay}
+                hideEndscreen={hideEndscreen}
             />
         )
     }
