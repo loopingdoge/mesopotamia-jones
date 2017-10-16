@@ -141,7 +141,7 @@ const italian: LocalizedStrings = {
 
     dialogue_9_0: 'WOW! AH-ROO',
     dialogue_9_1:
-        'Traduzione: Much Grato. Such Developer. Gioco finito. Titoli di coda... wow!',
+        'Traduzione: Sono il tuo capo. Test passato. Such Developer. Gioco finito. Titoli di coda... wow!',
 
     dialogue_need_key: "E' chiuso... servirebbe una chiave.",
 

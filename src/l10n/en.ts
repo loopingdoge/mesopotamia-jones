@@ -135,7 +135,7 @@ const english: LocalizedStrings = {
 
     dialogue_9_0: 'WOW! AH-ROO.',
     dialogue_9_1:
-        'Translation: Much Grateful. Such Developer. Game is ended. End credits... wow!',
+        'Translation: I am your boss. Test passed. Such Developer. Game is ended. End credits... wow!',
 
     dialogue_need_key: "It's closed, I need a key.",
 

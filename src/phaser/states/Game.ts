@@ -145,7 +145,7 @@ export default class Game extends Phaser.State {
 
             case 'room4':
                 this.npcs = [
-                    new VonDogen(this.game, coord2Pixel(7.5), coord2Pixel(1))
+                    new VonDogen(this.game, coord2Pixel(7.5), coord2Pixel(2))
                 ]
                 this.game.add.existing(this.npcs[0])
                 break
