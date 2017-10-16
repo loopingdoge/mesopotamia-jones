@@ -480,7 +480,7 @@ export const blocks: Block[] = [
                 {
                     type: 'field_input',
                     name: 'FUNCALL',
-                    text: 'bussa()'
+                    text: 'functionCall'
                 }
             ],
             inputsInline: true,
@@ -490,7 +490,7 @@ export const blocks: Block[] = [
             tooltip: '',
             helpUrl: ''
         },
-        (block: any) => `${block.getFieldValue('FUNCALL')};`
+        (block: any) => `${block.getFieldValue('FUNCALL')}();`
     ),
     createBlock(
         'loop_times',
