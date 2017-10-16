@@ -18,7 +18,7 @@ const italian: LocalizedStrings = {
     controls_shortcuts: 'Shortcuts',
     notification_automatic_door_message:
         'Il computer ha automaticamente aperto la porta usando la tua precedente soluzione',
-    close_game: 'Esci dal gioco',
+    close_game: 'Home',
 
     back: 'Indietro',
     knock: 'Bussa alla porta',
