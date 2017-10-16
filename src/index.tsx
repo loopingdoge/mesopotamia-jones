@@ -3,7 +3,7 @@ import { Provider } from 'mobx-react'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { Route, Router } from 'react-router'
+import { Route, Router } from 'react-router-dom'
 
 import App from './components/App'
 import gameStore from './stores/gameStore'

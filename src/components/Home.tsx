@@ -1,7 +1,7 @@
 import { css, StyleSheet } from 'aphrodite'
 import { inject, observer } from 'mobx-react'
-import { RouterStore } from 'mobx-react-router'
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 
 import l10n from '../l10n'
 
@@ -70,18 +70,10 @@ const styles = StyleSheet.create({
 })
 
 export interface HomeProps {
-    startGame: () => void
-    newGame: () => void
-    showCredits: () => void
     saveFileExists: boolean
 }
 
-const Home = ({
-    startGame,
-    newGame,
-    showCredits,
-    saveFileExists
-}: HomeProps) => (
+const Home = ({ saveFileExists }: HomeProps) => (
     <div className={css(styles.homeContainer)}>
         <div className={css(styles.home)}>
             <div className={css(styles.title)}>
@@ -91,21 +83,27 @@ const Home = ({
                 <div className={css(styles.titleText)}>Mesopotamia Jones</div>
             </div>
             <div className={css(styles.buttonsContainer)}>
-                <Button
-                    onClick={newGame}
-                    text={l10n.new_game}
-                    customCSS={styles.button}
-                />
-                <Button
-                    onClick={startGame}
-                    text={l10n.continue_game}
-                    customCSS={styles.button}
-                />
-                <Button
-                    onClick={showCredits}
-                    text={l10n.credits}
-                    customCSS={styles.button}
-                />
+                <Link to="/game">
+                    <Button
+                        onClick={() => ({})}
+                        text={l10n.new_game}
+                        customCSS={styles.button}
+                    />
+                </Link>
+                <Link to="/game">
+                    <Button
+                        onClick={() => ({})}
+                        text={l10n.continue_game}
+                        customCSS={styles.button}
+                    />
+                </Link>
+                <Link to="/credits">
+                    <Button
+                        onClick={() => ({})}
+                        text={l10n.credits}
+                        customCSS={styles.button}
+                    />
+                </Link>
             </div>
         </div>
     </div>
@@ -113,31 +111,14 @@ const Home = ({
 
 export interface HomeContainerProps {
     gameStore?: GameStore
-    routingStore?: RouterStore
 }
 
-@inject('gameStore', 'routingStore')
+@inject('gameStore')
 @observer
 class HomeContainer extends React.Component<HomeContainerProps, undefined> {
-    startGame = () => {
-        this.props.routingStore.push('/game')
-    }
-
-    newGame = () => {
-        this.props.gameStore.newGame()
-        this.props.routingStore.push('/game')
-    }
-
-    showCredits = () => {
-        this.props.routingStore.push('/credits')
-    }
-
     render() {
         return (
             <Home
-                startGame={this.startGame}
-                newGame={this.newGame}
-                showCredits={this.showCredits}
                 saveFileExists={
                     this.props.gameStore.state.progression.isGameStarted
                 }

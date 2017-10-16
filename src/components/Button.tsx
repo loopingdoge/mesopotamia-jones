@@ -13,7 +13,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         border: '2px solid #90752d',
         outline: 'none',
-        fontFamily: 'sans-serif'
+        fontFamily: 'sans-serif',
+        color: 'black',
+        textDecoration: 'none'
     },
     active: {
         backgroundColor: '#fdd466',
