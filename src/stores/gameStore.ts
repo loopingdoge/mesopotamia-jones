@@ -210,6 +210,7 @@ export class GameStore {
     startGame = () => {
         this.game = new PhaserGame()
         this.game.start()
+        this.uiStore.show(GameUI.Game)
     }
 
     @action
