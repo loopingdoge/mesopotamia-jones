@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     title: {
         width: '100%',
         padding: '24px',
-        marginBottom: '48px',
+        marginBottom: '130px',
         textAlign: 'center',
         fontSize: 'xx-large',
         fontFamily: [sffedora, 'sans-serif']
