@@ -769,7 +769,7 @@ export const blocks: Block[] = [
                 'USERCODE'
             )
             const code = `
-                var numero1, knockCounter = 0;
+                var ${l10n.block_number}1, knockCounter = 0;
                 function ${l10n.block_knock_door}() {
                     knockCounter += 1;
                 }

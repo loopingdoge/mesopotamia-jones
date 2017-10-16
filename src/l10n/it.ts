@@ -40,7 +40,7 @@ const italian: LocalizedStrings = {
     block_letter: 'lettera',
     block_magic_number: 'numero_magico',
     block_result: 'risultato',
-    block_knock_door: 'bussaAllaPorta',
+    block_knock_door: 'bussaPorta',
     block_join: 'unisci',
     block_if: 'se',
     block_then: 'allora',
