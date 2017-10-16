@@ -9,8 +9,8 @@ export default class Hammurtosh extends Npc {
 
         this.game.physics.enable(this)
 
-        this.animations.add('right', [8, 9, 10, 11], 10, true)
         this.animations.add('idle', [1, 3], 2, true)
+        this.animations.add('right', [8, 9, 10, 11], 10, true)
     }
 
     dialogue(state: GameState): string {
