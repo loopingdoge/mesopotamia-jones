@@ -16,6 +16,7 @@ import * as Room2 from '../../../assets/tilemaps/room2.json'
 import * as Room3 from '../../../assets/tilemaps/room3.json'
 import * as Room4 from '../../../assets/tilemaps/room4.json'
 import * as Room5 from '../../../assets/tilemaps/room5.json'
+import * as Room6 from '../../../assets/tilemaps/room6.json'
 
 import * as Tiles from '../../../assets/images/sheet.png'
 
@@ -39,6 +40,7 @@ export default class Boot extends Phaser.State {
         this.load.tilemap('room3', '', Room3, Phaser.Tilemap.TILED_JSON)
         this.load.tilemap('room4', '', Room4, Phaser.Tilemap.TILED_JSON)
         this.load.tilemap('room5', '', Room5, Phaser.Tilemap.TILED_JSON)
+        this.load.tilemap('room6', '', Room6, Phaser.Tilemap.TILED_JSON)
         this.load.image('tiles', Tiles)
 
         this.load.image('joystick', outerJoystick)
