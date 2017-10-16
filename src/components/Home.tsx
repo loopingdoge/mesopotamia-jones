@@ -71,9 +71,10 @@ const styles = StyleSheet.create({
 
 export interface HomeProps {
     saveFileExists: boolean
+    newGame: (...args: any[]) => any
 }
 
-const Home = ({ saveFileExists }: HomeProps) => (
+const Home = ({ saveFileExists, newGame }: HomeProps) => (
     <div className={css(styles.homeContainer)}>
         <div className={css(styles.home)}>
             <div className={css(styles.title)}>
@@ -85,7 +86,7 @@ const Home = ({ saveFileExists }: HomeProps) => (
             <div className={css(styles.buttonsContainer)}>
                 <Link to="/game">
                     <Button
-                        onClick={() => ({})}
+                        onClick={newGame}
                         text={l10n.new_game}
                         customCSS={styles.button}
                     />
@@ -119,6 +120,7 @@ class HomeContainer extends React.Component<HomeContainerProps, undefined> {
     render() {
         return (
             <Home
+                newGame={this.props.gameStore.newGame}
                 saveFileExists={
                     this.props.gameStore.state.progression.isGameStarted
                 }
