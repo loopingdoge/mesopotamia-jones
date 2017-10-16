@@ -404,7 +404,7 @@ export class GameStore {
             // TODO: indagare o chiedere ad alby perche' senza non funzia
             setTimeout(() => this.showDialogue(this.state.nextDialogueId), 0)
         }
-        if (lastDialog.id === 'dialog5') {
+        if (lastDialog && lastDialog.id === 'dialog5') {
             const hammurtosh = this.state.interactionTarget as Hammurtosh
             hammurtosh.moveTo(coord2Pixel(9), coord2Pixel(2))
         }

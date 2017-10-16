@@ -529,7 +529,10 @@ export const blocks: Block[] = [
                 'USERCODE'
             )
 
-            const code = `
+            const code =
+                times === ''
+                    ? ''
+                    : `
                 for(var n = 0; n < ${times}; n++) {
                     ${usercode};
                 }
@@ -767,7 +770,7 @@ export const blocks: Block[] = [
             )
             const code = `
                 var numero1, knockCounter = 0;
-                function bussa() {
+                function ${l10n.block_knock_door}() {
                     knockCounter += 1;
                 }
                 function main() {
@@ -776,7 +779,6 @@ export const blocks: Block[] = [
                     return knockCounter;
                 }
             `
-            console.log(code)
             return code
         }
     )

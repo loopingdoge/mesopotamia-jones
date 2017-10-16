@@ -58,7 +58,6 @@ export default class Solution extends React.Component<
     SolutionProps,
     SolutionState
 > {
-
     clickCounter: number
 
     /**
@@ -191,7 +190,8 @@ export default class Solution extends React.Component<
     }
 
     render() {
-        return onlyIf(this.props.type !== 'knocks',
+        return onlyIf(
+            this.props.type !== 'knocks',
             <div
                 id={'lockcode'}
                 className={css(
@@ -202,22 +202,5 @@ export default class Solution extends React.Component<
                 {this.getFields()}
             </div>
         )
-        
-        // type === 'knocks' ? (
-        //     <div>
-        //         <Button text={l10n.knock} onClick={this.incrementCounter} />
-        //         {clickcounter}
-        //     </div>
-        // ) : (
-        //     <div
-        //         id={'lockcode'}
-        //         className={css(
-        //             styles.solution,
-        //             this.props.isCorrect && styles.correctSolution
-        //         )}
-        //     >
-        //         {this.getFields()}
-        //     </div>
-        // )
     }
 }
