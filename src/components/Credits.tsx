@@ -1,6 +1,7 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 import { Icon } from 'react-icons-kit'
+import { Route } from 'react-router-dom'
 
 import { arvo } from '../utils/fonts'
 
@@ -10,6 +11,7 @@ import Actions, {
 } from '../config/actions'
 import l10n from '../l10n'
 
+import Button from './Button'
 import PressToContinue from './PressToContinue'
 
 const fadeIn = {
@@ -26,6 +28,7 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         boxShadow: 'rgba(255, 255, 255, 0.28) 0px 0px 24px',
         backgroundColor: 'rgba(0, 0, 0, 0.8)',
         border: '1px solid rgba(255, 255, 255, 0.09)',
@@ -33,16 +36,29 @@ const styles = StyleSheet.create({
         animationName: [fadeIn],
         animationDuration: '1s'
     },
-    theEnd: {
+    title: {
         flex: 1,
         display: 'flex',
-        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         fontFamily: [arvo, 'sans-serif'],
-        fontSize: '15vw',
+        fontSize: '8vw',
         fontWeight: 'bold',
         color: 'white'
+    },
+    body: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: [arvo, 'sans-serif'],
+        fontSize: '2vw',
+        fontWeight: 'bold',
+        color: 'white'
+    },
+    button: {
+        minWidth: '25%'
     }
 })
 
@@ -62,7 +78,21 @@ class Endscreen extends React.Component<EndscreenProps> {
     render() {
         return (
             <div className={css(styles.container)}>
-                <div className={css(styles.theEnd)}>The end!</div>
+                <div className={css(styles.title)}>Credits</div>
+                <div className={css(styles.body)}>
+                    <p>Project by: Looping Doge</p>
+                    <p>- Alberto Nicoletti</p>
+                    <p>- Devid Farinelli</p>
+                </div>
+                <Route
+                    render={({ history }: any) => (
+                        <Button
+                            text={l10n.close_game}
+                            onClick={() => history.push('/')}
+                            customCSS={styles.button}
+                        />
+                    )}
+                />
                 <PressToContinue />
             </div>
         )

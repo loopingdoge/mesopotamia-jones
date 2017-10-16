@@ -23,6 +23,7 @@ import Riddle from './Riddle'
 import Inventory from '../containers/Inventory'
 import MapWrapper from '../containers/MapWrapper'
 import defaultWidthHeight from '../containers/widthHeightProvider'
+import Credits from './Credits'
 import Endscreen from './Endscreen'
 import GameControls from './GameControls'
 import GameMenu from './GameMenu'
@@ -71,6 +72,7 @@ export interface MesopotamiaJonesProps {
     isNotificationVisible: boolean
     hideControls: (...args: any[]) => any
     hideEndscreen: () => any
+    hideCredits: () => any
 }
 
 const MesopotamiaJones = ({
@@ -82,7 +84,8 @@ const MesopotamiaJones = ({
     gameUi,
     isNotificationVisible,
     hideControls,
-    hideEndscreen
+    hideEndscreen,
+    hideCredits
 }: MesopotamiaJonesProps) => {
     const MaybeHeader = onlyIf(gamePhase !== 'Riddle', <GameHeader />)
     // const MaybeOverlay = onlyIf(gamePhase !== 'Riddle', <GameOverlay />)
@@ -125,6 +128,12 @@ const MesopotamiaJones = ({
             <Endscreen onClose={hideEndscreen} />
         </PropsedFadedContainer>
     )
+    const MaybeCredits = onlyIf(
+        gameUi === GameUI.Credits,
+        <PropsedFadedContainer>
+            <Credits onClose={hideCredits} />
+        </PropsedFadedContainer>
+    )
 
     let overlayContent
     switch (gameUi) {
@@ -155,6 +164,7 @@ const MesopotamiaJones = ({
                 {MaybeControls}
                 {MaybeMenu}
                 {MaybeEndscreen}
+                {MaybeCredits}
                 <GameOverlay
                     width={pageWidth}
                     height={pageHeight}
@@ -202,7 +212,8 @@ class MesopotamiaJonesContainer extends React.Component<
             height,
             isNotificationVisible,
             hideOverlay,
-            hideEndscreen
+            hideEndscreen,
+            hideCredits
         } = this.props.uiStore
         return (
             <MesopotamiaJones
@@ -215,6 +226,7 @@ class MesopotamiaJonesContainer extends React.Component<
                 isNotificationVisible={isNotificationVisible}
                 hideControls={hideOverlay}
                 hideEndscreen={hideEndscreen}
+                hideCredits={hideCredits}
             />
         )
     }

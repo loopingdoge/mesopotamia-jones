@@ -8,7 +8,8 @@ export enum GameUI {
     Inventory,
     Menu,
     Help,
-    Endscreen
+    Endscreen,
+    Credits
 }
 
 const getGameScale = (pageWidth: number, pageHeight: number) => {
@@ -112,7 +113,12 @@ export class UIStore {
 
     @action
     hideEndscreen = () => {
-        this.show(GameUI.Map) //TODO Credits
+        this.show(GameUI.Credits)
+    }
+
+    @action
+    hideCredits = () => {
+        this.show(GameUI.Game)
     }
 }
 
