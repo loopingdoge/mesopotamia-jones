@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 
-import l10n from '../l10n'
+import l10nStore from '../stores/l10nStore'
 
 import { defaultGameStoreState, GameStore } from '../stores/gameStore'
 
@@ -87,21 +87,21 @@ const Home = ({ saveFileExists, newGame }: HomeProps) => (
                 <Link to="/game">
                     <Button
                         onClick={newGame}
-                        text={l10n.new_game}
+                        text={l10nStore.dictionary.new_game}
                         customCSS={styles.button}
                     />
                 </Link>
                 <Link to="/game">
                     <Button
                         onClick={() => ({})}
-                        text={l10n.continue_game}
+                        text={l10nStore.dictionary.continue_game}
                         customCSS={styles.button}
                     />
                 </Link>
                 <Link to="/credits">
                     <Button
                         onClick={() => ({})}
-                        text={l10n.credits}
+                        text={l10nStore.dictionary.credits}
                         customCSS={styles.button}
                     />
                 </Link>

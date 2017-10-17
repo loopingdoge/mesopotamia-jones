@@ -6,9 +6,9 @@ import Map from './Map'
 
 import { computer, getToolbox, hasItem, translator } from '../config/inventory'
 import { Riddle } from '../config/riddles'
-import l10n from '../l10n'
 
 import { GameStore } from '../stores/gameStore'
+import l10nStore from '../stores/l10nStore'
 
 import { onlyIf } from '../utils'
 import { arvo } from '../utils/fonts'
@@ -103,7 +103,9 @@ export default class MapWrapper extends React.Component<MapWrapperProps> {
         return (
             <div className={css(styles.wrapper)}>
                 <div className={css(styles.mapWrapperTab)}>
-                    <div className={css(styles.tabHeader)}>{l10n.map}</div>
+                    <div className={css(styles.tabHeader)}>
+                        {l10nStore.dictionary.map}
+                    </div>
                     <div className={css(styles.mapContainer)}>
                         <div>
                             <Map onMapDoorClick={onMapDoorClick} />

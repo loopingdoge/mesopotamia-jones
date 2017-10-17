@@ -4,6 +4,7 @@ import * as React from 'react'
 
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
+import l10nStore from '../stores/l10nStore'
 
 import Actions, {
     addActionListener,
@@ -82,7 +83,9 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
 
     componentDidMount() {
         this.scheduleLetters(
-            this.props.dialogue.lines[this.state.pageIndex].text
+            l10nStore.dictionary[
+                this.props.dialogue.lines[this.state.pageIndex].dialogueId
+            ]
         )
         this.timeouts.push(
             setTimeout(
@@ -107,7 +110,11 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
             const nextPageIndex = this.state.pageIndex + 1
             this.timeouts.forEach(timeout => clearTimeout(timeout))
             this.timeouts = []
-            this.scheduleLetters(this.props.dialogue.lines[nextPageIndex].text)
+            this.scheduleLetters(
+                l10nStore.dictionary[
+                    this.props.dialogue.lines[nextPageIndex].dialogueId
+                ]
+            )
             addActionListener(
                 Actions.SKIP_TO_DIALOGUE_END,
                 this.skipToLineEnd,
@@ -143,7 +150,10 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
 
     skipToLineEnd = (event: Event) => {
         event.stopPropagation()
-        const text = this.props.dialogue.lines[this.state.pageIndex].text
+        const text =
+            l10nStore.dictionary[
+                this.props.dialogue.lines[this.state.pageIndex].dialogueId
+            ]
         this.timeouts.forEach(timeout => clearTimeout(timeout))
         this.timeouts = []
         this.setState({ visibleCharacters: text })
@@ -189,8 +199,10 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
                     </div>
                     {onlyIf(
                         this.state.visibleCharacters.length ===
-                            this.props.dialogue.lines[this.state.pageIndex].text
-                                .length,
+                            l10nStore.dictionary[
+                                this.props.dialogue.lines[this.state.pageIndex]
+                                    .dialogueId
+                            ].length,
                         <PressToContinue />
                     )}
                 </div>

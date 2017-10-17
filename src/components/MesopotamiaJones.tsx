@@ -9,7 +9,7 @@ import { GameUI, UIStore } from '../stores/gameUIStore'
 
 import { Dialogue } from '../config/dialogues'
 import { Item } from '../config/inventory'
-import l10n from '../l10n'
+import l10nStore from '../stores/l10nStore'
 
 import DialogueUI from './Dialogue'
 import FadedContainer from './FadedContainer'
@@ -182,7 +182,9 @@ const MesopotamiaJones = ({
                 <GameNotification
                     width={pageWidth}
                     visible={isNotificationVisible}
-                    text={l10n.notification_automatic_door_message}
+                    text={
+                        l10nStore.dictionary.notification_automatic_door_message
+                    }
                 />
                 {MaybeRiddle}
             </div>

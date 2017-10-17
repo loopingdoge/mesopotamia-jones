@@ -7,7 +7,7 @@ import * as TranslateSrc from '../../assets/tutorials/translate.webm'
 
 import { computer, hasItem, Inventory } from './inventory'
 
-import l10n from '../l10n'
+import l10nStore from '../stores/l10nStore'
 
 import { onlyIf } from '../utils'
 
@@ -21,40 +21,40 @@ export interface Tutorial {
 export const tutorialSteps = (inventory: Inventory) => {
     const baseTutorial: Tutorial[] = [
         {
-            title: l10n.tut_riddle_title,
+            title: l10nStore.dictionary.tut_riddle_title,
             selector: '#cuneiformRiddle',
-            text: l10n.tut_riddle_text
+            text: l10nStore.dictionary.tut_riddle_text
         },
         {
-            title: l10n.tut_translate_riddle_title,
+            title: l10nStore.dictionary.tut_translate_riddle_title,
             selector: '#cuneiformRiddle',
-            text: l10n.tut_translate_riddle_text,
+            text: l10nStore.dictionary.tut_translate_riddle_text,
             video: TranslateSrc as any
         },
         {
-            title: l10n.tut_open_door_title,
+            title: l10nStore.dictionary.tut_open_door_title,
             selector: '#lockcode',
-            text: l10n.tut_open_door_text,
+            text: l10nStore.dictionary.tut_open_door_text,
             video: LockCodeSrc as any
         }
     ]
     const computerTutorial: Tutorial[] = [
         {
-            title: l10n.tut_computer_title,
+            title: l10nStore.dictionary.tut_computer_title,
             selector: '#blocklyArea',
-            text: l10n.tut_computer_text,
+            text: l10nStore.dictionary.tut_computer_text,
             video: ComputerSrc as any
         },
         {
-            title: l10n.tut_blocks_title,
+            title: l10nStore.dictionary.tut_blocks_title,
             selector: '.blocklyFlyout',
-            text: l10n.tut_blocks_text,
+            text: l10nStore.dictionary.tut_blocks_text,
             video: BlocksSrc
         },
         {
-            title: l10n.tut_solution_title,
+            title: l10nStore.dictionary.tut_solution_title,
             selector: '#play',
-            text: l10n.tut_solution_text
+            text: l10nStore.dictionary.tut_solution_text
         }
     ]
 

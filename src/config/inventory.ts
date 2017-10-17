@@ -6,19 +6,19 @@ import * as CuneiformLegendImage from '../../assets/images/legend.png'
 import * as MapImage from '../../assets/images/map.png'
 import * as TranslatorImage from '../../assets/images/rock.png'
 
-import l10n from '../l10n'
+import l10nStore from '../stores/l10nStore'
 
 export interface Item {
     id: string
-    name: string
-    description: string
+    nameId: string
+    descriptionId: string
     image: any
 }
 
 export class Computer implements Item {
     id: string = COMPUTER
-    name = l10n.computer_name
-    description = l10n.computer_description
+    nameId = 'computer_name'
+    descriptionId = 'computer_description'
     workspace: { [riddleId: string]: string } = {}
     image = ComputerImage
 }
@@ -65,13 +65,13 @@ export const getToolbox = (additionalEntries: any[]) => {
 
 const createItem = (
     id: string,
-    name: string,
-    description: string,
+    nameId: string,
+    descriptionId: string,
     image: any
 ): Item => ({
     id,
-    name,
-    description,
+    nameId,
+    descriptionId,
     image
 })
 
@@ -79,31 +79,26 @@ export const computer = new Computer()
 // export const rockSmasher = createItem(ROCK_SMASHER, 'rock smasher', '')
 export const computerKey = createItem(
     COMPUTER_KEY,
-    l10n.old_key_name,
-    l10n.old_key_description,
+    'old_key_name',
+    'old_key_description',
     ComputerKeyImage
 )
 
 export const translator = createItem(
     TRANSLATOR,
-    l10n.conscious_rock_name,
-    l10n.conscious_rock_description,
+    'conscious_rock_name',
+    'conscious_rock_description',
     TranslatorImage
 )
 
 export const legend = createItem(
     LEGEND,
-    l10n.cuneiform_legend_name,
-    l10n.cuneiform_legend_description,
+    'cuneiform_legend_name',
+    'cuneiform_legend_description',
     CuneiformLegendImage
 )
 
-export const map = createItem(
-    MAP,
-    l10n.map_name,
-    l10n.map_description,
-    MapImage
-)
+export const map = createItem(MAP, 'map_name', 'map_description', MapImage)
 
 const items: Item[] = [computer]
 

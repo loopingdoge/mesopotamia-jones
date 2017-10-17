@@ -7,6 +7,7 @@ import { Item } from '../config/inventory'
 import widthHeightProvider from '../containers/widthHeightProvider'
 import { GameStore } from '../stores/gameStore'
 import { UIStore } from '../stores/gameUIStore'
+import l10nStore from '../stores/l10nStore'
 
 import { arvo } from '../utils/fonts'
 
@@ -84,11 +85,11 @@ const FoundItem = ({ item, width, height }: FoundItemProps) => {
                         />
                     </div>
                     <div className={css(styles.itemName)}>
-                        {upperFirst(item.name)}
+                        {upperFirst(l10nStore.dictionary[item.nameId])}
                     </div>
                 </div>
                 <div>
-                    {upperFirst(item.description)}
+                    {upperFirst(l10nStore.dictionary[item.descriptionId])}
                 </div>
                 <div>
                     <PressToContinue />

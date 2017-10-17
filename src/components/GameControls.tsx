@@ -15,7 +15,7 @@ import {
 } from '../config/actions'
 import { arvo } from '../utils/fonts'
 
-import l10n from '../l10n'
+import l10nStore from '../stores/l10nStore'
 
 import PressToContinue from './PressToContinue'
 
@@ -130,14 +130,14 @@ class GameControls extends React.Component<GameControlsProps> {
         return (
             <div className={css(styles.container)}>
                 <div className={css(styles.header, styles.tabHeader)}>
-                    {l10n.controls_game_controls}
+                    {l10nStore.dictionary.controls_game_controls}
                 </div>
                 <div className={css(styles.controlsWrapper)}>
                     <div className={css(styles.controlsColumn)}>
                         <div
                             className={css(styles.header, styles.tabSubheader)}
                         >
-                            {l10n.controls_move}
+                            {l10nStore.dictionary.controls_move}
                         </div>
                         <ul className={css(styles.keyWrapper)}>
                             <li
@@ -188,11 +188,11 @@ class GameControls extends React.Component<GameControlsProps> {
                         <div
                             className={css(styles.header, styles.tabSubheader)}
                         >
-                            {l10n.controls_interact}
+                            {l10nStore.dictionary.controls_interact}
                         </div>
                         <ul className={css(styles.keyWrapper)}>
                             <li className={css(styles.key, styles.spaceBar)}>
-                                <b>{l10n.controls_space}</b>
+                                <b>{l10nStore.dictionary.controls_space}</b>
                             </li>
                         </ul>
                     </div>
@@ -200,7 +200,7 @@ class GameControls extends React.Component<GameControlsProps> {
                         <div
                             className={css(styles.header, styles.tabSubheader)}
                         >
-                            {l10n.controls_shortcuts}
+                            {l10nStore.dictionary.controls_shortcuts}
                         </div>
                         <ul className={css(styles.keyWrapper)}>
                             <li

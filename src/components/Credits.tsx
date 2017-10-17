@@ -18,7 +18,7 @@ import Actions, {
     addActionListener,
     removeActionListener
 } from '../config/actions'
-import l10n from '../l10n'
+import l10nStore from '../stores/l10nStore'
 
 import Button from './Button'
 import PressToContinue from './PressToContinue'
@@ -183,7 +183,7 @@ class Credits extends React.Component<CreditsProps> {
                     <div className={css(styles.goBack)}>
                         <Link to={'/'} style={{ textDecoration: 'none' }}>
                             <Button
-                                text={l10n.close_game}
+                                text={l10nStore.dictionary.close_game}
                                 onClick={() => ({})}
                                 customCSS={styles.button}
                             />

@@ -6,8 +6,6 @@ import { initList, mod, next, onlyIf, prev } from '../utils'
 import Button from './Button'
 import LockCode from './LockCode'
 
-import l10n from '../l10n'
-
 const numbers: string[] = '0123456789'.split('')
 const strings: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
 

@@ -8,7 +8,6 @@ import Actions, {
     addActionListener,
     removeActionListener
 } from '../config/actions'
-import l10n from '../l10n'
 
 import PressToContinue from './PressToContinue'
 
