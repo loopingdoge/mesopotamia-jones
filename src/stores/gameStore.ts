@@ -408,10 +408,12 @@ export class GameStore {
         if (lastDialog) {
             switch (lastDialog.id) {
                 case 'dialog5':
-                    const hammurtosh = this.state
-                        .interactionTarget as Hammurtosh
-                    hammurtosh.moveTo(coord2Pixel(9), coord2Pixel(2))
-                    this.state.progression.hammurtoshMoved = true
+                    if (!this.state.progression.hammurtoshMoved) {
+                        const hammurtosh = this.state
+                            .interactionTarget as Hammurtosh
+                        hammurtosh.moveTo(coord2Pixel(9), coord2Pixel(2))
+                        this.state.progression.hammurtoshMoved = true
+                    }
                     break
                 case 'dialog9':
                     this.state.progression.isGameEnded = true
