@@ -53,10 +53,12 @@ const styles = StyleSheet.create({
         marginRight: 12
     },
     langWrapper: {
-        display: 'flex'
+        display: 'flex',
+        justifyContent: 'center'
     },
     button: {
-        flex: 1
+        padding: '0px 4px',
+        marginRight: '10px'
     }
 })
 
@@ -98,11 +100,13 @@ class GameMenu extends React.Component<GameMenuProps> {
                         >
                             <Button
                                 flag={'IT'}
+                                iconSize={38}
                                 onClick={() => changeLanguage('it')}
                                 customCSS={styles.button}
                             />
                             <Button
                                 flag={'GB'}
+                                iconSize={38}
                                 onClick={() => changeLanguage('en')}
                                 customCSS={styles.button}
                             />
