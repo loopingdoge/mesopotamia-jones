@@ -39,7 +39,7 @@ const italian: L10N = {
     block_number: 'numero',
     block_letter: 'lettera',
     block_magic_number: 'numero_magico',
-    block_result: 'risultato',
+    block_result: 'soluzione',
     block_knock_door: 'bussaPorta',
     block_join: 'unisci',
     block_if: 'se',
@@ -74,27 +74,27 @@ const italian: L10N = {
 
     tut_riddle_title: "L'indovinello",
     tut_riddle_text:
-        'Per aprire la porta devi risolvere questo indovinello. Fai attenzione, i dati cambiano ogni volta',
+        'Per aprire la porta devi risolvere questo indovinello. Fai attenzione, i dati cambiano ogni volta.',
 
     tut_translate_riddle_title: "Tradurre l'indovinello",
     tut_translate_riddle_text:
-        'Selezionando una lettera puoi scoprire a quale simbolo corrisponde nella legenda in basso',
+        "Selezionando una lettera puoi scoprire a quale carattere dell'alfabeto corrisponde nella legenda in basso.",
 
-    tut_open_door_title: 'Aprire la porta',
+    tut_open_door_title: 'Il lucchetto',
     tut_open_door_text:
-        "Per aprire la porta devi inserire qui la soluzione dell'indovinello",
+        "Per aprire la porta e passare alla stanza successiva devi inserire nel lucchetto la soluzione dell'indovinello.",
 
     tut_computer_title: 'Il Computer',
     tut_computer_text:
-        'Il computer si collega alla porta e cerca di aprirla con la soluzione che hai inventato',
+        'Il computer ti permette di creare una soluzione e si collega alla porta cercando di aprirla usando la soluzione che hai inventato.',
 
     tut_blocks_title: 'I blocchi',
     tut_blocks_text:
-        "Per creare una soluzione devi trascinare questi blocchi nell'area bianca ed unirli come i pezzi di un puzzle",
+        "Per creare una soluzione devi trascinare questi blocchi nell'area bianca ed unirli come i pezzi di un puzzle.",
 
     tut_solution_title: 'Provare la soluzione',
     tut_solution_text:
-        'Questo pulsante esegue la tua soluzione. Con un risultato corretto si apre la porta',
+        'Questo pulsante esegue la tua soluzione. Se la tua soluzione è corretta si aprirá la porta.',
 
     dialogue_1_0:
         "Accidenti, mentre esploravo delle antiche rovine si è rotto il pavimento e sono finito in questa caverna... devo cercare di uscire da qui. Più avanti c'è una porta, vediamo cosa c'è oltre.",

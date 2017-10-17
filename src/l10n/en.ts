@@ -39,7 +39,7 @@ const english: L10N = {
     block_number: 'number',
     block_letter: 'letter',
     block_magic_number: 'magic_number',
-    block_result: 'result',
+    block_result: 'solution',
     block_knock_door: 'knockDoor',
     block_join: 'join',
     block_if: 'if',
