@@ -18,7 +18,7 @@ const italian: L10N = {
     controls_shortcuts: 'Scorciatoie Mappa/Inventario',
     notification_automatic_door_message:
         'Il computer ha automaticamente aperto la porta usando la tua precedente soluzione',
-    close_game: 'Home',
+    close_game: 'Menu principale',
 
     back: 'Indietro',
     knock: 'Bussa alla porta',

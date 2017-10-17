@@ -18,7 +18,7 @@ const english: L10N = {
     controls_shortcuts: 'Map/Inventory shortcuts',
     notification_automatic_door_message:
         'The computer has automatically opened the door using your previous solution',
-    close_game: 'Home',
+    close_game: 'Main menu',
 
     back: 'Back',
     knock: 'Kock on the door',
