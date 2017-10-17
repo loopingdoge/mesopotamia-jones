@@ -106,9 +106,6 @@ const styles = StyleSheet.create({
         },
         ':nth-child(2)': {
             left: 56
-        },
-        ':nth-child(3)': {
-            left: 104
         }
     }
 })
@@ -218,14 +215,6 @@ class GameControls extends React.Component<GameControlsProps> {
                                 )}
                             >
                                 <b>2</b>
-                            </li>
-                            <li
-                                className={css(
-                                    styles.key,
-                                    styles.gameHeaderKey
-                                )}
-                            >
-                                <b>3</b>
                             </li>
                         </ul>
                     </div>

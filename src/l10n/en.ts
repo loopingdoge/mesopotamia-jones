@@ -15,7 +15,7 @@ const english: L10N = {
     controls_move: 'Move',
     controls_interact: 'Interact',
     controls_space: '\u2423 (space)',
-    controls_shortcuts: 'Shortcuts',
+    controls_shortcuts: 'Map/Inventory shortcuts',
     notification_automatic_door_message:
         'The computer has automatically opened the door using your previous solution',
     close_game: 'Home',
@@ -140,7 +140,7 @@ const english: L10N = {
     dialogue_need_key: "It's closed, I need a key.",
 
     dialogue_need_rock:
-        'This door is closed... seems like I need to insert a small rock in this hole.'
+        "This door is closed... the engraving says it's needed a rock that has a Bacon number."
 }
 
 export default english

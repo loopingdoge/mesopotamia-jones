@@ -15,7 +15,7 @@ const italian: L10N = {
     controls_move: 'Muovi',
     controls_interact: 'Interagisci',
     controls_space: '\u2423 (spazio)',
-    controls_shortcuts: 'Shortcuts',
+    controls_shortcuts: 'Scorciatoie Mappa/Inventario',
     notification_automatic_door_message:
         'Il computer ha automaticamente aperto la porta usando la tua precedente soluzione',
     close_game: 'Home',
@@ -146,7 +146,7 @@ const italian: L10N = {
     dialogue_need_key: "E' chiuso... servirebbe una chiave.",
 
     dialogue_need_rock:
-        "Questa porta non si apre... c'è un'incisione che dice di ."
+        "Questa porta non si apre... l'incisione dice che serve una roccia con un numero di Bacon."
 }
 
 export default italian
