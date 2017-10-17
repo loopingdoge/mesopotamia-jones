@@ -28,9 +28,14 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
-      "prettier --with-node-modules --single-quote --tab-width 4 --no-semi --write",
+      "prettier --write",
       "git add"
     ]
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true
   },
   "devDependencies": {
     "@types/aphrodite": "^0.5.6",
