@@ -17,6 +17,17 @@ const doorHeight = 30
 const margin = 0
 const parentOffset = 1
 
+const pulse = {
+    '0%': {
+        boxShadow:
+            'rgba(253, 212, 02, 0.4) 0px 0px 8px, rgba(253, 212, 02, 0) 0px 0px 100px inset'
+    },
+    '100%': {
+        boxShadow:
+            'rgba(253, 212, 02, 0.4) 0px 0px 8px, rgba(253, 212, 02, 0.9) 0px 0px 100px inset'
+    }
+}
+
 const styles = StyleSheet.create({
     map: {
         position: 'relative'
@@ -31,7 +42,8 @@ const styles = StyleSheet.create({
         boxShadow: 'beige 0px 0px 5px'
     },
     activeRoom: {
-        backgroundColor: '#ff9600'
+        backgroundColor: '#ff9600',
+        border: '1px solid black'
     },
     doorBase: {
         position: 'absolute',
@@ -46,7 +58,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#009200'
     },
     activeDoor: {
-        borderColor: '#1e6710'
+        border: '1px solid black',
+        animationName: [pulse],
+        animationDuration: '.7s',
+        animationIterationCount: 'infinite',
+        animationDirection: 'alternate',
+        animationTimingFunction: 'ease-out'
     }
 })
 
@@ -137,7 +154,7 @@ const DoorView = ({
     onMapDoorClick,
     riddleId,
     hasSolution
-}: DoorProps) =>
+}: DoorProps) => (
     <div
         className={css(
             styles.doorBase,
@@ -151,6 +168,7 @@ const DoorView = ({
         )}
         onClick={onMapDoorClick}
     />
+)
 
 export interface RoomProps {
     position: RoomPosition
@@ -164,7 +182,7 @@ const RoomView = ({
     doors,
     currentRoom,
     onMapDoorClick
-}: RoomProps) =>
+}: RoomProps) => (
     <div
         className={css(
             styles.room,
@@ -172,7 +190,7 @@ const RoomView = ({
             gameRoomStyle(position, currentRoom).roomPosition
         )}
     >
-        {doors.map((edge, i) =>
+        {doors.map((edge, i) => (
             <DoorView
                 key={i}
                 direction={edge.direction}
@@ -182,8 +200,9 @@ const RoomView = ({
                     gameStore.getRiddleWorkspaceXML(edge.riddle.id)
                 )}
             />
-        )}
+        ))}
     </div>
+)
 
 interface RoomNode {
     node: Room
