@@ -1,6 +1,7 @@
 import { css, StyleSheet } from 'aphrodite'
 import * as React from 'react'
 
+import { FlagIcon } from 'react-flag-kit'
 import Icon from 'react-icons-kit'
 
 import { onlyIf } from '../utils'
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
 export interface ButtonProps {
     customCSS?: any
     icon?: any
+    flag?: string
     iconSize?: number
     text?: string
     onClick: (...args: any[]) => any
@@ -63,6 +65,7 @@ class Button extends React.Component<ButtonProps> {
     render() {
         const {
             icon,
+            flag,
             iconSize,
             text,
             onClick,
@@ -89,7 +92,13 @@ class Button extends React.Component<ButtonProps> {
                 ref={element => (this.containerDiv = element)}
                 style={style}
             >
+                {flag !== undefined ? (
+                    <FlagIcon code={flag} size={iconSize} />
+                ) : (
+                    ''
+                )}
                 {icon !== undefined ? <Icon icon={icon} size={iconSize} /> : ''}
+
                 {onlyIf(
                     Boolean(text),
                     <div className={css(styles.textContainer)}>{text}</div>

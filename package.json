@@ -93,6 +93,7 @@
     "node-blockly": "^1.0.23",
     "phaser-ce": "^2.8.3",
     "react": "^16.0.0",
+    "react-flag-kit": "^0.2.3",
     "react-icons-kit": "^1.0.7",
     "react-modal": "^2.3.2",
     "react-motion": "^0.5.1",

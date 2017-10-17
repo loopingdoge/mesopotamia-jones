@@ -4942,7 +4942,7 @@ prop-types@15.5.10, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
 
-prop-types@^15.6.0:
+prop-types@^15.5.0, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5066,6 +5066,12 @@ react-dom@^16.0.0:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
+
+react-flag-kit@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/react-flag-kit/-/react-flag-kit-0.2.3.tgz#e84c2979418b764f1ef71e5c14340f8d9211c998"
+  dependencies:
+    prop-types "^15.5.0"
 
 react-icons-kit@^1.0.7:
   version "1.0.7"

@@ -97,12 +97,12 @@ class GameMenu extends React.Component<GameMenuProps> {
                             className={css(styles.langWrapper, styles.menuItem)}
                         >
                             <Button
-                                text={'Italiano'}
+                                flag={'IT'}
                                 onClick={() => changeLanguage('it')}
                                 customCSS={styles.button}
                             />
                             <Button
-                                text={'Inglese'}
+                                flag={'GB'}
                                 onClick={() => changeLanguage('en')}
                                 customCSS={styles.button}
                             />
