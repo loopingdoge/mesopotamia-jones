@@ -10,6 +10,7 @@ import { defaultGameStoreState, GameStore } from '../stores/gameStore'
 import Button from './Button'
 import Section from './Section'
 
+import { onlyIf } from '../utils'
 import { sffedora } from '../utils/fonts'
 
 const styles = StyleSheet.create({
@@ -70,11 +71,11 @@ const styles = StyleSheet.create({
 })
 
 export interface HomeProps {
-    saveFileExists: boolean
+    isGameStarted: boolean
     newGame: (...args: any[]) => any
 }
 
-const Home = ({ saveFileExists, newGame }: HomeProps) => (
+const Home = ({ isGameStarted, newGame }: HomeProps) => (
     <div className={css(styles.homeContainer)}>
         <div className={css(styles.home)}>
             <div className={css(styles.title)}>
@@ -91,13 +92,17 @@ const Home = ({ saveFileExists, newGame }: HomeProps) => (
                         customCSS={styles.button}
                     />
                 </Link>
-                <Link to="/game">
-                    <Button
-                        onClick={() => ({})}
-                        text={l10nStore.dictionary.continue_game}
-                        customCSS={styles.button}
-                    />
-                </Link>
+                {onlyIf(
+                    isGameStarted,
+                    <Link to="/game">
+                        <Button
+                            onClick={() => ({})}
+                            text={l10nStore.dictionary.continue_game}
+                            customCSS={styles.button}
+                        />
+                    </Link>
+                )}
+
                 <Link to="/credits">
                     <Button
                         onClick={() => ({})}
@@ -121,7 +126,7 @@ class HomeContainer extends React.Component<HomeContainerProps, undefined> {
         return (
             <Home
                 newGame={this.props.gameStore.newGame}
-                saveFileExists={
+                isGameStarted={
                     this.props.gameStore.state.progression.isGameStarted
                 }
             />
