@@ -94,7 +94,7 @@ const italian: L10N = {
 
     tut_open_door_title: 'Il lucchetto',
     tut_open_door_text:
-        "Per aprire la porta e passare alla stanza successiva devi inserire nel lucchetto la soluzione dell'indovinello.",
+        "Per aprire la porta e passare alla stanza successiva devi inserire nel lucchetto la soluzione dell'indovinello. Puoi usare anche le frecce ▲ e ▼ della tastiera.",
 
     tut_computer_title: 'Il Computer',
     tut_computer_text:
