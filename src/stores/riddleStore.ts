@@ -1,7 +1,7 @@
 import { action, computed, observable, reaction } from 'mobx'
 import * as Blockly from 'node-blockly/browser'
 
-import { blocks } from '../config/blocks'
+import { getBlocks } from '../config/blocks'
 import { GameDoor } from '../config/map'
 import riddles, { Riddle, userSolutionInit } from '../config/riddles'
 import riddleUIStore from './riddleUIStore'
@@ -101,8 +101,12 @@ export class RiddleStore {
 
         reaction(() => this.userSolution, () => this.checkSolution())
 
+        this.initBlocks()
+    }
+
+    initBlocks() {
         // Init custom blocks
-        for (const block of blocks) {
+        for (const block of getBlocks()) {
             // Visual properties
             Blockly.Blocks[block.id] = {
                 init() {

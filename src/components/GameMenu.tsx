@@ -8,6 +8,7 @@ import { arvo } from '../utils/fonts'
 
 import { GameUI, UIStore } from '../stores/gameUIStore'
 import { L10NStore } from '../stores/l10nStore'
+import { RiddleStore } from '../stores/riddleStore'
 
 import { L10N, Language } from '../l10n'
 
@@ -121,15 +122,19 @@ class GameMenu extends React.Component<GameMenuProps> {
 interface GameMenuContainerProps {
     uiStore?: UIStore
     l10nStore?: L10NStore
+    riddleStore?: RiddleStore
 }
 
-export default inject('uiStore', 'l10nStore')(
-    observer(({ uiStore, l10nStore }: GameMenuContainerProps) => {
+export default inject('uiStore', 'l10nStore', 'riddleStore')(
+    observer(({ uiStore, l10nStore, riddleStore }: GameMenuContainerProps) => {
         const LocalizedMenu = localized(GameMenu)
         return (
             <LocalizedMenu
                 show={uiStore.show}
-                changeLanguage={l10nStore.changeLanguage}
+                changeLanguage={(language: Language) => {
+                    l10nStore.changeLanguage(language)
+                    riddleStore.initBlocks()
+                }}
             />
         )
     })

@@ -26,7 +26,7 @@ const colors = {
     number_var: 160
 }
 
-export const blocks: Block[] = [
+export const getBlocks = () => [
     createBlock(
         'text',
         {
@@ -801,4 +801,4 @@ export const blocks: Block[] = [
     )
 ]
 
-export default blocks
+export default getBlocks
