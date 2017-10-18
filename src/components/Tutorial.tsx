@@ -97,7 +97,10 @@ export default class TutorialUI extends React.Component<TutorialProps> {
     }
 
     keyboardHandler = (e: KeyboardEvent) => {
-        if (e.charCode === 32) {
+        if (e.keyCode === 38 || e.keyCode === 40) {
+            e.stopPropagation()
+        } else if (e.keyCode === 32 || e.keyCode === 39) {
+            e.stopPropagation()
             if (
                 this.currentStep === tutorialSteps(this.props.inventory).length
             ) {
@@ -105,15 +108,20 @@ export default class TutorialUI extends React.Component<TutorialProps> {
             } else {
                 this.goTo(this.currentStep)
             }
+        } else if (e.keyCode === 37) {
+            e.stopPropagation()
+            if (this.currentStep !== 0) {
+                this.goTo(this.currentStep - 2)
+            }
         }
     }
 
     componentDidMount() {
-        document.addEventListener('keypress', this.keyboardHandler, false)
+        document.addEventListener('keydown', this.keyboardHandler, false)
     }
 
     componentWillUnmount() {
-        document.removeEventListener('keypress', this.keyboardHandler, false)
+        document.removeEventListener('keydown', this.keyboardHandler, false)
     }
 
     render() {
