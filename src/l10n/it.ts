@@ -106,7 +106,7 @@ const italian: L10N = {
 
     tut_solution_title: 'Provare la soluzione',
     tut_solution_text:
-        'Questo pulsante esegue la tua soluzione. Se la tua soluzione è corretta si aprirá la porta.',
+        'Questo pulsante esegue la tua soluzione, se è corretta si aprirá la porta.',
 
     // Dialogues
     dialogue_1_0:

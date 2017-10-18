@@ -83,22 +83,28 @@ const english: L10N = {
 
     // Tutorials
     tut_riddle_title: 'The riddle',
-    tut_riddle_text: 'string',
+    tut_riddle_text:
+        'You have to solve this riddle to open the door. Be careful, the data changes every time.',
 
-    tut_translate_riddle_title: 'string',
-    tut_translate_riddle_text: 'string',
+    tut_translate_riddle_title: 'Riddle translation',
+    tut_translate_riddle_text:
+        'Selecting a letter you can find out which letter of the alphabet corresponds to from the legend below.',
 
-    tut_open_door_title: 'string',
-    tut_open_door_text: 'string',
+    tut_open_door_title: 'The lock',
+    tut_open_door_text:
+        'To open the door and advance to the next room you have to set the correct solution in the lock.',
 
-    tut_computer_title: 'string',
-    tut_computer_text: 'string',
+    tut_computer_title: 'The computer',
+    tut_computer_text:
+        'The computer allows to create a solution and tries to open the door using the solution you created.',
 
-    tut_blocks_title: 'string',
-    tut_blocks_text: 'string',
+    tut_blocks_title: 'The blocks',
+    tut_blocks_text:
+        'You can create a solution by dragging these block in the white area and connecting them like puzzle pieces.',
 
-    tut_solution_title: 'string',
-    tut_solution_text: 'string',
+    tut_solution_title: 'Try the solution',
+    tut_solution_text:
+        'This button executes your solution, if it is correct the door will open.',
 
     // Dialogues
     dialogue_1_0:
