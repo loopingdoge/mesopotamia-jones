@@ -206,7 +206,7 @@ class GameControls extends React.Component<GameControlsProps> {
                                     styles.gameHeaderKey
                                 )}
                             >
-                                <b>1</b>
+                                <b>M</b>
                             </li>
                             <li
                                 className={css(
@@ -214,7 +214,7 @@ class GameControls extends React.Component<GameControlsProps> {
                                     styles.gameHeaderKey
                                 )}
                             >
-                                <b>2</b>
+                                <b>I</b>
                             </li>
                         </ul>
                     </div>
