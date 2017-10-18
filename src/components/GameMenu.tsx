@@ -65,12 +65,13 @@ const styles = StyleSheet.create({
 export interface GameMenuProps {
     l10n: L10N
     show: (gameUi: GameUI) => void
+    currentLanguage: Language
     changeLanguage: (language: Language) => void
 }
 
 class GameMenu extends React.Component<GameMenuProps> {
     render() {
-        const { changeLanguage, l10n, show } = this.props
+        const { changeLanguage, currentLanguage, l10n, show } = this.props
         return (
             <div className={css(styles.container)}>
                 <Button
@@ -103,12 +104,14 @@ class GameMenu extends React.Component<GameMenuProps> {
                                 iconSize={38}
                                 onClick={() => changeLanguage('it')}
                                 customCSS={styles.button}
+                                disabled={currentLanguage === 'it'}
                             />
                             <Button
                                 flag={'GB'}
                                 iconSize={38}
                                 onClick={() => changeLanguage('en')}
                                 customCSS={styles.button}
+                                disabled={currentLanguage === 'en'}
                             />
                         </div>
                     </div>
@@ -129,6 +132,7 @@ export default inject('uiStore', 'gameStore')(
         return (
             <LocalizedMenu
                 show={uiStore.show}
+                currentLanguage={gameStore.language}
                 changeLanguage={gameStore.changeLanguage}
             />
         )

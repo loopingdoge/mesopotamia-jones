@@ -145,6 +145,11 @@ export class GameStore {
         )
     }
 
+    @computed
+    get language() {
+        return this.state.language
+    }
+
     constructor() {
         this.state = defaultGameStoreState()
     }
