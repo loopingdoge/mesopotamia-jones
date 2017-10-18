@@ -1,6 +1,7 @@
 import { isEqual } from 'lodash'
 import { action, computed, observable, reaction, toJS, when } from 'mobx'
 
+import l10nStore from '../stores/l10nStore'
 import { GameUI, UIStore } from './gameUIStore'
 import { RiddleStore } from './riddleStore'
 import riddleUIStore from './riddleUIStore'
@@ -35,6 +36,8 @@ import {
     reactourStartIndex
 } from '../config/progression'
 
+import { Language } from '../l10n'
+
 import PhaserGame from '../phaser'
 import { coord2Pixel } from '../phaser/config'
 import { Maybe } from '../utils'
@@ -56,6 +59,7 @@ export interface GameState {
     interactionTarget: any
     chests: Chests
     progression: Progression
+    language: Language
 }
 
 export const defaultGameStoreState: () => GameState = () => ({
@@ -70,7 +74,8 @@ export const defaultGameStoreState: () => GameState = () => ({
     interaction: null,
     interactionTarget: null,
     chests: defaultChests,
-    progression: defaultProgression()
+    progression: defaultProgression(),
+    language: 'it'
 })
 
 export interface DoorInteraction {
@@ -155,6 +160,8 @@ export class GameStore {
 
         this.state.interaction = null
 
+        this.changeLanguage(this.state.language)
+
         // React to riddle solved by the user
         reaction(
             () => this.riddleStore.riddleCompleted,
@@ -230,6 +237,17 @@ export class GameStore {
     saveGameState = () => {
         // console.log('Saving state to local storage...')
         localStorage.setItem('gameState', JSON.stringify(this.state))
+    }
+
+    @action
+    changeLanguage = (language: Language) => {
+        this.state = {
+            ...this.state,
+            language
+        }
+        l10nStore.changeLanguage(language)
+        this.riddleStore.initBlocks()
+        this.saveGameState()
     }
 
     getComputer = () => {
