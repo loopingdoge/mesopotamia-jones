@@ -11,7 +11,7 @@ import l10nStore from '../stores/l10nStore'
 
 export interface Character {
     id: string
-    name: string
+    nameId: string
     image: string
 }
 
@@ -30,11 +30,11 @@ export interface Dialogue {
 
 const createCharacter = (
     id: string,
-    name: string,
+    nameId: string,
     image: string
 ): Character => ({
     id,
-    name,
+    nameId,
     image
 })
 
@@ -58,10 +58,10 @@ const dialogue = (
 })
 
 export const characters: Character[] = [
-    createCharacter('mj', 'Mesopotamia Jones', MesopotamiaJonesImage as any),
-    createCharacter('fv', 'Farren Von Talin', VonTalin as any),
-    createCharacter('ab', 'An-Ki Hammurtosh', Hammurtosh as any),
-    createCharacter('do', 'Wow Von Dogen', VonDogen as any),
+    createCharacter('mj', 'mesopotamia_jones', MesopotamiaJonesImage as any),
+    createCharacter('fv', 'von_talin', VonTalin as any),
+    createCharacter('ab', 'hammurtosh', Hammurtosh as any),
+    createCharacter('do', 'von_dogen', VonDogen as any),
     createCharacter('rs', 'conscious_rock', Rock as any)
 ]
 

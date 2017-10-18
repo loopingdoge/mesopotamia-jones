@@ -20,12 +20,21 @@ const english: L10N = {
         'The computer has automatically opened the door using your previous solution',
     close_game: 'Main menu',
 
+    // Characters
+    mesopotamia_jones: 'Mesopotamia Jones',
+    von_talin: 'Farren Von Talin',
+    hammurtosh: 'An-Ki Hammurtos',
+    von_dogen: 'Wow Von Dogen',
+    conscious_rock: 'Conscious Rock',
+
+    // Riddle
     back: 'Back',
     knock: 'Kock on the door',
     riddle_solved: 'Riddle solved!',
     riddle_open_door: 'Open the door',
     riddle_solved_hint: 'Click the button or press space to continue',
 
+    // Riddle questions
     riddle_return_question: ([a]: number[]) => `Insert the number ${a}`,
     riddle_sum_question: ([a, b]: number[]) =>
         `What is the sum of ${a} and ${b}?`,
@@ -36,6 +45,7 @@ const english: L10N = {
     riddle_loop_question: ([a]: number[]) =>
         `If you want to exit from this pyramid, ${a} times you have to knock on this door`,
 
+    // Blocks
     block_number: 'number',
     block_letter: 'letter',
     block_magic_number: 'magic_number',
@@ -55,8 +65,7 @@ const english: L10N = {
     block_riddle_return_numbers_tooltip:
         'The parameters are numbers, so the result must be a number',
 
-    conscious_rock: 'Conscious Rock',
-
+    // Items
     computer_name: 'HAL 1337',
     computer_description:
         'The machine that Von Talin developed in the past. This machine connects to the doors and allows to automatically solve riddles, if properly programmed.',
@@ -72,6 +81,7 @@ const english: L10N = {
     map_name: 'map of the pyramid',
     map_description: "a map showing all the explored pyramid's rooms",
 
+    // Tutorials
     tut_riddle_title: 'The riddle',
     tut_riddle_text: 'string',
 
@@ -90,6 +100,7 @@ const english: L10N = {
     tut_solution_title: 'string',
     tut_solution_text: 'string',
 
+    // Dialogues
     dialogue_1_0:
         "Oh darn, I must find an exit. There's a door over there, let's see what's beyond it",
 

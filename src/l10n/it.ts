@@ -1,10 +1,12 @@
 import { L10N } from '.'
 
 const italian: L10N = {
+    // Home
     new_game: 'Nuova Partita',
     continue_game: 'Continua',
     credits: 'Crediti',
 
+    // Game
     map: 'Mappa',
     inventory: 'Inventario',
     help: 'Aiuto',
@@ -20,12 +22,21 @@ const italian: L10N = {
         'Il computer ha automaticamente aperto la porta usando la tua precedente soluzione',
     close_game: 'Menu principale',
 
+    // Characters
+    mesopotamia_jones: 'Mesopotamia Jones',
+    von_talin: 'Farren Von Talin',
+    hammurtosh: 'An-Ki Hammurtos',
+    von_dogen: 'Wow Von Dogen',
+    conscious_rock: 'Roccia Senziente',
+
+    // Riddle
     back: 'Indietro',
     knock: 'Bussa alla porta',
     riddle_solved: 'Indovinello risolto!',
     riddle_open_door: 'Apri la porta',
     riddle_solved_hint: 'Clicca il pulsante o premi spazio',
 
+    // Riddle questions
     riddle_return_question: ([a]: number[]) => `Inserisci il numero ${a}`,
     riddle_sum_question: ([a, b]: number[]) =>
         `Quanto fa la somma di ${a} e ${b}?`,
@@ -36,6 +47,7 @@ const italian: L10N = {
     riddle_loop_question: ([a]: number[]) =>
         `Se dalla piramide uscire vorrai, ${a} volte bussare sulla porta dovrai`,
 
+    // Blocks
     block_number: 'numero',
     block_letter: 'lettera',
     block_magic_number: 'numero_magico',
@@ -55,8 +67,7 @@ const italian: L10N = {
     block_riddle_return_numbers_tooltip:
         'I dati sono numeri, quindi il risultato deve essere un numero',
 
-    conscious_rock: 'Roccia Senziente',
-
+    // Items
     computer_name: 'HAL 1337',
     computer_description:
         'La macchina che Von Talin in passato ha costruito. Questo macchina si collega alle porte e permette di risolvere gli enigmi automaticamente, se programmato correttamente.',
@@ -72,6 +83,7 @@ const italian: L10N = {
     map_name: 'mappa della piramide',
     map_description: 'una mappa che mostra le stanze visitate della piramide.',
 
+    // Tutorials
     tut_riddle_title: "L'indovinello",
     tut_riddle_text:
         'Per aprire la porta devi risolvere questo indovinello. Fai attenzione, i dati cambiano ogni volta.',
@@ -96,6 +108,7 @@ const italian: L10N = {
     tut_solution_text:
         'Questo pulsante esegue la tua soluzione. Se la tua soluzione è corretta si aprirá la porta.',
 
+    // Dialogues
     dialogue_1_0:
         "Accidenti, mentre esploravo delle antiche rovine si è rotto il pavimento e sono finito in questa caverna... devo cercare di uscire da qui. Più avanti c'è una porta, vediamo cosa c'è oltre.",
 

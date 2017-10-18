@@ -180,7 +180,10 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
                 <div className={css(styles.textWrapper)}>
                     <div className={css(styles.characterName)}>
                         {dialogue &&
-                            dialogue.lines[this.state.pageIndex].character.name}
+                            l10nStore.dictionary[
+                                dialogue.lines[this.state.pageIndex].character
+                                    .nameId
+                            ]}
                     </div>
                     <div className={css(styles.text)}>
                         <div className={css(styles.dialogueText)}>

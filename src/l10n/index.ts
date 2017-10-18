@@ -31,6 +31,13 @@ export interface L10N {
 //     notification_automatic_door_message: string
 //     close_game: string
 
+//     // Characters
+//     mesopotamia_jones: string
+//     von_talin: string
+//     hammurtosh: string
+//     von_dogen: string
+//     conscious_rock: string
+
 //     // Riddle
 //     back: string
 //     knock: string
@@ -63,9 +70,6 @@ export interface L10N {
 //     block_riddle_return_given_letters: string
 //     block_riddle_return_open_with: string
 //     block_riddle_return_numbers_tooltip: string
-
-//     // Characters
-//     conscious_rock: string
 
 //     // Items
 //     computer_name: string
