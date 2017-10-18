@@ -92,7 +92,7 @@ const english: L10N = {
 
     tut_open_door_title: 'The lock',
     tut_open_door_text:
-        'To open the door and advance to the next room you have to set the correct solution in the lock.',
+        'To open the door and advance to the next room you have to set the correct solution in the lock. You can also use the ▲ e ▼ keys on your keyboard',
 
     tut_computer_title: 'The computer',
     tut_computer_text:
