@@ -44,6 +44,9 @@ export interface L10N {
 //     riddle_solved: string
 //     riddle_open_door: string
 //     riddle_solved_hint: string
+//     hint_execute: string,
+//     hint_result: string,
+//     hint_clear: string,
 
 //     // Riddle questions
 //     riddle_return_question: (...args: any[]) => string

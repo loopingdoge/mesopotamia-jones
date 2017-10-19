@@ -11,6 +11,8 @@ import { Riddle } from '../config/riddles'
 
 import Button from './Button'
 
+import l10nStore from '../stores/l10nStore'
+
 import { onlyIf } from '../utils'
 
 const styles = StyleSheet.create({
@@ -292,7 +294,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                             place={'top'}
                             effect={'solid'}
                         >
-                            <span>Esegui</span>
+                            <span>{l10nStore.dictionary.hint_execute}</span>
                         </ReactTooltip>
                         <div
                             className={css(
@@ -315,7 +317,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                             place={'top'}
                             effect={'solid'}
                         >
-                            <span>Risultato</span>
+                            <span>{l10nStore.dictionary.hint_result}</span>
                         </ReactTooltip>
                         <div id="clear" data-tip data-for={'clear'}>
                             <Button
@@ -331,7 +333,7 @@ class BlockEditor extends React.Component<BlockEditorProps> {
                             place={'top'}
                             effect={'solid'}
                         >
-                            <span>Ripristina</span>
+                            <span>{l10nStore.dictionary.hint_clear}</span>
                         </ReactTooltip>
                     </div>
                 )}

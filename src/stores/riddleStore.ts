@@ -66,7 +66,7 @@ export class RiddleStore {
 
     @computed
     get question(): string {
-        return this.currentRiddle.question(this.generatedArgs)
+        return this.currentRiddle.question()(this.generatedArgs)
     }
 
     @computed
@@ -159,7 +159,7 @@ export class RiddleStore {
         }
 
         this.setWorkspaceXML(
-            workspaceXML || this.currentRiddle.defaultWorkspace
+            workspaceXML || this.currentRiddle.defaultWorkspace()
         )
 
         if (workspaceXML) {
@@ -243,7 +243,7 @@ export class RiddleStore {
 
     @action
     clearWorkspace = () => {
-        this.setWorkspaceXML(this.currentRiddle.defaultWorkspace)
+        this.setWorkspaceXML(this.currentRiddle.defaultWorkspace())
     }
 }
 

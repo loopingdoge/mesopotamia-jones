@@ -35,6 +35,9 @@ const italian: L10N = {
     riddle_solved: 'Indovinello risolto!',
     riddle_open_door: 'Apri la porta',
     riddle_solved_hint: 'Clicca il pulsante o premi spazio',
+    hint_execute: 'Esegui',
+    hint_result: 'Risultato',
+    hint_clear: 'Ripristina',
 
     // Riddle questions
     riddle_return_question: ([a]: number[]) => `Inserisci il numero ${a}`,

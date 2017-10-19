@@ -33,6 +33,9 @@ const english: L10N = {
     riddle_solved: 'Riddle solved!',
     riddle_open_door: 'Open the door',
     riddle_solved_hint: 'Click the button or press space to continue',
+    hint_execute: 'Execute',
+    hint_result: 'Result',
+    hint_clear: 'Clear',
 
     // Riddle questions
     riddle_return_question: ([a]: number[]) => `Insert the number ${a}`,
