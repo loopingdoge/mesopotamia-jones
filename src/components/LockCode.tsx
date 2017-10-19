@@ -191,12 +191,15 @@ class LockCode extends React.Component<LockCodeProps> {
     render() {
         const { list, currentValueIndex, focused } = this.props
 
-        const labelList = list.map((item, i) => (
+        const reversedList = list.slice().reverse()
+        const reversedCurrValueIndex = list.length - currentValueIndex - 1
+
+        const labelList = reversedList.map((item, i) => (
             <SolutionLabel
                 key={i}
                 value={item}
                 activeIndex={i}
-                currentIndex={currentValueIndex}
+                currentIndex={reversedCurrValueIndex}
             />
         ))
 
@@ -219,12 +222,12 @@ class LockCode extends React.Component<LockCodeProps> {
                     onClick={this.props.onIncrement}
                     small
                     circular
-                    disabled={currentValueIndex === list.length - 1}
+                    disabled={reversedCurrValueIndex === 0}
                 />
                 <div className={css(styles.fieldsColumn)}>
                     <Motion
                         style={{
-                            offset: spring(columnOffset(currentValueIndex))
+                            offset: spring(columnOffset(reversedCurrValueIndex))
                         }}
                     >
                         {({ offset }) => (
@@ -243,7 +246,9 @@ class LockCode extends React.Component<LockCodeProps> {
                     onClick={this.props.onDecrement}
                     small
                     circular
-                    disabled={currentValueIndex === 0}
+                    disabled={
+                        reversedCurrValueIndex === reversedList.length - 1
+                    }
                 />
             </div>
         )
