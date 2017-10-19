@@ -245,7 +245,7 @@ const Riddle = ({
                                     <BlocklyEditor
                                         riddle={riddle}
                                         toolboxXML={getToolbox(
-                                            riddle.defaultToolbox
+                                            riddle.defaultToolbox()
                                         )}
                                         workspaceXML={workspace}
                                         onWorkspaceChange={setWorkspace}

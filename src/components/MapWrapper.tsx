@@ -88,7 +88,7 @@ export default class MapWrapper extends React.Component<MapWrapperProps> {
                 translator
             )
                 ? '*Testo indovinello cuneiforme incomprensibile*'
-                : nextProps.selectedRiddle.question([
+                : nextProps.selectedRiddle.question()([
                       `${type}1`,
                       `${type}2`,
                       `${type}3`,

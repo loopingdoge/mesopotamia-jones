@@ -5,9 +5,9 @@ import l10nStore from '../stores/l10nStore'
 
 export interface Riddle {
     id: string
-    question: (variables: any[]) => string
-    defaultToolbox: string[]
-    defaultWorkspace: string
+    question: () => (variables: any[]) => string
+    defaultToolbox: () => string[]
+    defaultWorkspace: () => string
     paramsXML: (variables: any[]) => string
     solution: (variables: any[]) => string
     solutionLength: number
@@ -40,8 +40,8 @@ export const userSolutionInit = (type: SolutionType, length: number) => {
 const riddles: Riddle[] = [
     {
         id: 'return',
-        question: l10nStore.dictionary.riddle_return_question,
-        defaultToolbox: [
+        question: () => l10nStore.dictionary.riddle_return_question,
+        defaultToolbox: () => [
             `
             <block type="get_number" id="numero" editable="false">
                 <field name="NAME">${l10nStore.dictionary.block_number}</field>
@@ -49,7 +49,7 @@ const riddles: Riddle[] = [
             `,
             `<block type="math_number"></block>`
         ],
-        defaultWorkspace: `
+        defaultWorkspace: () => `
             <xml xmlns="http://www.w3.org/1999/xhtml">
                 <block type="riddle_return" id="riddle_return" deletable="false">
                     <statement name="RIDDLE_PARAMS"></statement>
@@ -73,8 +73,8 @@ const riddles: Riddle[] = [
     },
     {
         id: 'somma',
-        question: l10nStore.dictionary.riddle_sum_question,
-        defaultToolbox: [
+        question: () => l10nStore.dictionary.riddle_sum_question,
+        defaultToolbox: () => [
             `
             <block type="get_number" id="numero1" editable="false">
                 <field name="NAME">${l10nStore.dictionary.block_number}1</field>
@@ -91,7 +91,7 @@ const riddles: Riddle[] = [
             </block>
             `
         ],
-        defaultWorkspace: `
+        defaultWorkspace: () => `
             <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
                 <block type="riddle_somma" id="riddle_somma" deletable="false">
                     <statement name="RIDDLE_PARAMS"></statement>
@@ -126,8 +126,8 @@ const riddles: Riddle[] = [
     },
     {
         id: 'word',
-        question: l10nStore.dictionary.riddle_word_question,
-        defaultToolbox: [
+        question: () => l10nStore.dictionary.riddle_word_question,
+        defaultToolbox: () => [
             `
             <block type="get_letter" id="lettera1" editable="false">
                 <field name="NAME">${l10nStore.dictionary.block_letter}1</field>
@@ -157,7 +157,7 @@ const riddles: Riddle[] = [
             <block type="text_join"></block>
             `
         ],
-        defaultWorkspace: `
+        defaultWorkspace: () => `
         <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
             <block type="riddle_word" id="riddle_word" deletable="false">
                 <statement name="RIDDLE_PARAMS"></statement>
@@ -218,8 +218,8 @@ const riddles: Riddle[] = [
     },
     {
         id: 'if',
-        question: l10nStore.dictionary.riddle_if_question,
-        defaultToolbox: [
+        question: () => l10nStore.dictionary.riddle_if_question,
+        defaultToolbox: () => [
             `
                 <block type="get_number" id="numero1" editable="false">
                     <field name="NAME">${l10nStore.dictionary
@@ -261,7 +261,7 @@ const riddles: Riddle[] = [
                 </block>
             `
         ],
-        defaultWorkspace: `
+        defaultWorkspace: () => `
             <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
                 <block type="riddle_if" id="riddle_if" deletable="false">
                     <statement name="RIDDLE_PARAMS"></statement>
@@ -319,8 +319,8 @@ const riddles: Riddle[] = [
     },
     {
         id: 'loop',
-        question: l10nStore.dictionary.riddle_loop_question,
-        defaultToolbox: [
+        question: () => l10nStore.dictionary.riddle_loop_question,
+        defaultToolbox: () => [
             `
                 <block type="get_number" id="numero1" editable="false">
                     <field name="NAME">${l10nStore.dictionary
@@ -337,7 +337,7 @@ const riddles: Riddle[] = [
                 <block type="loop_times"></block>
             `
         ],
-        defaultWorkspace: `
+        defaultWorkspace: () => `
             <xml xmlns="http://www.w3.org/1999/xhtml" id="workspaceBlocks" style="display:none">
                 <block type="riddle_loop" id="riddle_loop" deletable="false">
                     <statement name="RIDDLE_PARAMS"></statement>
