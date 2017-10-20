@@ -22,6 +22,7 @@ import { onlyIf } from '../utils'
 import BlocklyEditor from './BlocklyEditor'
 import CuneiformChar from './CuneiformChar'
 import CuneiformLegend from './CuneiformLegend'
+import KnockDoor from './KnockDoor'
 import Modal, { SolvedRiddleModal } from './Modal'
 import CuneiformSection from './RiddleCuneiformSection'
 import RiddleHeader from './RiddleHeader'
@@ -193,13 +194,21 @@ const Riddle = ({
                                 onCharOver={onCuneiformCharOver}
                             />
                             <div className={css(styles.lockRow)}>
-                                <Solution
-                                    length={riddle.solutionLength}
-                                    type={riddle.solutionType}
-                                    onChangeValue={onChangeSolution}
-                                    value={userSolution}
-                                    isCorrect={isSolved}
-                                />
+                                {riddle.id === 'loop' ? (
+                                    <KnockDoor
+                                        value={userSolution}
+                                        onChangeValue={onChangeSolution}
+                                        isCorrect={isSolved}
+                                    />
+                                ) : (
+                                    <Solution
+                                        length={riddle.solutionLength}
+                                        type={riddle.solutionType}
+                                        value={userSolution}
+                                        onChangeValue={onChangeSolution}
+                                        isCorrect={isSolved}
+                                    />
+                                )}
                             </div>
                             <Separator
                                 isVertical={false}

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         fontFamily: 'monospace',
-        fontSize: '24px'
+        fontSize: 24
     },
     playButton: {
         backgroundColor: '#8ed85e',

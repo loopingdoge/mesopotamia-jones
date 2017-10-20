@@ -358,7 +358,7 @@ const riddles: Riddle[] = [
         solution: ([a]: number[]) => `${a}`,
         solutionLength: 4,
         solutionType: 'knocks',
-        argsGenerator: () => [randomNum(1000, 3000)]
+        argsGenerator: () => [randomNum(5000, 9999)]
     }
 ]
 
