@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         height: 200,
         backgroundImage: `url('${GoldenDoge}')`,
         backgroundSize: '200px 200px',
-        marginTop: -50,
+        marginTop: -60,
         marginBottom: 40
     }
 })
