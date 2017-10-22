@@ -13,6 +13,8 @@ import Section from './Section'
 import { onlyIf } from '../utils'
 import { sffedora } from '../utils/fonts'
 
+import * as GoldenDoge from '../../assets/images/golden-doge.png'
+
 const styles = StyleSheet.create({
     homeContainer: {
         display: 'flex',
@@ -67,6 +69,14 @@ const styles = StyleSheet.create({
     button: {
         width: '102px',
         margin: '0px 20px'
+    },
+    logo: {
+        width: 200,
+        height: 200,
+        backgroundImage: `url('${GoldenDoge}')`,
+        backgroundSize: '200px 200px',
+        marginTop: -50,
+        marginBottom: 40
     }
 })
 
@@ -84,6 +94,7 @@ const Home = ({ isGameStarted, newGame }: HomeProps) => (
                 </div>
                 <div className={css(styles.titleText)}>Mesopotamia Jones</div>
             </div>
+            <div className={css(styles.logo)} />
             <div className={css(styles.buttonsContainer)}>
                 <Link to="/game">
                     <Button
