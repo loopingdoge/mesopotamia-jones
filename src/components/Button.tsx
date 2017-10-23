@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         outline: 'none',
         fontFamily: 'sans-serif',
         color: 'black',
-        textDecoration: 'none'
+        textDecoration: 'none',
+        userSelect: 'none'
     },
     active: {
         backgroundColor: '#fdd466',
