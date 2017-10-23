@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 const PUBLIC_PATH = 'https://loopingdoge.github.io/mesopotamia-jones/'
 
@@ -57,6 +58,9 @@ module.exports = {
                     sizes: [96, 128, 192, 256, 384, 512]
                 }
             ]
+        }),
+        new ManifestPlugin({
+            fileName: 'preload-files.json'
         })
     ],
     output: {

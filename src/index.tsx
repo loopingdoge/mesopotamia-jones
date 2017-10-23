@@ -5,6 +5,8 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Route, Router } from 'react-router-dom'
 
+import load from './utils/loader'
+
 import App from './components/App'
 import gameStore from './stores/gameStore'
 import uiStore from './stores/gameUIStore'
@@ -29,12 +31,14 @@ const stores = {
 const hashHistory = createHashHistory()
 const history = syncHistoryWithStore(hashHistory, routingStore)
 
-ReactDOM.render(
-    <Provider {...stores}>
-        <Router history={history}>
-            <App />
-        </Router>
-    </Provider>,
-    document.getElementById('app')
+load().then(() =>
+    ReactDOM.render(
+        <Provider {...stores}>
+            <Router history={history}>
+                <App />
+            </Router>
+        </Provider>,
+        document.getElementById('app')
+    )
 )
 registerServiceWorker()
