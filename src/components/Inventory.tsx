@@ -172,11 +172,11 @@ class InventoryUI extends React.Component<InventoryProps, InventoryState> {
     }
 
     onKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'ArrowLeft') {
+        if (event.keyCode === 37 || event.keyCode === 65) {
             this.selectItem(
                 mod(this.state.itemIndex - 1, this.props.inventory.length)
             )
-        } else if (event.key === 'ArrowRight') {
+        } else if (event.keyCode === 39 || event.keyCode === 68) {
             this.selectItem(
                 mod(this.state.itemIndex + 1, this.props.inventory.length)
             )
