@@ -87,20 +87,20 @@ class DialogueUI extends React.Component<DialogueProps, DialogueState> {
                 this.props.dialogue.lines[this.state.pageIndex].dialogueId
             ]
         )
-        this.timeouts.push(
-            setTimeout(
-                () =>
-                    addActionListener(
-                        Actions.NEXT_DIALOGUE_LINE,
-                        this.nextPage
-                    ),
-                100
-            )
+
+        setTimeout(
+            () => addActionListener(Actions.NEXT_DIALOGUE_LINE, this.nextPage),
+            100
         )
-        addActionListener(
-            Actions.SKIP_TO_DIALOGUE_END,
-            this.skipToLineEnd,
-            true
+
+        setTimeout(
+            () =>
+                addActionListener(
+                    Actions.SKIP_TO_DIALOGUE_END,
+                    this.skipToLineEnd,
+                    true
+                ),
+            100
         )
     }
 
