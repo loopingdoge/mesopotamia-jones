@@ -1,6 +1,7 @@
 import createHashHistory from 'history/createHashHistory'
 import { Provider } from 'mobx-react'
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
+import { Circle } from 'rc-progress'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Route, Router } from 'react-router-dom'
@@ -31,7 +32,12 @@ const stores = {
 const hashHistory = createHashHistory()
 const history = syncHistoryWithStore(hashHistory, routingStore)
 
-load().then(() =>
+load(progress =>
+    ReactDOM.render(
+        <Circle percent={progress} strokeColor="#FFD700" strokeWidth="3" />,
+        document.getElementById('loading')
+    )
+).then(() =>
     ReactDOM.render(
         <Provider {...stores}>
             <Router history={history}>

@@ -92,6 +92,7 @@
     "node-blockly": "^1.0.23",
     "phaser-ce": "^2.8.3",
     "preload-js": "^0.6.3",
+    "rc-progress": "^2.2.2",
     "react": "^16.0.0",
     "react-flag-kit": "^0.2.3",
     "react-icons-kit": "^1.0.7",

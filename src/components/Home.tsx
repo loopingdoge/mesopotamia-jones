@@ -11,6 +11,7 @@ import Button from './Button'
 import Section from './Section'
 
 import { onlyIf } from '../utils'
+import { fadeIn } from '../utils/animations'
 import { sffedora } from '../utils/fonts'
 
 import * as GoldenDoge from '../../assets/images/golden-doge.png'
@@ -35,7 +36,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        animationName: [fadeIn],
+        animationDuration: '1s'
     },
     title: {
         width: '100%',

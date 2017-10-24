@@ -18,10 +18,6 @@ const styles = StyleSheet.create({
 })
 
 export default class App extends React.Component {
-    componentDidMount() {
-        document.getElementById('loading').style.display = 'none'
-    }
-
     render() {
         return (
             <div className={css(styles.appContainer)}>
