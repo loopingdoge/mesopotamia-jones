@@ -60,7 +60,9 @@ module.exports = {
             ]
         }),
         new ManifestPlugin({
-            fileName: 'preload-files.json'
+            fileName: 'preload-files.json',
+            filter: ({ path }) =>
+                !path.match(/\w+\.js$/) && !path.match(/\w+\.map$/)
         })
     ],
     output: {
