@@ -4,6 +4,7 @@ import * as BlocksVideo from '../../assets/tutorials/blocks.webm'
 
 function load(onProgress: (progress: number) => any) {
     return new Promise((resolve, reject) => {
+        onProgress(0)
         const manifest = new preloadJS.LoadQueue()
         manifest.loadFile('preload-files.json')
         manifest.on('fileload', (manifestEvent: any) => {
