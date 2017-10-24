@@ -1,0 +1,42 @@
+{
+  "icons": [
+    {
+      "src": "icon_512x512.01dbf4850d6f62e5d6c617c9dcad51fd.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_384x384.30940c12ad33f1cb51173f5a2f7d576d.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_256x256.271c8ed1844913bb502b6a2c4a4f6647.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_192x192.06e0c23f0259c86aff8e1ae94d215cc4.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_128x128.0ea50f509207d783017c479492cda1e9.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_96x96.810a69909e6b9a4619f589028d6f8b6e.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ],
+  "name": "Mesopotamia Jones",
+  "orientation": "landscape",
+  "display": "fullscreen",
+  "start_url": ".",
+  "publicPath": null,
+  "short_name": "Mesopotamia Jones",
+  "description": "Learn to code while having fun!",
+  "background_color": "#ffffff"
+}
