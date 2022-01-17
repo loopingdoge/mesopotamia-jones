@@ -89,17 +89,17 @@
     "mobx": "^3.2.2",
     "mobx-react": "^4.2.2",
     "mobx-react-router": "^4.0.1",
-    "node-blockly": "^1.0.23",
+    "node-blockly": "^1.0.27",
     "phaser-ce": "^2.8.3",
     "preload-js": "^0.6.3",
     "rc-progress": "^2.2.2",
-    "react": "^16.0.0",
+    "react": "^16.5.0",
     "react-flag-kit": "^0.2.3",
     "react-icons-kit": "^1.0.7",
     "react-modal": "^2.3.2",
     "react-motion": "^0.5.1",
     "react-router-dom": "^4.2.2",
     "react-tooltip": "^3.8.1",
-    "reactour": "^1.6.1"
+    "reactour": "^1.8.6"
   }
 }
